@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GunnerBoiClient", "Code\GunnerBoiClient\GunnerBoiClient.vcxproj", "{1401F661-1482-4AC9-A7C4-86BBA2961EF1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CEC8D571-AB20-4255-969C-EDF732551FF1} = {CEC8D571-AB20-4255-969C-EDF732551FF1}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Foundation", "Code\Foundation\Foundation.vcxproj", "{CEC8D571-AB20-4255-969C-EDF732551FF1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Debug|x64.ActiveCfg = Debug|x64
+		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Debug|x64.Build.0 = Debug|x64
+		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Release|x64.ActiveCfg = Release|x64
+		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Release|x64.Build.0 = Release|x64
+		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Debug|x64.ActiveCfg = Debug|x64
+		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Debug|x64.Build.0 = Debug|x64
+		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Release|x64.ActiveCfg = Release|x64
+		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A8124BD7-C19D-4CC0-8B6E-F41CC715B9B5}
+	EndGlobalSection
+EndGlobal
