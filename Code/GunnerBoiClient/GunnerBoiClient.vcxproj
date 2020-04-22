@@ -45,17 +45,17 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)Code\External;$(SolutionDir)Code\Foundation;$(IncludePath)</IncludePath>
+    <IncludePath>$(DEV_HOME)Include;$(SolutionDir)Code\Foundation;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <LibraryPath>$(SolutionDir)Bin\External;$(SolutionDir)Bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(DEV_HOME)Library;$(SolutionDir)Bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)Code\External;$(SolutionDir)Code\Foundation;$(IncludePath)</IncludePath>
+    <IncludePath>$(DEV_HOME)Include;$(SolutionDir)Code\Foundation;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <LibraryPath>$(SolutionDir)Bin\External;$(SolutionDir)Bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(DEV_HOME)Library;$(SolutionDir)Bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
