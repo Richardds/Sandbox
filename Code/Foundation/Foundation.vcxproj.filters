@@ -275,5 +275,8 @@
     <ClInclude Include="Graphics\VertexAttributeConfig.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Types.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

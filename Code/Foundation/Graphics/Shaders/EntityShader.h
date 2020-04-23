@@ -17,18 +17,24 @@ namespace Graphics
         void InitializeUniformVariables();
         void SetProjection(float ratio, float fov, float near, float far);
         void SetView(const std::shared_ptr<Camera> view);
-        void LoadEntityTransformation(const Math::Matrix4f& modelMatrix);
         void SetLight(const std::shared_ptr<Light> light);
+        void LoadEntityTransformation(const Math::Matrix4f& modelMatrix);
+        void LoadHasDiffuseMap(bool hasDiffuseMap);
+        void LoadHasNormalMap(bool hasNormalMap);
         Math::Vector3f GetScreenWorldPosition(Math::Vector2ui screenPosition) const;
 
     private:
-        GLuint _projectionMatrixLocation;
-        GLuint _viewMatrixLocation;
-        GLuint _viewMatrixInverseLocation;
-        GLuint _modelMatrixLocation;
-        GLuint _normalMatrixLocation;
-        GLuint _lightPositionLocation;
-        GLuint _lightColorLocation;
+        GLint _diffuseMapSamplerLocation;
+        GLint _normalMapSamplerLocation;
+        GLint _projectionMatrixLocation;
+        GLint _viewMatrixLocation;
+        GLint _viewMatrixInverseLocation;
+        GLint _modelMatrixLocation;
+        GLint _normalMatrixLocation;
+        GLint _lightPositionLocation;
+        GLint _lightColorLocation;
+        GLint _hasDiffuseMapLocation;
+        GLint _hasNormalMapLocation;
         Math::Matrix4f _projectionMatrix;
         Math::Matrix4f _viewMatrix;
     };

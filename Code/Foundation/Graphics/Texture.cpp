@@ -1,6 +1,7 @@
 #include <gli/gli.hpp>
 
 #include "Texture.h"
+#include "../Core/Types.h"
 
 std::unordered_map<GLenum, GLuint> Graphics::Texture::_boundTextures = {
     {GL_TEXTURE_1D, 0},
@@ -29,6 +30,13 @@ void Graphics::Texture::Bind()
 		glBindTexture(this->_target, this->_glTexture);
 		Texture::_boundTextures[this->_target] = this->_glTexture;
 	}
+}
+
+void Graphics::Texture::Activate(Bank bank)
+{
+	this->Unbind();
+	glActiveTexture(GL_TEXTURE0 + EnumToValue(bank));
+	this->Bind();
 }
 
 void Graphics::Texture::Unbind()

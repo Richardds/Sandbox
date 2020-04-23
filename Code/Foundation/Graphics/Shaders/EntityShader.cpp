@@ -1,12 +1,16 @@
 #include <iostream>
 
 #include "EntityShader.h"
+#include "../Texture.h"
 #include "../../Math/Utils.h"
 #include "../../Core/Debug.h"
 #include "../../Graphics/Core.h"
+#include "../../Core/Types.h"
 
 Graphics::EntityShader::EntityShader() :
     ShaderSystem("Entity"),
+    _diffuseMapSamplerLocation(0),
+    _normalMapSamplerLocation(0),
     _projectionMatrixLocation(0),
     _viewMatrixLocation(0),
     _viewMatrixInverseLocation(0),
@@ -14,6 +18,8 @@ Graphics::EntityShader::EntityShader() :
     _normalMatrixLocation(0),
     _lightPositionLocation(0),
     _lightColorLocation(0),
+    _hasDiffuseMapLocation(0),
+    _hasNormalMapLocation(0),
     _projectionMatrix(1.0f),
     _viewMatrix(1.0f)
 {
@@ -37,23 +43,22 @@ void Graphics::EntityShader::Begin(std::shared_ptr<Graphics::Camera> camera, std
 
 void Graphics::EntityShader::InitializeUniformVariables()
 {
-    this->_projectionMatrixLocation = this->GetUniformLocation("projectionMatrix");
-    this->LoadMatrix4f(this->_projectionMatrixLocation, Math::Matrix4f(1.0f));
+    this->InitializeMatrix4fLocation("projectionMatrix", Math::Matrix4f(1.0f), this->_projectionMatrixLocation);
+    this->InitializeMatrix4fLocation("viewMatrix", Math::Matrix4f(1.0f), this->_viewMatrixLocation);
+    this->InitializeMatrix4fLocation("viewMatrixInverse", Math::Matrix4f(1.0f), this->_viewMatrixInverseLocation);
+    this->InitializeMatrix4fLocation("modelMatrix", Math::Matrix4f(1.0f), this->_modelMatrixLocation);
 
-    this->_viewMatrixLocation = this->GetUniformLocation("viewMatrix");
-    this->LoadMatrix4f(this->_viewMatrixLocation, Math::Matrix4f(1.0f));
+    this->InitializeMatrix3fLocation("normalMatrix", Math::Matrix4f(1.0f), this->_normalMatrixLocation);
 
-    this->_viewMatrixInverseLocation = this->GetUniformLocation("viewMatrixInverse");
-    this->LoadMatrix4f(this->_viewMatrixInverseLocation, Math::Matrix4f(1.0f));
+    this->InitializeVector3fLocation("lightPosition", Math::Vector3f(0.0f), this->_lightPositionLocation);
+    this->InitializeVector3fLocation("lightColor", Math::Vector3f(1.0f), this->_lightColorLocation);
 
-    this->_modelMatrixLocation = this->GetUniformLocation("modelMatrix");
-    this->LoadMatrix4f(this->_modelMatrixLocation, Math::Matrix4f(1.0f));
+    this->InitializeBoolLocation("hasDiffuseMap", false, this->_hasDiffuseMapLocation);
+    this->InitializeBoolLocation("hasNormalMap", false, this->_hasNormalMapLocation);
 
-    this->_normalMatrixLocation = this->GetUniformLocation("normalMatrix");
-    this->LoadMatrix3f(this->_normalMatrixLocation, Math::Matrix3f(1.0f));
-
-    this->_lightPositionLocation = this->GetUniformLocation("lightPosition");
-    this->_lightColorLocation = this->GetUniformLocation("lightColor");
+    // Setup texture banks
+    this->InitializeIntLocation("diffuseMapSampler", EnumToValue(Texture::Bank::DIFFUSE), this->_diffuseMapSamplerLocation);
+    this->InitializeIntLocation("normalMapSampler", EnumToValue(Texture::Bank::NORMAL), this->_normalMapSamplerLocation);
 }
 
 void Graphics::EntityShader::SetProjection(float ratio, float fov, float near, float far)
@@ -68,16 +73,26 @@ void Graphics::EntityShader::SetView(const std::shared_ptr<Graphics::Camera> vie
     this->_viewMatrix = Math::viewMatrix(view->getPosition(), view->getRotationX(), view->getRotationY());
 }
 
+void Graphics::EntityShader::SetLight(const std::shared_ptr<Light> light)
+{
+    this->LoadVector3f(this->_lightPositionLocation, light->getPosition());
+    this->LoadVector3f(this->_lightColorLocation, light->GetColor());
+}
+
 void Graphics::EntityShader::LoadEntityTransformation(const Math::Matrix4f& modelMatrix)
 {
     this->LoadMatrix4f(this->_modelMatrixLocation, modelMatrix);
     this->LoadMatrix3f(this->_normalMatrixLocation, glm::transpose(glm::inverse(modelMatrix)));
 }
 
-void Graphics::EntityShader::SetLight(const std::shared_ptr<Light> light)
+void Graphics::EntityShader::LoadHasDiffuseMap(bool hasDiffuseMap)
 {
-    this->LoadVector3f(this->_lightPositionLocation, light->getPosition());
-    this->LoadVector3f(this->_lightColorLocation, light->GetColor());
+    this->LoadBool(this->_hasDiffuseMapLocation, hasDiffuseMap);
+}
+
+void Graphics::EntityShader::LoadHasNormalMap(bool hasNormalMap)
+{
+    this->LoadBool(this->_hasNormalMapLocation, hasNormalMap);
 }
 
 Math::Vector3f Graphics::EntityShader::GetScreenWorldPosition(Math::Vector2ui screenPosition) const

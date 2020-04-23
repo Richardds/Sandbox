@@ -17,10 +17,16 @@ namespace Graphics
             LOADED
         };
 
+        enum class Bank {
+            DIFFUSE = 0,
+            NORMAL = 1
+        };
+
         Texture(GLenum target = GL_TEXTURE_2D);
         virtual ~Texture();
         State GetState() const;
         void Bind();
+        void Activate(Bank bank);
         bool IsBound() const;
         void Unbind();
         void Data(const gli::texture& texture);

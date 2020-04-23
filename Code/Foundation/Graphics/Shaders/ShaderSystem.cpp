@@ -60,15 +60,53 @@ GLint Graphics::ShaderSystem::GetUniformLocation(const std::string& name)
 {
     auto it = this->_uniformVariables.find(name);
     if (it == this->_uniformVariables.end()) {
-        GLuint location = ShaderProgram::GetUniformLocation(name);
-
-        if (location != -1) {
-            this->_uniformVariables.emplace_hint(it, name, ShaderProgram::GetUniformLocation(name));
-
-        }
+        GLint location = ShaderProgram::GetUniformLocation(name);
+        this->_uniformVariables.emplace_hint(it, name, location);
 
         return location;
     }
 
     return it->second;
+}
+
+void Graphics::ShaderSystem::InitializeBoolLocation(const std::string& name, bool enabled, GLint& location)
+{
+    location = this->GetUniformLocation(name);
+    this->LoadBool(location, enabled);
+}
+
+void Graphics::ShaderSystem::InitializeIntLocation(const std::string& name, uint32_t value, GLint& location)
+{
+    location = this->GetUniformLocation(name);
+    this->LoadInt(location, value);
+}
+
+void Graphics::ShaderSystem::InitializeFloatLocation(const std::string& name, float value, GLint& location)
+{
+    location = this->GetUniformLocation(name);
+    this->LoadFloat(location, value);
+}
+
+void Graphics::ShaderSystem::InitializeMatrix3fLocation(const std::string& name, Math::Matrix3f matrix, GLint& location)
+{
+    location = this->GetUniformLocation(name);
+    this->LoadMatrix3f(location, matrix);
+}
+
+void Graphics::ShaderSystem::InitializeMatrix4fLocation(const std::string& name, Math::Matrix4f matrix, GLint& location)
+{
+    location = this->GetUniformLocation(name);
+    this->LoadMatrix4f(location, matrix);
+}
+
+void Graphics::ShaderSystem::InitializeVector3fLocation(const std::string& name, Math::Vector3f vector, GLint& location)
+{
+    location = this->GetUniformLocation(name);
+    this->LoadVector3f(location, vector);
+}
+
+void Graphics::ShaderSystem::InitializeVector4fLocation(const std::string& name, Math::Vector4f vector, GLint& location)
+{
+    location = this->GetUniformLocation(name);
+    this->LoadVector4f(location, vector);
 }

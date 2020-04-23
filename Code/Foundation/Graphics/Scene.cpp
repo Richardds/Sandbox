@@ -51,30 +51,32 @@ bool Graphics::Scene::Load()
     std::shared_ptr<Texture> chinchillenTexture = Util::ResourcesLoader::Instance().LoadTexture("chinchillen");
     std::shared_ptr<Texture> arrowTexture = Util::ResourcesLoader::Instance().LoadTexture("arrow");
 
-    // Load and setup player
-    std::shared_ptr<Model> playerModel = Util::ResourcesLoader::Instance().LoadModel("arrow");
-    playerModel->GetMesh("default")->SetTexture(arrowTexture);
-    this->_player = std::make_shared<Player>(playerModel, Math::Vector3f({ 0.0f, 1.0f, 0.0f }));
-    this->_entities.push_back(this->_player);
-
     // Setup light
     this->_light = std::make_shared<Light>(Math::Vector3f(0.0f, 3.0f, 0.0f), Math::Vector3f(1.0f, 1.0f, 1.0f));
 
     // Setup camera
     this->_camera = std::make_shared<TargetedCamera>(15.0f);
 
-    //// Setup terrain
+    // Setup terrain
     TerrainGenerator terrainGenerator;
-    terrainGenerator.Generate(100.0f);
+    terrainGenerator.Generate(8.0f);
     std::shared_ptr<Model> terrainModel = std::make_shared<Model>();
-    terrainModel->AddMesh("terrain", terrainGenerator.Store());
-    // TODO: Add texture
+    std::shared_ptr<Mesh> terrainMesh = terrainGenerator.Store();
+    terrainMesh->SetDiffuseMap(Util::ResourcesLoader::Instance().LoadTexture("sand_d"));
+    terrainMesh->SetNormalMap(Util::ResourcesLoader::Instance().LoadTexture("sand_n"));
+    terrainModel->AddMesh("terrain", terrainMesh);
     terrainModel->FinishLoading();
     this->_entities.emplace_back(std::make_shared<Entity>(terrainModel));
+
+    // Load and setup player
+    std::shared_ptr<Model> playerModel = Util::ResourcesLoader::Instance().LoadModel("arrow");
+    playerModel->GetMesh("default")->SetDiffuseMap(arrowTexture);
+    this->_player = std::make_shared<Player>(playerModel, Math::Vector3f({ 0.0f, 1.0f, 0.0f }));
+    this->_entities.push_back(this->_player);
     
     // Load scene models
     std::shared_ptr<Model> cubeModel = Util::ResourcesLoader::Instance().LoadModel("cube");
-    cubeModel->GetMesh("default")->SetTexture(metalTexture);
+    cubeModel->GetMesh("default")->SetDiffuseMap(metalTexture);
     this->_entities.push_back(std::make_shared<Entity>(cubeModel, Math::Vector3f({ -5.0f, 1.0f, -5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
     this->_entities.push_back(std::make_shared<Entity>(cubeModel, Math::Vector3f({ 5.0f, 1.0f, -5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
     this->_entities.push_back(std::make_shared<Entity>(cubeModel, Math::Vector3f({ -5.0f, 1.0f, 5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
@@ -116,7 +118,6 @@ bool Graphics::Scene::Load()
     //quadMesh->SetTexture(chinchillenTexture);
     //this->_quad->AddMesh("default", quadMesh);
     //this->_quad->FinishLoading();
-
 
     // Mouse scrolling
     IO::Mouse::Instance().RegisterScrolling([this](float x, float y) {
@@ -177,8 +178,7 @@ void Graphics::Scene::Update(Timing::Duration delta)
 {
     _assert(State::RUN == this->_state);
 
-    this->_player->LookAt(this->_entities[1]);
-
+    this->_player->LookAt(this->_entities[0]);
     this->_camera->Update(this->_player);
 }
 

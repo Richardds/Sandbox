@@ -24,8 +24,8 @@ std::shared_ptr<Graphics::Model> Util::OBJLoader::Load(const std::vector<char>& 
     this->_scene = importer.ReadFileFromMemory(buffer.data(), buffer.size(),
           aiProcess_FlipUVs
         | aiProcess_Triangulate
-        | aiProcess_FixInfacingNormals
-        | aiProcess_FindInvalidData
+        //| aiProcess_FixInfacingNormals
+        //| aiProcess_FindInvalidData
     );
 
     if (!this->_scene || this->_scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !this->_scene->mRootNode) {
@@ -49,10 +49,7 @@ void Util::OBJLoader::ProcessNode(aiNode* node)
         //std::string meshName = "mesh" + std::to_string(nodeId) + "_" + std::to_string(meshId);
         _assert(meshId == 0); // TODO: Multiple mesh model
         std::string meshName = "default";
-
-        std::shared_ptr<Graphics::Mesh> modelMesh = this->ProcessMesh(mesh);
-        modelMesh->SetTexture(Util::ResourcesLoader::Instance().LoadTexture("default"));
-        this->_model->AddMesh(meshName, modelMesh);
+        this->_model->AddMesh(meshName, this->ProcessMesh(mesh));
     }
 
     for (uint32_t i = 0; i < node->mNumChildren; i++) {

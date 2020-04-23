@@ -10,7 +10,7 @@ namespace IO
         _Singleton(Keyboard)
 
     public:
-        enum Key {
+        enum class Key {
             SPACE = 32,
             COMMA = 44,
             DASH = 45,

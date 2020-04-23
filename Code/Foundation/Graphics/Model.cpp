@@ -10,10 +10,10 @@ Graphics::Model::~Model()
 {
 }
 
-void Graphics::Model::Render()
+void Graphics::Model::Render(std::shared_ptr<EntityShader> shader)
 {
 	for (auto& mesh : this->_meshes) {
-		mesh.second->Render();
+		mesh.second->Render(shader);
 	}
 }
 

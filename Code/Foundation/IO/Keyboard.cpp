@@ -17,7 +17,10 @@ bool IO::Keyboard::IsKeyPressed(Key key) const
 {
     _assert(Graphics::Core::Instance().IsCreated());
 
-    return glfwGetKey(Graphics::Core::Instance().GetRenderingContext()->GetGlfwWindow(), key);
+    return glfwGetKey(
+        Graphics::Core::Instance().GetRenderingContext()->GetGlfwWindow(),
+        static_cast<std::underlying_type<Key>::type>(key)
+    );
 }
 
 bool IO::Keyboard::IsAltPressed() const

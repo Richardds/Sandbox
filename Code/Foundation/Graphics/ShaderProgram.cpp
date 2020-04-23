@@ -70,12 +70,36 @@ void Graphics::ShaderProgram::Use()
     }
 }
 
+GLint Graphics::ShaderProgram::GetUniformLocation(const std::string& name)
+{
+    _assert(State::LINKED == this->_state);
+    _assert(!name.empty());
+
+    return glGetUniformLocation(this->_glShaderProgram, name.c_str());
+}
+
 void Graphics::ShaderProgram::LoadBool(GLint location, bool enable)
 {
     _assert(this->IsInUse());
     _assert(State::LINKED == this->_state);
 
     glUniform1ui(location, enable ? 1 : 0);
+}
+
+void Graphics::ShaderProgram::LoadInt(GLint location, uint32_t value)
+{
+    _assert(this->IsInUse());
+    _assert(State::LINKED == this->_state);
+
+    glUniform1i(location, value);
+}
+
+void Graphics::ShaderProgram::LoadFloat(GLint location, float value)
+{
+    _assert(this->IsInUse());
+    _assert(State::LINKED == this->_state);
+
+    glUniform1f(location, value);
 }
 
 void Graphics::ShaderProgram::LoadMatrix3f(GLint location, const Math::Matrix3f& matrix)
@@ -109,12 +133,4 @@ void Graphics::ShaderProgram::LoadVector4f(GLint location, const Math::Vector4f&
     _assert(-1 != location);
 
     glUniform4fv(location, 1, glm::value_ptr(vector));
-}
-
-GLint Graphics::ShaderProgram::GetUniformLocation(const std::string& name)
-{
-    _assert(State::LINKED == this->_state);
-    _assert(!name.empty());
-
-    return glGetUniformLocation(this->_glShaderProgram, name.c_str());
 }

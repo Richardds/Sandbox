@@ -32,5 +32,5 @@ void Graphics::Entity::Render(std::shared_ptr<Graphics::EntityShader> shader)
         )
     );
 
-    this->_model->Render();
+    this->_model->Render(shader);
 }

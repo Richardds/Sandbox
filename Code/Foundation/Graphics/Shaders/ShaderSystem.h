@@ -27,6 +27,13 @@ namespace Graphics
 
     protected:
         GLint GetUniformLocation(const std::string& name);
+        void InitializeBoolLocation(const std::string& name, bool enabled, GLint& location);
+        void InitializeIntLocation(const std::string& name, uint32_t value, GLint& location);
+        void InitializeFloatLocation(const std::string& name, float value, GLint& location);
+        void InitializeMatrix3fLocation(const std::string& name, Math::Matrix3f matrix, GLint& location);
+        void InitializeMatrix4fLocation(const std::string& name, Math::Matrix4f matrix, GLint& location);
+        void InitializeVector3fLocation(const std::string& name, Math::Vector3f vector, GLint& location);
+        void InitializeVector4fLocation(const std::string& name, Math::Vector4f vector, GLint& location);
 
     private:
         State _state;

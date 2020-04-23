@@ -32,13 +32,15 @@ namespace Graphics
         static GLuint GetInUse();
 
     protected:
+        GLint GetUniformLocation(const std::string& name);
         void LoadBool(GLint location, bool enable);
+        void LoadInt(GLint location, uint32_t value);
+        void LoadFloat(GLint location, float value);
         void LoadMatrix3f(GLint location, const Math::Matrix3f& matrix);
         void LoadMatrix4f(GLint location, const Math::Matrix4f& matrix);
         void LoadVector3f(GLint location, const Math::Vector3f& vector);
         void LoadVector4f(GLint location, const Math::Vector4f& vector);
-        GLint GetUniformLocation(const std::string& name);
-        
+
     private:
         State _state;
         GLuint _glShaderProgram;

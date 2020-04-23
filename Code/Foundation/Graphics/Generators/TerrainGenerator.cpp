@@ -15,13 +15,13 @@ Graphics::TerrainGenerator::~TerrainGenerator()
 
 void Graphics::TerrainGenerator::Generate(float size)
 {
-	float diameter = size / 2.0f;
+	float radius = size / 2.0f;
 
 	this->_vertexData.assign({
-        {Math::Vector3f(-diameter, 0.0f, diameter), Math::Vector3f(0.0f, 1.0f, 0.0f), Math::Vector2f(0.0f, 0.0f)},
-        {Math::Vector3f(diameter, 0.0f, diameter), Math::Vector3f(0.0f, 1.0f, 0.0f), Math::Vector2f(0.0f, 1.0f)},
-        {Math::Vector3f(diameter, 0.0f, -diameter), Math::Vector3f(0.0f, 1.0f, 0.0f), Math::Vector2f(1.0f, 1.0f)},
-        {Math::Vector3f(-diameter, 0.0f, -diameter), Math::Vector3f(0.0f, 1.0f, 0.0f), Math::Vector2f(1.0f, 0.0f)}
+        {Math::Vector3f(-radius, 0.0f, radius), Math::Vector3f(0.0f, 1.0f, 0.0f), Math::Vector2f(0.0f, 0.0f)},
+        {Math::Vector3f(radius, 0.0f, radius), Math::Vector3f(0.0f, 1.0f, 0.0f), Math::Vector2f(0.0f, 1.0f)},
+        {Math::Vector3f(radius, 0.0f, -radius), Math::Vector3f(0.0f, 1.0f, 0.0f), Math::Vector2f(1.0f, 1.0f)},
+        {Math::Vector3f(-radius, 0.0f, -radius), Math::Vector3f(0.0f, 1.0f, 0.0f), Math::Vector2f(1.0f, 0.0f)}
 	});
 
 	this->_elements.assign({
@@ -49,8 +49,5 @@ std::shared_ptr<Graphics::Mesh> Graphics::TerrainGenerator::Store()
     ebo->Unbind();
     vbo->Unbind();
 
-    std::shared_ptr<Mesh> terrainMesh = std::make_shared<Graphics::Mesh>(vao, vbo, ebo, static_cast<uint32_t>(this->_elements.size()));
-    terrainMesh->SetTexture(Util::ResourcesLoader::Instance().LoadTexture("default"));
-
-    return terrainMesh;
+    return std::make_shared<Graphics::Mesh>(vao, vbo, ebo, static_cast<uint32_t>(this->_elements.size()));
 }

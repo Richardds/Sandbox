@@ -1,8 +1,7 @@
 #pragma once
-
-#include <cstdint>
 #include <vector>
 
+#include "../Core/Types.h"
 #include "Core.h"
 #include "VertexArray.h"
 

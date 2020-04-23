@@ -18,7 +18,7 @@ namespace Graphics
 
         Model();
         virtual ~Model();
-        void Render();
+        void Render(std::shared_ptr<EntityShader> shader);
         State GetState() const;
         void AddMesh(const std::string& name, std::shared_ptr<Mesh> mesh);
         std::shared_ptr<Mesh> GetMesh(const std::string& name) const;

@@ -1,7 +1,9 @@
 #pragma once
 
+#include <memory>
+
 #include "Camera.h"
-#include "Entity.h"
+#include "../Attributes/HasPosition.h"
 
 namespace Graphics
 {
@@ -14,7 +16,8 @@ namespace Graphics
         void SetDistance(float distance);
         float GetDistance() const;
         void IncreaseDistance(float distance);
-        void Update(std::shared_ptr<Entity> target);
+        void LookAt(Math::Vector3f position);
+        void Update(std::shared_ptr<HasPosition> target);
 
     private:
         float _distance;

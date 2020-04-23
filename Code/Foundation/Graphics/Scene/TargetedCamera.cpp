@@ -6,6 +6,7 @@
 Graphics::TargetedCamera::TargetedCamera(float distance) :
     _distance(distance)
 {
+    this->LookAt(Math::Vector3f(0.0f, 0.0f, 0.0f));
 }
 
 Graphics::TargetedCamera::~TargetedCamera()
@@ -17,16 +18,19 @@ void Graphics::TargetedCamera::IncreaseDistance(float distance)
     this->_distance += distance;
 }
 
-void Graphics::TargetedCamera::Update(std::shared_ptr<Entity> target)
+void Graphics::TargetedCamera::LookAt(Math::Vector3f position)
 {
-    _assert(target);
-
     float offset = this->_distance / Math::SQRT_2;
-
-    Math::Vector3f position = target->getPosition();
     position.y += offset;
     position.z += offset;
 
     this->_position = position;
     this->_rotX = -45.0f;
+}
+
+void Graphics::TargetedCamera::Update(std::shared_ptr<HasPosition> target)
+{
+    _assert(target);
+
+    this->LookAt(target->getPosition());
 }

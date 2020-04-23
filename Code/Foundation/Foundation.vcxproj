@@ -53,6 +53,7 @@
     <ClInclude Include="App\RenderApplication.h" />
     <ClInclude Include="Core\Debug.h" />
     <ClInclude Include="Core\Singleton.h" />
+    <ClInclude Include="Core\Types.h" />
     <ClInclude Include="Graphics\Attributes\HasPosition.h" />
     <ClInclude Include="Graphics\Attributes\HasRotation.h" />
     <ClInclude Include="Graphics\Attributes\HasScale.h" />
