@@ -20,6 +20,12 @@ uniform mat3 normalMatrix;
 
 uniform vec3 lightPosition;
 
+struct TBN {
+    vec3 tangent;
+    vec3 normal;
+    vec3 bitangent;
+} tbn;
+
 void main()
 {
     // Pass texture coordinates
@@ -27,14 +33,17 @@ void main()
 
     vec4 vertexWorldPosition = modelMatrix * vec4(vertexPosition, 1.0f);
     
-    relativeToCameraPosition = viewMatrix * vertexWorldPosition;
-
     toLightVector = lightPosition - vertexWorldPosition.xyz;
     toCameraVector = viewMatrixInverse[3].xyz - vertexWorldPosition.xyz;
+    relativeToCameraPosition = viewMatrix * vertexWorldPosition;
 
     normal = normalMatrix * vertexNormal;
-    vec3 bitangent = normalize(cross(vertexTangent, normal));
-    fromTangentSpace = mat3(vertexTangent, bitangent, normal);
+
+    tbn.tangent = normalize(vec3(modelMatrix * vec4(vertexTangent, 0.0f)));
+    tbn.normal = normalize(vec3(modelMatrix * vec4(vertexNormal, 0.0f)));
+    tbn.bitangent = normalize(cross(vertexTangent, tbn.normal));
+    tbn.tangent = normalize(tbn.tangent - dot(tbn.tangent, tbn.normal) * tbn.normal);
+    fromTangentSpace = mat3(tbn.tangent, tbn.bitangent, tbn.normal);
 
     gl_Position = projectionMatrix * relativeToCameraPosition;
 }

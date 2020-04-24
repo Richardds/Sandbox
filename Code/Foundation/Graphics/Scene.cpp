@@ -45,11 +45,6 @@ bool Graphics::Scene::Load()
     std::shared_ptr<Window> context = Core::Instance().GetRenderingContext();
     this->_entityShader->SetProjection(context->GetRatio(), 70.0f, 0.1f, 1000.0f);
 
-    // Preload textures
-    std::shared_ptr<Texture> metalTexture = Util::ResourcesLoader::Instance().LoadTexture("metal");
-    std::shared_ptr<Texture> chinchillenTexture = Util::ResourcesLoader::Instance().LoadTexture("chinchillen");
-    std::shared_ptr<Texture> arrowTexture = Util::ResourcesLoader::Instance().LoadTexture("arrow");
-
     // Setup light
     this->_light = std::make_shared<Light>(Math::Vector3f(0.0f, 3.0f, 0.0f), Math::Vector3f(1.0f, 1.0f, 1.0f));
 
@@ -65,17 +60,19 @@ bool Graphics::Scene::Load()
 
     // Load and setup player
     std::shared_ptr<Model> playerModel = Util::ResourcesLoader::Instance().LoadModel("arrow");
-    playerModel->GetMesh("default")->SetDiffuseMap(arrowTexture);
+    playerModel->GetMesh("default")->SetDiffuseMap(Util::ResourcesLoader::Instance().LoadTexture("arrow"));
     this->_player = std::make_shared<Player>(playerModel, Math::Vector3f({ 0.0f, 1.0f, 0.0f }));
     this->_entities.push_back(this->_player);
     
     // Load scene models
-    std::shared_ptr<Model> cubeModel = Util::ResourcesLoader::Instance().LoadModel("cube");
-    cubeModel->GetMesh("default")->SetDiffuseMap(metalTexture);
-    this->_entities.push_back(std::make_shared<Entity>(cubeModel, Math::Vector3f({ -5.0f, 1.0f, -5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
-    this->_entities.push_back(std::make_shared<Entity>(cubeModel, Math::Vector3f({ 5.0f, 1.0f, -5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
-    this->_entities.push_back(std::make_shared<Entity>(cubeModel, Math::Vector3f({ -5.0f, 1.0f, 5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
-    this->_entities.push_back(std::make_shared<Entity>(cubeModel, Math::Vector3f({ 5.0f, 1.0f, 5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
+    std::shared_ptr<Model> crateModel = Util::ResourcesLoader::Instance().LoadModel("crate");
+    std::shared_ptr<Mesh> crateMesh = crateModel->GetMesh("default");
+    crateMesh->SetDiffuseMap(Util::ResourcesLoader::Instance().LoadTexture("crate_d"));
+    crateMesh->SetNormalMap(Util::ResourcesLoader::Instance().LoadTexture("crate_n"));
+    this->_entities.push_back(std::make_shared<Entity>(crateModel, Math::Vector3f({ -5.0f, 1.0f, -5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
+    this->_entities.push_back(std::make_shared<Entity>(crateModel, Math::Vector3f({ 5.0f, 1.0f, -5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
+    this->_entities.push_back(std::make_shared<Entity>(crateModel, Math::Vector3f({ -5.0f, 1.0f, 5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
+    this->_entities.push_back(std::make_shared<Entity>(crateModel, Math::Vector3f({ 5.0f, 1.0f, 5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
 
     //
     // Texture debug
@@ -128,7 +125,6 @@ void Graphics::Scene::ProcessInput()
 {
     _assert(State::RUN == this->_state);
 
-    // Camera movemement
     if (IO::Keyboard::Instance().IsAltPressed()) {
         if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::LEFT)) {
             Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
@@ -137,30 +133,6 @@ void Graphics::Scene::ProcessInput()
         }
 
         return;
-    }
-
-    if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::UP)) {
-        this->_player->increasePosition(0.0f, 0.0f, -0.25f);
-    }
-
-    if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::DOWN)) {
-        this->_player->increasePosition(0.0f, 0.0f, 0.25f);
-    }
-
-    if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::LEFT)) {
-        this->_player->increasePosition(-0.25f, 0.0f, 0.0f);
-    }
-
-    if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::RIGHT)) {
-        this->_player->increasePosition(0.25f, 0.0f, 0.0f);
-    }
-
-    if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::P)) {
-        this->_player->increasePosition(0.0f, 0.25f, 0.0f);
-    }
-
-    if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::L)) {
-        this->_player->increasePosition(0.0f, -0.25f, 0.0f);
     }
 
     if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::LEFT)) {

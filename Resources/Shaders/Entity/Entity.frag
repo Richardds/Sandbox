@@ -33,7 +33,7 @@ const float fogGradient = 2.5f;
 const vec3 fogColor = vec3(0.25f, 0.25f, 0.25f);
 
 // Light constants
-const float ambientLightStrength = 0.1f;
+const float ambientStrength = 0.1f;
 const float shineStrength = 15.0f;
 const float specularLightStrength  = 0.75f;
 
@@ -50,14 +50,14 @@ void main()
         diffuseMapping = texture(diffuseMapSampler, textureUV);
     }
 
-    // Map normal vector if ot exists
+    // Map normal vector if it exists
     vec3 normalMapping = unitNormal;
     if (hasNormalMap) {
         normalMapping = normalize(fromTangentSpace * (2.0f * texture(normalMapSampler, textureUV, -1.0f) - 1.0f).xyz);
     }
 
     // Calculate fragment color using Phong lighting model
-    vec3 ambient = ambientLightStrength * lightColor;
+    vec3 ambient = ambientStrength * lightColor;
     vec3 diffuse = max(dot(normalMapping, unitToLightVector), 0.2f) * lightColor;
     vec3 reflectedLightDirection = reflect(-unitToLightVector, normalMapping);
     vec3 specular = pow(max(dot(reflectedLightDirection, unitToCameraVector), 0.0), shineStrength) * specularLightStrength * lightColor;

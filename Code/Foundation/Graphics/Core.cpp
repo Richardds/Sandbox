@@ -200,9 +200,9 @@ void Graphics::Core::glDebugCallback(
 
     switch (id)
     {
-    //case 131169:
+    case 131169:
     case 131185:
-    //case 131204:
+    case 131204:
     case 131218:
         return;
     }
