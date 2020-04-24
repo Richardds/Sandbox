@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="App">
+      <UniqueIdentifier>{9f8c50bd-6a3d-40cd-877d-d449e3dab4c2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="App\MeshExporterApplication.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshExporter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App\MeshExporterApplication.h">
+      <Filter>App</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
