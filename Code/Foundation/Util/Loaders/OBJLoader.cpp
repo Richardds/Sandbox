@@ -9,6 +9,7 @@ Util::OBJLoader::OBJLoader() :
     this->_attributesTemplate.Append(GL_FLOAT, 3);
     this->_attributesTemplate.Append(GL_FLOAT, 3);
     this->_attributesTemplate.Append(GL_FLOAT, 2);
+    this->_attributesTemplate.Append(GL_FLOAT, 3);
 }
 
 Util::OBJLoader::~OBJLoader()
@@ -24,8 +25,9 @@ std::shared_ptr<Graphics::Model> Util::OBJLoader::Load(const std::vector<char>& 
     this->_scene = importer.ReadFileFromMemory(buffer.data(), buffer.size(),
           aiProcess_FlipUVs
         | aiProcess_Triangulate
-        //| aiProcess_FixInfacingNormals
-        //| aiProcess_FindInvalidData
+        | aiProcess_CalcTangentSpace
+        | aiProcess_FixInfacingNormals
+        | aiProcess_FindInvalidData
     );
 
     if (!this->_scene || this->_scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !this->_scene->mRootNode) {
@@ -59,11 +61,11 @@ void Util::OBJLoader::ProcessNode(aiNode* node)
 
 std::shared_ptr<Graphics::Mesh> Util::OBJLoader::ProcessMesh(aiMesh* mesh)
 {
-    std::vector<Graphics::Mesh::VertexData> data;
+    std::vector<VertexData> data;
     std::vector<uint32_t> elements;
 
     for (uint32_t i = 0; i < mesh->mNumVertices; i++) {
-        Graphics::Mesh::VertexData vertexData;
+        VertexData vertexData;
         vertexData.vertex.x = mesh->mVertices[i].x;
         vertexData.vertex.y = mesh->mVertices[i].y;
         vertexData.vertex.z = mesh->mVertices[i].z;
@@ -74,6 +76,10 @@ std::shared_ptr<Graphics::Mesh> Util::OBJLoader::ProcessMesh(aiMesh* mesh)
 
         vertexData.texture.x = mesh->mTextureCoords[0][i].x;
         vertexData.texture.y = mesh->mTextureCoords[0][i].y;
+
+        vertexData.tangent.x = mesh->mTangents[i].x;
+        vertexData.tangent.y = mesh->mTangents[i].y;
+        vertexData.tangent.z = mesh->mTangents[i].z;
 
         data.push_back(vertexData);
     }

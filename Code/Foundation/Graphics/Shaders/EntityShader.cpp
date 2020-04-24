@@ -1,11 +1,11 @@
 #include <iostream>
 
 #include "EntityShader.h"
-#include "../Texture.h"
-#include "../../Math/Utils.h"
+#include "../../Core/Types.h"
 #include "../../Core/Debug.h"
 #include "../../Graphics/Core.h"
-#include "../../Core/Types.h"
+#include "../../Math/Utils.h"
+#include "../Texture.h"
 
 Graphics::EntityShader::EntityShader() :
     ShaderSystem("Entity"),

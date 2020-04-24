@@ -1,7 +1,5 @@
 #version 430 core
 
-layout (location = 2) in vec2 vertexTexture;
-
 struct Material {
     vec3 ambient;
     vec3 diffuse;
@@ -16,10 +14,11 @@ uniform bool hasDiffuseMap;
 uniform bool hasNormalMap;
 
 in vec2 textureUV;
-in vec3 surfaceNormal;
+in vec3 normal;
 in vec3 toLightVector;
 in vec3 toCameraVector;
 in vec4 relativeToCameraPosition;
+in mat3 fromTangentSpace;
 
 out vec4 fragmentColor;
 
@@ -27,7 +26,6 @@ uniform vec3 lightColor;
 uniform Material material;
 
 const vec3 defaultDiffuseMapping = vec3(0.85f, 0.85f, 0.85f);
-const vec3 defaultNormalMapping = vec3(0.0f, 0.0f, 1.0f);
 
 // Fog constants
 const float fogDensity = 0.045f;
@@ -42,7 +40,7 @@ const float specularLightStrength  = 0.75f;
 void main()
 {
     // Normalize vectors
-    vec3 unitSurfaceNormal = normalize(surfaceNormal);
+    vec3 unitNormal = normalize(normal);
     vec3 unitToLightVector = normalize(toLightVector);
     vec3 unitToCameraVector = normalize(toCameraVector);
 
@@ -53,15 +51,15 @@ void main()
     }
 
     // Map normal vector if ot exists
-    vec4 normalMapping = vec4(defaultNormalMapping, 1.0f);
+    vec3 normalMapping = unitNormal;
     if (hasNormalMap) {
-        normalMapping = texture(normalMapSampler, textureUV);
+        normalMapping = normalize(fromTangentSpace * (2.0f * texture(normalMapSampler, textureUV, -1.0f) - 1.0f).xyz);
     }
 
     // Calculate fragment color using Phong lighting model
     vec3 ambient = ambientLightStrength * lightColor;
-    vec3 diffuse = max(dot(unitSurfaceNormal, unitToLightVector), 0.2f) * lightColor;
-    vec3 reflectedLightDirection = reflect(-unitToLightVector, unitSurfaceNormal);
+    vec3 diffuse = max(dot(normalMapping, unitToLightVector), 0.2f) * lightColor;
+    vec3 reflectedLightDirection = reflect(-unitToLightVector, normalMapping);
     vec3 specular = pow(max(dot(reflectedLightDirection, unitToCameraVector), 0.0), shineStrength) * specularLightStrength * lightColor;
     vec4 phongModelColor = vec4(ambient + diffuse + specular, 1.0f) * diffuseMapping;
 
@@ -71,9 +69,4 @@ void main()
 
     // Combine Phong and visibility
     fragmentColor = mix(vec4(fogColor, 1.0f), phongModelColor, fragmentVisibility);
-
-    // Debug normal map
-    if (hasNormalMap) {
-        fragmentColor = mix(fragmentColor, normalMapping, 0.5f);
-    }
 }

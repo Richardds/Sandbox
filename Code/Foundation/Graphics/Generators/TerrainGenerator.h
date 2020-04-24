@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 
-#include "../../Math/Vector.h"
+#include "../../Core/Types.h"
 #include "../../Graphics/Mesh.h"
 #include "../../Graphics/VertexAttributeConfig.h"
 
@@ -17,16 +17,16 @@ namespace Graphics
         virtual ~TerrainGenerator();
         void Generate(float size);
         std::shared_ptr<Graphics::Mesh> Store();
-        std::vector<Graphics::Mesh::VertexData> GetVertexData() const;
+        std::vector<VertexData> GetVertexData() const;
         std::vector<uint32_t> GetElements() const;
 
     private:
         Graphics::VertexAttributeConfig _attributesTemplate;
-        std::vector<Graphics::Mesh::VertexData> _vertexData;
+        std::vector<VertexData> _vertexData;
         std::vector<uint32_t> _elements;
     };
 
-    inline std::vector<Graphics::Mesh::VertexData> Graphics::TerrainGenerator::GetVertexData() const
+    inline std::vector<VertexData> Graphics::TerrainGenerator::GetVertexData() const
     {
         return this->_vertexData;
     }

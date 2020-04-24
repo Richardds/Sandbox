@@ -13,12 +13,6 @@ namespace Graphics
     class Mesh
     {
     public:
-        struct VertexData {
-            Math::Vector3f vertex;
-            Math::Vector3f normal;
-            Math::Vector2f texture;
-        };
-
         Mesh(std::shared_ptr<Graphics::VertexArray> vertexArrayObject, std::shared_ptr<Graphics::Buffer> vertexBuffer, std::shared_ptr<Graphics::Buffer> elementsBuffer, uint32_t elementsCount);
         virtual ~Mesh();
         void Render(std::shared_ptr<EntityShader> shader);
