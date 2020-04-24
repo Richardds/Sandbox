@@ -6,9 +6,9 @@ Util::OBJLoader::OBJLoader() :
     _nodeCount(0),
     _meshCount(0)
 {
-    this->_attributesTemplate.Append(GL_FLOAT, 3, sizeof(float));
-    this->_attributesTemplate.Append(GL_FLOAT, 3, sizeof(float));
-    this->_attributesTemplate.Append(GL_FLOAT, 2, sizeof(float));
+    this->_attributesTemplate.Append(GL_FLOAT, 3);
+    this->_attributesTemplate.Append(GL_FLOAT, 3);
+    this->_attributesTemplate.Append(GL_FLOAT, 2);
 }
 
 Util::OBJLoader::~OBJLoader()

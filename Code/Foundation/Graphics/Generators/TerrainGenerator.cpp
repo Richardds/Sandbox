@@ -4,9 +4,9 @@
 
 Graphics::TerrainGenerator::TerrainGenerator()
 {
-    this->_attributesTemplate.Append(GL_FLOAT, 3, sizeof(float));
-    this->_attributesTemplate.Append(GL_FLOAT, 3, sizeof(float));
-    this->_attributesTemplate.Append(GL_FLOAT, 2, sizeof(float));
+    this->_attributesTemplate.Append(GL_FLOAT, 3);
+    this->_attributesTemplate.Append(GL_FLOAT, 3);
+    this->_attributesTemplate.Append(GL_FLOAT, 2);
 }
 
 Graphics::TerrainGenerator::~TerrainGenerator()

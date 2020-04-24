@@ -19,7 +19,7 @@ namespace Graphics
 
         VertexAttributeConfig();
         virtual ~VertexAttributeConfig();
-        void Append(GLenum type, uint16_t count, size_t elementSize);
+        void Append(GLenum type, uint16_t count);
         void Apply(std::shared_ptr<VertexArray> vao);
 
     private:

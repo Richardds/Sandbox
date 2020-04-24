@@ -9,7 +9,6 @@
 #include "../IO/Mouse.h"
 #include "../IO/Console.h"
 #include "../Core/Debug.h"
-#include "Generators/TerrainGenerator.h"
 
 Graphics::Scene::Scene() :
     _state(State::INITIAL)
@@ -58,14 +57,10 @@ bool Graphics::Scene::Load()
     this->_camera = std::make_shared<TargetedCamera>(15.0f);
 
     // Setup terrain
-    TerrainGenerator terrainGenerator;
-    terrainGenerator.Generate(8.0f);
-    std::shared_ptr<Model> terrainModel = std::make_shared<Model>();
-    std::shared_ptr<Mesh> terrainMesh = terrainGenerator.Store();
+    std::shared_ptr<Model> terrainModel = Util::ResourcesLoader::Instance().LoadModel("terrain");
+    std::shared_ptr<Mesh> terrainMesh = terrainModel->GetMesh("default");
     terrainMesh->SetDiffuseMap(Util::ResourcesLoader::Instance().LoadTexture("sand_d"));
     terrainMesh->SetNormalMap(Util::ResourcesLoader::Instance().LoadTexture("sand_n"));
-    terrainModel->AddMesh("terrain", terrainMesh);
-    terrainModel->FinishLoading();
     this->_entities.emplace_back(std::make_shared<Entity>(terrainModel));
 
     // Load and setup player
@@ -105,8 +100,8 @@ bool Graphics::Scene::Load()
     //});
     //
     //VertexAttributeConfig attributes;
-    //attributes.Append(GL_FLOAT, 3, sizeof(float));
-    //attributes.Append(GL_FLOAT, 2, sizeof(float));
+    //attributes.Append(GL_FLOAT, 3);
+    //attributes.Append(GL_FLOAT, 2);
     //attributes.Apply(quadVao);
     //
     //quadVao->Unbind();

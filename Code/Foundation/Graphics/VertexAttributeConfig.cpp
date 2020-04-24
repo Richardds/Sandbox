@@ -9,8 +9,25 @@ Graphics::VertexAttributeConfig::~VertexAttributeConfig()
 {
 }
 
-void Graphics::VertexAttributeConfig::Append(GLenum type, uint16_t count, size_t elementSize)
+void Graphics::VertexAttributeConfig::Append(GLenum type, uint16_t count)
 {
+	size_t elementSize = 0;
+
+	switch (type)
+	{
+	case GL_FLOAT:
+		elementSize = sizeof(float);
+		break;
+	case GL_UNSIGNED_INT:
+		elementSize = sizeof(GLuint);
+		break;
+	case GL_INT:
+		elementSize = sizeof(GLint);
+		break;
+	}
+
+	_assert(0 < elementSize);
+
 	size_t attributeSize = count * elementSize;
 	VertexAttribute attribute = { type, count, attributeSize };
 	this->_attributes.emplace_back(attribute);
