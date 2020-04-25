@@ -1,21 +1,27 @@
 #version 430 core
 
+struct TextureSampler {
+    sampler2D mapper;
+    bool enabled;
+};
+
+struct Light {
+    vec3 position;
+    vec3 color;
+};
+
+struct Fog {
+    float density;
+    float gradient;
+    vec3 color;
+};
+
 struct Material {
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
     float reflectivity;
 };
-
-uniform sampler2D diffuseMapSampler;
-uniform sampler2D normalMapSampler;
-uniform sampler2D specularMapSampler;
-uniform sampler2D MaterialMapSampler;
-
-uniform bool hasDiffuseMap;
-uniform bool hasNormalMap;
-uniform bool hasSpecularMap;
-uniform bool hasMaterialMap;
 
 in vec2 textureUV;
 in vec3 normal;
@@ -26,20 +32,21 @@ in mat3 fromTangentSpace;
 
 out vec4 fragmentColor;
 
-uniform vec3 lightColor;
+uniform TextureSampler diffuseMapper;
+uniform TextureSampler normalMapper;
+uniform TextureSampler specularMapper;
+uniform TextureSampler materialMapper;
+
+uniform Light light;
+uniform Fog fog;
 uniform Material material;
 
 const vec3 defaultDiffuseMapping = vec3(0.85f, 0.85f, 0.85f);
-
-// Fog constants
-const float fogDensity = 0.045f;
-const float fogGradient = 2.5f;
-const vec3 fogColor = vec3(0.25f, 0.25f, 0.25f);
+const float defaultSpecularMapping = 0.5f;
 
 // Light constants
 const float ambientStrength = 0.1f;
 const float shineStrength = 15.0f;
-const float specularLightStrength  = 0.75f;
 
 void main()
 {
@@ -48,29 +55,39 @@ void main()
     vec3 unitToLightVector = normalize(toLightVector);
     vec3 unitToCameraVector = normalize(toCameraVector);
 
-    // Map diffuse color if it exists
+    // Map diffuse color
     vec4 diffuseMapping = vec4(defaultDiffuseMapping, 1.0f);
-    if (hasDiffuseMap) {
-        diffuseMapping = texture(diffuseMapSampler, textureUV);
+    if (diffuseMapper.enabled) {
+        diffuseMapping = texture(diffuseMapper.mapper, textureUV);
+        // Discard fragment when mapped to invisible
+        if (diffuseMapping.r == 1.0f && diffuseMapping.b == 1.0f) {
+            discard;
+        }
     }
 
-    // Map normal vector if it exists
+    // Map normal vector
     vec3 normalMapping = unitNormal;
-    if (hasNormalMap) {
-        normalMapping = normalize(fromTangentSpace * (2.0f * texture(normalMapSampler, textureUV, -1.0f) - 1.0f).xyz);
+    if (normalMapper.enabled) {
+        normalMapping = normalize(fromTangentSpace * (2.0f * texture(normalMapper.mapper, textureUV, -1.0f) - 1.0f).rgb);
+    }
+
+    // Map specular strength
+    float specularMapping = defaultSpecularMapping;
+    if (specularMapper.enabled) {
+        specularMapping = texture(specularMapper.mapper, textureUV).r;
     }
 
     // Calculate fragment color using Phong lighting model
-    vec3 ambient = ambientStrength * lightColor;
-    vec3 diffuse = max(dot(normalMapping, unitToLightVector), 0.2f) * lightColor;
+    vec3 ambient = ambientStrength * light.color;
+    vec3 diffuse = max(dot(normalMapping, unitToLightVector), 0.2f) * light.color;
     vec3 reflectedLightDirection = reflect(-unitToLightVector, normalMapping);
-    vec3 specular = pow(max(dot(reflectedLightDirection, unitToCameraVector), 0.0), shineStrength) * specularLightStrength * lightColor;
+    vec3 specular = pow(max(dot(reflectedLightDirection, unitToCameraVector), 0.2f), shineStrength) * specularMapping * light.color;
     vec4 phongModelColor = vec4(ambient + diffuse + specular, 1.0f) * diffuseMapping;
 
     // Calculate fragment visibility
     float distanceToCamera = length(relativeToCameraPosition.xyz);
-    float fragmentVisibility = clamp(exp(-pow(distanceToCamera * fogDensity, fogGradient)), 0.0f, 1.0f);
+    float fragmentVisibility = clamp(exp(-pow(distanceToCamera * fog.density, fog.gradient)), 0.0f, 1.0f);
 
     // Combine Phong and visibility
-    fragmentColor = mix(vec4(fogColor, 1.0f), phongModelColor, fragmentVisibility);
+    fragmentColor = mix(vec4(fog.color, 1.0f), phongModelColor, fragmentVisibility);
 }

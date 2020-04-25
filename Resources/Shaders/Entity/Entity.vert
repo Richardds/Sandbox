@@ -1,5 +1,10 @@
 #version 430 core
 
+struct Light {
+    vec3 position;
+    vec3 color;
+};
+
 layout (location = 0) in vec3 vertexPosition;
 layout (location = 1) in vec3 vertexNormal;
 layout (location = 2) in vec2 vertexTextureUV;
@@ -18,7 +23,7 @@ uniform mat4 viewMatrixInverse;
 uniform mat4 modelMatrix;
 uniform mat3 normalMatrix;
 
-uniform vec3 lightPosition;
+uniform Light light;
 
 struct TBN {
     vec3 tangent;
@@ -33,12 +38,13 @@ void main()
 
     vec4 vertexWorldPosition = modelMatrix * vec4(vertexPosition, 1.0f);
     
-    toLightVector = lightPosition - vertexWorldPosition.xyz;
+    toLightVector = light.position - vertexWorldPosition.xyz;
     toCameraVector = viewMatrixInverse[3].xyz - vertexWorldPosition.xyz;
     relativeToCameraPosition = viewMatrix * vertexWorldPosition;
 
     normal = normalMatrix * vertexNormal;
 
+    // Tangent basis matrix calculation
     tbn.tangent = normalize(vec3(modelMatrix * vec4(vertexTangent, 0.0f)));
     tbn.normal = normalize(vec3(modelMatrix * vec4(vertexNormal, 0.0f)));
     tbn.bitangent = normalize(cross(vertexTangent, tbn.normal));

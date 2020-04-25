@@ -1,6 +1,7 @@
 #include "ShaderSystem.h"
 #include "../../Core/Debug.h"
 #include "../../Util/ResourcesLoader.h"
+#include "../../IO/Console.h"
 
 Graphics::ShaderSystem::ShaderSystem(const std::string& name) :
     _state(State::INITIAL),
@@ -72,41 +73,62 @@ GLint Graphics::ShaderSystem::GetUniformLocation(const std::string& name)
 void Graphics::ShaderSystem::InitializeBoolLocation(const std::string& name, bool enabled, GLint& location)
 {
     location = this->GetUniformLocation(name);
+    if (location == -1) {
+        IO::Console::Instance().Warning("Failed to initialize bool '%s' uniform location!\n", name.c_str());
+    }
     this->LoadBool(location, enabled);
 }
 
-void Graphics::ShaderSystem::InitializeIntLocation(const std::string& name, uint32_t value, GLint& location)
+void Graphics::ShaderSystem::InitializeIntLocation(const std::string& name, int value, GLint& location)
 {
     location = this->GetUniformLocation(name);
+    if (location == -1) {
+        IO::Console::Instance().Warning("Failed to initialize int '%s' uniform location!\n", name.c_str());
+    }
     this->LoadInt(location, value);
 }
 
 void Graphics::ShaderSystem::InitializeFloatLocation(const std::string& name, float value, GLint& location)
 {
     location = this->GetUniformLocation(name);
+    if (location == -1) {
+        IO::Console::Instance().Warning("Failed to initialize float '%s' uniform location!\n", name.c_str());
+    }
     this->LoadFloat(location, value);
 }
 
 void Graphics::ShaderSystem::InitializeMatrix3fLocation(const std::string& name, Math::Matrix3f matrix, GLint& location)
 {
     location = this->GetUniformLocation(name);
+    if (location == -1) {
+        IO::Console::Instance().Warning("Failed to initialize Matrix3f '%s' uniform location!\n", name.c_str());
+    }
     this->LoadMatrix3f(location, matrix);
 }
 
 void Graphics::ShaderSystem::InitializeMatrix4fLocation(const std::string& name, Math::Matrix4f matrix, GLint& location)
 {
     location = this->GetUniformLocation(name);
+    if (location == -1) {
+        IO::Console::Instance().Warning("Failed to initialize Matrix4f '%s' uniform location!\n", name.c_str());
+    }
     this->LoadMatrix4f(location, matrix);
 }
 
 void Graphics::ShaderSystem::InitializeVector3fLocation(const std::string& name, Math::Vector3f vector, GLint& location)
 {
     location = this->GetUniformLocation(name);
+    if (location == -1) {
+        IO::Console::Instance().Warning("Failed to initialize Vector3f '%s' uniform location!\n", name.c_str());
+    }
     this->LoadVector3f(location, vector);
 }
 
 void Graphics::ShaderSystem::InitializeVector4fLocation(const std::string& name, Math::Vector4f vector, GLint& location)
 {
     location = this->GetUniformLocation(name);
+    if (location == -1) {
+        IO::Console::Instance().Warning("Failed to initialize Vector4f '%s' uniform location!\n", name.c_str());
+    }
     this->LoadVector4f(location, vector);
 }

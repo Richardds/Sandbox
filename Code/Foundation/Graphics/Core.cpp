@@ -39,7 +39,7 @@ bool Graphics::Core::Setup()
 #endif
 
     glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
-    //glfwWindowHint(GLFW_SAMPLES, 4);
+    glfwWindowHint(GLFW_SAMPLES, 8);
 
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);

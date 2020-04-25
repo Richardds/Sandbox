@@ -72,8 +72,7 @@ void App::RenderApplication::Close()
 
 void App::RenderApplication::OnConfigureContext()
 {
-    // TODO: Setup Context mode
-    // TODO: Set graphics quality settings
+    glEnable(GL_MULTISAMPLE);
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);

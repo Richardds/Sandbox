@@ -56,6 +56,7 @@ bool Graphics::Scene::Load()
     std::shared_ptr<TexturedMesh> terrainMesh = terrainModel->GetMesh("defaultobject");
     terrainMesh->SetDiffuseMap(Util::ResourcesLoader::Instance().LoadTexture("sand_d"));
     terrainMesh->SetNormalMap(Util::ResourcesLoader::Instance().LoadTexture("sand_n"));
+    //terrainMesh->SetSpecularMap(Util::ResourcesLoader::Instance().LoadTexture("sand_s"));
     this->_entities.emplace_back(std::make_shared<Entity>(terrainModel));
 
     // Load and setup player
