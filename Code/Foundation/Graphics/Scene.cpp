@@ -53,20 +53,20 @@ bool Graphics::Scene::Load()
 
     // Setup terrain
     std::shared_ptr<Model> terrainModel = Util::ResourcesLoader::Instance().LoadModel("terrain");
-    std::shared_ptr<Mesh> terrainMesh = terrainModel->GetMesh("default");
+    std::shared_ptr<TexturedMesh> terrainMesh = terrainModel->GetMesh("defaultobject");
     terrainMesh->SetDiffuseMap(Util::ResourcesLoader::Instance().LoadTexture("sand_d"));
     terrainMesh->SetNormalMap(Util::ResourcesLoader::Instance().LoadTexture("sand_n"));
     this->_entities.emplace_back(std::make_shared<Entity>(terrainModel));
 
     // Load and setup player
     std::shared_ptr<Model> playerModel = Util::ResourcesLoader::Instance().LoadModel("arrow");
-    playerModel->GetMesh("default")->SetDiffuseMap(Util::ResourcesLoader::Instance().LoadTexture("arrow"));
+    playerModel->GetMesh("defaultobject")->SetDiffuseMap(Util::ResourcesLoader::Instance().LoadTexture("arrow"));
     this->_player = std::make_shared<Player>(playerModel, Math::Vector3f({ 0.0f, 1.0f, 0.0f }));
     this->_entities.push_back(this->_player);
     
     // Load scene models
     std::shared_ptr<Model> crateModel = Util::ResourcesLoader::Instance().LoadModel("crate");
-    std::shared_ptr<Mesh> crateMesh = crateModel->GetMesh("default");
+    std::shared_ptr<TexturedMesh> crateMesh = crateModel->GetMesh("defaultobject");
     crateMesh->SetDiffuseMap(Util::ResourcesLoader::Instance().LoadTexture("crate_d"));
     crateMesh->SetNormalMap(Util::ResourcesLoader::Instance().LoadTexture("crate_n"));
     this->_entities.push_back(std::make_shared<Entity>(crateModel, Math::Vector3f({ -5.0f, 1.0f, -5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));

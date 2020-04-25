@@ -17,13 +17,13 @@ void Graphics::Model::Render(std::shared_ptr<EntityShader> shader)
 	}
 }
 
-void Graphics::Model::AddMesh(const std::string& name, std::shared_ptr<Mesh> mesh)
+void Graphics::Model::AddMesh(const std::string& name, std::shared_ptr<TexturedMesh> mesh)
 {
 	_assert(State::INITIAL == this->_state);
 	this->_meshes[name] = mesh;
 }
 
-std::shared_ptr<Graphics::Mesh> Graphics::Model::GetMesh(const std::string& name) const
+std::shared_ptr<Graphics::TexturedMesh> Graphics::Model::GetMesh(const std::string& name) const
 {
 	auto mesh = this->_meshes.find(name);
 
@@ -32,7 +32,7 @@ std::shared_ptr<Graphics::Mesh> Graphics::Model::GetMesh(const std::string& name
 	return mesh->second;
 }
 
-std::unordered_map<std::string, std::shared_ptr<Graphics::Mesh>> Graphics::Model::GetMeshes() const
+std::unordered_map<std::string, std::shared_ptr<Graphics::TexturedMesh>> Graphics::Model::GetMeshes() const
 {
 	return this->_meshes;
 }

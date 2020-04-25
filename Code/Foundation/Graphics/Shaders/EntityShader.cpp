@@ -20,6 +20,8 @@ Graphics::EntityShader::EntityShader() :
     _lightColorLocation(0),
     _hasDiffuseMapLocation(0),
     _hasNormalMapLocation(0),
+    _hasSpecularMapLocation(0),
+    _hasMaterialMapLocation(0),
     _projectionMatrix(1.0f),
     _viewMatrix(1.0f)
 {
@@ -55,10 +57,14 @@ void Graphics::EntityShader::InitializeUniformVariables()
 
     this->InitializeBoolLocation("hasDiffuseMap", false, this->_hasDiffuseMapLocation);
     this->InitializeBoolLocation("hasNormalMap", false, this->_hasNormalMapLocation);
+    this->InitializeBoolLocation("hasSpecularlMap", false, this->_hasSpecularMapLocation);
+    this->InitializeBoolLocation("hasMaterialMap", false, this->_hasMaterialMapLocation);
 
     // Setup texture banks
     this->InitializeIntLocation("diffuseMapSampler", EnumToValue(Texture::Bank::DIFFUSE), this->_diffuseMapSamplerLocation);
     this->InitializeIntLocation("normalMapSampler", EnumToValue(Texture::Bank::NORMAL), this->_normalMapSamplerLocation);
+    this->InitializeIntLocation("specularMapSampler", EnumToValue(Texture::Bank::SPECULAR), this->_specularMapSamplerLocation);
+    this->InitializeIntLocation("materialMapSampler", EnumToValue(Texture::Bank::MATERIAL), this->_materialMapSamplerLocation);
 }
 
 void Graphics::EntityShader::SetProjection(float ratio, float fov, float near, float far)
@@ -93,6 +99,16 @@ void Graphics::EntityShader::LoadHasDiffuseMap(bool hasDiffuseMap)
 void Graphics::EntityShader::LoadHasNormalMap(bool hasNormalMap)
 {
     this->LoadBool(this->_hasNormalMapLocation, hasNormalMap);
+}
+
+void Graphics::EntityShader::LoadHasSpecularMap(bool hasSpecularMap)
+{
+    this->LoadBool(this->_hasSpecularMapLocation, hasSpecularMap);
+}
+
+void Graphics::EntityShader::LoadHasMaterialMap(bool hasMaterialMap)
+{
+    this->LoadBool(this->_hasMaterialMapLocation, hasMaterialMap);
 }
 
 Math::Vector3f Graphics::EntityShader::GetScreenWorldPosition(Math::Vector2ui screenPosition) const

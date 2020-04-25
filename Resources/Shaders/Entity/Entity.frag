@@ -9,9 +9,13 @@ struct Material {
 
 uniform sampler2D diffuseMapSampler;
 uniform sampler2D normalMapSampler;
+uniform sampler2D specularMapSampler;
+uniform sampler2D MaterialMapSampler;
 
 uniform bool hasDiffuseMap;
 uniform bool hasNormalMap;
+uniform bool hasSpecularMap;
+uniform bool hasMaterialMap;
 
 in vec2 textureUV;
 in vec3 normal;

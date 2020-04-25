@@ -1,7 +1,8 @@
-#include "OBJLoader.h"
-#include "../ResourcesLoader.h"
+#include <exception>
 
-Util::OBJLoader::OBJLoader() :
+#include "AssimpLoader.h"
+
+Util::AssimpLoader::AssimpLoader() :
     _scene(nullptr),
     _nodeCount(0),
     _meshCount(0)
@@ -12,11 +13,11 @@ Util::OBJLoader::OBJLoader() :
     this->_attributesTemplate.Append(GL_FLOAT, 3);
 }
 
-Util::OBJLoader::~OBJLoader()
+Util::AssimpLoader::~AssimpLoader()
 {
 }
 
-std::shared_ptr<Graphics::Model> Util::OBJLoader::Load(const std::vector<char>& buffer)
+std::shared_ptr<Graphics::Model> Util::AssimpLoader::Load(const std::vector<char>& buffer)
 {
     this->_model = std::make_shared<Graphics::Model>();
 
@@ -31,7 +32,7 @@ std::shared_ptr<Graphics::Model> Util::OBJLoader::Load(const std::vector<char>& 
     );
 
     if (!this->_scene || this->_scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !this->_scene->mRootNode) {
-        return _model;
+        throw new std::runtime_error("Failed to parse model");
     }
 
     this->ProcessNode(this->_scene->mRootNode);
@@ -41,17 +42,13 @@ std::shared_ptr<Graphics::Model> Util::OBJLoader::Load(const std::vector<char>& 
     return _model;
 }
 
-void Util::OBJLoader::ProcessNode(aiNode* node)
+void Util::AssimpLoader::ProcessNode(aiNode* node)
 {
-    uint16_t nodeId = this->_nodeCount++;
+    this->_nodeCount++;
+
     for (uint32_t i = 0; i < node->mNumMeshes; i++) {
         aiMesh* mesh = this->_scene->mMeshes[node->mMeshes[i]];
-        uint16_t meshId = this->_meshCount++;
-
-        //std::string meshName = "mesh" + std::to_string(nodeId) + "_" + std::to_string(meshId);
-        _assert(meshId == 0); // TODO: Multiple mesh model
-        std::string meshName = "default";
-        this->_model->AddMesh(meshName, this->ProcessMesh(mesh));
+        this->_model->AddMesh(mesh->mName.C_Str(), this->ProcessMesh(mesh));
     }
 
     for (uint32_t i = 0; i < node->mNumChildren; i++) {
@@ -59,10 +56,12 @@ void Util::OBJLoader::ProcessNode(aiNode* node)
     }
 }
 
-std::shared_ptr<Graphics::Mesh> Util::OBJLoader::ProcessMesh(aiMesh* mesh)
+std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* mesh)
 {
     std::vector<VertexData> data;
     std::vector<uint32_t> elements;
+
+    this->_meshCount++;
 
     for (uint32_t i = 0; i < mesh->mNumVertices; i++) {
         VertexData vertexData;
@@ -108,5 +107,10 @@ std::shared_ptr<Graphics::Mesh> Util::OBJLoader::ProcessMesh(aiMesh* mesh)
     ebo->Unbind();
     vbo->Unbind();
 
-    return std::make_shared<Graphics::Mesh>(vao, vbo, ebo, static_cast<uint32_t>(elements.size()));
+    std::shared_ptr<Graphics::Mesh> localMesh = std::make_shared<Graphics::Mesh>(vao, vbo, ebo, static_cast<uint32_t>(elements.size()));
+    std::shared_ptr<Graphics::TexturedMesh> texturedMesh = std::make_shared<Graphics::TexturedMesh>(localMesh);
+
+    //texturedMesh->SetDiffuseMap(...);
+
+    return texturedMesh;
 }

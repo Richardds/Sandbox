@@ -5,7 +5,7 @@
 #include "../Core/Debug.h"
 #include "../IO/Console.h"
 #include "../Math/Vector.h"
-#include "Loaders/ObjLoader.h"
+#include "Loaders/AssimpLoader.h"
 #include "Loaders/DirectDrawSurfaceLoader.h"
 
 Util::ResourcesLoader::ResourcesLoader() :
@@ -109,7 +109,7 @@ std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadModel(const std::str
 
     std::streamsize modelFileSize = modelFile.tellg();
     if (modelFileSize == 0) {
-        IO::Console::Instance().Warning("Failed to load model '%s'\n", name.c_str());
+        IO::Console::Instance().Warning("Failed to load model '%s': Model file is empty\n", name.c_str());
         return model;
     }
     modelFile.seekg(0, std::ios::beg);
@@ -118,8 +118,15 @@ std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadModel(const std::str
     modelFile.read(buffer.data(), modelFileSize);
     modelFile.close();
 
-    OBJLoader loader;
-    model = loader.Load(buffer);
+    AssimpLoader loader;
+    
+    try {
+        model = loader.Load(buffer);
+    }
+    catch (const std::runtime_error& e) {
+        IO::Console::Instance().Warning("Failed to load model '%s': %s\n", name.c_str(), e.what());
+        return model;
+    }
 
     this->_models.emplace(name, model);
 

@@ -120,9 +120,6 @@
     <ClCompile Include="Graphics\Scene\Light.cpp">
       <Filter>Graphics\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Util\Loaders\OBJLoader.cpp">
-      <Filter>Util\Loaders</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Texture.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
@@ -149,6 +146,12 @@
     </ClCompile>
     <ClCompile Include="Graphics\VertexAttributeConfig.cpp">
       <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\TexturedMesh.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\Loaders\AssimpLoader.cpp">
+      <Filter>Util\Loaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -245,9 +248,6 @@
     <ClInclude Include="Graphics\Scene\Light.h">
       <Filter>Graphics\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Util\Loaders\OBJLoader.h">
-      <Filter>Util\Loaders</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\Texture.h">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -277,6 +277,12 @@
     </ClInclude>
     <ClInclude Include="Core\Types.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\TexturedMesh.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Loaders\AssimpLoader.h">
+      <Filter>Util\Loaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

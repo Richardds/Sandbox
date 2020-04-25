@@ -34,6 +34,7 @@
     <ClCompile Include="Graphics\Shaders\ShaderSystem.cpp" />
     <ClCompile Include="Graphics\Shaders\UIShader.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
+    <ClCompile Include="Graphics\TexturedMesh.cpp" />
     <ClCompile Include="Graphics\UI\Rectangle.cpp" />
     <ClCompile Include="Graphics\VertexArray.cpp" />
     <ClCompile Include="Graphics\VertexAttributeConfig.cpp" />
@@ -45,7 +46,7 @@
     <ClCompile Include="Timing\Time.cpp" />
     <ClCompile Include="Util\FourCC.cpp" />
     <ClCompile Include="Util\Loaders\DirectDrawSurfaceLoader.cpp" />
-    <ClCompile Include="Util\Loaders\OBJLoader.cpp" />
+    <ClCompile Include="Util\Loaders\AssimpLoader.cpp" />
     <ClCompile Include="Util\ResourcesLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +75,7 @@
     <ClInclude Include="Graphics\Shaders\ShaderSystem.h" />
     <ClInclude Include="Graphics\Shaders\UIShader.h" />
     <ClInclude Include="Graphics\Texture.h" />
+    <ClInclude Include="Graphics\TexturedMesh.h" />
     <ClInclude Include="Graphics\UI\Rectangle.h" />
     <ClInclude Include="Graphics\VertexArray.h" />
     <ClInclude Include="Graphics\VertexAttributeConfig.h" />
@@ -89,7 +91,7 @@
     <ClInclude Include="Timing\Time.h" />
     <ClInclude Include="Util\FourCC.h" />
     <ClInclude Include="Util\Loaders\DirectDrawSurfaceLoader.h" />
-    <ClInclude Include="Util\Loaders\OBJLoader.h" />
+    <ClInclude Include="Util\Loaders\AssimpLoader.h" />
     <ClInclude Include="Util\ResourcesLoader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

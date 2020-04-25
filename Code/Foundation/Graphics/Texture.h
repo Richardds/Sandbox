@@ -19,7 +19,9 @@ namespace Graphics
 
         enum class Bank {
             DIFFUSE = 0,
-            NORMAL = 1
+            NORMAL = 1,
+            SPECULAR = 2,
+            MATERIAL = 3
         };
 
         Texture(GLenum target = GL_TEXTURE_2D);
