@@ -26,9 +26,9 @@ struct Material {
     float shininess;
 };
 
+in vec3 fragmentPosition;
 in vec2 textureUV;
 in vec3 normal;
-in vec3 toLightVector;
 in vec3 toCameraVector;
 in vec4 relativeToCameraPosition;
 in mat3 fromTangentSpace;
@@ -40,7 +40,8 @@ uniform TextureSampler normalMapper;
 uniform TextureSampler specularMapper;
 uniform TextureSampler materialMapper;
 
-uniform Light light;
+uniform int lightsCount;
+uniform Light light[10];
 uniform Fog fog;
 uniform Material material;
 
@@ -48,7 +49,6 @@ void main()
 {
     // Normalize vectors
     vec3 unitNormal = normalize(normal);
-    vec3 unitToLightVector = normalize(toLightVector);
     vec3 unitToCameraVector = normalize(toCameraVector);
 
     // Map diffuse color
@@ -73,20 +73,29 @@ void main()
         materialSpecular = texture(specularMapper.texture, textureUV).r;
     }
 
-    float lightDistance = length(toLightVector);
-    float lightAttenuationFactor = light.attenuation.x + (light.attenuation.y * lightDistance) + (light.attenuation.z * lightDistance * lightDistance);
+    vec3 ambient = vec3(0.0f);
+    vec3 diffuse = vec3(0.0f);
+    vec3 specular = vec3(0.0f);
 
-    // Calculate fragment color using Phong lighting model
-    vec3 ambient = light.ambient * material.ambient;
+    for (int index = 0; index < lightsCount; index++) {
+        vec3 toLightVector = light[index].position - fragmentPosition;
+        vec3 unitToLightVector = normalize(toLightVector);
 
-    float diff = max(dot(normalMapping, unitToLightVector), 0.2f);
-    vec3 diffuse = light.diffuse * (diff * materialDiffuse);
+        float lightDistance = length(toLightVector);
+        float lightAttenuationFactor = light[index].attenuation.x + (light[index].attenuation.y * lightDistance) + (light[index].attenuation.z * lightDistance * lightDistance);
 
-    vec3 reflectedLightDirection = reflect(-unitToLightVector, normalMapping);
-    float spec = pow(max(dot(unitToCameraVector, reflectedLightDirection), 0.0f), material.shininess);
-    vec3 specular = light.specular * (spec * materialSpecular);
+        // Calculate fragment color using Phong lighting model
+        ambient += light[index].ambient * material.ambient;
 
-    vec3 phongModelColor = ambient + (diffuse / lightAttenuationFactor) + (specular / lightAttenuationFactor);
+        float diff = max(dot(normalMapping, unitToLightVector), 0.2f);
+        diffuse += (light[index].diffuse * (diff * materialDiffuse)) / lightAttenuationFactor;
+
+        vec3 reflectedLightDirection = reflect(-unitToLightVector, normalMapping);
+        float spec = pow(max(dot(unitToCameraVector, reflectedLightDirection), 0.0f), material.shininess) / lightAttenuationFactor;
+        specular += light[index].specular * (spec * materialSpecular);
+    }
+
+    vec3 phongModelColor = ambient + diffuse + specular;
 
     // Calculate fragment visibility
     float distanceToCamera = length(relativeToCameraPosition.xyz);
@@ -95,6 +104,6 @@ void main()
     // Fade fragment color by visibility
     vec3 fadedColor = mix(fog.color, phongModelColor, fragmentVisibility);
 
-    //fragmentColor = vec4(fadedColor, 1.0f);
-    fragmentColor = vec4(phongModelColor, 1.0f);
+    fragmentColor = vec4(fadedColor, 1.0f);
+    //fragmentColor = vec4(phongModelColor, 1.0f);
 }

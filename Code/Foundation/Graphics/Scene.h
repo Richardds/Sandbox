@@ -31,7 +31,7 @@ namespace Graphics
         std::shared_ptr<Player> _player;
         std::shared_ptr<TargetedCamera> _camera;
         std::shared_ptr<EntityShader> _entityShader;
-        std::shared_ptr<Light> _light;
+        std::vector<std::shared_ptr<Light>> _lights;
         std::vector<std::shared_ptr<Entity>> _entities;
 
         // UI

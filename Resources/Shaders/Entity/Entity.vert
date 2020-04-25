@@ -13,9 +13,9 @@ layout (location = 1) in vec3 vertexNormal;
 layout (location = 2) in vec2 vertexTextureUV;
 layout (location = 3) in vec3 vertexTangent;
 
+out vec3 fragmentPosition;
 out vec2 textureUV;
 out vec3 normal;
-out vec3 toLightVector;
 out vec3 toCameraVector;
 out vec4 relativeToCameraPosition;
 out mat3 fromTangentSpace;
@@ -26,8 +26,6 @@ uniform mat4 viewMatrixInverse;
 uniform mat4 modelMatrix;
 uniform mat3 normalMatrix;
 
-uniform Light light;
-
 struct TBN {
     vec3 tangent;
     vec3 normal;
@@ -36,16 +34,16 @@ struct TBN {
 
 void main()
 {
+    // Calculate vertex world position
+    fragmentPosition = (modelMatrix * vec4(vertexPosition, 1.0f)).xyz;
+    
     // Pass texture coordinates
     textureUV = vertexTextureUV;
 
-    vec4 vertexWorldPosition = modelMatrix * vec4(vertexPosition, 1.0f);
-    
-    toLightVector = light.position - vertexWorldPosition.xyz;
-    toCameraVector = viewMatrixInverse[3].xyz - vertexWorldPosition.xyz;
-    relativeToCameraPosition = viewMatrix * vertexWorldPosition;
-
     normal = normalMatrix * vertexNormal;
+
+    toCameraVector = viewMatrixInverse[3].xyz - fragmentPosition;
+    relativeToCameraPosition = viewMatrix * vec4(fragmentPosition, 1.0f);
 
     // Tangent basis matrix calculation
     tbn.tangent = normalize(vec3(modelMatrix * vec4(vertexTangent, 0.0f)));

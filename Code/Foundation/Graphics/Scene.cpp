@@ -46,7 +46,11 @@ bool Graphics::Scene::Load()
     this->_entityShader->SetProjection(context->GetRatio(), 70.0f, 0.1f, 1000.0f);
 
     // Setup light
-    this->_light = std::make_shared<Light>(Math::Vector3f(3.0f, 3.0f, 0.0f), Math::Vector3f(1.0f, 1.0f, 1.0f), Math::Vector3f(1.0f, 0.01f, 0.002f));
+    this->_lights.emplace_back(std::make_shared<Light>(Math::Vector3f(0.0f, 10.0f, 0.0f), Math::Vector3f(1.0f, 1.0f, 1.0f), Math::Vector3f(1.0f, 0.01f, 0.05f)));
+
+    this->_lights.emplace_back(std::make_shared<Light>(Math::Vector3f(-5.0f, 3.0f, -5.0f), Math::Vector3f(0.8f, 0.0f, 0.0f), Math::Vector3f(1.0f, 0.01f, 0.05f)));
+    this->_lights.emplace_back(std::make_shared<Light>(Math::Vector3f(5.0f, 3.0f, -5.0f), Math::Vector3f(0.0f, 0.8f, 0.0f), Math::Vector3f(1.0f, 0.01f, 0.05f)));
+    this->_lights.emplace_back(std::make_shared<Light>(Math::Vector3f(0.0f, 3.0f, 5.0f), Math::Vector3f(0.0f, 0.0f, 0.8f), Math::Vector3f(1.0f, 0.01f, 0.05f)));
 
     // Setup camera
     this->_camera = std::make_shared<TargetedCamera>(15.0f);
@@ -81,43 +85,6 @@ bool Graphics::Scene::Load()
     bridgeMesh->SetNormalMap(Util::ResourcesLoader::Instance().LoadTexture("bridge_n"));
     bridgeMesh->SetNormalMap(Util::ResourcesLoader::Instance().LoadTexture("bridge_s"));
     this->_entities.emplace_back(std::make_shared<Entity>(bridgeModel, Math::Vector3f(0.0f, 0.0f, -10.0f)));
-
-    //
-    // Texture debug
-    //
-    //std::shared_ptr<VertexArray> quadVao = std::make_shared<Graphics::VertexArray>();
-    //quadVao->Bind();
-    //
-    //std::shared_ptr<Buffer> quadEbo = std::make_shared<Graphics::Buffer>(GL_ELEMENT_ARRAY_BUFFER);
-    //quadEbo->Bind();
-    //quadEbo->Data<unsigned int>({
-    //    0, 3, 1,
-    //    1, 3, 2
-    //});
-    //
-    //std::shared_ptr<Buffer> quadVbo = std::make_shared<Graphics::Buffer>(GL_ARRAY_BUFFER);
-    //quadVbo->Bind();
-    //quadVbo->Data<GLfloat>({
-    //    0.25f,  0.25f, 0.0f,      1.0f, 1.0f,
-    //    0.25f, -0.25f, 0.0f,      1.0f, 0.0f,
-    //    -0.25f, -0.25f, 0.0f,     0.0f, 0.0f,
-    //    -0.25f,  0.25f, 0.0f,     0.0f, 1.0f
-    //});
-    //
-    //VertexAttributeConfig attributes;
-    //attributes.Append(GL_FLOAT, 3);
-    //attributes.Append(GL_FLOAT, 2);
-    //attributes.Apply(quadVao);
-    //
-    //quadVao->Unbind();
-    //quadEbo->Unbind();
-    //quadVbo->Unbind();
-    //
-    //this->_quad = std::make_shared<Model>();
-    //std::shared_ptr<Mesh> quadMesh = std::make_shared<Mesh>(quadVao, quadVbo, quadEbo, 6);
-    //quadMesh->SetTexture(chinchillenTexture);
-    //this->_quad->AddMesh("default", quadMesh);
-    //this->_quad->FinishLoading();
 
     // Mouse scrolling
     IO::Mouse::Instance().RegisterScrolling([this](float x, float y) {
@@ -161,7 +128,7 @@ void Graphics::Scene::Render()
 {
     _assert(State::RUN == this->_state);
 
-    this->_entityShader->Begin(this->_camera, this->_light);
+    this->_entityShader->Begin(this->_camera, this->_lights);
     for (auto& entity : this->_entities) {
         entity->Render(this->_entityShader);
     }

@@ -76,7 +76,7 @@ void Graphics::ShaderSystem::InitializeBoolLocation(const std::string& name, boo
     if (location == -1) {
         IO::Console::Instance().Warning("Failed to initialize bool '%s' uniform location!\n", name.c_str());
     }
-    this->LoadBool(location, enabled);
+    ShaderProgram::LoadBool(location, enabled);
 }
 
 void Graphics::ShaderSystem::InitializeIntLocation(const std::string& name, int value, GLint& location)
@@ -85,7 +85,7 @@ void Graphics::ShaderSystem::InitializeIntLocation(const std::string& name, int 
     if (location == -1) {
         IO::Console::Instance().Warning("Failed to initialize int '%s' uniform location!\n", name.c_str());
     }
-    this->LoadInt(location, value);
+    ShaderProgram::LoadInt(location, value);
 }
 
 void Graphics::ShaderSystem::InitializeFloatLocation(const std::string& name, float value, GLint& location)
@@ -94,7 +94,7 @@ void Graphics::ShaderSystem::InitializeFloatLocation(const std::string& name, fl
     if (location == -1) {
         IO::Console::Instance().Warning("Failed to initialize float '%s' uniform location!\n", name.c_str());
     }
-    this->LoadFloat(location, value);
+    ShaderProgram::LoadFloat(location, value);
 }
 
 void Graphics::ShaderSystem::InitializeMatrix3fLocation(const std::string& name, Math::Matrix3f matrix, GLint& location)
@@ -103,7 +103,7 @@ void Graphics::ShaderSystem::InitializeMatrix3fLocation(const std::string& name,
     if (location == -1) {
         IO::Console::Instance().Warning("Failed to initialize Matrix3f '%s' uniform location!\n", name.c_str());
     }
-    this->LoadMatrix3f(location, matrix);
+    ShaderProgram::LoadMatrix3f(location, matrix);
 }
 
 void Graphics::ShaderSystem::InitializeMatrix4fLocation(const std::string& name, Math::Matrix4f matrix, GLint& location)
@@ -112,7 +112,7 @@ void Graphics::ShaderSystem::InitializeMatrix4fLocation(const std::string& name,
     if (location == -1) {
         IO::Console::Instance().Warning("Failed to initialize Matrix4f '%s' uniform location!\n", name.c_str());
     }
-    this->LoadMatrix4f(location, matrix);
+    ShaderProgram::LoadMatrix4f(location, matrix);
 }
 
 void Graphics::ShaderSystem::InitializeVector3fLocation(const std::string& name, Math::Vector3f vector, GLint& location)
@@ -121,7 +121,7 @@ void Graphics::ShaderSystem::InitializeVector3fLocation(const std::string& name,
     if (location == -1) {
         IO::Console::Instance().Warning("Failed to initialize Vector3f '%s' uniform location!\n", name.c_str());
     }
-    this->LoadVector3f(location, vector);
+    ShaderProgram::LoadVector3f(location, vector);
 }
 
 void Graphics::ShaderSystem::InitializeVector4fLocation(const std::string& name, Math::Vector4f vector, GLint& location)
@@ -130,5 +130,5 @@ void Graphics::ShaderSystem::InitializeVector4fLocation(const std::string& name,
     if (location == -1) {
         IO::Console::Instance().Warning("Failed to initialize Vector4f '%s' uniform location!\n", name.c_str());
     }
-    this->LoadVector4f(location, vector);
+    ShaderProgram::LoadVector4f(location, vector);
 }

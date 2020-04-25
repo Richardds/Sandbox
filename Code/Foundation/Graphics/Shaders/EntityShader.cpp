@@ -20,11 +20,8 @@ Graphics::EntityShader::EntityShader() :
     _modelMatrixLocation(-1),
     _normalMatrixLocation(-1),
 
-    _lightPositionLocation(-1),
-    _lightAttenuationLocation(-1),
-    _lightAmbientLocation(-1),
-    _lightDiffuseLocation(-1),
-    _lightSpecularLocation(-1),
+    _lightsCountLocation(-1),
+    _lightLocations(),
 
     _fogDensityPosition(-1),
     _fogGradientPosition(-1),
@@ -47,18 +44,13 @@ Graphics::EntityShader::EntityShader() :
 
 Graphics::EntityShader::~EntityShader()
 {
-}
-
-void Graphics::EntityShader::Begin(std::shared_ptr<Graphics::Camera> camera, std::shared_ptr<Graphics::Light> light)
-{
-    this->Use();
-
-    this->SetView(camera);
-    this->LoadLight(light);
-
-    this->LoadMatrix4f(this->_projectionMatrixLocation, this->_projectionMatrix);
-    this->LoadMatrix4f(this->_viewMatrixLocation, this->_viewMatrix);
-    this->LoadMatrix4f(this->_viewMatrixInverseLocation, glm::inverse(this->_viewMatrix));
+    for (int index = 0; index < EntityShader::maxLightCount; index++) {
+        this->_lightLocations[index].position = -1;
+        this->_lightLocations[index].ambient = -1;
+        this->_lightLocations[index].diffuse = -1;
+        this->_lightLocations[index].specular = -1;
+        this->_lightLocations[index].attenuation = -1;
+    }
 }
 
 void Graphics::EntityShader::InitializeUniformVariables()
@@ -69,23 +61,26 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeMatrix4fLocation("modelMatrix", Math::Matrix4f(1.0f), this->_modelMatrixLocation);
     this->InitializeMatrix3fLocation("normalMatrix", Math::Matrix4f(1.0f), this->_normalMatrixLocation);
 
-    // Setup light
-    this->InitializeVector3fLocation("light.position", Math::Vector3f(0.0f), this->_lightPositionLocation);
-    this->InitializeVector3fLocation("light.attenuation", Math::Vector3f(1.0f, 0.0f, 0.0f), this->_lightAttenuationLocation);
-    this->InitializeVector3fLocation("light.ambient", Math::Vector3f(0.1f), this->_lightAmbientLocation);
-    this->InitializeVector3fLocation("light.diffuse", Math::Vector3f(0.5f), this->_lightDiffuseLocation);
-    this->InitializeVector3fLocation("light.specular", Math::Vector3f(1.0f), this->_lightSpecularLocation);
+    // Setup lights
+    this->InitializeIntLocation("lightsCount", 0, this->_lightsCountLocation);
+    for (int index = 0; index < EntityShader::maxLightCount; index++) {
+        this->InitializeVector3fLocation("light[" + std::to_string(index) + "].position", Math::Vector3f(0.0f), this->_lightLocations[index].position);
+        this->InitializeVector3fLocation("light[" + std::to_string(index) + "].ambient", Math::Vector3f(0.0f), this->_lightLocations[index].ambient);
+        this->InitializeVector3fLocation("light[" + std::to_string(index) + "].diffuse", Math::Vector3f(0.0f), this->_lightLocations[index].diffuse);
+        this->InitializeVector3fLocation("light[" + std::to_string(index) + "].specular", Math::Vector3f(0.0f), this->_lightLocations[index].specular);
+        this->InitializeVector3fLocation("light[" + std::to_string(index) + "].attenuation", Math::Vector3f(1.0f, 0.0f, 0.0f), this->_lightLocations[index].attenuation);
+    }
 
     // Setup fog
-    this->InitializeFloatLocation("fog.density", 0.045f, this->_fogDensityPosition);
-    this->InitializeFloatLocation("fog.gradient", 2.5f, this->_fogGradientPosition);
+    this->InitializeFloatLocation("fog.density", 0.035f, this->_fogDensityPosition);
+    this->InitializeFloatLocation("fog.gradient", 10.0f, this->_fogGradientPosition);
     this->InitializeVector3fLocation("fog.color", Math::Vector3f(0.25f, 0.25f, 0.25f), this->_fogColorPosition);
 
     // Setup material
     this->InitializeVector3fLocation("material.ambient", Math::Vector3f(0.4f, 0.2f, 0.25f), this->_materialAmbientLocation);
     this->InitializeVector3fLocation("material.diffuse", Math::Vector3f(0.85f, 0.85f, 0.85f), this->_materialDiffuseLocation);
     this->InitializeFloatLocation("material.specular", 0.5f, this->_materialSpecularLocation);
-    this->InitializeFloatLocation("material.shininess", 32.0f, this->_materialShininessLocation);
+    this->InitializeFloatLocation("material.shininess", 5.0f, this->_materialShininessLocation);
 
     // Setup texture mappers
     this->InitializeBoolLocation("diffuseMapper.enabled", false, this->_diffuseMapperEnabledLocation);
@@ -99,52 +94,73 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeIntLocation("materialMapper.texture", EnumToValue(Texture::Bank::MATERIAL), this->_materialMapperTextureLocation);
 }
 
+void Graphics::EntityShader::Begin(std::shared_ptr<Graphics::Camera> camera, std::vector<std::shared_ptr<Graphics::Light>> lights)
+{
+    this->Use();
+
+    this->SetView(camera);
+
+    int lightsCount = static_cast<int>(lights.size());
+    _assert(EntityShader::maxLightCount > lightsCount - 1);
+    this->LoadInt(this->_lightsCountLocation, lightsCount);
+
+    int index = 0;
+    for (std::shared_ptr<Graphics::Light>& light : lights) {
+        this->LoadLight(index++, light);
+    }
+
+    this->LoadMatrix4f(this->_projectionMatrixLocation, this->_projectionMatrix);
+    this->LoadMatrix4f(this->_viewMatrixLocation, this->_viewMatrix);
+    this->LoadMatrix4f(this->_viewMatrixInverseLocation, glm::inverse(this->_viewMatrix));
+}
+
 void Graphics::EntityShader::SetProjection(float ratio, float fov, float near, float far)
 {
     this->_projectionMatrix = Math::projectionMatrix(ratio, fov, near, far);
 }
 
-void Graphics::EntityShader::SetView(const std::shared_ptr<Graphics::Camera> view)
+void Graphics::EntityShader::SetView(const std::shared_ptr<Graphics::Camera>& view)
 {
     _assert(view);
 
     this->_viewMatrix = Math::viewMatrix(view->getPosition(), view->getRotationX(), view->getRotationY());
 }
 
-void Graphics::EntityShader::LoadLight(const std::shared_ptr<Light> light)
+void Graphics::EntityShader::LoadLight(int index, const std::shared_ptr<Light>& light)
 {
+    _assert(EntityShader::maxLightCount > index);
     Math::Vector3f diffuse = light->GetColor() * 0.75f;
-    this->LoadVector3f(this->_lightPositionLocation, light->getPosition());
-    this->LoadVector3f(this->_lightAmbientLocation, diffuse * 0.2f);
-    this->LoadVector3f(this->_lightDiffuseLocation, diffuse);
-    this->LoadVector3f(this->_lightSpecularLocation, Math::Vector3f(1.0f));
-    this->LoadVector3f(this->_lightAttenuationLocation, light->GetAttenuation());
+    this->LoadVector3f(this->_lightLocations[index].position, light->getPosition());
+    this->LoadVector3f(this->_lightLocations[index].ambient, diffuse * 0.2f);
+    this->LoadVector3f(this->_lightLocations[index].diffuse, diffuse);
+    this->LoadVector3f(this->_lightLocations[index].specular, Math::Vector3f(1.0f));
+    this->LoadVector3f(this->_lightLocations[index].attenuation, light->GetAttenuation());
 }
 
 void Graphics::EntityShader::LoadEntityTransformation(const Math::Matrix4f& modelMatrix)
 {
-    this->LoadMatrix4f(this->_modelMatrixLocation, modelMatrix);
-    this->LoadMatrix3f(this->_normalMatrixLocation, glm::transpose(glm::inverse(modelMatrix)));
+    ShaderProgram::LoadMatrix4f(this->_modelMatrixLocation, modelMatrix);
+    ShaderProgram::LoadMatrix3f(this->_normalMatrixLocation, glm::transpose(glm::inverse(modelMatrix)));
 }
 
 void Graphics::EntityShader::LoadHasDiffuseMap(bool hasDiffuseMap)
 {
-    this->LoadBool(this->_diffuseMapperEnabledLocation, hasDiffuseMap);
+    ShaderProgram::LoadBool(this->_diffuseMapperEnabledLocation, hasDiffuseMap);
 }
 
 void Graphics::EntityShader::LoadHasNormalMap(bool hasNormalMap)
 {
-    this->LoadBool(this->_normalMapperEnabledLocation, hasNormalMap);
+    ShaderProgram::LoadBool(this->_normalMapperEnabledLocation, hasNormalMap);
 }
 
 void Graphics::EntityShader::LoadHasSpecularMap(bool hasSpecularMap)
 {
-    this->LoadBool(this->_specularMapperEnabledLocation, hasSpecularMap);
+    ShaderProgram::LoadBool(this->_specularMapperEnabledLocation, hasSpecularMap);
 }
 
 void Graphics::EntityShader::LoadHasMaterialMap(bool hasMaterialMap)
 {
-    this->LoadBool(this->_materialMapperEnabledLocation, hasMaterialMap);
+    ShaderProgram::LoadBool(this->_materialMapperEnabledLocation, hasMaterialMap);
 }
 
 Math::Vector3f Graphics::EntityShader::GetScreenWorldPosition(Math::Vector2ui screenPosition) const

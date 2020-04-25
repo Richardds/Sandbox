@@ -13,11 +13,11 @@ namespace Graphics
     public:
         EntityShader();
         virtual ~EntityShader();
-        void Begin(std::shared_ptr<Graphics::Camera> camera, std::shared_ptr<Graphics::Light> light);
         void InitializeUniformVariables();
+        void Begin(std::shared_ptr<Graphics::Camera> camera, std::vector<std::shared_ptr<Graphics::Light>> lights);
         void SetProjection(float ratio, float fov, float near, float far);
-        void SetView(const std::shared_ptr<Camera> view);
-        void LoadLight(const std::shared_ptr<Light> light);
+        void SetView(const std::shared_ptr<Camera>& view);
+        void LoadLight(int index, const std::shared_ptr<Light>& light);
         void LoadEntityTransformation(const Math::Matrix4f& modelMatrix);
         void LoadHasDiffuseMap(bool hasDiffuseMap);
         void LoadHasNormalMap(bool hasNormalMap);
@@ -26,6 +26,16 @@ namespace Graphics
         Math::Vector3f GetScreenWorldPosition(Math::Vector2ui screenPosition) const;
 
     private:
+        static const int maxLightCount = 10;
+
+        struct LightUniformLocation {
+            GLint position;
+            GLint attenuation;
+            GLint ambient;
+            GLint diffuse;
+            GLint specular;
+        };
+
         GLint _diffuseMapperTextureLocation;
         GLint _normalMapperTextureLocation;
         GLint _specularMapperTextureLocation;
@@ -37,11 +47,8 @@ namespace Graphics
         GLint _modelMatrixLocation;
         GLint _normalMatrixLocation;
 
-        GLint _lightPositionLocation;
-        GLint _lightAttenuationLocation;
-        GLint _lightAmbientLocation;
-        GLint _lightDiffuseLocation;
-        GLint _lightSpecularLocation;
+        GLint _lightsCountLocation;
+        LightUniformLocation _lightLocations[maxLightCount];
 
         GLint _fogDensityPosition;
         GLint _fogGradientPosition;
