@@ -46,7 +46,7 @@ bool Graphics::Scene::Load()
     this->_entityShader->SetProjection(context->GetRatio(), 70.0f, 0.1f, 1000.0f);
 
     // Setup light
-    this->_light = std::make_shared<Light>(Math::Vector3f(0.0f, 3.0f, 0.0f), Math::Vector3f(1.0f, 1.0f, 1.0f));
+    this->_light = std::make_shared<Light>(Math::Vector3f(3.0f, 3.0f, 0.0f), Math::Vector3f(1.0f, 1.0f, 1.0f), Math::Vector3f(1.0f, 0.01f, 0.002f));
 
     // Setup camera
     this->_camera = std::make_shared<TargetedCamera>(15.0f);
@@ -74,6 +74,13 @@ bool Graphics::Scene::Load()
     this->_entities.push_back(std::make_shared<Entity>(crateModel, Math::Vector3f({ 5.0f, 1.0f, -5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
     this->_entities.push_back(std::make_shared<Entity>(crateModel, Math::Vector3f({ -5.0f, 1.0f, 5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
     this->_entities.push_back(std::make_shared<Entity>(crateModel, Math::Vector3f({ 5.0f, 1.0f, 5.0f }), 0.0f, 0.0f, 0.0f, 1.0f));
+
+    std::shared_ptr<Model> bridgeModel = Util::ResourcesLoader::Instance().LoadModel("bridge");
+    std::shared_ptr<TexturedMesh> bridgeMesh = bridgeModel->GetMesh("defaultobject");
+    bridgeMesh->SetDiffuseMap(Util::ResourcesLoader::Instance().LoadTexture("bridge_d"));
+    bridgeMesh->SetNormalMap(Util::ResourcesLoader::Instance().LoadTexture("bridge_n"));
+    bridgeMesh->SetNormalMap(Util::ResourcesLoader::Instance().LoadTexture("bridge_s"));
+    this->_entities.emplace_back(std::make_shared<Entity>(bridgeModel, Math::Vector3f(0.0f, 0.0f, -10.0f)));
 
     //
     // Texture debug

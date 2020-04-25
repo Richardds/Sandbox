@@ -17,7 +17,7 @@ namespace Graphics
         void InitializeUniformVariables();
         void SetProjection(float ratio, float fov, float near, float far);
         void SetView(const std::shared_ptr<Camera> view);
-        void SetLight(const std::shared_ptr<Light> light);
+        void LoadLight(const std::shared_ptr<Light> light);
         void LoadEntityTransformation(const Math::Matrix4f& modelMatrix);
         void LoadHasDiffuseMap(bool hasDiffuseMap);
         void LoadHasNormalMap(bool hasNormalMap);
@@ -38,7 +38,10 @@ namespace Graphics
         GLint _normalMatrixLocation;
 
         GLint _lightPositionLocation;
-        GLint _lightColorLocation;
+        GLint _lightAttenuationLocation;
+        GLint _lightAmbientLocation;
+        GLint _lightDiffuseLocation;
+        GLint _lightSpecularLocation;
 
         GLint _fogDensityPosition;
         GLint _fogGradientPosition;
@@ -47,7 +50,7 @@ namespace Graphics
         GLint _materialAmbientLocation;
         GLint _materialDiffuseLocation;
         GLint _materialSpecularLocation;
-        GLint _materialReflectivityLocation;
+        GLint _materialShininessLocation;
 
         GLint _diffuseMapperEnabledLocation;
         GLint _normalMapperEnabledLocation;
