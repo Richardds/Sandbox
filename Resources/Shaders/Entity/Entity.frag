@@ -1,7 +1,7 @@
 #version 430 core
 
 struct TextureSampler {
-    sampler2D mapper;
+    sampler2D texture;
     bool enabled;
 };
 
@@ -58,7 +58,7 @@ void main()
     // Map diffuse color
     vec4 diffuseMapping = vec4(defaultDiffuseMapping, 1.0f);
     if (diffuseMapper.enabled) {
-        diffuseMapping = texture(diffuseMapper.mapper, textureUV);
+        diffuseMapping = texture(diffuseMapper.texture, textureUV);
         // Discard fragment when mapped to invisible
         if (diffuseMapping.r == 1.0f && diffuseMapping.b == 1.0f) {
             discard;
@@ -68,13 +68,13 @@ void main()
     // Map normal vector
     vec3 normalMapping = unitNormal;
     if (normalMapper.enabled) {
-        normalMapping = normalize(fromTangentSpace * (2.0f * texture(normalMapper.mapper, textureUV, -1.0f) - 1.0f).rgb);
+        normalMapping = normalize(fromTangentSpace * (2.0f * texture(normalMapper.texture, textureUV, -1.0f) - 1.0f).rgb);
     }
 
     // Map specular strength
     float specularMapping = defaultSpecularMapping;
     if (specularMapper.enabled) {
-        specularMapping = texture(specularMapper.mapper, textureUV).r;
+        specularMapping = texture(specularMapper.texture, textureUV).r;
     }
 
     // Calculate fragment color using Phong lighting model

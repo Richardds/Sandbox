@@ -26,10 +26,10 @@ namespace Graphics
         Math::Vector3f GetScreenWorldPosition(Math::Vector2ui screenPosition) const;
 
     private:
-        GLint _diffuseMapperLocation;
-        GLint _normalMapperLocation;
-        GLint _specularMapperLocation;
-        GLint _materialMapperLocation;
+        GLint _diffuseMapperTextureLocation;
+        GLint _normalMapperTextureLocation;
+        GLint _specularMapperTextureLocation;
+        GLint _materialMapperTextureLocation;
 
         GLint _projectionMatrixLocation;
         GLint _viewMatrixLocation;
@@ -44,10 +44,15 @@ namespace Graphics
         GLint _fogGradientPosition;
         GLint _fogColorPosition;
 
-        GLint _enableDiffuseMapperLocation;
-        GLint _enableNormalMapperLocation;
-        GLint _enableSpecularMapperLocation;
-        GLint _enableMaterialMapperLocation;
+        GLint _materialAmbientLocation;
+        GLint _materialDiffuseLocation;
+        GLint _materialSpecularLocation;
+        GLint _materialReflectivityLocation;
+
+        GLint _diffuseMapperEnabledLocation;
+        GLint _normalMapperEnabledLocation;
+        GLint _specularMapperEnabledLocation;
+        GLint _materialMapperEnabledLocation;
 
         Math::Matrix4f _projectionMatrix;
         Math::Matrix4f _viewMatrix;

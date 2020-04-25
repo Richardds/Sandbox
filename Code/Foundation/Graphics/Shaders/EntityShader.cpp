@@ -9,21 +9,34 @@
 
 Graphics::EntityShader::EntityShader() :
     ShaderSystem("Entity"),
-    _diffuseMapperLocation(-1),
-    _normalMapperLocation(-1),
-    _specularMapperLocation(-1),
-    _materialMapperLocation(-1),
+    _diffuseMapperTextureLocation(-1),
+    _normalMapperTextureLocation(-1),
+    _specularMapperTextureLocation(-1),
+    _materialMapperTextureLocation(-1),
+
     _projectionMatrixLocation(-1),
     _viewMatrixLocation(-1),
     _viewMatrixInverseLocation(-1),
     _modelMatrixLocation(-1),
     _normalMatrixLocation(-1),
+
     _lightPositionLocation(-1),
     _lightColorLocation(-1),
-    _enableDiffuseMapperLocation(-1),
-    _enableNormalMapperLocation(-1),
-    _enableSpecularMapperLocation(-1),
-    _enableMaterialMapperLocation(-1),
+
+    _fogDensityPosition(-1),
+    _fogGradientPosition(-1),
+    _fogColorPosition(-1),
+
+    _materialAmbientLocation(-1),
+    _materialDiffuseLocation(-1),
+    _materialSpecularLocation(-1),
+    _materialReflectivityLocation(-1),
+
+    _diffuseMapperEnabledLocation(-1),
+    _normalMapperEnabledLocation(-1),
+    _specularMapperEnabledLocation(-1),
+    _materialMapperEnabledLocation(-1),
+
     _projectionMatrix(1.0f),
     _viewMatrix(1.0f)
 {
@@ -53,6 +66,7 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeMatrix4fLocation("modelMatrix", Math::Matrix4f(1.0f), this->_modelMatrixLocation);
     this->InitializeMatrix3fLocation("normalMatrix", Math::Matrix4f(1.0f), this->_normalMatrixLocation);
 
+    // Setup light
     this->InitializeVector3fLocation("light.position", Math::Vector3f(0.0f), this->_lightPositionLocation);
     this->InitializeVector3fLocation("light.color", Math::Vector3f(1.0f), this->_lightColorLocation);
 
@@ -61,16 +75,22 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeFloatLocation("fog.gradient", 2.5f, this->_fogGradientPosition);
     this->InitializeVector3fLocation("fog.color", Math::Vector3f(0.25f, 0.25f, 0.25f), this->_fogColorPosition);
 
-    this->InitializeBoolLocation("diffuseMapper.enabled", false, this->_enableDiffuseMapperLocation);
-    this->InitializeBoolLocation("normalMapper.enabled", false, this->_enableNormalMapperLocation);
-    this->InitializeBoolLocation("specularMapper.enabled", false, this->_enableSpecularMapperLocation);
-    this->InitializeBoolLocation("materialMapper.enabled", false, this->_enableMaterialMapperLocation);
+    // Setup material
+    this->InitializeVector3fLocation("material.ambient", Math::Vector3f(0.0f), this->_materialAmbientLocation); // TODO
+    this->InitializeVector3fLocation("material.diffuse", Math::Vector3f(0.85f, 0.85f, 0.85f), this->_materialDiffuseLocation);
+    this->InitializeVector3fLocation("material.specular", Math::Vector3f(0.0f), this->_materialSpecularLocation);
+    this->InitializeFloatLocation("material.reflectivity", 0.5f, this->_materialReflectivityLocation);
 
-    // Setup texture banks
-    this->InitializeIntLocation("diffuseMapper.mapper", EnumToValue(Texture::Bank::DIFFUSE), this->_diffuseMapperLocation);
-    this->InitializeIntLocation("normalMapper.mapper", EnumToValue(Texture::Bank::NORMAL), this->_normalMapperLocation);
-    this->InitializeIntLocation("specularMapper.mapper", EnumToValue(Texture::Bank::SPECULAR), this->_specularMapperLocation);
-    this->InitializeIntLocation("materialMapper.mapper", EnumToValue(Texture::Bank::MATERIAL), this->_materialMapperLocation);
+    // Setup texture mappers
+    this->InitializeBoolLocation("diffuseMapper.enabled", false, this->_diffuseMapperEnabledLocation);
+    this->InitializeBoolLocation("normalMapper.enabled", false, this->_normalMapperEnabledLocation);
+    this->InitializeBoolLocation("specularMapper.enabled", false, this->_specularMapperEnabledLocation);
+    this->InitializeBoolLocation("materialMapper.enabled", false, this->_materialMapperEnabledLocation);
+
+    this->InitializeIntLocation("diffuseMapper.texture", EnumToValue(Texture::Bank::DIFFUSE), this->_diffuseMapperTextureLocation);
+    this->InitializeIntLocation("normalMapper.texture", EnumToValue(Texture::Bank::NORMAL), this->_normalMapperTextureLocation);
+    this->InitializeIntLocation("specularMapper.texture", EnumToValue(Texture::Bank::SPECULAR), this->_specularMapperTextureLocation);
+    this->InitializeIntLocation("materialMapper.texture", EnumToValue(Texture::Bank::MATERIAL), this->_materialMapperTextureLocation);
 }
 
 void Graphics::EntityShader::SetProjection(float ratio, float fov, float near, float far)
@@ -99,22 +119,22 @@ void Graphics::EntityShader::LoadEntityTransformation(const Math::Matrix4f& mode
 
 void Graphics::EntityShader::LoadHasDiffuseMap(bool hasDiffuseMap)
 {
-    this->LoadBool(this->_enableDiffuseMapperLocation, hasDiffuseMap);
+    this->LoadBool(this->_diffuseMapperEnabledLocation, hasDiffuseMap);
 }
 
 void Graphics::EntityShader::LoadHasNormalMap(bool hasNormalMap)
 {
-    this->LoadBool(this->_enableNormalMapperLocation, hasNormalMap);
+    this->LoadBool(this->_normalMapperEnabledLocation, hasNormalMap);
 }
 
 void Graphics::EntityShader::LoadHasSpecularMap(bool hasSpecularMap)
 {
-    this->LoadBool(this->_enableSpecularMapperLocation, hasSpecularMap);
+    this->LoadBool(this->_specularMapperEnabledLocation, hasSpecularMap);
 }
 
 void Graphics::EntityShader::LoadHasMaterialMap(bool hasMaterialMap)
 {
-    this->LoadBool(this->_enableMaterialMapperLocation, hasMaterialMap);
+    this->LoadBool(this->_materialMapperEnabledLocation, hasMaterialMap);
 }
 
 Math::Vector3f Graphics::EntityShader::GetScreenWorldPosition(Math::Vector2ui screenPosition) const
