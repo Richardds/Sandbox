@@ -135,12 +135,39 @@ std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* 
         texturedMesh->SetSpecularMap(texture);
     }
 
+    texturedMesh->SetMaterial(this->ParseMaterial(material));
+
     return texturedMesh;
 }
 
-std::string Util::AssimpLoader::ParseAssetName(const aiString& assetPath)
+std::string Util::AssimpLoader::ParseAssetName(const aiString& assetPath) const
 {
     std::string pathStr(assetPath.C_Str());
     size_t extIndex = pathStr.find_last_of('.');
     return pathStr.substr(0, extIndex);
+}
+
+Math::Vector3f Util::AssimpLoader::ParseColor(const aiColor3D& assimpColor) const
+{
+    return Math::Vector3f(assimpColor.r, assimpColor.g, assimpColor.b);
+}
+
+Graphics::Material Util::AssimpLoader::ParseMaterial(const aiMaterial* assimpMaterial) const
+{
+    aiColor3D assimpAmbientColor;
+    assimpMaterial->Get(AI_MATKEY_COLOR_AMBIENT, assimpAmbientColor);
+    Math::Vector3f ambient = this->ParseColor(assimpAmbientColor);
+
+    aiColor3D assimpDiffuseColor;
+    assimpMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, assimpDiffuseColor);
+    Math::Vector3f diffuse = this->ParseColor(assimpDiffuseColor);
+
+    aiColor3D assimpSpecularColor;
+    assimpMaterial->Get(AI_MATKEY_COLOR_SPECULAR, assimpSpecularColor);
+    Math::Vector3f specular = this->ParseColor(assimpSpecularColor);
+
+    float reflectivity;
+    assimpMaterial->Get(AI_MATKEY_SHININESS, reflectivity);
+
+    return Graphics::Material(diffuse, reflectivity, specular, ambient);
 }

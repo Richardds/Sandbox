@@ -22,18 +22,18 @@ bool GunnerBoi::GunnerBoiScene::Load()
     _assert(Graphics::Scene::Load());
 
     // Setup camera
-    this->_camera = std::make_shared<Graphics::TargetedCamera>(15.0f);
+    this->_camera = std::make_shared<Graphics::TargetedCamera>(10.0f);
 
     // Setup light
     std::shared_ptr<Graphics::Light> pointLight = this->AddLight("point_light");
-    pointLight->setPosition(Math::Vector3f(-5.0f, 3.0f, -5.0f));
-    pointLight->SetAttenuation(Math::Vector3f(1.0f, 0.01f, 0.05f));
+    pointLight->setPosition(Math::Vector3f(0.0f, 10.0f, 0.0f));
+    pointLight->SetAttenuation(Math::Vector3f(this->_lightA, this->_lightB, this->_lightC));
 
     // Setup terrain
     std::shared_ptr<Graphics::Entity> terrain = this->AddEntity("terrain", "terrain");
 
     // Load player
-    this->_player = this->SetupPlayer("arrow");
+    this->_player = this->SetupPlayer("sphere");
 
     // Load scene models
     std::shared_ptr<Graphics::Entity> crate1 = this->AddEntity("crate_01", "crate");
@@ -45,8 +45,8 @@ bool GunnerBoi::GunnerBoiScene::Load()
     std::shared_ptr<Graphics::Entity> crate4 = this->AddEntity("crate_04", "crate");
     crate4->setPosition(Math::Vector3f(5.0f, 0.0f, 5.0f));
 
-    std::shared_ptr<Graphics::Entity> bridge = this->AddEntity("bridge", "bridge");
-    bridge->setPosition(Math::Vector3f(0.0f, 0.0f, -10.0f));
+    //std::shared_ptr<Graphics::Entity> bridge = this->AddEntity("bridge", "bridge");
+    //bridge->setPosition(Math::Vector3f(0.0f, 0.0f, -10.0f));
 
     // Mouse scrolling
     IO::Mouse::Instance().RegisterScrolling([this](float x, float y) {
@@ -82,6 +82,8 @@ void GunnerBoi::GunnerBoiScene::Update(Timing::Duration delta)
 void GunnerBoi::GunnerBoiScene::Render()
 {
     Graphics::Scene::Render();
+
+    this->_player->Render(this->_entityShader);
 }
 
 std::shared_ptr<Graphics::Player> GunnerBoi::GunnerBoiScene::SetupPlayer(const std::string& resourceName)

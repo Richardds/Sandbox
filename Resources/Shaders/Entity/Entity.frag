@@ -5,7 +5,14 @@ struct TextureSampler {
     bool enabled;
 };
 
-struct Light {
+struct DirectionalLight {
+    vec3 direction;
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
+
+struct PointLight {
     vec3 position;
     vec3 attenuation;
     vec3 ambient;
@@ -22,8 +29,8 @@ struct Fog {
 struct Material {
     vec3 ambient;
     vec3 diffuse;
-    float specular;
-    float shininess;
+    vec3 specular;
+    float reflectivity;
 };
 
 in vec3 fragmentPosition;
@@ -41,7 +48,8 @@ uniform TextureSampler specularMapper;
 uniform TextureSampler materialMapper;
 
 uniform int lightsCount;
-uniform Light light[10];
+uniform DirectionalLight sun;
+uniform PointLight light[10];
 uniform Fog fog;
 uniform Material material;
 
@@ -68,9 +76,9 @@ void main()
     }
 
     // Map specular strength
-    float materialSpecular = material.specular;
+    vec3 materialSpecular = material.specular;
     if (specularMapper.enabled) {
-        materialSpecular = texture(specularMapper.texture, textureUV).r;
+        materialSpecular = texture(specularMapper.texture, textureUV).rgb;
     }
 
     vec3 ambient = vec3(0.0f);
@@ -91,7 +99,7 @@ void main()
         diffuse += (light[index].diffuse * (diff * materialDiffuse)) / lightAttenuationFactor;
 
         vec3 reflectedLightDirection = reflect(-unitToLightVector, normalMapping);
-        float spec = pow(max(dot(unitToCameraVector, reflectedLightDirection), 0.0f), material.shininess) / lightAttenuationFactor;
+        float spec = pow(max(dot(unitToCameraVector, reflectedLightDirection), 0.0f), material.reflectivity) / lightAttenuationFactor;
         specular += light[index].specular * (spec * materialSpecular);
     }
 
@@ -104,6 +112,6 @@ void main()
     // Fade fragment color by visibility
     vec3 fadedColor = mix(fog.color, phongModelColor, fragmentVisibility);
 
-    fragmentColor = vec4(phongModelColor, 1.0f);
-    //fragmentColor = vec4(fadedColor, 1.0f);
+    //fragmentColor = vec4(phongModelColor, 1.0f);
+    fragmentColor = vec4(fadedColor, 1.0f);
 }

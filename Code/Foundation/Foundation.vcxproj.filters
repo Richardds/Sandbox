@@ -153,6 +153,18 @@
     <ClCompile Include="Util\Loaders\AssimpLoader.cpp">
       <Filter>Util\Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\Shaders\DepthShader.cpp">
+      <Filter>Graphics\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\FrameBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\ShadowFrameBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Material.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Debug.h">
@@ -283,6 +295,18 @@
     </ClInclude>
     <ClInclude Include="Util\Loaders\AssimpLoader.h">
       <Filter>Util\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Shaders\DepthShader.h">
+      <Filter>Graphics\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\FrameBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ShadowFrameBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Material.h">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

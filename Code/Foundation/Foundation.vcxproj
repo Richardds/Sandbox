@@ -19,7 +19,9 @@
     <ClCompile Include="Graphics\Attributes\HasScale.cpp" />
     <ClCompile Include="Graphics\Buffer.cpp" />
     <ClCompile Include="Graphics\Core.cpp" />
+    <ClCompile Include="Graphics\FrameBuffer.cpp" />
     <ClCompile Include="Graphics\Generators\TerrainGenerator.cpp" />
+    <ClCompile Include="Graphics\Material.cpp" />
     <ClCompile Include="Graphics\Mesh.cpp" />
     <ClCompile Include="Graphics\Model.cpp" />
     <ClCompile Include="Graphics\Scene.cpp" />
@@ -30,9 +32,11 @@
     <ClCompile Include="Graphics\Scene\TargetedCamera.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
     <ClCompile Include="Graphics\ShaderProgram.cpp" />
+    <ClCompile Include="Graphics\Shaders\DepthShader.cpp" />
     <ClCompile Include="Graphics\Shaders\EntityShader.cpp" />
     <ClCompile Include="Graphics\Shaders\ShaderSystem.cpp" />
     <ClCompile Include="Graphics\Shaders\UIShader.cpp" />
+    <ClCompile Include="Graphics\ShadowFrameBuffer.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\TexturedMesh.cpp" />
     <ClCompile Include="Graphics\UI\Rectangle.cpp" />
@@ -60,7 +64,9 @@
     <ClInclude Include="Graphics\Attributes\HasScale.h" />
     <ClInclude Include="Graphics\Buffer.h" />
     <ClInclude Include="Graphics\Core.h" />
+    <ClInclude Include="Graphics\FrameBuffer.h" />
     <ClInclude Include="Graphics\Generators\TerrainGenerator.h" />
+    <ClInclude Include="Graphics\Material.h" />
     <ClInclude Include="Graphics\Mesh.h" />
     <ClInclude Include="Graphics\Model.h" />
     <ClInclude Include="Graphics\Scene.h" />
@@ -71,9 +77,11 @@
     <ClInclude Include="Graphics\Scene\TargetedCamera.h" />
     <ClInclude Include="Graphics\Shader.h" />
     <ClInclude Include="Graphics\ShaderProgram.h" />
+    <ClInclude Include="Graphics\Shaders\DepthShader.h" />
     <ClInclude Include="Graphics\Shaders\EntityShader.h" />
     <ClInclude Include="Graphics\Shaders\ShaderSystem.h" />
     <ClInclude Include="Graphics\Shaders\UIShader.h" />
+    <ClInclude Include="Graphics\ShadowFrameBuffer.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Graphics\TexturedMesh.h" />
     <ClInclude Include="Graphics\UI\Rectangle.h" />

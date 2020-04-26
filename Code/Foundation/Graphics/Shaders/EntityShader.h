@@ -4,6 +4,7 @@
 #include "../Scene/Camera.h"
 #include "../Scene/Light.h"
 #include "../../Math/Matrix.h"
+#include "../Material.h"
 
 namespace Graphics
 {
@@ -19,6 +20,7 @@ namespace Graphics
         void SetView(const std::shared_ptr<Camera>& view);
         void LoadLight(int index, const std::shared_ptr<Light>& light);
         void LoadEntityTransformation(const Math::Matrix4f& modelMatrix);
+        void LoadMaterial(const Material& material);
         void LoadHasDiffuseMap(bool hasDiffuseMap);
         void LoadHasNormalMap(bool hasNormalMap);
         void LoadHasSpecularMap(bool hasSpecularMap);
@@ -28,7 +30,14 @@ namespace Graphics
     private:
         static const int maxLightCount = 10;
 
-        struct LightUniformLocation {
+        struct DirectionalLightLocation {
+            GLint direction;
+            GLint ambient;
+            GLint diffuse;
+            GLint specular;
+        };
+
+        struct PointLightLocation {
             GLint position;
             GLint attenuation;
             GLint ambient;
@@ -47,8 +56,9 @@ namespace Graphics
         GLint _modelTransformationLocation;
         GLint _normalTransformationLocation;
 
+        DirectionalLightLocation _sunLocation;
         GLint _lightsCountLocation;
-        LightUniformLocation _lightLocations[maxLightCount];
+        PointLightLocation _lightLocations[maxLightCount];
 
         GLint _fogDensityPosition;
         GLint _fogGradientPosition;
@@ -57,7 +67,7 @@ namespace Graphics
         GLint _materialAmbientLocation;
         GLint _materialDiffuseLocation;
         GLint _materialSpecularLocation;
-        GLint _materialShininessLocation;
+        GLint _materialReflectivityLocation;
 
         GLint _diffuseMapperEnabledLocation;
         GLint _normalMapperEnabledLocation;

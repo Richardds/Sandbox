@@ -1,13 +1,5 @@
 #version 430 core
 
-struct Light {
-    vec3 position;
-    vec3 attenuation;
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
-};
-
 layout (location = 0) in vec3 vertexPosition;
 layout (location = 1) in vec3 vertexNormal;
 layout (location = 2) in vec2 vertexTextureUV;

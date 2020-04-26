@@ -20,6 +20,7 @@ Graphics::EntityShader::EntityShader() :
     _modelTransformationLocation(-1),
     _normalTransformationLocation(-1),
 
+    _sunLocation(),
     _lightsCountLocation(-1),
     _lightLocations(),
 
@@ -30,7 +31,7 @@ Graphics::EntityShader::EntityShader() :
     _materialAmbientLocation(-1),
     _materialDiffuseLocation(-1),
     _materialSpecularLocation(-1),
-    _materialShininessLocation(-1),
+    _materialReflectivityLocation(-1),
 
     _diffuseMapperEnabledLocation(-1),
     _normalMapperEnabledLocation(-1),
@@ -44,6 +45,11 @@ Graphics::EntityShader::EntityShader() :
 
 Graphics::EntityShader::~EntityShader()
 {
+    this->_sunLocation.direction = -1;
+    this->_sunLocation.ambient = -1;
+    this->_sunLocation.diffuse = -1;
+    this->_sunLocation.specular = -1;
+
     for (int index = 0; index < EntityShader::maxLightCount; index++) {
         this->_lightLocations[index].position = -1;
         this->_lightLocations[index].ambient = -1;
@@ -61,7 +67,13 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeMatrix4fLocation("modelTransformation", Math::Matrix4f(1.0f), this->_modelTransformationLocation);
     this->InitializeMatrix3fLocation("normalTransformation", Math::Matrix4f(1.0f), this->_normalTransformationLocation);
 
-    // Setup lights
+    // Setup sun
+    this->InitializeVector3fLocation("sun.direction", Math::Vector3f(-1.0f, -1.0f, 0.0f), this->_sunLocation.direction);
+    this->InitializeVector3fLocation("sun.ambient", Math::Vector3f(0.25f), this->_sunLocation.direction);
+    this->InitializeVector3fLocation("sun.diffuse", Math::Vector3f(1.0f), this->_sunLocation.direction);
+    this->InitializeVector3fLocation("sun.specular", Math::Vector3f(1.0f), this->_sunLocation.direction);
+
+    // Setup point lights
     this->InitializeIntLocation("lightsCount", 0, this->_lightsCountLocation);
     for (int index = 0; index < EntityShader::maxLightCount; index++) {
         this->InitializeVector3fLocation("light[" + std::to_string(index) + "].position", Math::Vector3f(0.0f), this->_lightLocations[index].position);
@@ -74,13 +86,13 @@ void Graphics::EntityShader::InitializeUniformVariables()
     // Setup fog
     this->InitializeFloatLocation("fog.density", 0.035f, this->_fogDensityPosition);
     this->InitializeFloatLocation("fog.gradient", 10.0f, this->_fogGradientPosition);
-    this->InitializeVector3fLocation("fog.color", Math::Vector3f(0.25f), this->_fogColorPosition);
+    this->InitializeVector3fLocation("fog.color", Math::Vector3f(0.0f), this->_fogColorPosition);
 
     // Setup material
     this->InitializeVector3fLocation("material.ambient", Math::Vector3f(0.25f), this->_materialAmbientLocation);
     this->InitializeVector3fLocation("material.diffuse", Math::Vector3f(0.85f), this->_materialDiffuseLocation);
-    this->InitializeFloatLocation("material.specular", 0.5f, this->_materialSpecularLocation);
-    this->InitializeFloatLocation("material.shininess", 5.0f, this->_materialShininessLocation);
+    this->InitializeVector3fLocation("material.specular", Math::Vector3f(0.5f), this->_materialSpecularLocation);
+    this->InitializeFloatLocation("material.reflectivity", 5.0f, this->_materialReflectivityLocation);
 
     // Setup texture mappers
     this->InitializeBoolLocation("diffuseMapper.enabled", false, this->_diffuseMapperEnabledLocation);
@@ -141,6 +153,14 @@ void Graphics::EntityShader::LoadEntityTransformation(const Math::Matrix4f& mode
 {
     ShaderProgram::LoadMatrix4f(this->_modelTransformationLocation, modelMatrix);
     ShaderProgram::LoadMatrix3f(this->_normalTransformationLocation, glm::transpose(glm::inverse(modelMatrix)));
+}
+
+void Graphics::EntityShader::LoadMaterial(const Material& material)
+{
+    this->LoadVector3f(this->_materialAmbientLocation, material.GetAmbient());
+    this->LoadVector3f(this->_materialDiffuseLocation, material.GetDiffuse());
+    this->LoadVector3f(this->_materialSpecularLocation, material.GetSpecular());
+    this->LoadFloat(this->_materialReflectivityLocation, material.GetReflectivity());
 }
 
 void Graphics::EntityShader::LoadHasDiffuseMap(bool hasDiffuseMap)
