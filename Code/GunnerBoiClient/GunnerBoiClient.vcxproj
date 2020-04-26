@@ -96,11 +96,13 @@
   <ItemGroup>
     <ClCompile Include="App\GunnerBoiApplication.cpp" />
     <ClCompile Include="Game\GunnerBoiScene.cpp" />
+    <ClCompile Include="Game\Scene\Boi.cpp" />
     <ClCompile Include="GunnerBoiClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\GunnerBoiApplication.h" />
     <ClInclude Include="Game\GunnerBoiScene.h" />
+    <ClInclude Include="Game\Scene\Boi.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

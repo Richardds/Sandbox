@@ -8,6 +8,9 @@
     <ClCompile Include="Game\GunnerBoiScene.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scene\Boi.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="App">
@@ -16,6 +19,9 @@
     <Filter Include="Game">
       <UniqueIdentifier>{bf2f019f-7662-40cd-837b-6c94082b95c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Scene">
+      <UniqueIdentifier>{ade997ed-6f5a-43b3-9407-529a5ad70d42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\GunnerBoiApplication.h">
@@ -23,6 +29,9 @@
     </ClInclude>
     <ClInclude Include="Game\GunnerBoiScene.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Boi.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

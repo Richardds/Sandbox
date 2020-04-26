@@ -12,18 +12,25 @@ namespace Graphics
     class Entity : public HasPosition, public HasRotation, public HasScale
     {
     public:
-        Entity(std::shared_ptr<Model> model);
+        Entity();
+        Entity(Math::Vector3f position);
         virtual ~Entity();
+        std::shared_ptr<Model> GetModel() const;
+        void SetModel(std::shared_ptr<Model> model);
         virtual void Render(std::shared_ptr<EntityShader> shader);
-        std::shared_ptr<Model> getModel() const;
 
     private:
         std::shared_ptr<Model> _model;
     };
 
-    inline std::shared_ptr<Model> Entity::getModel() const
+    inline std::shared_ptr<Model> Entity::GetModel() const
     {
         return this->_model;
+    }
+
+    inline void Entity::SetModel(std::shared_ptr<Model> model)
+    {
+        this->_model = model;
     }
 
 }

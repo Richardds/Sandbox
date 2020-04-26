@@ -45,9 +45,6 @@ bool GunnerBoi::GunnerBoiScene::Load()
     std::shared_ptr<Graphics::Entity> crate4 = this->AddEntity("crate_04", "crate");
     crate4->setPosition(Math::Vector3f(5.0f, 0.0f, 5.0f));
 
-    //std::shared_ptr<Graphics::Entity> bridge = this->AddEntity("bridge", "bridge");
-    //bridge->setPosition(Math::Vector3f(0.0f, 0.0f, -10.0f));
-
     // Mouse scrolling
     IO::Mouse::Instance().RegisterScrolling([this](float x, float y) {
         this->_camera->IncreaseDistance(y);
@@ -86,8 +83,10 @@ void GunnerBoi::GunnerBoiScene::Render()
     this->_player->Render(this->_entityShader);
 }
 
-std::shared_ptr<Graphics::Player> GunnerBoi::GunnerBoiScene::SetupPlayer(const std::string& resourceName)
+std::shared_ptr<GunnerBoi::Boi> GunnerBoi::GunnerBoiScene::SetupPlayer(const std::string& resourceName)
 {
-    std::shared_ptr<Graphics::Model> playerModel = Util::ResourcesLoader::Instance().LoadModel(resourceName);
-    return std::make_shared<Graphics::Player>(playerModel);
+    std::shared_ptr<Boi> player = std::make_shared<Boi>();
+    std::shared_ptr<Graphics::Model> model = Util::ResourcesLoader::Instance().LoadModel(resourceName);
+    player->SetModel(model);
+    return player;
 }

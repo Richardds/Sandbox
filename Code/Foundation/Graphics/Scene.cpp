@@ -76,8 +76,9 @@ std::shared_ptr<Graphics::Light> Graphics::Scene::AddLight(const std::string& li
 
 std::shared_ptr<Graphics::Entity> Graphics::Scene::AddEntity(const std::string& entityName, const std::string& resourceName)
 {
+    std::shared_ptr<Graphics::Entity> entity = std::make_shared<Graphics::Entity>();
     std::shared_ptr<Graphics::Model> model = Util::ResourcesLoader::Instance().LoadModel(resourceName);
-    std::shared_ptr<Graphics::Entity> entity = std::make_shared<Graphics::Entity>(model);
+    entity->SetModel(model);
     this->_entities[entityName] = entity;
     return entity;
 }

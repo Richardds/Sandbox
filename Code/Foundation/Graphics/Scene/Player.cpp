@@ -4,15 +4,13 @@
 #include "../../Math/Utils.h"
 #include "../../Core/Debug.h"
 
-Graphics::Player::Player(std::shared_ptr<Model> model) :
-    Entity(model)
+Graphics::Player::Player()
 {
 }
 
-Graphics::Player::Player(std::shared_ptr<Model> model, Math::Vector3f position) :
-    Entity(model)
+Graphics::Player::Player(Math::Vector3f position) :
+    Entity(position)
 {
-    this->_position = position;
 }
 
 Graphics::Player::~Player()

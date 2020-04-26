@@ -3,7 +3,8 @@
 #include <Graphics/Scene.h>
 #include <Timing/Time.h>
 #include <Graphics/Scene/TargetedCamera.h>
-#include <Graphics/Scene/Player.h>
+
+#include "Scene/Boi.h"
 
 namespace GunnerBoi
 {
@@ -22,7 +23,7 @@ namespace GunnerBoi
         void ProcessInput();
         void Update(Timing::Duration delta);
         void Render();
-        std::shared_ptr<Graphics::Player> SetupPlayer(const std::string& resourceName);
+        std::shared_ptr<Boi> SetupPlayer(const std::string& resourceName);
 
     private:
         std::shared_ptr<Graphics::Player> _player;

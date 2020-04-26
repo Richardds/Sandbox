@@ -105,9 +105,6 @@
     <ClCompile Include="Graphics\Scene\Camera.cpp">
       <Filter>Graphics\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Scene\Player.cpp">
-      <Filter>Graphics\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Scene\TargetedCamera.cpp">
       <Filter>Graphics\Scene</Filter>
     </ClCompile>
@@ -164,6 +161,9 @@
     </ClCompile>
     <ClCompile Include="Graphics\Material.cpp">
       <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Scene\Player.cpp">
+      <Filter>Graphics\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -231,9 +231,6 @@
       <Filter>Graphics\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Scene\Camera.h">
-      <Filter>Graphics\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Scene\Player.h">
       <Filter>Graphics\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Scene\TargetedCamera.h">
@@ -307,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="Graphics\Material.h">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Scene\Player.h">
+      <Filter>Graphics\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
