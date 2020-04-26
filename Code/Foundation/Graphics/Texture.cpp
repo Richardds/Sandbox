@@ -110,7 +110,7 @@ void Graphics::Texture::Data(const gli::texture& texture)
 	this->_state = State::LOADED;
 }
 
-void Graphics::Texture::Data(const void * pixels, uint32_t width, uint32_t height)
+void Graphics::Texture::Data(const void * pixels, unsigned int width, unsigned int height)
 {
 	_assert(State::INITIAL == this->_state);
 	_assert(this->IsBound());

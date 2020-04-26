@@ -5,15 +5,24 @@
     <ClCompile Include="App\GunnerBoiApplication.cpp">
       <Filter>App</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GunnerBoiScene.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="App">
       <UniqueIdentifier>{e6c9eef7-3463-44da-820d-55c9c72d628d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{bf2f019f-7662-40cd-837b-6c94082b95c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\GunnerBoiApplication.h">
       <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GunnerBoiScene.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

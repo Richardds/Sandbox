@@ -1,9 +1,11 @@
 #pragma once
 
+#include <unordered_map>
+#include <string>
+
 #include "Shaders/EntityShader.h"
-#include "Shaders/UIShader.h"
-#include "Scene/Player.h"
 #include "Scene/TargetedCamera.h"
+#include "Scene/Light.h"
 #include "Scene/Entity.h"
 #include "../Timing/Time.h"
 
@@ -21,22 +23,22 @@ namespace Graphics
         Scene();
         virtual ~Scene();
         State GetState() const;
-        bool Load();
-        void ProcessInput();
-        void Update(Timing::Duration delta);
-        void Render();
+        virtual bool Load();
+        virtual void ProcessInput();
+        virtual void Update(Timing::Duration delta);
+        virtual void Render();
+
+    protected:
+        std::shared_ptr<Graphics::Light> AddLight(const std::string& lightName);
+        std::shared_ptr<Graphics::Entity> AddEntity(const std::string& entityName, const std::string& resourceName);
+
+        std::shared_ptr<EntityShader> _entityShader;
+        std::shared_ptr<Graphics::TargetedCamera> _camera;
+        std::unordered_map<std::string, std::shared_ptr<Light>> _lights;
+        std::unordered_map<std::string, std::shared_ptr<Entity>> _entities;
 
     private:
         State _state;
-        std::shared_ptr<Player> _player;
-        std::shared_ptr<TargetedCamera> _camera;
-        std::shared_ptr<EntityShader> _entityShader;
-        std::vector<std::shared_ptr<Light>> _lights;
-        std::vector<std::shared_ptr<Entity>> _entities;
-
-        // UI
-        std::shared_ptr<UIShader> _uiShader;
-        std::shared_ptr<Model> _quad;
     };
 
 }

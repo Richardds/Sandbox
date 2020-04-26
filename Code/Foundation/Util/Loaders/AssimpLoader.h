@@ -18,10 +18,11 @@ namespace Util
         AssimpLoader();
         virtual ~AssimpLoader();
         std::shared_ptr<Graphics::Model> Load(const std::vector<char>& buffer);
-        void ProcessNode(aiNode* node);
-        std::shared_ptr<Graphics::TexturedMesh> ProcessMesh(aiMesh* mesh);
 
     private:
+        void ProcessNode(aiNode* node);
+        std::shared_ptr<Graphics::TexturedMesh> ProcessMesh(aiMesh* mesh);
+        std::string ParseAssetName(const aiString& assetPath);
         Graphics::VertexAttributeConfig _attributesTemplate;
         std::shared_ptr<Graphics::Model> _model;
         const aiScene* _scene;

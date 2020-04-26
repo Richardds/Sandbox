@@ -20,11 +20,11 @@ out vec3 toCameraVector;
 out vec4 relativeToCameraPosition;
 out mat3 fromTangentSpace;
 
-uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
-uniform mat4 viewMatrixInverse;
-uniform mat4 modelMatrix;
-uniform mat3 normalMatrix;
+uniform mat4 projection;
+uniform mat4 view;
+uniform mat4 viewInverse;
+uniform mat4 modelTransformation;
+uniform mat3 normalTransformation;
 
 struct TBN {
     vec3 tangent;
@@ -35,22 +35,22 @@ struct TBN {
 void main()
 {
     // Calculate vertex world position
-    fragmentPosition = (modelMatrix * vec4(vertexPosition, 1.0f)).xyz;
+    fragmentPosition = (modelTransformation * vec4(vertexPosition, 1.0f)).xyz;
     
     // Pass texture coordinates
     textureUV = vertexTextureUV;
 
-    normal = normalMatrix * vertexNormal;
+    normal = normalTransformation * vertexNormal;
 
-    toCameraVector = viewMatrixInverse[3].xyz - fragmentPosition;
-    relativeToCameraPosition = viewMatrix * vec4(fragmentPosition, 1.0f);
+    toCameraVector = viewInverse[3].xyz - fragmentPosition;
+    relativeToCameraPosition = view * vec4(fragmentPosition, 1.0f);
 
     // Tangent basis matrix calculation
-    tbn.tangent = normalize(vec3(modelMatrix * vec4(vertexTangent, 0.0f)));
-    tbn.normal = normalize(vec3(modelMatrix * vec4(vertexNormal, 0.0f)));
+    tbn.tangent = normalize(vec3(modelTransformation * vec4(vertexTangent, 0.0f)));
+    tbn.normal = normalize(vec3(modelTransformation * vec4(vertexNormal, 0.0f)));
     tbn.bitangent = normalize(cross(vertexTangent, tbn.normal));
     tbn.tangent = normalize(tbn.tangent - dot(tbn.tangent, tbn.normal) * tbn.normal);
     fromTangentSpace = mat3(tbn.tangent, tbn.bitangent, tbn.normal);
 
-    gl_Position = projectionMatrix * relativeToCameraPosition;
+    gl_Position = projection * relativeToCameraPosition;
 }

@@ -32,4 +32,3 @@ Graphics::Light::Light(Math::Vector3f position, Math::Vector3f color, Math::Vect
 Graphics::Light::~Light()
 {
 }
-

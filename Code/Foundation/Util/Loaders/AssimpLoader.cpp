@@ -1,6 +1,7 @@
 #include <exception>
 
 #include "AssimpLoader.h"
+#include "../ResourcesLoader.h"
 
 Util::AssimpLoader::AssimpLoader() :
     _scene(nullptr),
@@ -110,7 +111,36 @@ std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* 
     std::shared_ptr<Graphics::Mesh> localMesh = std::make_shared<Graphics::Mesh>(vao, vbo, ebo, static_cast<uint32_t>(elements.size()));
     std::shared_ptr<Graphics::TexturedMesh> texturedMesh = std::make_shared<Graphics::TexturedMesh>(localMesh);
 
-    //texturedMesh->SetDiffuseMap(...);
+    aiMaterial* material = this->_scene->mMaterials[mesh->mMaterialIndex];
+    aiString assetPath;
+
+    if (1 == material->GetTextureCount(aiTextureType::aiTextureType_DIFFUSE)) {
+        material->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &assetPath);
+        std::shared_ptr<Graphics::Texture> texture = ResourcesLoader::Instance().LoadTexture(this->ParseAssetName(assetPath));
+        _assert(Graphics::Texture::State::LOADED == texture->GetState());
+        texturedMesh->SetDiffuseMap(texture);
+    }
+
+    if (1 == material->GetTextureCount(aiTextureType::aiTextureType_NORMALS)) {
+        material->GetTexture(aiTextureType::aiTextureType_NORMALS, 0, &assetPath);
+        std::shared_ptr<Graphics::Texture> texture = ResourcesLoader::Instance().LoadTexture(this->ParseAssetName(assetPath));
+        _assert(Graphics::Texture::State::LOADED == texture->GetState());
+        texturedMesh->SetNormalMap(texture);
+    }
+
+    if (1 == material->GetTextureCount(aiTextureType::aiTextureType_SPECULAR)) {
+        material->GetTexture(aiTextureType::aiTextureType_SPECULAR, 0, &assetPath);
+        std::shared_ptr<Graphics::Texture> texture = ResourcesLoader::Instance().LoadTexture(this->ParseAssetName(assetPath));
+        _assert(Graphics::Texture::State::LOADED == texture->GetState());
+        texturedMesh->SetSpecularMap(texture);
+    }
 
     return texturedMesh;
+}
+
+std::string Util::AssimpLoader::ParseAssetName(const aiString& assetPath)
+{
+    std::string pathStr(assetPath.C_Str());
+    size_t extIndex = pathStr.find_last_of('.');
+    return pathStr.substr(0, extIndex);
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Application.h"
 #include <memory>
 
+#include "Application.h"
 #include "../Timing/Time.h"
 #include "../Graphics/Window.h"
 
@@ -21,6 +21,7 @@ namespace App
     protected:
         virtual void OnConfigureContext();
         virtual void OnProcessInput();
+        void PrintDeviceInfo() const;
         void OnInitializeFrame();
         virtual void OnUpdateLogic();
         virtual void OnUpdateFrame();
@@ -29,12 +30,12 @@ namespace App
         Timing::Time GetTime() const;
         Timing::Duration GetFrameTime() const;
 
+    private:
+        void UpdateTime();
+
         Timing::Time _time;
         Timing::Duration _frameTime;
         bool _isQuitRequested;
-
-    private:
-        void UpdateTime();
 
         std::shared_ptr<Graphics::Window> window;
     };

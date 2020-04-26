@@ -16,9 +16,9 @@ bool GunnerBoi::GunnerBoiApplication::Open()
 {
     if (RenderApplication::Open())
     {
-        this->PrintStartupMessage();
+        this->PrintDeviceInfo();
 
-        this->_scene = std::make_shared<Graphics::Scene>();
+        this->_scene = std::make_shared<GunnerBoiScene>();
         _assert(this->_scene->Load());
 
         return true;
@@ -39,24 +39,10 @@ void GunnerBoi::GunnerBoiApplication::OnProcessInput()
 
 void GunnerBoi::GunnerBoiApplication::OnUpdateLogic()
 {
-    this->_scene->Update(this->_frameTime);
+    this->_scene->Update(this->GetFrameTime());
 }
 
 void GunnerBoi::GunnerBoiApplication::OnUpdateFrame()
 {
     this->_scene->Render();
-}
-
-void GunnerBoi::GunnerBoiApplication::PrintStartupMessage()
-{
-    IO::Console::Instance().Info(
-        "**************************************************\n"
-        "Vendor name: %s\n"
-        "Model name: %s\n"
-        "Driver version: %s\n"
-        "**************************************************\n",
-        Graphics::Core::Instance().GetDeviceVendor().c_str(),
-        Graphics::Core::Instance().GetDeviceName().c_str(),
-        Graphics::Core::Instance().GetDriverVersion().c_str()
-    );
 }

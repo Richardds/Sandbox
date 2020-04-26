@@ -6,14 +6,6 @@ Graphics::Entity::Entity(std::shared_ptr<Model> model) :
 {
 }
 
-Graphics::Entity::Entity(std::shared_ptr<Model> model, Math::Vector3f position, float rotX, float rotY, float rotZ, float scale) :
-    HasPosition(position),
-    HasRotation(rotX, rotY, rotZ),
-    HasScale(scale),
-    _model(model)
-{
-}
-
 Graphics::Entity::~Entity()
 {
 }

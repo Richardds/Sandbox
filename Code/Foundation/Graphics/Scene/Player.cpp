@@ -10,8 +10,9 @@ Graphics::Player::Player(std::shared_ptr<Model> model) :
 }
 
 Graphics::Player::Player(std::shared_ptr<Model> model, Math::Vector3f position) :
-    Entity(model, position)
+    Entity(model)
 {
+    this->_position = position;
 }
 
 Graphics::Player::~Player()

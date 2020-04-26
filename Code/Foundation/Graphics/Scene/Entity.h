@@ -13,7 +13,6 @@ namespace Graphics
     {
     public:
         Entity(std::shared_ptr<Model> model);
-        Entity(std::shared_ptr<Model> model, Math::Vector3f position, float rotX = 0.0f, float rotY = 0.0f, float rotZ = 0.0f, float scale = 1.0f);
         virtual ~Entity();
         virtual void Render(std::shared_ptr<EntityShader> shader);
         std::shared_ptr<Model> getModel() const;

@@ -104,6 +104,6 @@ void main()
     // Fade fragment color by visibility
     vec3 fadedColor = mix(fog.color, phongModelColor, fragmentVisibility);
 
-    fragmentColor = vec4(fadedColor, 1.0f);
-    //fragmentColor = vec4(phongModelColor, 1.0f);
+    fragmentColor = vec4(phongModelColor, 1.0f);
+    //fragmentColor = vec4(fadedColor, 1.0f);
 }

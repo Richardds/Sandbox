@@ -99,7 +99,7 @@ std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadModel(const std::str
 
     std::shared_ptr<Graphics::Model> model = std::make_shared<Graphics::Model>();
 
-    const std::string path = this->_root + "/Models/" + name + ".obj";
+    const std::string path = this->_root + "/Models/" + name + ".fbx";
 
     std::ifstream modelFile(path, std::ios::binary | std::ios::ate);
     if (!modelFile.is_open()) {

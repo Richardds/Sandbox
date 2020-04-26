@@ -11,6 +11,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Foundation", "Code\Foundation\Foundation.vcxproj", "{CEC8D571-AB20-4255-969C-EDF732551FF1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MeshExporter", "Code\MeshExporter\MeshExporter.vcxproj", "{BCACCF77-2F6B-4164-B337-F33EC134AE04}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CEC8D571-AB20-4255-969C-EDF732551FF1} = {CEC8D571-AB20-4255-969C-EDF732551FF1}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

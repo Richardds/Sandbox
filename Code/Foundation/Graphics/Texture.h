@@ -32,7 +32,7 @@ namespace Graphics
         bool IsBound() const;
         void Unbind();
         void Data(const gli::texture& texture);
-        void Data(const void * pixels, uint32_t width, uint32_t height);
+        void Data(const void * pixels, unsigned int width, unsigned int height);
         GLenum GetTarget() const;
         GLuint GetGlTexture() const;
         GLsizei GetWidth() const;

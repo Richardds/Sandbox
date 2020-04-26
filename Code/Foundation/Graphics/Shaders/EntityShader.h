@@ -14,7 +14,7 @@ namespace Graphics
         EntityShader();
         virtual ~EntityShader();
         void InitializeUniformVariables();
-        void Begin(std::shared_ptr<Graphics::Camera> camera, std::vector<std::shared_ptr<Graphics::Light>> lights);
+        void Begin(std::shared_ptr<Graphics::Camera> camera, const std::unordered_map<std::string, std::shared_ptr<Light>>& lights);
         void SetProjection(float ratio, float fov, float near, float far);
         void SetView(const std::shared_ptr<Camera>& view);
         void LoadLight(int index, const std::shared_ptr<Light>& light);
@@ -41,11 +41,11 @@ namespace Graphics
         GLint _specularMapperTextureLocation;
         GLint _materialMapperTextureLocation;
 
-        GLint _projectionMatrixLocation;
-        GLint _viewMatrixLocation;
-        GLint _viewMatrixInverseLocation;
-        GLint _modelMatrixLocation;
-        GLint _normalMatrixLocation;
+        GLint _projectionLocation;
+        GLint _viewLocation;
+        GLint _viewInverseLocation;
+        GLint _modelTransformationLocation;
+        GLint _normalTransformationLocation;
 
         GLint _lightsCountLocation;
         LightUniformLocation _lightLocations[maxLightCount];

@@ -100,6 +100,20 @@ void App::RenderApplication::OnInitializeFrame()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+void App::RenderApplication::PrintDeviceInfo() const
+{
+    IO::Console::Instance().Info(
+        "**************************************************\n"
+        "Vendor name: %s\n"
+        "Model name: %s\n"
+        "Driver version: %s\n"
+        "**************************************************\n",
+        Graphics::Core::Instance().GetDeviceVendor().c_str(),
+        Graphics::Core::Instance().GetDeviceName().c_str(),
+        Graphics::Core::Instance().GetDriverVersion().c_str()
+    );
+}
+
 void App::RenderApplication::OnUpdateLogic()
 {
     // Override

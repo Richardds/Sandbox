@@ -2,7 +2,8 @@
 
 #include <memory>
 #include <App/RenderApplication.h>
-#include <Graphics/Scene.h>
+
+#include "../Game/GunnerBoiScene.h"
 
 namespace GunnerBoi
 {
@@ -21,9 +22,7 @@ namespace GunnerBoi
         void OnUpdateFrame();
 
     private:
-        void PrintStartupMessage();
-
-        std::shared_ptr<Graphics::Scene> _scene;
+        std::shared_ptr<GunnerBoiScene> _scene;
     };
 
 }
