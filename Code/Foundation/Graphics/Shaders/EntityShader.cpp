@@ -9,20 +9,13 @@
 
 Graphics::EntityShader::EntityShader() :
     ShaderSystem("Entity"),
-    _diffuseMapperTextureLocation(-1),
-    _normalMapperTextureLocation(-1),
-    _specularMapperTextureLocation(-1),
-    _materialMapperTextureLocation(-1),
-
     _projectionLocation(-1),
     _viewLocation(-1),
     _viewInverseLocation(-1),
     _modelTransformationLocation(-1),
     _normalTransformationLocation(-1),
 
-    _sunLocation(),
     _lightsCountLocation(-1),
-    _lightLocations(),
 
     _fogDensityPosition(-1),
     _fogGradientPosition(-1),
@@ -33,11 +26,6 @@ Graphics::EntityShader::EntityShader() :
     _materialSpecularLocation(-1),
     _materialReflectivityLocation(-1),
 
-    _diffuseMapperEnabledLocation(-1),
-    _normalMapperEnabledLocation(-1),
-    _specularMapperEnabledLocation(-1),
-    _materialMapperEnabledLocation(-1),
-
     _projectionMatrix(1.0f),
     _viewMatrix(1.0f)
 {
@@ -45,11 +33,6 @@ Graphics::EntityShader::EntityShader() :
 
 Graphics::EntityShader::~EntityShader()
 {
-    this->_sunLocation.direction = -1;
-    this->_sunLocation.ambient = -1;
-    this->_sunLocation.diffuse = -1;
-    this->_sunLocation.specular = -1;
-
     for (int index = 0; index < EntityShader::maxLightCount; index++) {
         this->_lightLocations[index].position = -1;
         this->_lightLocations[index].ambient = -1;
@@ -95,15 +78,15 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeFloatLocation("material.reflectivity", 5.0f, this->_materialReflectivityLocation);
 
     // Setup texture mappers
-    this->InitializeBoolLocation("diffuseMapper.enabled", false, this->_diffuseMapperEnabledLocation);
-    this->InitializeBoolLocation("normalMapper.enabled", false, this->_normalMapperEnabledLocation);
-    this->InitializeBoolLocation("specularMapper.enabled", false, this->_specularMapperEnabledLocation);
-    this->InitializeBoolLocation("materialMapper.enabled", false, this->_materialMapperEnabledLocation);
+    this->InitializeBoolLocation("diffuseSampler.enabled", false, this->_diffuseSampler.enabled);
+    this->InitializeBoolLocation("normalSampler.enabled", false, this->_normalSampler.enabled);
+    this->InitializeBoolLocation("specularSampler.enabled", false, this->_specularSampler.enabled);
+    this->InitializeBoolLocation("materialSampler.enabled", false, this->_materialSampler.enabled);
 
-    this->InitializeIntLocation("diffuseMapper.texture", EnumToValue(Texture::Bank::DIFFUSE), this->_diffuseMapperTextureLocation);
-    this->InitializeIntLocation("normalMapper.texture", EnumToValue(Texture::Bank::NORMAL), this->_normalMapperTextureLocation);
-    this->InitializeIntLocation("specularMapper.texture", EnumToValue(Texture::Bank::SPECULAR), this->_specularMapperTextureLocation);
-    this->InitializeIntLocation("materialMapper.texture", EnumToValue(Texture::Bank::MATERIAL), this->_materialMapperTextureLocation);
+    this->InitializeIntLocation("diffuseSampler.texture", EnumToValue(Texture::Bank::DIFFUSE), this->_diffuseSampler.texture);
+    this->InitializeIntLocation("normalSampler.texture", EnumToValue(Texture::Bank::NORMAL), this->_normalSampler.texture);
+    this->InitializeIntLocation("specularSampler.texture", EnumToValue(Texture::Bank::SPECULAR), this->_specularSampler.texture);
+    this->InitializeIntLocation("materialSampler.texture", EnumToValue(Texture::Bank::MATERIAL), this->_materialSampler.texture);
 }
 
 void Graphics::EntityShader::Begin(std::shared_ptr<Graphics::Camera> camera, const std::unordered_map<std::string, std::shared_ptr<Light>>& lights)
@@ -165,22 +148,22 @@ void Graphics::EntityShader::LoadMaterial(const Material& material)
 
 void Graphics::EntityShader::LoadHasDiffuseMap(bool hasDiffuseMap)
 {
-    ShaderProgram::LoadBool(this->_diffuseMapperEnabledLocation, hasDiffuseMap);
+    ShaderProgram::LoadBool(this->_diffuseSampler.enabled, hasDiffuseMap);
 }
 
 void Graphics::EntityShader::LoadHasNormalMap(bool hasNormalMap)
 {
-    ShaderProgram::LoadBool(this->_normalMapperEnabledLocation, hasNormalMap);
+    ShaderProgram::LoadBool(this->_normalSampler.enabled, hasNormalMap);
 }
 
 void Graphics::EntityShader::LoadHasSpecularMap(bool hasSpecularMap)
 {
-    ShaderProgram::LoadBool(this->_specularMapperEnabledLocation, hasSpecularMap);
+    ShaderProgram::LoadBool(this->_specularSampler.enabled, hasSpecularMap);
 }
 
 void Graphics::EntityShader::LoadHasMaterialMap(bool hasMaterialMap)
 {
-    ShaderProgram::LoadBool(this->_materialMapperEnabledLocation, hasMaterialMap);
+    ShaderProgram::LoadBool(this->_materialSampler.enabled, hasMaterialMap);
 }
 
 Math::Vector3f Graphics::EntityShader::GetScreenWorldPosition(Math::Vector2ui screenPosition) const

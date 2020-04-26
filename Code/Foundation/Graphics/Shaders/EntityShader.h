@@ -31,6 +31,7 @@ namespace Graphics
         static const int maxLightCount = 10;
 
         struct DirectionalLightLocation {
+            DirectionalLightLocation() : direction(-1), ambient(-1), diffuse(-1), specular(-1) {}
             GLint direction;
             GLint ambient;
             GLint diffuse;
@@ -38,6 +39,7 @@ namespace Graphics
         };
 
         struct PointLightLocation {
+            PointLightLocation() : position(-1), attenuation(-1), ambient(-1), diffuse(-1), specular(-1) {}
             GLint position;
             GLint attenuation;
             GLint ambient;
@@ -45,10 +47,11 @@ namespace Graphics
             GLint specular;
         };
 
-        GLint _diffuseMapperTextureLocation;
-        GLint _normalMapperTextureLocation;
-        GLint _specularMapperTextureLocation;
-        GLint _materialMapperTextureLocation;
+        struct TextureSamplerLocation {
+            TextureSamplerLocation() : texture(-1), enabled(-1) {}
+            GLint texture;
+            GLint enabled;
+        };
 
         GLint _projectionLocation;
         GLint _viewLocation;
@@ -57,8 +60,13 @@ namespace Graphics
         GLint _normalTransformationLocation;
 
         DirectionalLightLocation _sunLocation;
-        GLint _lightsCountLocation;
         PointLightLocation _lightLocations[maxLightCount];
+        GLint _lightsCountLocation;
+
+        TextureSamplerLocation _diffuseSampler;
+        TextureSamplerLocation _normalSampler;
+        TextureSamplerLocation _specularSampler;
+        TextureSamplerLocation _materialSampler;
 
         GLint _fogDensityPosition;
         GLint _fogGradientPosition;
@@ -68,11 +76,6 @@ namespace Graphics
         GLint _materialDiffuseLocation;
         GLint _materialSpecularLocation;
         GLint _materialReflectivityLocation;
-
-        GLint _diffuseMapperEnabledLocation;
-        GLint _normalMapperEnabledLocation;
-        GLint _specularMapperEnabledLocation;
-        GLint _materialMapperEnabledLocation;
 
         Math::Matrix4f _projectionMatrix;
         Math::Matrix4f _viewMatrix;

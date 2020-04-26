@@ -42,10 +42,10 @@ in mat3 fromTangentSpace;
 
 out vec4 fragmentColor;
 
-uniform TextureSampler diffuseMapper;
-uniform TextureSampler normalMapper;
-uniform TextureSampler specularMapper;
-uniform TextureSampler materialMapper;
+uniform TextureSampler diffuseSampler;
+uniform TextureSampler normalSampler;
+uniform TextureSampler specularSampler;
+uniform TextureSampler materialSampler;
 
 uniform int lightsCount;
 uniform DirectionalLight sun;
@@ -61,8 +61,8 @@ void main()
 
     // Map diffuse color
     vec3 materialDiffuse = material.diffuse;
-    if (diffuseMapper.enabled) {
-        materialDiffuse = texture(diffuseMapper.texture, textureUV).rgb;
+    if (diffuseSampler.enabled) {
+        materialDiffuse = texture(diffuseSampler.texture, textureUV).rgb;
         // Discard fragment when mapped to invisible
         if (materialDiffuse.r == 1.0f && materialDiffuse.b == 1.0f) {
             discard;
@@ -71,14 +71,14 @@ void main()
 
     // Map normal vector
     vec3 normalMapping = unitNormal;
-    if (normalMapper.enabled) {
-        normalMapping = normalize(fromTangentSpace * (2.0f * texture(normalMapper.texture, textureUV, -1.0f) - 1.0f).rgb);
+    if (normalSampler.enabled) {
+        normalMapping = normalize(fromTangentSpace * (2.0f * texture(normalSampler.texture, textureUV, -1.0f) - 1.0f).rgb);
     }
 
     // Map specular strength
     vec3 materialSpecular = material.specular;
-    if (specularMapper.enabled) {
-        materialSpecular = texture(specularMapper.texture, textureUV).rgb;
+    if (specularSampler.enabled) {
+        materialSpecular = texture(specularSampler.texture, textureUV).rgb;
     }
 
     vec3 ambient = vec3(0.0f);
@@ -93,7 +93,7 @@ void main()
         float lightAttenuationFactor = light[index].attenuation.x + (light[index].attenuation.y * lightDistance) + (light[index].attenuation.z * lightDistance * lightDistance);
 
         // Calculate fragment color using Phong lighting model
-        ambient += light[index].ambient * material.ambient;
+        ambient += light[index].ambient * material.ambient / lightAttenuationFactor;
 
         float diff = max(dot(normalMapping, unitToLightVector), 0.2f);
         diffuse += (light[index].diffuse * (diff * materialDiffuse)) / lightAttenuationFactor;
@@ -112,6 +112,6 @@ void main()
     // Fade fragment color by visibility
     vec3 fadedColor = mix(fog.color, phongModelColor, fragmentVisibility);
 
-    //fragmentColor = vec4(phongModelColor, 1.0f);
-    fragmentColor = vec4(fadedColor, 1.0f);
+    fragmentColor = vec4(phongModelColor, 1.0f);
+    //fragmentColor = vec4(fadedColor, 1.0f);
 }

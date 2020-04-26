@@ -22,18 +22,19 @@ bool GunnerBoi::GunnerBoiScene::Load()
     _assert(Graphics::Scene::Load());
 
     // Setup camera
-    this->_camera = std::make_shared<Graphics::TargetedCamera>(10.0f);
+    this->_camera = std::make_shared<Graphics::TargetedCamera>(20.0f);
 
     // Setup light
     std::shared_ptr<Graphics::Light> pointLight = this->AddLight("point_light");
     pointLight->setPosition(Math::Vector3f(0.0f, 10.0f, 0.0f));
-    pointLight->SetAttenuation(Math::Vector3f(this->_lightA, this->_lightB, this->_lightC));
+    pointLight->SetAttenuation(Math::Vector3f(1.0f, 0.045f, 0.0075f));
 
     // Setup terrain
     std::shared_ptr<Graphics::Entity> terrain = this->AddEntity("terrain", "terrain");
 
     // Load player
     this->_player = this->SetupPlayer("sphere");
+    this->_player->setPositionY(5.0f);
 
     // Load scene models
     std::shared_ptr<Graphics::Entity> crate1 = this->AddEntity("crate_01", "crate");
@@ -57,14 +58,10 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
 {
     Graphics::Scene::ProcessInput();
 
-    if (IO::Keyboard::Instance().IsAltPressed()) {
-        if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::LEFT)) {
-            Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
-            mouseMotion *= 10.0f;
-            this->_player->increasePosition(Math::Vector3f(-mouseMotion.x, 0.0f, mouseMotion.y));
-        }
-
-        return;
+    if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::LEFT)) {
+        Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
+        mouseMotion *= 10.0f;
+        this->_player->increasePosition(Math::Vector3f(-mouseMotion.x, 0.0f, mouseMotion.y));
     }
 }
 
@@ -72,8 +69,8 @@ void GunnerBoi::GunnerBoiScene::Update(Timing::Duration delta)
 {
     Graphics::Scene::Update(delta);
 
-    this->_player->LookAt(this->_entities["terrain"]); // TODO: Getter
     this->_camera->Update(this->_player);
+    this->_lights["point_light"]->setPosition(this->_player->getPosition());
 }
 
 void GunnerBoi::GunnerBoiScene::Render()

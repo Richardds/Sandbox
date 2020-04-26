@@ -27,9 +27,6 @@ namespace GunnerBoi
 
     private:
         std::shared_ptr<Graphics::Player> _player;
-        float _lightA = 1.0f;
-        float _lightB = 0.01f;
-        float _lightC = 0.005f;
     };
 
 }
