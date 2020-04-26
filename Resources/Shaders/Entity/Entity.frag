@@ -15,7 +15,6 @@ struct DirectionalLight {
 struct PointLight {
     vec3 position;
     vec3 attenuation;
-    vec3 ambient;
     vec3 diffuse;
     vec3 specular;
 };
@@ -27,7 +26,6 @@ struct Fog {
 };
 
 struct Material {
-    vec3 ambient;
     vec3 diffuse;
     vec3 specular;
     float reflectivity;
@@ -81,24 +79,23 @@ void main()
         materialSpecular = texture(specularSampler.texture, textureUV).rgb;
     }
 
-    vec3 ambient = vec3(0.0f);
-    vec3 diffuse = vec3(0.0f);
-    vec3 specular = vec3(0.0f);
+    // Calculate fragment color using Phong lighting model
+    vec3 unitSunDirection = normalize(-sun.direction);
+    vec3 ambient = sun.ambient * materialDiffuse;
+    vec3 diffuse = sun.diffuse * (max(dot(normalMapping, unitSunDirection), 0.0f) * materialDiffuse);
+    vec3 specular = sun.specular * (pow(max(dot(unitToCameraVector, reflect(-unitSunDirection, normalMapping)), 0.0f), material.reflectivity) * materialSpecular);
 
     for (int index = 0; index < lightsCount; index++) {
-        vec3 toLightVector = light[index].position - fragmentPosition;
-        vec3 unitToLightVector = normalize(toLightVector);
+        vec3 lightDirection = light[index].position - fragmentPosition;
+        vec3 unitLightDirection = normalize(lightDirection);
 
-        float lightDistance = length(toLightVector);
+        float lightDistance = length(lightDirection);
         float lightAttenuationFactor = light[index].attenuation.x + (light[index].attenuation.y * lightDistance) + (light[index].attenuation.z * lightDistance * lightDistance);
 
-        // Calculate fragment color using Phong lighting model
-        ambient += light[index].ambient * material.ambient / lightAttenuationFactor;
-
-        float diff = max(dot(normalMapping, unitToLightVector), 0.2f);
+        float diff = max(dot(normalMapping, unitLightDirection), 0.2f);
         diffuse += (light[index].diffuse * (diff * materialDiffuse)) / lightAttenuationFactor;
 
-        vec3 reflectedLightDirection = reflect(-unitToLightVector, normalMapping);
+        vec3 reflectedLightDirection = reflect(-unitLightDirection, normalMapping);
         float spec = pow(max(dot(unitToCameraVector, reflectedLightDirection), 0.0f), material.reflectivity) / lightAttenuationFactor;
         specular += light[index].specular * (spec * materialSpecular);
     }

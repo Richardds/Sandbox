@@ -21,7 +21,6 @@ Graphics::EntityShader::EntityShader() :
     _fogGradientPosition(-1),
     _fogColorPosition(-1),
 
-    _materialAmbientLocation(-1),
     _materialDiffuseLocation(-1),
     _materialSpecularLocation(-1),
     _materialReflectivityLocation(-1),
@@ -35,7 +34,6 @@ Graphics::EntityShader::~EntityShader()
 {
     for (int index = 0; index < EntityShader::maxLightCount; index++) {
         this->_lightLocations[index].position = -1;
-        this->_lightLocations[index].ambient = -1;
         this->_lightLocations[index].diffuse = -1;
         this->_lightLocations[index].specular = -1;
         this->_lightLocations[index].attenuation = -1;
@@ -52,15 +50,14 @@ void Graphics::EntityShader::InitializeUniformVariables()
 
     // Setup sun
     this->InitializeVector3fLocation("sun.direction", Math::Vector3f(-1.0f, -1.0f, 0.0f), this->_sunLocation.direction);
-    this->InitializeVector3fLocation("sun.ambient", Math::Vector3f(0.25f), this->_sunLocation.direction);
-    this->InitializeVector3fLocation("sun.diffuse", Math::Vector3f(1.0f), this->_sunLocation.direction);
-    this->InitializeVector3fLocation("sun.specular", Math::Vector3f(1.0f), this->_sunLocation.direction);
+    this->InitializeVector3fLocation("sun.ambient", Math::Vector3f(0.025f), this->_sunLocation.direction);
+    this->InitializeVector3fLocation("sun.diffuse", Math::Vector3f(0.075f), this->_sunLocation.direction);
+    this->InitializeVector3fLocation("sun.specular", Math::Vector3f(0.05f), this->_sunLocation.direction);
 
     // Setup point lights
     this->InitializeIntLocation("lightsCount", 0, this->_lightsCountLocation);
     for (int index = 0; index < EntityShader::maxLightCount; index++) {
         this->InitializeVector3fLocation("light[" + std::to_string(index) + "].position", Math::Vector3f(0.0f), this->_lightLocations[index].position);
-        this->InitializeVector3fLocation("light[" + std::to_string(index) + "].ambient", Math::Vector3f(0.25f), this->_lightLocations[index].ambient);
         this->InitializeVector3fLocation("light[" + std::to_string(index) + "].diffuse", Math::Vector3f(1.0f), this->_lightLocations[index].diffuse);
         this->InitializeVector3fLocation("light[" + std::to_string(index) + "].specular", Math::Vector3f(1.0f), this->_lightLocations[index].specular);
         this->InitializeVector3fLocation("light[" + std::to_string(index) + "].attenuation", Math::Vector3f(1.0f, 0.0f, 0.0f), this->_lightLocations[index].attenuation);
@@ -72,7 +69,6 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeVector3fLocation("fog.color", Math::Vector3f(0.0f), this->_fogColorPosition);
 
     // Setup material
-    this->InitializeVector3fLocation("material.ambient", Math::Vector3f(0.25f), this->_materialAmbientLocation);
     this->InitializeVector3fLocation("material.diffuse", Math::Vector3f(0.85f), this->_materialDiffuseLocation);
     this->InitializeVector3fLocation("material.specular", Math::Vector3f(0.5f), this->_materialSpecularLocation);
     this->InitializeFloatLocation("material.reflectivity", 5.0f, this->_materialReflectivityLocation);
@@ -93,7 +89,7 @@ void Graphics::EntityShader::Begin(std::shared_ptr<Graphics::Camera> camera, con
 {
     this->Use();
 
-    this->SetView(camera);
+    this->LoadView(camera);
 
     int lightsCount = static_cast<int>(lights.size());
     _assert(EntityShader::maxLightCount > lightsCount - 1);
@@ -103,31 +99,28 @@ void Graphics::EntityShader::Begin(std::shared_ptr<Graphics::Camera> camera, con
     for (auto& light : lights) {
         this->LoadLight(index++, light.second);
     }
-
-    this->LoadMatrix4f(this->_projectionLocation, this->_projectionMatrix);
-    this->LoadMatrix4f(this->_viewLocation, this->_viewMatrix);
-    this->LoadMatrix4f(this->_viewInverseLocation, glm::inverse(this->_viewMatrix));
 }
 
-void Graphics::EntityShader::SetProjection(float ratio, float fov, float near, float far)
+void Graphics::EntityShader::LoadProjection(float ratio, float fov, float near, float far)
 {
     this->_projectionMatrix = Math::projectionMatrix(ratio, fov, near, far);
+    this->LoadMatrix4f(this->_projectionLocation, this->_projectionMatrix);
 }
 
-void Graphics::EntityShader::SetView(const std::shared_ptr<Graphics::Camera>& view)
+void Graphics::EntityShader::LoadView(const std::shared_ptr<Graphics::Camera>& view)
 {
     _assert(view);
 
     this->_viewMatrix = Math::viewMatrix(view->getPosition(), view->getRotationX(), view->getRotationY());
+    this->LoadMatrix4f(this->_viewLocation, this->_viewMatrix);
+    this->LoadMatrix4f(this->_viewInverseLocation, glm::inverse(this->_viewMatrix));
 }
 
 void Graphics::EntityShader::LoadLight(int index, const std::shared_ptr<Light>& light)
 {
     _assert(EntityShader::maxLightCount > index);
-    Math::Vector3f diffuse = light->GetColor() * 0.75f;
     this->LoadVector3f(this->_lightLocations[index].position, light->getPosition());
-    this->LoadVector3f(this->_lightLocations[index].ambient, diffuse * 0.2f);
-    this->LoadVector3f(this->_lightLocations[index].diffuse, diffuse);
+    this->LoadVector3f(this->_lightLocations[index].diffuse, light->GetColor());
     this->LoadVector3f(this->_lightLocations[index].specular, Math::Vector3f(1.0f));
     this->LoadVector3f(this->_lightLocations[index].attenuation, light->GetAttenuation());
 }
@@ -140,7 +133,6 @@ void Graphics::EntityShader::LoadEntityTransformation(const Math::Matrix4f& mode
 
 void Graphics::EntityShader::LoadMaterial(const Material& material)
 {
-    this->LoadVector3f(this->_materialAmbientLocation, material.GetAmbient());
     this->LoadVector3f(this->_materialDiffuseLocation, material.GetDiffuse());
     this->LoadVector3f(this->_materialSpecularLocation, material.GetSpecular());
     this->LoadFloat(this->_materialReflectivityLocation, material.GetReflectivity());

@@ -9,10 +9,8 @@ namespace Graphics
     class Material
     {
     public:
-        Material(const Math::Vector3f& diffuse, float reflectivity, const Math::Vector3f& specular, const Math::Vector3f& ambient);
+        Material(const Math::Vector3f& diffuse, float reflectivity, const Math::Vector3f& specular);
         virtual ~Material();
-        Math::Vector3f GetAmbient() const;
-        void SetAmbient(const Math::Vector3f& ambient);
         Math::Vector3f GetDiffuse() const;
         void SetDiffuse(const Math::Vector3f& diffuse);
         Math::Vector3f GetSpecular() const;
@@ -21,21 +19,10 @@ namespace Graphics
         void SetReflectivity(float reflectivity);
 
     private:
-        Math::Vector3f _ambient;
         Math::Vector3f _diffuse;
         Math::Vector3f _specular;
         float _reflectivity;
     };
-
-    inline Math::Vector3f Graphics::Material::GetAmbient() const
-    {
-        return this->_ambient;
-    }
-
-    inline void Material::SetAmbient(const Math::Vector3f& ambient)
-    {
-        this->_ambient = ambient;
-    }
 
     inline Math::Vector3f Graphics::Material::GetDiffuse() const
     {

@@ -34,7 +34,8 @@ bool Graphics::Scene::Load()
 
     // Setup projection
     std::shared_ptr<Window> context = Core::Instance().GetRenderingContext();
-    this->_entityShader->SetProjection(context->GetRatio(), 70.0f, 0.1f, 1000.0f);
+    this->_entityShader->Use();
+    this->_entityShader->LoadProjection(context->GetRatio(), 70.0f, 0.1f, 1000.0f);
 
     this->_state = State::RUN;
 
