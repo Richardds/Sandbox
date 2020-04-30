@@ -11,6 +11,12 @@
     <ClCompile Include="Game\Scene\Boi.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Managers\ProjectileManager.cpp">
+      <Filter>Game\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Projectile.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="App">
@@ -22,6 +28,9 @@
     <Filter Include="Game\Scene">
       <UniqueIdentifier>{ade997ed-6f5a-43b3-9407-529a5ad70d42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Managers">
+      <UniqueIdentifier>{908d375d-7127-422b-8e85-3c764a86225a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\GunnerBoiApplication.h">
@@ -31,6 +40,12 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scene\Boi.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\ProjectileManager.h">
+      <Filter>Game\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Projectile.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>

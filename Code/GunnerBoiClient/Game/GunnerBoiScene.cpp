@@ -22,6 +22,9 @@ bool GunnerBoi::GunnerBoiScene::Load()
 {
     _assert(Graphics::Scene::Load());
 
+    // Create projectile manager
+    this->_projectileManager = std::make_shared<ProjectileManager>();
+
     // Configure camera
     this->_camera->SetDistance(15.0f);
 
@@ -67,6 +70,7 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
         if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::LEFT_SHIFT)) {
             this->_player->Idle();
             this->_player->LookAt(target);
+            this->_projectileManager->Manage(this->_player->Fire());
         }
         else {
             this->_player->SetTarget(target);
@@ -85,9 +89,10 @@ void GunnerBoi::GunnerBoiScene::Update(float delta)
 {
     Graphics::Scene::Update(delta);
 
-    this->_camera->Update(this->_player);
+    this->_projectileManager->Update(delta);
 
     this->_player->Update(delta);
+    this->_camera->Update(this->_player);
 
     Math::Vector3f playerPosition = this->_player->getPosition();
     float lightPositionY = this->_lights["point_light"]->getPositionY();
@@ -98,6 +103,7 @@ void GunnerBoi::GunnerBoiScene::Render()
 {
     Graphics::Scene::Render();
 
+    this->_projectileManager->Render(this->_entityShader);
     this->_player->Render(this->_entityShader);
 }
 

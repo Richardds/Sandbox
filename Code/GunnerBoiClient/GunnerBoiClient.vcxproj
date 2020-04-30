@@ -97,12 +97,16 @@
     <ClCompile Include="App\GunnerBoiApplication.cpp" />
     <ClCompile Include="Game\GunnerBoiScene.cpp" />
     <ClCompile Include="Game\Scene\Boi.cpp" />
+    <ClCompile Include="Game\Scene\Projectile.cpp" />
     <ClCompile Include="GunnerBoiClient.cpp" />
+    <ClCompile Include="Managers\ProjectileManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\GunnerBoiApplication.h" />
     <ClInclude Include="Game\GunnerBoiScene.h" />
     <ClInclude Include="Game\Scene\Boi.h" />
+    <ClInclude Include="Game\Scene\Projectile.h" />
+    <ClInclude Include="Managers\ProjectileManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

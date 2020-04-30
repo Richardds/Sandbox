@@ -5,8 +5,9 @@ Graphics::Entity::Entity()
 {
 }
 
-Graphics::Entity::Entity(Math::Vector3f position) :
-    HasPosition(position)
+Graphics::Entity::Entity(Math::Vector3f position, float rotX, float rotY, float rotZ) :
+    HasPosition(position),
+    HasRotation(rotX, rotY, rotZ)
 {
 }
 

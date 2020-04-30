@@ -19,6 +19,11 @@ GunnerBoi::Boi::~Boi()
 {
 }
 
+std::shared_ptr<GunnerBoi::Projectile> GunnerBoi::Boi::Fire() const
+{
+	return std::make_shared<Projectile>(this->_position, this->_rotY);
+}
+
 float GunnerBoi::Boi::DistanceTo(Math::Vector2f target)
 {
 	return glm::distance(Math::Vector2f(this->_position.x, this->_position.z), target);

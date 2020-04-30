@@ -4,6 +4,7 @@
 #include <Graphics/Scene/TargetedCamera.h>
 
 #include "Scene/Boi.h"
+#include "../Managers/ProjectileManager.h"
 
 namespace GunnerBoi
 {
@@ -26,6 +27,7 @@ namespace GunnerBoi
 
     private:
         std::shared_ptr<Boi> _player;
+        std::shared_ptr<ProjectileManager> _projectileManager;
     };
 
 }

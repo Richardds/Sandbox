@@ -5,6 +5,8 @@
 #include <Math/Vector.h>
 #include <Timing/Time.h>
 
+#include "../Scene/Projectile.h"
+
 namespace GunnerBoi
 {
 
@@ -25,6 +27,7 @@ namespace GunnerBoi
         void SetTarget(Math::Vector2f target);
         void Follow();
         void Idle();
+        std::shared_ptr<Projectile> Fire() const;
         float GetMovingSpeed() const;
         void SetMovingSpeed(float speed);
         float DistanceTo(Math::Vector2f target);
