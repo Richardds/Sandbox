@@ -26,10 +26,10 @@ void Timing::Time::operator=(const Time& rhs)
 
 Timing::Duration Timing::Time::Diff(Time rhs) const
 {
-    return duration_cast<Duration>(this->_time - rhs._time);
+    return std::chrono::duration_cast<Duration>(this->_time - rhs._time);
 }
 
 Timing::Time Timing::Time::Now()
 {
-    return time_point_cast<microseconds>(steady_clock::now());
+    return std::chrono::time_point_cast<Microseconds>(std::chrono::steady_clock::now());
 }

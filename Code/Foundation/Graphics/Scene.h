@@ -5,6 +5,7 @@
 
 #include "Shaders/EntityShader.h"
 #include "Scene/TargetedCamera.h"
+#include "Scene/Player.h"
 #include "Scene/Light.h"
 #include "Scene/Entity.h"
 #include "../Timing/Time.h"
@@ -25,7 +26,7 @@ namespace Graphics
         State GetState() const;
         virtual bool Load();
         virtual void ProcessInput();
-        virtual void Update(Timing::Duration delta);
+        virtual void Update(float delta);
         virtual void Render();
 
     protected:

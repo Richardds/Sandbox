@@ -48,14 +48,9 @@ bool Graphics::Scene::Load()
 void Graphics::Scene::ProcessInput()
 {
     _assert(State::RUN == this->_state);
-
-    //if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::LEFT)) {
-    //    Math::Vector3f worldPosition = this->_entityShader->GetScreenWorldPosition(IO::Mouse::Instance().GetCoords());
-    //    IO::Console::Instance().Info(" -> %f %f %f <-\n", worldPosition.x, worldPosition.y, worldPosition.z);
-    //}
 }
 
-void Graphics::Scene::Update(Timing::Duration delta)
+void Graphics::Scene::Update(float delta)
 {
     _assert(State::RUN == this->_state);
 }

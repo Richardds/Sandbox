@@ -29,6 +29,7 @@ namespace App
         bool IsQuitRequested() const;
         Timing::Time GetTime() const;
         Timing::Duration GetFrameTime() const;
+        float GetFrameDelta() const;
 
     private:
         void UpdateTime();

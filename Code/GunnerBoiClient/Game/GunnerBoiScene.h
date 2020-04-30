@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Graphics/Scene.h>
-#include <Timing/Time.h>
 #include <Graphics/Scene/TargetedCamera.h>
 
 #include "Scene/Boi.h"
@@ -21,12 +20,12 @@ namespace GunnerBoi
         virtual ~GunnerBoiScene();
         bool Load();
         void ProcessInput();
-        void Update(Timing::Duration delta);
+        void Update(float delta);
         void Render();
         std::shared_ptr<Boi> SetupPlayer(const std::string& resourceName);
 
     private:
-        std::shared_ptr<Graphics::Player> _player;
+        std::shared_ptr<Boi> _player;
     };
 
 }

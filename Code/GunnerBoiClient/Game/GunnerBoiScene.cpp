@@ -6,6 +6,7 @@
 #include <Util/ResourcesLoader.h>
 #include <IO/Mouse.h>
 #include <IO/Keyboard.h>
+#include <IO/Console.h>
 
 #include "GunnerBoiScene.h"
 
@@ -36,8 +37,7 @@ bool GunnerBoi::GunnerBoiScene::Load()
     std::shared_ptr<Graphics::Entity> terrain = this->AddEntity("terrain", "terrain");
 
     // Load player
-    this->_player = this->SetupPlayer("sphere");
-    this->_player->setPositionY(5.0f);
+    this->_player = this->SetupPlayer("arrow");
 
     // Load other models
     std::shared_ptr<Graphics::Entity> crate1 = this->AddEntity("crate_01", "crate");
@@ -62,18 +62,36 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
     Graphics::Scene::ProcessInput();
 
     if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::LEFT)) {
-        Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
-        mouseMotion *= 10.0f;
-        this->_player->increasePosition(Math::Vector3f(-mouseMotion.x, 0.0f, mouseMotion.y));
+        Math::Vector3f worldPosition = this->_entityShader->GetScreenWorldPosition(IO::Mouse::Instance().GetCoords());
+        Math::Vector2f target = Math::Vector2f(worldPosition.x, worldPosition.z);
+        if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::LEFT_SHIFT)) {
+            this->_player->Idle();
+            this->_player->LookAt(target);
+        }
+        else {
+            this->_player->SetTarget(target);
+            this->_player->Follow();
+        }
     }
+
+    //if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::LEFT)) {
+    //    Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
+    //    mouseMotion *= 10.0f;
+    //    this->_player->increasePosition(Math::Vector3f(-mouseMotion.x, 0.0f, mouseMotion.y));
+    //}
 }
 
-void GunnerBoi::GunnerBoiScene::Update(Timing::Duration delta)
+void GunnerBoi::GunnerBoiScene::Update(float delta)
 {
     Graphics::Scene::Update(delta);
 
     this->_camera->Update(this->_player);
-    this->_lights["point_light"]->setPosition(this->_player->getPosition());
+
+    this->_player->Update(delta);
+
+    Math::Vector3f playerPosition = this->_player->getPosition();
+    float lightPositionY = this->_lights["point_light"]->getPositionY();
+    this->_lights["point_light"]->setPosition(Math::Vector3f(playerPosition.x, lightPositionY, playerPosition.z));
 }
 
 void GunnerBoi::GunnerBoiScene::Render()

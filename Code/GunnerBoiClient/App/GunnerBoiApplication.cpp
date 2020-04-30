@@ -39,7 +39,7 @@ void GunnerBoi::GunnerBoiApplication::OnProcessInput()
 
 void GunnerBoi::GunnerBoiApplication::OnUpdateLogic()
 {
-    this->_scene->Update(this->GetFrameTime());
+    this->_scene->Update(this->GetFrameDelta());
 }
 
 void GunnerBoi::GunnerBoiApplication::OnUpdateFrame()

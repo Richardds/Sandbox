@@ -6,7 +6,7 @@
 
 App::RenderApplication::RenderApplication() :
     _isQuitRequested(false),
-    _frameTime(0)
+    _frameTime(0.0f)
 {
 }
 
@@ -35,6 +35,8 @@ bool App::RenderApplication::Open()
         }
 
         this->OnConfigureContext();
+
+        this->_time = Timing::Time::Now();
 
         return true;
     }
@@ -130,4 +132,9 @@ void App::RenderApplication::UpdateTime()
 
     this->_frameTime = now.Diff(this->_time);
     this->_time = Timing::Time::Now();
+}
+
+float App::RenderApplication::GetFrameDelta() const
+{
+    return std::chrono::duration_cast<Timing::Seconds>(this->_frameTime).count();
 }

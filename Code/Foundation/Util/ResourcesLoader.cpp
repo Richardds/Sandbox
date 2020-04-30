@@ -59,6 +59,8 @@ std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadTexture(const std:
         return it->second;
     }
 
+    IO::Console::Instance().Info("Loading texture '%s'\n", name.c_str());
+
     std::shared_ptr<Graphics::Texture> texture = std::make_shared<Graphics::Texture>();
 
     std::string path = this->_root + "/Textures/" + name + ".dds";

@@ -2,13 +2,10 @@
 
 #include <chrono>
 
+#include "../Core/Types.h"
+
 namespace Timing
 {
-
-    using namespace std::chrono;
-
-    typedef time_point<steady_clock, microseconds> TimePoint;
-    typedef nanoseconds Duration;
     
     class Time
     {
@@ -31,7 +28,7 @@ namespace Timing
     template<typename T>
     inline T Time::Get() const
     {
-        return duration_cast<T>(this->_time.time_since_epoch());
+        return std::chrono::duration_cast<T>(this->_time.time_since_epoch());
     }
 
 }

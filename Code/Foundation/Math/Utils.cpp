@@ -30,5 +30,5 @@ Math::Matrix4f Math::transformationMatrix(const Vector3f& position, float rotX, 
 float Math::LookAt(const Vector2f& position, const Vector2f& target)
 {
     Vector2f diff = target - position;
-    return glm::degrees(glm::atan(-diff.y, diff.x)) - 90.0f;
+    return glm::degrees(glm::atan(-diff.y, diff.x)) + 90.0f;
 }

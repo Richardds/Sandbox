@@ -20,18 +20,16 @@ Graphics::Player::~Player()
 void Graphics::Player::Move(float distance)
 {
     this->increasePosition(
-        -std::sinf(glm::radians(this->_rotY)) * distance,
+        std::sinf(glm::radians(this->_rotY)) * distance,
         0.0f,
         std::cosf(glm::radians(this->_rotY)) * distance
     );
 }
 
-void Graphics::Player::LookAt(std::shared_ptr<HasPosition> target)
+void Graphics::Player::LookAt(Math::Vector2f target)
 {
-    _assert(target);
-
     this->_rotY = Math::LookAt(
         Math::Vector2f(this->_position.x, this->_position.z),
-        Math::Vector2f(target->getPosition().x, target->getPosition().z)
+        target
     );
 }
