@@ -5,7 +5,7 @@ struct TextureSampler {
     bool enabled;
 };
 
-struct DirectionalLight {
+struct Sun {
     vec3 direction;
     vec3 ambient;
     vec3 diffuse;
@@ -15,6 +15,7 @@ struct DirectionalLight {
 struct PointLight {
     vec3 position;
     vec3 attenuation;
+    vec3 ambient;
     vec3 diffuse;
     vec3 specular;
 };
@@ -26,6 +27,7 @@ struct Fog {
 };
 
 struct Material {
+    vec3 ambient;
     vec3 diffuse;
     vec3 specular;
     float reflectivity;
@@ -46,7 +48,7 @@ uniform TextureSampler specularSampler;
 uniform TextureSampler materialSampler;
 
 uniform int lightsCount;
-uniform DirectionalLight sun;
+uniform Sun sun;
 uniform PointLight light[10];
 uniform Fog fog;
 uniform Material material;
@@ -81,7 +83,7 @@ void main()
 
     // Calculate fragment color using Phong lighting model
     vec3 unitSunDirection = normalize(-sun.direction);
-    vec3 ambient = sun.ambient * materialDiffuse;
+    vec3 ambient = sun.ambient * material.ambient;
     vec3 diffuse = sun.diffuse * (max(dot(normalMapping, unitSunDirection), 0.0f) * materialDiffuse);
     vec3 specular = sun.specular * (pow(max(dot(unitToCameraVector, reflect(-unitSunDirection, normalMapping)), 0.0f), material.reflectivity) * materialSpecular);
 
@@ -91,6 +93,8 @@ void main()
 
         float lightDistance = length(lightDirection);
         float lightAttenuationFactor = light[index].attenuation.x + (light[index].attenuation.y * lightDistance) + (light[index].attenuation.z * lightDistance * lightDistance);
+
+        ambient += light[index].ambient * material.ambient;
 
         float diff = max(dot(normalMapping, unitLightDirection), 0.2f);
         diffuse += (light[index].diffuse * (diff * materialDiffuse)) / lightAttenuationFactor;
@@ -109,6 +113,6 @@ void main()
     // Fade fragment color by visibility
     vec3 fadedColor = mix(fog.color, phongModelColor, fragmentVisibility);
 
-    fragmentColor = vec4(phongModelColor, 1.0f);
-    //fragmentColor = vec4(fadedColor, 1.0f);
+    //fragmentColor = vec4(phongModelColor, 1.0f);
+    fragmentColor = vec4(fadedColor, 1.0f);
 }

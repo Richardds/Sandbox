@@ -21,22 +21,25 @@ bool GunnerBoi::GunnerBoiScene::Load()
 {
     _assert(Graphics::Scene::Load());
 
-    // Setup camera
-    this->_camera = std::make_shared<Graphics::TargetedCamera>(20.0f);
+    // Configure camera
+    this->_camera->SetDistance(15.0f);
 
-    // Setup light
+    // Configure sun
+    this->_entityShader->LoadSun(0.15f, Math::Vector3f(0.85f, 0.65f, 0.75f));
+
+    // Configure lights
     std::shared_ptr<Graphics::Light> pointLight = this->AddLight("point_light");
     pointLight->setPosition(Math::Vector3f(0.0f, 10.0f, 0.0f));
     pointLight->SetAttenuation(Math::Vector3f(1.0f, 0.045f, 0.0075f));
 
-    // Setup terrain
+    // Load terrain
     std::shared_ptr<Graphics::Entity> terrain = this->AddEntity("terrain", "terrain");
 
     // Load player
     this->_player = this->SetupPlayer("sphere");
     this->_player->setPositionY(5.0f);
 
-    // Load scene models
+    // Load other models
     std::shared_ptr<Graphics::Entity> crate1 = this->AddEntity("crate_01", "crate");
     crate1->setPosition(Math::Vector3f(-5.0f, 0.0f, -5.0f));
     std::shared_ptr<Graphics::Entity> crate2 = this->AddEntity("crate_02", "crate");
