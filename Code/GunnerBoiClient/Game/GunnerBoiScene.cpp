@@ -26,7 +26,7 @@ bool GunnerBoi::GunnerBoiScene::Load()
     this->_projectileManager = std::make_shared<ProjectileManager>();
 
     // Configure camera
-    this->_camera->SetDistance(15.0f);
+    this->_camera->SetDistance(10.0f);
 
     // Configure sun
     this->_entityShader->LoadSun(0.15f, Math::Vector3f(0.85f, 0.65f, 0.75f));
@@ -40,7 +40,7 @@ bool GunnerBoi::GunnerBoiScene::Load()
     std::shared_ptr<Graphics::Entity> terrain = this->AddEntity("terrain", "terrain");
 
     // Load player
-    this->_player = this->SetupPlayer("arrow");
+    this->_player = this->SetupPlayer("arrow", Math::Vector3f(0.0f, 0.0f, 0.0f));
 
     // Load other models
     std::shared_ptr<Graphics::Entity> crate1 = this->AddEntity("crate_01", "crate");
@@ -70,7 +70,10 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
         if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::LEFT_SHIFT)) {
             this->_player->Idle();
             this->_player->LookAt(target);
-            this->_projectileManager->Manage(this->_player->Fire());
+            
+            if (this->_player->CountdownReady()) {
+                this->_projectileManager->Manage(this->_player->Fire());
+            }
         }
         else {
             this->_player->SetTarget(target);
@@ -107,9 +110,9 @@ void GunnerBoi::GunnerBoiScene::Render()
     this->_player->Render(this->_entityShader);
 }
 
-std::shared_ptr<GunnerBoi::Boi> GunnerBoi::GunnerBoiScene::SetupPlayer(const std::string& resourceName)
+std::shared_ptr<GunnerBoi::Boi> GunnerBoi::GunnerBoiScene::SetupPlayer(const std::string& resourceName, Math::Vector3f position)
 {
-    std::shared_ptr<Boi> player = std::make_shared<Boi>();
+    std::shared_ptr<Boi> player = std::make_shared<Boi>(position);
     std::shared_ptr<Graphics::Model> model = Util::ResourcesLoader::Instance().LoadModel(resourceName);
     player->SetModel(model);
     return player;

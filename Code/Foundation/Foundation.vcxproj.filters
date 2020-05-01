@@ -162,7 +162,7 @@
     <ClCompile Include="Graphics\Material.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Scene\Player.cpp">
+    <ClCompile Include="Graphics\Scene\Actor.cpp">
       <Filter>Graphics\Scene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -305,7 +305,7 @@
     <ClInclude Include="Graphics\Material.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Scene\Player.h">
+    <ClInclude Include="Graphics\Scene\Actor.h">
       <Filter>Graphics\Scene</Filter>
     </ClInclude>
   </ItemGroup>

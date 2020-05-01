@@ -1,19 +1,23 @@
 #pragma once
 
-#include <Graphics/Scene/Entity.h>
+#include <Graphics/Scene/Actor.h>
 #include <Math/Vector.h>
 
 namespace GunnerBoi
 {
 
-    class Projectile : public Graphics::Entity
+    class Projectile : public Graphics::Actor
     {
     public:
+        Projectile(std::shared_ptr<Actor> actor);
         Projectile(Math::Vector3f position, float rotation);
         virtual ~Projectile();
+        float DistanceToOrigin() const;
+        bool OutOfRange() const;
 
     private:
-
+        Math::Vector3f _origin;
+        float _range;
     };
 
 }

@@ -5,7 +5,6 @@
 
 #include "Shaders/EntityShader.h"
 #include "Scene/TargetedCamera.h"
-#include "Scene/Player.h"
 #include "Scene/Light.h"
 #include "Scene/Entity.h"
 #include "../Timing/Time.h"

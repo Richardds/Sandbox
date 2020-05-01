@@ -1,17 +1,13 @@
+#include <Math/Utils.h>
+
 #include "Boi.h"
 
-GunnerBoi::Boi::Boi() :
-	_state(State::IDLE),
-	_target(),
-	_movingSpeed(3.0f)
-{
-}
-
 GunnerBoi::Boi::Boi(Math::Vector3f position) :
-	Player(position),
+	Actor(position),
 	_state(State::IDLE),
 	_target(),
-	_movingSpeed(1.0f)
+	_attackSpeed(1.2f),
+	_countdown(0.0f)
 {
 }
 
@@ -19,25 +15,35 @@ GunnerBoi::Boi::~Boi()
 {
 }
 
-std::shared_ptr<GunnerBoi::Projectile> GunnerBoi::Boi::Fire() const
+bool GunnerBoi::Boi::CountdownReady() const
 {
-	return std::make_shared<Projectile>(this->_position, this->_rotY);
+	return this->_countdown == 0.0f;
 }
 
-float GunnerBoi::Boi::DistanceTo(Math::Vector2f target)
+std::shared_ptr<GunnerBoi::Projectile> GunnerBoi::Boi::Fire()
 {
-	return glm::distance(Math::Vector2f(this->_position.x, this->_position.z), target);
+	this->_countdown = 1.0f / this->_attackSpeed;
+	std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(this->_position, this->_rotY);
+	projectile->setPositionY(0.5f);
+	projectile->SetMovingSpeed(10.0f);
+	return projectile;
 }
 
 void GunnerBoi::Boi::Update(float delta)
 {
+	// Update projectile countdown
+	if (this->_countdown > 0.0f) {
+		float next = this->_countdown -= delta;
+		this->_countdown = Math::max(next, 0.0f);
+	}
+
 	if (State::FOLLOWING == this->_state) {
 		if (this->DistanceTo(this->_target) < 0.05f) {
 			this->_state = State::IDLE;
 		}
 		else {
 			this->LookAt(this->_target);
-			this->Move(this->_movingSpeed * delta);
+			Actor::Update(delta);
 		}
 	}
 }

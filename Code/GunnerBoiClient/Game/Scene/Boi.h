@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Graphics/Scene/Player.h>
+#include <Graphics/Scene/Actor.h>
 #include <Graphics/Model.h>
 #include <Math/Vector.h>
 #include <Timing/Time.h>
@@ -10,7 +10,7 @@
 namespace GunnerBoi
 {
 
-    class Boi : public Graphics::Player
+    class Boi : public Graphics::Actor
     {
     public:
         enum class State {
@@ -19,7 +19,6 @@ namespace GunnerBoi
             FOLLOWING
         };
 
-        Boi();
         Boi(Math::Vector3f position);
         virtual ~Boi();
         State GetState() const;
@@ -27,16 +26,15 @@ namespace GunnerBoi
         void SetTarget(Math::Vector2f target);
         void Follow();
         void Idle();
-        std::shared_ptr<Projectile> Fire() const;
-        float GetMovingSpeed() const;
-        void SetMovingSpeed(float speed);
-        float DistanceTo(Math::Vector2f target);
+        bool CountdownReady() const;
+        std::shared_ptr<Projectile> Fire();
         void Update(float delta);
 
     private:
         State _state;
         Math::Vector2f _target;
-        float _movingSpeed;
+        float _attackSpeed;
+        float _countdown;
     };
 
     inline Boi::State GunnerBoi::Boi::GetState() const
@@ -63,16 +61,6 @@ namespace GunnerBoi
     inline void Boi::Idle()
     {
         this->_state = State::IDLE;
-    }
-
-    inline float GunnerBoi::Boi::GetMovingSpeed() const
-    {
-        return this->_movingSpeed;
-    }
-
-    inline void GunnerBoi::Boi::SetMovingSpeed(float speed)
-    {
-        this->_movingSpeed = speed;
     }
 
 }

@@ -13,14 +13,17 @@ namespace Graphics
     public:
         TargetedCamera(float distance);
         virtual ~TargetedCamera();
-        void SetDistance(float distance);
         float GetDistance() const;
+        void SetDistance(float distance);
+        float GetAngle() const;
+        void SetAngle(float angle);
         void IncreaseDistance(float distance);
         void LookAt(Math::Vector3f position);
         void Update(std::shared_ptr<HasPosition> target);
 
     private:
         float _distance;
+        float _angle;
     };
 
     inline float Graphics::TargetedCamera::GetDistance() const
@@ -31,6 +34,16 @@ namespace Graphics
     inline void Graphics::TargetedCamera::SetDistance(float distance)
     {
         this->_distance = distance;
+    }
+
+    inline float TargetedCamera::GetAngle() const
+    {
+        return this->_angle;
+    }
+
+    inline void TargetedCamera::SetAngle(float angle)
+    {
+        this->_angle = angle;
     }
 
 }

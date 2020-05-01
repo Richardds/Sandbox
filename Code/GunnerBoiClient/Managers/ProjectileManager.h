@@ -18,6 +18,7 @@ namespace GunnerBoi
         void Manage(std::shared_ptr<Projectile> projectile);
 
     private:
+        std::shared_ptr<Graphics::Model> _projectileModel;
         std::vector<std::shared_ptr<Projectile>> _projectiles;
     };
 

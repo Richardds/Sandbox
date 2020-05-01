@@ -25,10 +25,10 @@
     <ClCompile Include="Graphics\Mesh.cpp" />
     <ClCompile Include="Graphics\Model.cpp" />
     <ClCompile Include="Graphics\Scene.cpp" />
+    <ClCompile Include="Graphics\Scene\Actor.cpp" />
     <ClCompile Include="Graphics\Scene\Camera.cpp" />
     <ClCompile Include="Graphics\Scene\Entity.cpp" />
     <ClCompile Include="Graphics\Scene\Light.cpp" />
-    <ClCompile Include="Graphics\Scene\Player.cpp" />
     <ClCompile Include="Graphics\Scene\TargetedCamera.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
     <ClCompile Include="Graphics\ShaderProgram.cpp" />
@@ -70,10 +70,10 @@
     <ClInclude Include="Graphics\Mesh.h" />
     <ClInclude Include="Graphics\Model.h" />
     <ClInclude Include="Graphics\Scene.h" />
+    <ClInclude Include="Graphics\Scene\Actor.h" />
     <ClInclude Include="Graphics\Scene\Camera.h" />
     <ClInclude Include="Graphics\Scene\Entity.h" />
     <ClInclude Include="Graphics\Scene\Light.h" />
-    <ClInclude Include="Graphics\Scene\Player.h" />
     <ClInclude Include="Graphics\Scene\TargetedCamera.h" />
     <ClInclude Include="Graphics\Shader.h" />
     <ClInclude Include="Graphics\ShaderProgram.h" />
