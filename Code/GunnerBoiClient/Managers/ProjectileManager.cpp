@@ -23,7 +23,6 @@ void GunnerBoi::ProjectileManager::Update(float delta)
 			it = this->_projectiles.erase(it);
 		}
 		else {
-			printf("Projectile distance: %f\n", (*it)->DistanceToOrigin());
 			// TODO: Handle collision
 
 			++it;

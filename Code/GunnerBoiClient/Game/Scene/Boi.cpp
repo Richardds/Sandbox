@@ -15,7 +15,7 @@ GunnerBoi::Boi::~Boi()
 {
 }
 
-bool GunnerBoi::Boi::CountdownReady() const
+bool GunnerBoi::Boi::IsReadyToFire() const
 {
 	return this->_countdown == 0.0f;
 }
@@ -25,7 +25,7 @@ std::shared_ptr<GunnerBoi::Projectile> GunnerBoi::Boi::Fire()
 	this->_countdown = 1.0f / this->_attackSpeed;
 	std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(this->_position, this->_rotY);
 	projectile->setPositionY(0.5f);
-	projectile->SetMovingSpeed(10.0f);
+	projectile->SetMovingSpeed(20.0f);
 	return projectile;
 }
 
@@ -33,7 +33,7 @@ void GunnerBoi::Boi::Update(float delta)
 {
 	// Update projectile countdown
 	if (this->_countdown > 0.0f) {
-		float next = this->_countdown -= delta;
+		float next = this->_countdown - delta;
 		this->_countdown = Math::max(next, 0.0f);
 	}
 

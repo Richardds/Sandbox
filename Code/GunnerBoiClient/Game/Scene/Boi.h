@@ -26,7 +26,7 @@ namespace GunnerBoi
         void SetTarget(Math::Vector2f target);
         void Follow();
         void Idle();
-        bool CountdownReady() const;
+        bool IsReadyToFire() const;
         std::shared_ptr<Projectile> Fire();
         void Update(float delta);
 

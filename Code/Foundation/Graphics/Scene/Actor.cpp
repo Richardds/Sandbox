@@ -11,7 +11,7 @@ Graphics::Actor::Actor() :
 
 Graphics::Actor::Actor(Math::Vector3f position, float rotY) :
     Entity(position, 0.0f, rotY, 0.0f),
-    _movingSpeed(3.0f)
+    _movingSpeed(5.0f)
 {
 }
 

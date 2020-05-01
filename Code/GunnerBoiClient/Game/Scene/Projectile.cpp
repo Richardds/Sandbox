@@ -8,7 +8,7 @@ GunnerBoi::Projectile::Projectile(std::shared_ptr<Actor> actor) :
 GunnerBoi::Projectile::Projectile(Math::Vector3f position, float rotation) :
     Actor(position, rotation),
     _origin(position),
-    _range(15.0f)
+    _range(25.0f)
 {
 }
 

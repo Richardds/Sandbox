@@ -71,7 +71,7 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
             this->_player->Idle();
             this->_player->LookAt(target);
             
-            if (this->_player->CountdownReady()) {
+            if (this->_player->IsReadyToFire()) {
                 this->_projectileManager->Manage(this->_player->Fire());
             }
         }
