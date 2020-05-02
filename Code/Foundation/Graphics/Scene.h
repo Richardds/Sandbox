@@ -4,9 +4,9 @@
 #include <string>
 
 #include "Shaders/EntityShader.h"
-#include "Scene/TargetedCamera.h"
-#include "Scene/Light.h"
-#include "Scene/Entity.h"
+#include "../Game/TargetedCamera.h"
+#include "../Game/Light.h"
+#include "../Game/Entity.h"
 #include "../Timing/Time.h"
 
 namespace Graphics

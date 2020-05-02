@@ -1,10 +1,10 @@
 #pragma once
 
 #include <Graphics/Scene.h>
-#include <Graphics/Scene/TargetedCamera.h>
+#include <Game/TargetedCamera.h>
 
 #include "Scene/Boi.h"
-#include "../Managers/ProjectileManager.h"
+#include "Managers/ProjectileManager.h"
 
 namespace GunnerBoi
 {

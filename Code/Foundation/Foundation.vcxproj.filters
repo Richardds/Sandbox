@@ -25,9 +25,6 @@
     <Filter Include="Graphics\Shaders">
       <UniqueIdentifier>{77f24fa0-28e1-4d22-99f5-240d9baba628}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Scene">
-      <UniqueIdentifier>{7cce6f58-1bec-4573-955f-fbd3dd2577f7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Util\Loaders">
       <UniqueIdentifier>{1152d737-5257-4915-a731-2fd7994e310a}</UniqueIdentifier>
     </Filter>
@@ -37,8 +34,11 @@
     <Filter Include="Graphics\UI">
       <UniqueIdentifier>{fce9a0c9-7c57-4324-b507-cfb036f55e50}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Attributes">
-      <UniqueIdentifier>{70bc1eb1-eaa7-4934-ba74-29e821d2a705}</UniqueIdentifier>
+    <Filter Include="Game">
+      <UniqueIdentifier>{ffb77d74-2f5d-4db2-a438-37628c10008e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Attributes">
+      <UniqueIdentifier>{c20f138b-e4ab-4bf8-946e-b93e8fac936c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -90,9 +90,6 @@
     <ClCompile Include="Graphics\Shaders\ShaderSystem.cpp">
       <Filter>Graphics\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Scene\Entity.cpp">
-      <Filter>Graphics\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Mesh.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
@@ -102,20 +99,11 @@
     <ClCompile Include="Graphics\Shaders\EntityShader.cpp">
       <Filter>Graphics\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Scene\Camera.cpp">
-      <Filter>Graphics\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Scene\TargetedCamera.cpp">
-      <Filter>Graphics\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Math\Utils.cpp">
       <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="IO\Mouse.cpp">
       <Filter>IO</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Scene\Light.cpp">
-      <Filter>Graphics\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Texture.cpp">
       <Filter>Graphics</Filter>
@@ -131,15 +119,6 @@
     </ClCompile>
     <ClCompile Include="Graphics\UI\Rectangle.cpp">
       <Filter>Graphics\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Attributes\HasScale.cpp">
-      <Filter>Graphics\Attributes</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Attributes\HasPosition.cpp">
-      <Filter>Graphics\Attributes</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Attributes\HasRotation.cpp">
-      <Filter>Graphics\Attributes</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\VertexAttributeConfig.cpp">
       <Filter>Graphics</Filter>
@@ -162,8 +141,29 @@
     <ClCompile Include="Graphics\Material.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Scene\Actor.cpp">
-      <Filter>Graphics\Scene</Filter>
+    <ClCompile Include="Game\Camera.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Entity.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Light.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TargetedCamera.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Actor.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Attributes\HasScale.cpp">
+      <Filter>Game\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Attributes\HasPosition.cpp">
+      <Filter>Game\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Attributes\HasRotation.cpp">
+      <Filter>Game\Attributes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,9 +218,6 @@
     <ClInclude Include="Graphics\Shaders\ShaderSystem.h">
       <Filter>Graphics\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Scene\Entity.h">
-      <Filter>Graphics\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\Mesh.h">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -229,12 +226,6 @@
     </ClInclude>
     <ClInclude Include="Graphics\Shaders\EntityShader.h">
       <Filter>Graphics\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Scene\Camera.h">
-      <Filter>Graphics\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Scene\TargetedCamera.h">
-      <Filter>Graphics\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Math\Matrix.h">
       <Filter>Math</Filter>
@@ -254,9 +245,6 @@
     <ClInclude Include="IO\Mouse.h">
       <Filter>IO</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Scene\Light.h">
-      <Filter>Graphics\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\Texture.h">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -271,15 +259,6 @@
     </ClInclude>
     <ClInclude Include="Graphics\UI\Rectangle.h">
       <Filter>Graphics\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Attributes\HasRotation.h">
-      <Filter>Graphics\Attributes</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Attributes\HasScale.h">
-      <Filter>Graphics\Attributes</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Attributes\HasPosition.h">
-      <Filter>Graphics\Attributes</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\VertexAttributeConfig.h">
       <Filter>Graphics</Filter>
@@ -305,8 +284,29 @@
     <ClInclude Include="Graphics\Material.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Scene\Actor.h">
-      <Filter>Graphics\Scene</Filter>
+    <ClInclude Include="Game\Actor.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Entity.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Light.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TargetedCamera.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Attributes\HasRotation.h">
+      <Filter>Game\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Attributes\HasScale.h">
+      <Filter>Game\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Attributes\HasPosition.h">
+      <Filter>Game\Attributes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Attributes/HasPosition.h"
+#include "../../Game/Attributes/HasPosition.h"
 #include "../../Math/Vector.h"
 
 namespace Graphics

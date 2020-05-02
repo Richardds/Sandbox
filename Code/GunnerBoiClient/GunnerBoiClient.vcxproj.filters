@@ -11,11 +11,11 @@
     <ClCompile Include="Game\Scene\Boi.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Managers\ProjectileManager.cpp">
-      <Filter>Game\Managers</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Scene\Projectile.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Managers\ProjectileManager.cpp">
+      <Filter>Game\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -42,11 +42,11 @@
     <ClInclude Include="Game\Scene\Boi.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Managers\ProjectileManager.h">
-      <Filter>Game\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Scene\Projectile.h">
       <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Managers\ProjectileManager.h">
+      <Filter>Game\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

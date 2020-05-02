@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Graphics/Scene/Actor.h>
+#include <Game/Actor.h>
 #include <Math/Vector.h>
 
 namespace GunnerBoi

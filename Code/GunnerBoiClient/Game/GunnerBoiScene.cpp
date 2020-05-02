@@ -1,8 +1,8 @@
-#include <Graphics/Scene/Light.h>
-#include <Graphics/Scene/TargetedCamera.h>
+#include <Game/Light.h>
+#include <Game/TargetedCamera.h>
 #include <Graphics/Model.h>
 #include <Graphics/TexturedMesh.h>
-#include <Graphics/Scene/Entity.h>
+#include <Game/Entity.h>
 #include <Util/ResourcesLoader.h>
 #include <IO/Mouse.h>
 #include <IO/Keyboard.h>
@@ -51,6 +51,9 @@ bool GunnerBoi::GunnerBoiScene::Load()
     crate3->setPosition(Math::Vector3f(-5.0f, 0.0f, 5.0f));
     std::shared_ptr<Graphics::Entity> crate4 = this->AddEntity("crate_04", "crate");
     crate4->setPosition(Math::Vector3f(5.0f, 0.0f, 5.0f));
+
+    std::shared_ptr<Graphics::Entity> rock = this->AddEntity("rock_01", "rock");
+    rock->setPosition(Math::Vector3f(3.0f, 0.0f, 3.0f));
 
     // Mouse scrolling
     IO::Mouse::Instance().RegisterScrolling([this](float x, float y) {

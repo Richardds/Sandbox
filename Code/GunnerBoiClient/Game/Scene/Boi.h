@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Graphics/Scene/Actor.h>
+#include <Game/Actor.h>
 #include <Graphics/Model.h>
 #include <Math/Vector.h>
 #include <Timing/Time.h>
