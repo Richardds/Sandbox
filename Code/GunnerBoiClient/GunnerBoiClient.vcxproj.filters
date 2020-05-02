@@ -31,6 +31,9 @@
     <Filter Include="Game\Managers">
       <UniqueIdentifier>{908d375d-7127-422b-8e85-3c764a86225a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{d1b6027a-02eb-4815-8ff2-cb468038b7ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\GunnerBoiApplication.h">

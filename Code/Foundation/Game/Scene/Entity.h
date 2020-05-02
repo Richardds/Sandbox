@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../Game/Attributes/HasPosition.h"
-#include "../Game/Attributes/HasRotation.h"
-#include "../Game/Attributes/HasScale.h"
-#include "../Graphics/Model.h"
-#include "../Graphics/Shaders/EntityShader.h"
+#include "../Attributes/HasPosition.h"
+#include "../Attributes/HasRotation.h"
+#include "../Attributes/HasScale.h"
+#include "../../Graphics/Model.h"
+#include "../../Graphics/Shaders/EntityShader.h"
 
 namespace Graphics
 {

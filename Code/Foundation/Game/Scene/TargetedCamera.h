@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "Camera.h"
-#include "../Game/Attributes/HasPosition.h"
+#include "../Attributes/HasPosition.h"
 
 namespace Graphics
 {

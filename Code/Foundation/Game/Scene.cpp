@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "Core.h"
 #include "Scene.h"
+#include "../Graphics/Core.h"
 #include "../Core/Debug.h"
 #include "../IO/Mouse.h"
 #include "../IO/Console.h"

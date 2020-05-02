@@ -40,6 +40,9 @@
     <Filter Include="Game\Attributes">
       <UniqueIdentifier>{c20f138b-e4ab-4bf8-946e-b93e8fac936c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Scene">
+      <UniqueIdentifier>{baf333cd-1af2-415b-bb55-314708d6a749}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Debug.cpp">
@@ -76,9 +79,6 @@
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\ShaderProgram.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Scene.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Util\ResourcesLoader.cpp">
@@ -141,21 +141,6 @@
     <ClCompile Include="Graphics\Material.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Camera.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Entity.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Light.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\TargetedCamera.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Actor.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Attributes\HasScale.cpp">
       <Filter>Game\Attributes</Filter>
     </ClCompile>
@@ -164,6 +149,24 @@
     </ClCompile>
     <ClCompile Include="Game\Attributes\HasRotation.cpp">
       <Filter>Game\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Camera.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Entity.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Light.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\TargetedCamera.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Actor.cpp">
+      <Filter>Game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -204,9 +207,6 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\ShaderProgram.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Scene.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Util\ResourcesLoader.h">
@@ -284,21 +284,6 @@
     <ClInclude Include="Graphics\Material.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Actor.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Camera.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Entity.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Light.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\TargetedCamera.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Attributes\HasRotation.h">
       <Filter>Game\Attributes</Filter>
     </ClInclude>
@@ -307,6 +292,24 @@
     </ClInclude>
     <ClInclude Include="Game\Attributes\HasPosition.h">
       <Filter>Game\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Camera.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Entity.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Light.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\TargetedCamera.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Actor.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

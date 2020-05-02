@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Graphics/Scene.h>
-#include <Game/TargetedCamera.h>
+#include <Game/Scene.h>
+#include <Game/Scene/TargetedCamera.h>
 
 #include "Scene/Boi.h"
 #include "Managers/ProjectileManager.h"

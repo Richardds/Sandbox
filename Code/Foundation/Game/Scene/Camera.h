@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Game/Attributes/HasPosition.h"
-#include "../Game/Attributes/HasRotation.h"
+#include "../Attributes/HasPosition.h"
+#include "../Attributes/HasRotation.h"
 
 namespace Graphics
 {

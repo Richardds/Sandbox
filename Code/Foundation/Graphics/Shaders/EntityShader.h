@@ -1,8 +1,8 @@
 #pragma once
 
 #include "ShaderSystem.h"
-#include "../../Game/Camera.h"
-#include "../../Game/Light.h"
+#include "../../Game/Scene/Camera.h"
+#include "../../Game/Scene/Light.h"
 #include "../../Math/Matrix.h"
 #include "../Material.h"
 

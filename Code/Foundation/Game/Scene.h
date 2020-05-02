@@ -3,11 +3,11 @@
 #include <unordered_map>
 #include <string>
 
-#include "Shaders/EntityShader.h"
-#include "../Game/TargetedCamera.h"
-#include "../Game/Light.h"
-#include "../Game/Entity.h"
+#include "../Graphics/Shaders/EntityShader.h"
 #include "../Timing/Time.h"
+#include "Scene/TargetedCamera.h"
+#include "Scene/Light.h"
+#include "Scene/Entity.h"
 
 namespace Graphics
 {
