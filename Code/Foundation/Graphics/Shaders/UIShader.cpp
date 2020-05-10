@@ -1,13 +1,8 @@
-#include <iostream>
-
 #include "UIShader.h"
-#include "../../Math/Utils.h"
-#include "../../Core/Debug.h"
-#include "../../Graphics/Core.h"
 
 Graphics::UIShader::UIShader() :
     ShaderSystem("UI"),
-    _uiMatrixLocation(0)
+    _transformationLocation(0)
 {
 }
 
@@ -15,18 +10,13 @@ Graphics::UIShader::~UIShader()
 {
 }
 
-void Graphics::UIShader::Begin()
-{
-    this->Use();
-}
-
 void Graphics::UIShader::InitializeUniformVariables()
 {
-    this->_uiMatrixLocation = this->GetUniformLocation("uiMatrix");
-    this->LoadMatrix4f(this->_uiMatrixLocation, Math::Matrix4f(1.0f));
+    this->_transformationLocation = this->GetUniformLocation("transformation");
+    this->LoadMatrix4f(this->_transformationLocation, Math::Matrix4f(1.0f));
 }
 
-void Graphics::UIShader::LoadUITransformation(const Math::Matrix4f& uiMatrix)
+void Graphics::UIShader::LoadTransformation(const Math::Matrix4f& transformation)
 {
-    this->LoadMatrix4f(this->_uiMatrixLocation, uiMatrix);
+    this->LoadMatrix4f(this->_transformationLocation, transformation);
 }
