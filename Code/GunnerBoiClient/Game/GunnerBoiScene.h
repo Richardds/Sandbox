@@ -19,7 +19,7 @@ namespace GunnerBoi
 
         GunnerBoiScene();
         virtual ~GunnerBoiScene();
-        bool Load();
+        bool Setup();
         void ProcessInput();
         void Update(float delta);
         void Render();

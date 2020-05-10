@@ -10,11 +10,17 @@
 namespace Math
 {
 
-    Matrix4f projectionMatrix(float aspectRatio, float fieldOfView, float nearPlane, float farPlane);
+    Matrix4f ProjectionMatrix(float aspectRatio, float fieldOfView, float nearPlane, float farPlane);
 
-    Matrix4f viewMatrix(Vector3f position, float rotX, float rotY);
+    Matrix4f ViewMatrix(const Vector3f& position, float rotX, float rotY);
 
-    Matrix4f transformationMatrix(const Vector3f& position, float rotX, float rotY, float rotZ, float scale);
+    Matrix4f TransformationMatrix(const Vector3f& position, float rotX, float rotY, float rotZ, float scale);
+
+    Matrix4f TranslationMatrix(const Vector3f& position);
+
+    Matrix4f RotationMatrix(float rotX, float rotY, float rotZ);
+
+    Matrix4f ScaleMatrix(float scale);
 
     float LookAt(const Vector2f& position, const Vector2f& target);
 

@@ -10,8 +10,23 @@ namespace Graphics
     {
     public:
         Camera();
-        Camera(Math::Vector3f position, float rotX = 0.0f, float rotY = 0.0f, float rotZ = 0.0f);
+        Camera(float fieldOfView);
         virtual ~Camera();
+        float GetFieldOfView() const;
+        void SetFieldOfView(float fieldOfView);
+
+    private:
+        float _fieldOfView;
     };
+
+    inline float Graphics::Camera::GetFieldOfView() const
+    {
+        return this->_fieldOfView;
+    }
+
+    inline void Camera::SetFieldOfView(float fieldOfView)
+    {
+        this->_fieldOfView = fieldOfView;
+    }
 
 }

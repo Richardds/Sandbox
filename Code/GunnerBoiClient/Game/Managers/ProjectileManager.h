@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <Graphics/Shaders/EntityShader.h>
+#include <Graphics/Renderers/EntityRenderer.h>
 
 #include "../Scene/Projectile.h"
 
@@ -14,7 +14,7 @@ namespace GunnerBoi
         ProjectileManager();
         virtual ~ProjectileManager();
         void Update(float delta);
-        void Render(std::shared_ptr<Graphics::EntityShader> shader);
+        void RenderWith(std::shared_ptr<Graphics::EntityRenderer> renderer);
         void Manage(std::shared_ptr<Projectile> projectile);
 
     private:

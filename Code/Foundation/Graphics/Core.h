@@ -7,6 +7,7 @@
 
 #include "../Core/Singleton.h"
 #include "Window.h"
+#include "Projection.h"
 #include "../Math/Vector.h"
 
 namespace Graphics
@@ -26,6 +27,7 @@ namespace Graphics
         std::shared_ptr<Window> GetRenderingContext() const;
         std::string GetGlString(GLenum name) const;
         Math::Vector4ui GetViewport() const;
+        std::shared_ptr<Projection> MakeProjection(float fieldOfView) const;
         std::string GetDeviceVendor() const;
         std::string GetDeviceName() const;
         std::string GetDriverVersion() const;

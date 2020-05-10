@@ -21,9 +21,8 @@ namespace Graphics
         ShaderSystem(const std::string& name);
         virtual ~ShaderSystem();
         virtual void InitializeUniformVariables() = 0;
-        bool Load();
+        bool Setup();
         void Use();
-        virtual void Begin();
 
     protected:
         GLint GetUniformLocation(const std::string& name);

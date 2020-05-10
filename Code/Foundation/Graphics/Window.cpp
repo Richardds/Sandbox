@@ -74,7 +74,7 @@ bool Graphics::Window::IsCloseRequested() const
     return glfwWindowShouldClose(this->_glfwWindow);
 }
 
-float Graphics::Window::GetRatio() const
+float Graphics::Window::GetAspectRatio() const
 {
     return static_cast<float>(this->_width) / static_cast<float>(this->_height);
 }

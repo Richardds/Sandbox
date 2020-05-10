@@ -21,7 +21,7 @@ std::shared_ptr<Graphics::Shader> Util::ResourcesLoader::LoadShader(const std::s
 {
     const std::string type_str = Graphics::Shader::GetStringFromType(type);
 
-    IO::Console::Instance().Info("Loading %s shader '%s'\n", type_str.c_str(), name.c_str());
+    IO::Console::Instance().Info("Loading '%s' %s shader\n", name.c_str(), type_str.c_str());
 
     std::shared_ptr<Graphics::Shader> shader = std::make_shared<Graphics::Shader>(type);
 
@@ -59,7 +59,7 @@ std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadTexture(const std:
         return it->second;
     }
 
-    IO::Console::Instance().Info("Loading texture '%s'\n", name.c_str());
+    IO::Console::Instance().Info("Loading '%s' texture\n", name.c_str());
 
     std::shared_ptr<Graphics::Texture> texture = std::make_shared<Graphics::Texture>();
 
@@ -97,7 +97,7 @@ std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadModel(const std::str
         return it->second;
     }
 
-    IO::Console::Instance().Info("Loading model '%s'\n", name.c_str());
+    IO::Console::Instance().Info("Loading '%s' model\n", name.c_str());
 
     std::shared_ptr<Graphics::Model> model = std::make_shared<Graphics::Model>();
 

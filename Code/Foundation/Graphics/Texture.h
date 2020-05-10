@@ -5,6 +5,7 @@
 #include <gli/texture.hpp>
 
 #include "Core.h"
+#include "FrameBuffer.h"
 
 namespace Graphics
 {
@@ -33,6 +34,7 @@ namespace Graphics
         void Unbind();
         void Data(const gli::texture& texture);
         void Data(const void * pixels, unsigned int width, unsigned int height);
+        void Data(std::shared_ptr<FrameBuffer> frameBuffer, unsigned int width, unsigned int height);
         GLenum GetTarget() const;
         GLuint GetGlTexture() const;
         GLsizei GetWidth() const;

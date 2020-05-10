@@ -1,10 +1,13 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "Projection.h"
 #include "../Core/Debug.h"
+#include "../Game/Scene/Camera.h"
 
 namespace Graphics
 {
@@ -25,7 +28,7 @@ namespace Graphics
         void SetSize(unsigned int width, unsigned int height);
         unsigned int GetWidth() const;
         unsigned int GetHeight() const;
-        float GetRatio() const;
+        float GetAspectRatio() const;
         void SetTitle(const std::string& title);
         const std::string& GetTitle() const;
         GLFWwindow* GetGlfwWindow() const;

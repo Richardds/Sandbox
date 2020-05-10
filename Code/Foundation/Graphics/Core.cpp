@@ -109,6 +109,11 @@ Math::Vector4ui Graphics::Core::GetViewport() const
     );
 }
 
+std::shared_ptr<Graphics::Projection> Graphics::Core::MakeProjection(float fieldOfView) const
+{
+    return std::make_shared<Projection>(this->_context->GetAspectRatio(), fieldOfView, 0.1f, 1000.0f);
+}
+
 std::string Graphics::Core::GetDeviceVendor() const
 {
     return this->GetGlString(GL_VENDOR);

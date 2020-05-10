@@ -28,9 +28,6 @@
     <Filter Include="Util\Loaders">
       <UniqueIdentifier>{1152d737-5257-4915-a731-2fd7994e310a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Generators">
-      <UniqueIdentifier>{6171584d-6a66-4e3d-a6d1-d78a2baaa994}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Graphics\UI">
       <UniqueIdentifier>{fce9a0c9-7c57-4324-b507-cfb036f55e50}</UniqueIdentifier>
     </Filter>
@@ -42,6 +39,9 @@
     </Filter>
     <Filter Include="Game\Scene">
       <UniqueIdentifier>{baf333cd-1af2-415b-bb55-314708d6a749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Renderers">
+      <UniqueIdentifier>{344ce12d-7400-4d57-aa52-a5676628201c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -111,9 +111,6 @@
     <ClCompile Include="Util\Loaders\DirectDrawSurfaceLoader.cpp">
       <Filter>Util\Loaders</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Generators\TerrainGenerator.cpp">
-      <Filter>Graphics\Generators</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Shaders\UIShader.cpp">
       <Filter>Graphics\Shaders</Filter>
     </ClCompile>
@@ -133,9 +130,6 @@
       <Filter>Graphics\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\FrameBuffer.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\ShadowFrameBuffer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Material.cpp">
@@ -166,6 +160,30 @@
       <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scene\Actor.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\RenderBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Renderers\WaterRenderer.cpp">
+      <Filter>Graphics\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Water.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Shaders\WaterShader.cpp">
+      <Filter>Graphics\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Projection.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Renderers\EntityRenderer.cpp">
+      <Filter>Graphics\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\DirectionalLight.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Sun.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -251,9 +269,6 @@
     <ClInclude Include="Util\Loaders\DirectDrawSurfaceLoader.h">
       <Filter>Util\Loaders</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Generators\TerrainGenerator.h">
-      <Filter>Graphics\Generators</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\Shaders\UIShader.h">
       <Filter>Graphics\Shaders</Filter>
     </ClInclude>
@@ -276,9 +291,6 @@
       <Filter>Graphics\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\FrameBuffer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\ShadowFrameBuffer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Material.h">
@@ -309,6 +321,30 @@
       <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scene\Actor.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\RenderBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Renderers\WaterRenderer.h">
+      <Filter>Graphics\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Water.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Shaders\WaterShader.h">
+      <Filter>Graphics\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Projection.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Renderers\EntityRenderer.h">
+      <Filter>Graphics\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\DirectionalLight.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Sun.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>

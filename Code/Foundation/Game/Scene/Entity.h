@@ -17,7 +17,7 @@ namespace Graphics
         virtual ~Entity();
         std::shared_ptr<Model> GetModel() const;
         void SetModel(std::shared_ptr<Model> model);
-        virtual void Render(std::shared_ptr<EntityShader> shader);
+        void Render(std::shared_ptr<EntityShader> shader);
 
     private:
         std::shared_ptr<Model> _model;

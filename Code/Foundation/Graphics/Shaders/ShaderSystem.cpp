@@ -13,7 +13,7 @@ Graphics::ShaderSystem::~ShaderSystem()
 {
 }
 
-bool Graphics::ShaderSystem::Load()
+bool Graphics::ShaderSystem::Setup()
 {
     _assert(State::INITIAL == this->_state);
 
@@ -50,11 +50,6 @@ void Graphics::ShaderSystem::Use()
     _assert(State::READY == this->_state);
 
     ShaderProgram::Use();
-}
-
-void Graphics::ShaderSystem::Begin()
-{
-    // Override
 }
 
 GLint Graphics::ShaderSystem::GetUniformLocation(const std::string& name)

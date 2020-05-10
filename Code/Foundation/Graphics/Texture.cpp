@@ -21,6 +21,7 @@ Graphics::Texture::Texture(GLenum target) :
 
 Graphics::Texture::~Texture()
 {
+	this->Unbind();
 	glDeleteTextures(1, &this->_glTexture);
 }
 
@@ -50,6 +51,7 @@ void Graphics::Texture::Unbind()
 void Graphics::Texture::Data(const gli::texture& texture)
 {
 	_assert(State::INITIAL == this->_state);
+	_assert(this->IsBound());
 
 	gli::gl GL(gli::gl::PROFILE_GL33);
 	gli::gl::format const format = GL.translate(texture.format(), texture.swizzles());
@@ -124,6 +126,22 @@ void Graphics::Texture::Data(const void * pixels, unsigned int width, unsigned i
 	glTexParameteri(this->_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	glTexImage2D(this->_target, 0, GL_RGB, this->_width, this->_height, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+
+	this->_state = State::LOADED;
+}
+
+void Graphics::Texture::Data(std::shared_ptr<FrameBuffer> frameBuffer, unsigned int width, unsigned int height)
+{
+	_assert(State::INITIAL == this->_state);
+	_assert(this->IsBound());
+	_assert(frameBuffer->IsBound());
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
+
+	glFramebufferTexture2D(GL_FRAMEBUFFER, frameBuffer->GetAttachment(), GL_TEXTURE_2D, this->_glTexture, 0);
 
 	this->_state = State::LOADED;
 }

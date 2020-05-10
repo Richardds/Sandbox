@@ -30,10 +30,10 @@ void GunnerBoi::ProjectileManager::Update(float delta)
 	}
 }
 
-void GunnerBoi::ProjectileManager::Render(std::shared_ptr<Graphics::EntityShader> shader)
+void GunnerBoi::ProjectileManager::RenderWith(std::shared_ptr<Graphics::EntityRenderer> renderer)
 {
 	for (std::shared_ptr<Projectile>& projectile : this->_projectiles) {
-		projectile->Render(shader);
+		renderer->Render(projectile);
 	}
 }
 

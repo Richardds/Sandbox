@@ -45,7 +45,6 @@ out vec4 fragmentColor;
 uniform TextureSampler diffuseSampler;
 uniform TextureSampler normalSampler;
 uniform TextureSampler specularSampler;
-uniform TextureSampler materialSampler;
 
 uniform int lightsCount;
 uniform Sun sun;

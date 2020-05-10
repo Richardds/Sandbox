@@ -21,23 +21,17 @@ Graphics::EntityShader::EntityShader() :
     _fogGradientLocation(-1),
     _fogColorLocation(-1),
 
+    _materialAmbientLocation(-1),
     _materialDiffuseLocation(-1),
     _materialSpecularLocation(-1),
     _materialReflectivityLocation(-1),
 
-    _projectionMatrix(1.0f),
     _viewMatrix(1.0f)
 {
 }
 
 Graphics::EntityShader::~EntityShader()
 {
-    for (int index = 0; index < EntityShader::maxLightCount; index++) {
-        this->_lightLocations[index].position = -1;
-        this->_lightLocations[index].diffuse = -1;
-        this->_lightLocations[index].specular = -1;
-        this->_lightLocations[index].attenuation = -1;
-    }
 }
 
 void Graphics::EntityShader::InitializeUniformVariables()
@@ -45,7 +39,7 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeMatrix4fLocation("projection", Math::Matrix4f(1.0f), this->_projectionLocation);
     this->InitializeMatrix4fLocation("view", Math::Matrix4f(1.0f), this->_viewLocation);
     this->InitializeMatrix4fLocation("viewInverse", Math::Matrix4f(1.0f), this->_viewInverseLocation);
-    this->InitializeMatrix4fLocation("modelTransformation", Math::Matrix4f(1.0f), this->_modelTransformationLocation);
+    this->InitializeMatrix4fLocation("worldTransformation", Math::Matrix4f(1.0f), this->_modelTransformationLocation);
     this->InitializeMatrix3fLocation("normalTransformation", Math::Matrix4f(1.0f), this->_normalTransformationLocation);
 
     // Setup sun
@@ -79,52 +73,46 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeBoolLocation("diffuseSampler.enabled", false, this->_diffuseSamplerLocation.enabled);
     this->InitializeBoolLocation("normalSampler.enabled", false, this->_normalSamplerLocation.enabled);
     this->InitializeBoolLocation("specularSampler.enabled", false, this->_specularSamplerLocation.enabled);
-    this->InitializeBoolLocation("materialSampler.enabled", false, this->_materialSamplerLocation.enabled);
 
     this->InitializeIntLocation("diffuseSampler.texture", EnumToValue(Texture::Bank::DIFFUSE), this->_diffuseSamplerLocation.texture);
     this->InitializeIntLocation("normalSampler.texture", EnumToValue(Texture::Bank::NORMAL), this->_normalSamplerLocation.texture);
     this->InitializeIntLocation("specularSampler.texture", EnumToValue(Texture::Bank::SPECULAR), this->_specularSamplerLocation.texture);
-    this->InitializeIntLocation("materialSampler.texture", EnumToValue(Texture::Bank::MATERIAL), this->_materialSamplerLocation.texture);
 }
 
-void Graphics::EntityShader::Begin(std::shared_ptr<Graphics::Camera> camera, const std::unordered_map<std::string, std::shared_ptr<Light>>& lights)
+void Graphics::EntityShader::LoadProjection(std::shared_ptr<const Projection> projection)
 {
-    this->Use();
+    this->LoadMatrix4f(this->_projectionLocation, projection->GetMatrix());
+}
 
-    this->LoadView(camera);
+void Graphics::EntityShader::LoadCamera(const std::shared_ptr<Graphics::Camera>& view)
+{
+    _assert(view);
 
+    this->_viewMatrix = Math::ViewMatrix(view->getPosition(), view->getRotationX(), view->getRotationY());
+    this->LoadMatrix4f(this->_viewLocation, this->_viewMatrix);
+    this->LoadMatrix4f(this->_viewInverseLocation, glm::inverse(this->_viewMatrix));
+}
+
+void Graphics::EntityShader::LoadSun(std::shared_ptr<Sun> sun)
+{
+    Math::Vector3f diffuse = sun->GetIntensity() * sun->GetColor();
+    this->LoadVector3f(this->_sunLocation.direction, sun->GetDirection());
+    this->LoadVector3f(this->_sunLocation.direction, diffuse / 3.0f);
+    this->LoadVector3f(this->_sunLocation.direction, diffuse);
+    this->LoadVector3f(this->_sunLocation.direction, diffuse / 15.0f);
+}
+
+void Graphics::EntityShader::LoadLights(const std::unordered_map<std::string, std::shared_ptr<Light>>& lights)
+{
     int lightsCount = static_cast<int>(lights.size());
     _assert(EntityShader::maxLightCount > lightsCount - 1);
     this->LoadInt(this->_lightsCountLocation, lightsCount);
 
     int index = 0;
     for (auto& light : lights) {
-        this->LoadLight(index++, light.second);
+        this->LoadLight(index, light.second);
+        index++;
     }
-}
-
-void Graphics::EntityShader::LoadProjection(float ratio, float fov, float near, float far)
-{
-    this->_projectionMatrix = Math::projectionMatrix(ratio, fov, near, far);
-    this->LoadMatrix4f(this->_projectionLocation, this->_projectionMatrix);
-}
-
-void Graphics::EntityShader::LoadView(const std::shared_ptr<Graphics::Camera>& view)
-{
-    _assert(view);
-
-    this->_viewMatrix = Math::viewMatrix(view->getPosition(), view->getRotationX(), view->getRotationY());
-    this->LoadMatrix4f(this->_viewLocation, this->_viewMatrix);
-    this->LoadMatrix4f(this->_viewInverseLocation, glm::inverse(this->_viewMatrix));
-}
-
-void Graphics::EntityShader::LoadSun(float intensity, Math::Vector3f color)
-{
-    Math::Vector3f diffuse = intensity * color;
-    this->InitializeVector3fLocation("sun.direction", Math::Vector3f(-1.0f, -1.0f, 0.0f), this->_sunLocation.direction);
-    this->InitializeVector3fLocation("sun.ambient", diffuse / 3.0f, this->_sunLocation.direction);
-    this->InitializeVector3fLocation("sun.diffuse", diffuse, this->_sunLocation.direction);
-    this->InitializeVector3fLocation("sun.specular", diffuse / 15.0f, this->_sunLocation.direction);
 }
 
 void Graphics::EntityShader::LoadLight(int index, const std::shared_ptr<Light>& light)
@@ -142,10 +130,10 @@ void Graphics::EntityShader::LoadFog(float density, float gradient)
     this->LoadFloat(this->_fogGradientLocation, gradient);
 }
 
-void Graphics::EntityShader::LoadEntityTransformation(const Math::Matrix4f& modelMatrix)
+void Graphics::EntityShader::LoadWorldTransformation(const Math::Matrix4f& transformationMatrix)
 {
-    ShaderProgram::LoadMatrix4f(this->_modelTransformationLocation, modelMatrix);
-    ShaderProgram::LoadMatrix3f(this->_normalTransformationLocation, glm::transpose(glm::inverse(modelMatrix)));
+    ShaderProgram::LoadMatrix4f(this->_modelTransformationLocation, transformationMatrix);
+    ShaderProgram::LoadMatrix3f(this->_normalTransformationLocation, glm::transpose(glm::inverse(transformationMatrix)));
 }
 
 void Graphics::EntityShader::LoadMaterial(const Material& material)
@@ -171,28 +159,3 @@ void Graphics::EntityShader::LoadHasSpecularMap(bool hasSpecularMap)
     ShaderProgram::LoadBool(this->_specularSamplerLocation.enabled, hasSpecularMap);
 }
 
-void Graphics::EntityShader::LoadHasMaterialMap(bool hasMaterialMap)
-{
-    ShaderProgram::LoadBool(this->_materialSamplerLocation.enabled, hasMaterialMap);
-}
-
-Math::Vector3f Graphics::EntityShader::GetScreenWorldPosition(Math::Vector2ui screenPosition) const
-{
-    Math::Vector4ui viewport = Graphics::Core::Instance().GetViewport();
-
-    GLfloat depth;
-    glReadPixels(screenPosition.x, viewport.w - screenPosition.y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
-
-    if (depth == 1.0f) {
-        return Math::Vector3f(0.0f, 0.0f, 0.0f);
-    }
-
-    Math::Vector3f worldPosition = glm::unProject(
-        Math::Vector3f(screenPosition.x, viewport.w - screenPosition.y, depth),
-        this->_viewMatrix,
-        this->_projectionMatrix,
-        viewport
-    );
-
-    return worldPosition;
-}

@@ -3,7 +3,9 @@
 #include "ShaderSystem.h"
 #include "../../Game/Scene/Camera.h"
 #include "../../Game/Scene/Light.h"
+#include "../../Game/Scene/Sun.h"
 #include "../../Math/Matrix.h"
+#include "../Projection.h"
 #include "../Material.h"
 
 namespace Graphics
@@ -15,19 +17,17 @@ namespace Graphics
         EntityShader();
         virtual ~EntityShader();
         void InitializeUniformVariables();
-        void Begin(std::shared_ptr<Graphics::Camera> camera, const std::unordered_map<std::string, std::shared_ptr<Light>>& lights);
-        void LoadProjection(float ratio, float fov, float near, float far);
-        void LoadView(const std::shared_ptr<Camera>& view);
-        void LoadSun(float intensity, Math::Vector3f color);
+        void LoadProjection(std::shared_ptr<const Projection> projection);
+        void LoadCamera(const std::shared_ptr<Camera>& view);
+        void LoadSun(std::shared_ptr<Sun> sun);
+        void LoadLights(const std::unordered_map<std::string, std::shared_ptr<Light>>& lights);
         void LoadLight(int index, const std::shared_ptr<Light>& light);
         void LoadFog(float density, float gradient);
-        void LoadEntityTransformation(const Math::Matrix4f& modelMatrix);
+        void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix);
         void LoadMaterial(const Material& material);
         void LoadHasDiffuseMap(bool hasDiffuseMap);
         void LoadHasNormalMap(bool hasNormalMap);
         void LoadHasSpecularMap(bool hasSpecularMap);
-        void LoadHasMaterialMap(bool hasMaterialMap);
-        Math::Vector3f GetScreenWorldPosition(Math::Vector2ui screenPosition) const;
 
     private:
         static const int maxLightCount = 10;
@@ -68,7 +68,6 @@ namespace Graphics
         TextureSamplerLocation _diffuseSamplerLocation;
         TextureSamplerLocation _normalSamplerLocation;
         TextureSamplerLocation _specularSamplerLocation;
-        TextureSamplerLocation _materialSamplerLocation;
 
         GLint _fogDensityLocation;
         GLint _fogGradientLocation;
@@ -79,7 +78,7 @@ namespace Graphics
         GLint _materialSpecularLocation;
         GLint _materialReflectivityLocation;
 
-        Math::Matrix4f _projectionMatrix;
+
         Math::Matrix4f _viewMatrix;
     };
 

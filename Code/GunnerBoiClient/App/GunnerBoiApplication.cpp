@@ -19,7 +19,7 @@ bool GunnerBoi::GunnerBoiApplication::Open()
         this->PrintDeviceInfo();
 
         this->_scene = std::make_shared<GunnerBoiScene>();
-        _assert(this->_scene->Load());
+        _assert(this->_scene->Setup());
 
         return true;
     }

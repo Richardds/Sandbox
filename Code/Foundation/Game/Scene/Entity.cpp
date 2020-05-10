@@ -21,8 +21,8 @@ void Graphics::Entity::Render(std::shared_ptr<Graphics::EntityShader> shader)
         return;
     }
 
-    shader->LoadEntityTransformation(
-        Math::transformationMatrix(
+    shader->LoadWorldTransformation(
+        Math::TransformationMatrix(
             this->_position,
             this->_rotX, this->_rotY, this->_rotZ,
             this->_scale
