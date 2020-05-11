@@ -48,7 +48,7 @@ bool GunnerBoi::GunnerBoiScene::Setup()
     std::shared_ptr<Graphics::Entity> crate4 = this->AddEntity("crate_04", "crate");
     crate4->setPosition(Math::Vector3f(5.0f, 0.0f, 5.0f));
 
-    // Mouse scrolling
+    // Register mouse scrolling
     IO::Mouse::Instance().RegisterScrolling([this](float x, float y) {
         this->_camera->IncreaseDistance(y);
     });
@@ -59,6 +59,23 @@ bool GunnerBoi::GunnerBoiScene::Setup()
 void GunnerBoi::GunnerBoiScene::ProcessInput()
 {
     Graphics::Scene::ProcessInput();
+
+    if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::LEFT)) {
+        Math::Vector3f worldPosition = this->GetScreenWorldPosition(IO::Mouse::Instance().GetCoords());
+        Math::Vector2f target = Math::Vector2f(worldPosition.x, worldPosition.z);
+        if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::LEFT_SHIFT)) {
+            this->_player->Idle();
+            this->_player->LookAt(target);
+
+            if (this->_player->IsReadyToFire()) {
+                this->_projectileManager->Manage(this->_player->Fire());
+            }
+        }
+        else {
+            this->_player->SetTarget(target);
+            this->_player->Follow();
+        }
+    }
 
     //if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::LEFT)) {
     //    Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();

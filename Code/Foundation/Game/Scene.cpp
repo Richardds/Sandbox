@@ -1,9 +1,8 @@
-#include <iostream>
-
 #include "Scene.h"
+#include "../Core/Debug.h"
 #include "../Graphics/Core.h"
 #include "../Graphics/Projection.h"
-#include "../Core/Debug.h"
+#include "../Math/Utils.h"
 #include "../IO/Mouse.h"
 #include "../IO/Console.h"
 #include "../Util/ResourcesLoader.h"
@@ -79,6 +78,27 @@ void Graphics::Scene::Render()
     for (auto& entity : this->_entities) {
         this->_entityRenderer->Render(entity.second);
     }
+}
+
+Math::Vector3f Graphics::Scene::GetScreenWorldPosition(Math::Vector2ui screenPosition) const
+{
+    Math::Vector4ui viewport = Graphics::Core::Instance().GetViewport();
+
+    GLfloat depth;
+    glReadPixels(screenPosition.x, viewport.w - screenPosition.y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+
+    if (depth == 1.0f) {
+        return Math::Vector3f(0.0f, 0.0f, 0.0f);
+    }
+
+    Math::Vector3f worldPosition = glm::unProject(
+        Math::Vector3f(screenPosition.x, viewport.w - screenPosition.y, depth),
+        Math::ViewMatrix(this->_camera->getPosition(), this->_camera->getRotationX(), this->_camera->getRotationY()),
+        Core::Instance().MakeProjection(this->_camera->GetFieldOfView())->GetMatrix(),
+        viewport
+    );
+
+    return worldPosition;
 }
 
 std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& name, float size)

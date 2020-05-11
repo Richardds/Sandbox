@@ -29,6 +29,7 @@ namespace Graphics
         virtual void ProcessInput();
         virtual void Update(float delta);
         virtual void Render();
+        Math::Vector3f GetScreenWorldPosition(Math::Vector2ui screenPosition) const;
 
     protected:
         std::shared_ptr<Graphics::Water> AddWater(const std::string& name, float size);
