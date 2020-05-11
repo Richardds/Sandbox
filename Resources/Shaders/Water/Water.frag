@@ -21,10 +21,15 @@ in vec4 relativeToCameraPosition;
 
 out vec4 fragmentColor;
 
+uniform sampler2D reflectionSampler;
+uniform sampler2D refractionSampler;
+
 uniform Sun sun;
 uniform Fog fog;
 
 void main()
 {
-    fragmentColor = vec4(0.0f, 0.0f, 0.8f, 1.0f);
+    vec3 reflection = texture(reflectionSampler, textureUV).rgb;
+
+    fragmentColor = vec4(reflection, 1.0f);
 }

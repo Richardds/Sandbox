@@ -1,5 +1,6 @@
 #include "FrameBuffer.h"
 #include "../Core/Types.h"
+#include "Texture.h"
 
 GLuint Graphics::FrameBuffer::_boundFrameBuffer = 0;
 
@@ -23,6 +24,20 @@ void Graphics::FrameBuffer::Bind()
         glDrawBuffer(this->_attachment);
         FrameBuffer::_boundFrameBuffer = this->_glFrameBuffer;
     }
+}
+
+void Graphics::FrameBuffer::Activate(unsigned int width, unsigned int height)
+{
+    Texture::UnbindBound(GL_TEXTURE_2D);
+    this->Bind();
+    glViewport(0, 0, width, height);
+}
+
+void Graphics::FrameBuffer::Deactivate()
+{
+    this->Unbind();
+    std::shared_ptr<Window> context = Core::Instance().GetRenderingContext();
+    glViewport(0, 0, context->GetWidth(), context->GetHeight());
 }
 
 void Graphics::FrameBuffer::Attach(std::shared_ptr<RenderBuffer> renderBuffer)

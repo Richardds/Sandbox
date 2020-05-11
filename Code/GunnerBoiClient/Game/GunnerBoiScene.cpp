@@ -36,7 +36,7 @@ bool GunnerBoi::GunnerBoiScene::Setup()
     water->setPositionY(0.25f);
 
     // Load player
-    this->_player = this->SetupPlayer("arrow", Math::Vector3f(0.0f, 0.0f, 0.0f));
+    this->_player = this->SetupPlayer("arrow");
 
     // Load other models
     std::shared_ptr<Graphics::Entity> crate1 = this->AddEntity("crate_01", "crate");
@@ -100,16 +100,23 @@ void GunnerBoi::GunnerBoiScene::Update(float delta)
 
 void GunnerBoi::GunnerBoiScene::Render()
 {
-    Graphics::Scene::Render();
+    Scene::Render();
+}
 
-    this->_entityRenderer->Render(this->_player);
+void GunnerBoi::GunnerBoiScene::RenderEntities()
+{
+    Graphics::Scene::RenderEntities();
     this->_projectileManager->RenderWith(this->_entityRenderer);
 }
 
-std::shared_ptr<GunnerBoi::Boi> GunnerBoi::GunnerBoiScene::SetupPlayer(const std::string& resourceName, Math::Vector3f position)
+std::shared_ptr<GunnerBoi::Boi> GunnerBoi::GunnerBoiScene::SetupPlayer(const std::string& resourceName)
 {
-    std::shared_ptr<Boi> player = std::make_shared<Boi>(position);
+    const std::string playerEntityName = "player";
+    auto it = this->_entities.find(playerEntityName);
+    _assert(it == this->_entities.end());
+    std::shared_ptr<Boi> player = std::make_shared<Boi>();
     std::shared_ptr<Graphics::Model> model = Util::ResourcesLoader::Instance().LoadModel(resourceName);
     player->SetModel(model);
+    this->_entities.emplace_hint(it, playerEntityName, player);
     return player;
 }

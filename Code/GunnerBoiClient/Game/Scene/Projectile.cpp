@@ -6,10 +6,11 @@ GunnerBoi::Projectile::Projectile(std::shared_ptr<Actor> actor) :
 }
 
 GunnerBoi::Projectile::Projectile(Math::Vector3f position, float rotation) :
-    Actor(position, rotation),
     _origin(position),
     _range(25.0f)
 {
+    this->setPosition(position);
+    this->setRotationY(rotation);
 }
 
 GunnerBoi::Projectile::~Projectile()

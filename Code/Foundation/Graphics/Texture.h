@@ -22,10 +22,12 @@ namespace Graphics
             DIFFUSE = 0,
             NORMAL = 1,
             SPECULAR = 2,
-            MATERIAL = 3
+
+            REFLECTION = 3,
+            REFRACTION = 4
         };
 
-        Texture(GLenum target = GL_TEXTURE_2D);
+        Texture(GLenum target);
         virtual ~Texture();
         State GetState() const;
         void Bind();
@@ -41,6 +43,7 @@ namespace Graphics
         GLsizei GetHeight() const;
 
         static GLuint GetBound(GLenum target);
+        static void UnbindBound(GLenum target);
 
     private:
         State _state;

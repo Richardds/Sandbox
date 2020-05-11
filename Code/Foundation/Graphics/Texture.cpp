@@ -145,3 +145,12 @@ void Graphics::Texture::Data(std::shared_ptr<FrameBuffer> frameBuffer, unsigned 
 
 	this->_state = State::LOADED;
 }
+
+void Graphics::Texture::UnbindBound(GLenum target)
+{
+	GLuint bound = Texture::GetBound(target);
+	if (bound != 0) {
+		glBindTexture(target, 0);
+		Texture::_boundTextures[target] = 0;
+	}
+}

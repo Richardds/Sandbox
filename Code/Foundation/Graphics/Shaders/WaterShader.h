@@ -38,6 +38,9 @@ namespace Graphics
         GLint _waterTransformationLocation;
         GLint _normalTransformationLocation;
 
+        GLint _reflectionSamplerLocation;
+        GLint _refractionSamplerLocation;
+
         SunLocation _sunLocation;
 
         GLint _fogDensityLocation;

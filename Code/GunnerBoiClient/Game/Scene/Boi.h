@@ -19,7 +19,7 @@ namespace GunnerBoi
             FOLLOWING
         };
 
-        Boi(Math::Vector3f position);
+        Boi();
         virtual ~Boi();
         State GetState() const;
         Math::Vector2f GetTarget() const;

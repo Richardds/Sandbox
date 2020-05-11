@@ -13,6 +13,8 @@ namespace Graphics
         virtual ~FrameBuffer();
         GLenum GetAttachment() const;
         void Bind();
+        void Activate(unsigned int width, unsigned int height);
+        void Deactivate();
         void Attach(std::shared_ptr<RenderBuffer> renderBuffer);
         bool IsBound() const;
         void Unbind();

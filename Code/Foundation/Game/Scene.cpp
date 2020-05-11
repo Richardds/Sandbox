@@ -69,14 +69,27 @@ void Graphics::Scene::Render()
 {
     _assert(State::RUN == this->_state);
 
-    this->_waterRenderer->Begin(this->_camera, this->_sun);
-    for (auto& water : this->_waterTiles) {
-        this->_waterRenderer->Render(water.second);
-    }
+    this->RenderEntities();
+    this->RenderWater();
+}
 
+void Graphics::Scene::RenderEntities()
+{
     this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
     for (auto& entity : this->_entities) {
         this->_entityRenderer->Render(entity.second);
+    }
+}
+
+void Graphics::Scene::RenderWater()
+{
+    this->_waterRenderer->RenderToFrameBuffers([this]() {
+        this->RenderEntities();
+    });
+
+    this->_waterRenderer->Begin(this->_camera, this->_sun);
+    for (auto& water : this->_waterTiles) {
+        this->_waterRenderer->Render(water.second);
     }
 }
 

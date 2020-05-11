@@ -29,11 +29,16 @@ Graphics::WaterShader::~WaterShader()
 
 void Graphics::WaterShader::InitializeUniformVariables()
 {
+    // Setup transformations
     this->InitializeMatrix4fLocation("projection", Math::Matrix4f(1.0f), this->_projectionLocation);
     this->InitializeMatrix4fLocation("view", Math::Matrix4f(1.0f), this->_viewLocation);
     this->InitializeMatrix4fLocation("viewInverse", Math::Matrix4f(1.0f), this->_viewInverseLocation);
     this->InitializeMatrix4fLocation("worldTransformation", Math::Matrix4f(1.0f), this->_waterTransformationLocation);
     this->InitializeMatrix3fLocation("normalTransformation", Math::Matrix4f(1.0f), this->_normalTransformationLocation);
+
+    // Setup texture mappers
+    this->InitializeIntLocation("reflectionSampler", EnumToValue(Texture::Bank::REFLECTION), this->_reflectionSamplerLocation);
+    this->InitializeIntLocation("refractionSampler", EnumToValue(Texture::Bank::REFRACTION), this->_refractionSamplerLocation);
 
     // Setup sun
     this->InitializeVector3fLocation("sun.direction", Math::Vector3f(-1.0f, -1.0f, 0.0f), this->_sunLocation.direction);

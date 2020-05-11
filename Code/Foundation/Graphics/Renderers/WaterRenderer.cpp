@@ -27,7 +27,7 @@ bool Graphics::WaterRenderer::Setup(std::shared_ptr<const Projection> projection
 
 	this->_reflectionFrameBuffer = std::make_shared<Graphics::FrameBuffer>(GL_COLOR_ATTACHMENT0);
 	this->_reflectionFrameBuffer->Bind();
-	this->_reflectionTexture = std::make_shared<Texture>();
+	this->_reflectionTexture = std::make_shared<Texture>(GL_TEXTURE_2D);
 	this->_reflectionTexture->Bind();
 	this->_reflectionTexture->Data(this->_reflectionFrameBuffer, WaterRenderer::TEXTURE_SIZE, WaterRenderer::TEXTURE_SIZE);
 	this->_reflectionTexture->Unbind();
@@ -36,7 +36,7 @@ bool Graphics::WaterRenderer::Setup(std::shared_ptr<const Projection> projection
 
 	this->_refractionFrameBuffer = std::make_shared<Graphics::FrameBuffer>(GL_COLOR_ATTACHMENT0);
 	this->_refractionFrameBuffer->Bind();
-	this->_refractionTexture = std::make_shared<Texture>();
+	this->_refractionTexture = std::make_shared<Texture>(GL_TEXTURE_2D);
 	this->_refractionTexture->Bind();
 	this->_refractionTexture->Data(this->_refractionFrameBuffer, WaterRenderer::TEXTURE_SIZE, WaterRenderer::TEXTURE_SIZE);
 	this->_refractionTexture->Unbind();
@@ -53,6 +53,16 @@ void Graphics::WaterRenderer::Begin(std::shared_ptr<Camera> camera, std::shared_
 	this->_shader->Use();
 	this->_shader->LoadView(camera);
 	this->_shader->LoadSun(sun);
+
+	this->_reflectionTexture->Activate(Texture::Bank::REFLECTION);
+	this->_refractionTexture->Activate(Texture::Bank::REFRACTION);
+}
+
+void Graphics::WaterRenderer::RenderToFrameBuffers(const std::function<void()>& renderFunction)
+{
+	this->_reflectionFrameBuffer->Activate(WaterRenderer::TEXTURE_SIZE, WaterRenderer::TEXTURE_SIZE);
+	renderFunction();
+	this->_reflectionFrameBuffer->Deactivate();
 }
 
 void Graphics::WaterRenderer::Render(std::shared_ptr<Water> water)

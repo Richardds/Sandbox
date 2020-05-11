@@ -36,6 +36,7 @@ Graphics::EntityShader::~EntityShader()
 
 void Graphics::EntityShader::InitializeUniformVariables()
 {
+    // Setup transformations
     this->InitializeMatrix4fLocation("projection", Math::Matrix4f(1.0f), this->_projectionLocation);
     this->InitializeMatrix4fLocation("view", Math::Matrix4f(1.0f), this->_viewLocation);
     this->InitializeMatrix4fLocation("viewInverse", Math::Matrix4f(1.0f), this->_viewInverseLocation);

@@ -2,11 +2,10 @@
 
 #include "Boi.h"
 
-GunnerBoi::Boi::Boi(Math::Vector3f position) :
-	Actor(position),
+GunnerBoi::Boi::Boi() :
 	_state(State::IDLE),
-	_target(),
-	_attackSpeed(1.2f),
+	_target(0.0f),
+	_attackSpeed(1.5f),
 	_countdown(0.0f)
 {
 }

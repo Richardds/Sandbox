@@ -9,7 +9,6 @@ namespace Graphics
     {
     public:
         Actor();
-        Actor(Math::Vector3f position, float rotY = 0.0f);
         virtual ~Actor();
         float GetMovingSpeed() const;
         void SetMovingSpeed(float speed);

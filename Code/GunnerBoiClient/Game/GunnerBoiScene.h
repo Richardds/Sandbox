@@ -23,7 +23,10 @@ namespace GunnerBoi
         void ProcessInput();
         void Update(float delta);
         void Render();
-        std::shared_ptr<Boi> SetupPlayer(const std::string& resourceName, Math::Vector3f position);
+        std::shared_ptr<Boi> SetupPlayer(const std::string& resourceName);
+
+    protected:
+        void RenderEntities();
 
     private:
         std::shared_ptr<Boi> _player;
