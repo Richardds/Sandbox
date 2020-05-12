@@ -3,8 +3,9 @@
 #include "../Graphics/Core.h"
 #include "../Graphics/Projection.h"
 #include "../Math/Utils.h"
-#include "../IO/Mouse.h"
 #include "../IO/Console.h"
+#include "../IO/Keyboard.h"
+#include "../IO/Mouse.h"
 #include "../Util/ResourcesLoader.h"
 
 Graphics::Scene::Scene() :
@@ -59,6 +60,12 @@ bool Graphics::Scene::Setup()
 void Graphics::Scene::ProcessInput()
 {
     _assert(State::RUN == this->_state);
+
+    if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::RIGHT)) {
+        Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
+        mouseMotion *= 25.0f;
+        this->_camera->IncreaseAngle(-mouseMotion.y);
+    }
 }
 
 void Graphics::Scene::Update(float delta)

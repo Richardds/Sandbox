@@ -17,6 +17,7 @@ namespace Graphics
         void SetDistance(float distance);
         float GetAngle() const;
         void SetAngle(float angle);
+        void IncreaseAngle(float relativeAngle);
         void IncreaseDistance(float distance);
         void LookAt(Math::Vector3f position);
         void Update(std::shared_ptr<HasPosition> target);
@@ -44,6 +45,11 @@ namespace Graphics
     inline void TargetedCamera::SetAngle(float angle)
     {
         this->_angle = angle;
+    }
+
+    inline void TargetedCamera::IncreaseAngle(float relativeAngle)
+    {
+        this->_angle += relativeAngle;
     }
 
 }

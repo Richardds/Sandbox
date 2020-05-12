@@ -1,7 +1,7 @@
 #include <Util/ResourcesLoader.h>
-#include <IO/Mouse.h>
-#include <IO/Keyboard.h>
 #include <IO/Console.h>
+#include <IO/Keyboard.h>
+#include <IO/Mouse.h>
 
 #include "GunnerBoiScene.h"
 
@@ -77,12 +77,6 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
             this->_player->Follow();
         }
     }
-
-    //if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::LEFT)) {
-    //    Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
-    //    mouseMotion *= 10.0f;
-    //    this->_player->increasePosition(Math::Vector3f(-mouseMotion.x, 0.0f, mouseMotion.y));
-    //}
 }
 
 void GunnerBoi::GunnerBoiScene::Update(float delta)
