@@ -15,11 +15,11 @@ Graphics::Actor::~Actor()
 
 void Graphics::Actor::Move(float distance)
 {
-    this->increasePosition(
+    this->increasePosition(Math::Vector3f(
         std::sinf(glm::radians(this->_rotY)) * distance,
         0.0f,
         std::cosf(glm::radians(this->_rotY)) * distance
-    );
+    ));
 }
 
 void Graphics::Actor::Update(float delta)
