@@ -75,14 +75,20 @@ void Graphics::Scene::Render()
 
     // Render the water tiles using multipass technique
     for (auto& water : this->_waterTiles) {
-        this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
         // Render scene to water reflection frame buffer
-        this->_entityRenderer->GetShader()->EnableClippingPlane(Math::Vector4f(0.0f, -1.0f, 0.0f, 0.5f));
+        float distance = 2.0f * (this->_camera->getPositionY() - water.second->getPositionY());
+        this->_camera->increasePositionY(-distance);
+        this->_camera->invertRotationX();
+        this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
+        this->_entityRenderer->GetShader()->EnableClippingPlane(Math::Vector4f(0.0f, 1.0f, 0.0f, -water.second->getPositionY()));
         this->_waterRenderer->RenderToReflectionBuffer([this]() {
             this->RenderEntities();
         });
+        this->_camera->increasePositionY(distance);
+        this->_camera->invertRotationX();
         // Render scene to water refraction frame buffer
-        this->_entityRenderer->GetShader()->EnableClippingPlane(Math::Vector4f(0.0f, 1.0f, 0.0f, -0.5f));
+        this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
+        this->_entityRenderer->GetShader()->EnableClippingPlane(Math::Vector4f(0.0f, -1.0f, 0.0f, water.second->getPositionY()));
         this->_waterRenderer->RenderToRefractionBuffer([this]() {
             this->RenderEntities();
         });

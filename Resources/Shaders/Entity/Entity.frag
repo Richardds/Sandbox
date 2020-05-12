@@ -33,7 +33,7 @@ struct Material {
     float reflectivity;
 };
 
-in vec3 fragmentPosition;
+in vec4 fragmentPosition;
 in vec2 textureUV;
 in vec3 normal;
 in vec3 toCameraVector;
@@ -54,10 +54,6 @@ uniform Material material;
 
 void main()
 {
-    // Normalize vectors
-    vec3 unitNormal = normalize(normal);
-    vec3 unitToCameraVector = normalize(toCameraVector);
-
     // Map diffuse color
     vec3 materialDiffuse = material.diffuse;
     if (diffuseSampler.enabled) {
@@ -67,6 +63,10 @@ void main()
             discard;
         }
     }
+    
+    // Normalize vectors
+    vec3 unitNormal = normalize(normal);
+    vec3 unitToCameraVector = normalize(toCameraVector);
 
     // Map normal vector
     vec3 normalMapping = unitNormal;
@@ -87,7 +87,7 @@ void main()
     vec3 specular = sun.specular * (pow(max(dot(unitToCameraVector, reflect(-unitSunDirection, normalMapping)), 0.0f), material.reflectivity) * materialSpecular);
 
     for (int index = 0; index < lightsCount; index++) {
-        vec3 lightDirection = light[index].position - fragmentPosition;
+        vec3 lightDirection = light[index].position - fragmentPosition.xyz;
         vec3 unitLightDirection = normalize(lightDirection);
 
         float lightDistance = length(lightDirection);

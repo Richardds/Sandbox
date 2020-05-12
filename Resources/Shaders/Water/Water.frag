@@ -13,11 +13,7 @@ struct Fog {
     vec3 color;
 };
 
-in vec3 fragmentPosition;
-in vec2 textureUV;
-in vec3 normal;
-in vec3 toCameraVector;
-in vec4 relativeToCameraPosition;
+in vec4 position;
 
 out vec4 fragmentColor;
 
@@ -29,7 +25,12 @@ uniform Fog fog;
 
 void main()
 {
-    vec3 reflection = texture(reflectionSampler, textureUV).rgb;
+    vec2 ndc = (position.xy / position.w) / 2.0f + 0.5f;
+    vec2 reflectionTextureUV = vec2(ndc.x, -ndc.y);
+    vec2 refractionTextureUV = ndc;
 
-    fragmentColor = vec4(reflection, 1.0f);
+    vec3 reflectionColor = texture(reflectionSampler, reflectionTextureUV).rgb;
+    vec3 refractionColor = texture(refractionSampler, refractionTextureUV).rgb;
+
+    fragmentColor = vec4(mix(reflectionColor, refractionColor, 0.5f), 1.0f);
 }

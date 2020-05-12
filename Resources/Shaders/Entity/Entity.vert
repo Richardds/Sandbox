@@ -10,7 +10,7 @@ layout (location = 1) in vec3 vertexNormal;
 layout (location = 2) in vec2 vertexTextureUV;
 layout (location = 3) in vec3 vertexTangent;
 
-out vec3 fragmentPosition;
+out vec4 fragmentPosition;
 out vec2 textureUV;
 out vec3 normal;
 out vec3 toCameraVector;
@@ -33,10 +33,10 @@ struct TBN {
 void main()
 {
     // Calculate vertex world position
-    fragmentPosition = (worldTransformation * vec4(vertexPosition, 1.0f)).xyz;
+    fragmentPosition = worldTransformation * vec4(vertexPosition, 1.0f);
     
     if (clippingPlane.enabled) {
-        gl_ClipDistance[0] = dot(vec4(fragmentPosition, 1.0f), clippingPlane.plane);
+        gl_ClipDistance[0] = dot(fragmentPosition, clippingPlane.plane);
     }
 
     // Pass texture coordinates
@@ -44,8 +44,8 @@ void main()
 
     normal = normalTransformation * vertexNormal;
 
-    toCameraVector = viewInverse[3].xyz - fragmentPosition;
-    relativeToCameraPosition = view * vec4(fragmentPosition, 1.0f);
+    toCameraVector = viewInverse[3].xyz - fragmentPosition.xyz;
+    relativeToCameraPosition = view * fragmentPosition;
 
     // Tangent basis matrix calculation
     tbn.tangent = normalize(vec3(worldTransformation * vec4(vertexTangent, 0.0f)));
@@ -54,5 +54,6 @@ void main()
     tbn.tangent = normalize(tbn.tangent - dot(tbn.tangent, tbn.normal) * tbn.normal);
     fromTangentSpace = mat3(tbn.tangent, tbn.bitangent, tbn.normal);
 
+    // Apply projection
     gl_Position = projection * relativeToCameraPosition;
 }

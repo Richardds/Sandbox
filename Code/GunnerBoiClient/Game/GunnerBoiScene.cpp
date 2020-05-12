@@ -33,20 +33,21 @@ bool GunnerBoi::GunnerBoiScene::Setup()
 
     // Load water
     std::shared_ptr<Graphics::Water> water = this->AddWater("water", 6.0f);
-    water->setPositionY(0.25f);
+    water->setPositionY(0.01f);
 
     // Load player
     this->_player = this->SetupPlayer("arrow");
 
     // Load other models
     std::shared_ptr<Graphics::Entity> crate1 = this->AddEntity("crate_01", "crate");
-    crate1->setPosition(Math::Vector3f(-5.0f, 0.0f, -5.0f));
+    crate1->setPosition(Math::Vector3f(-1.5f, 0.0f, -3.0f));
     std::shared_ptr<Graphics::Entity> crate2 = this->AddEntity("crate_02", "crate");
-    crate2->setPosition(Math::Vector3f(5.0f, 0.0f, -5.0f));
+    crate2->setPosition(Math::Vector3f(1.5f, 0.0f, -3.0f));
     std::shared_ptr<Graphics::Entity> crate3 = this->AddEntity("crate_03", "crate");
-    crate3->setPosition(Math::Vector3f(-5.0f, 0.0f, 5.0f));
+    crate3->setPosition(Math::Vector3f(0.0f, 1.5f, -3.0f));
+    crate3->setRotationY(45.0f);
     std::shared_ptr<Graphics::Entity> crate4 = this->AddEntity("crate_04", "crate");
-    crate4->setPosition(Math::Vector3f(5.0f, 0.0f, 5.0f));
+    crate4->setPosition(Math::Vector3f(3.25f, 0.0f, -1.75f));
 
     // Register mouse scrolling
     IO::Mouse::Instance().RegisterScrolling([this](float x, float y) {
