@@ -1,8 +1,7 @@
 #include "Water.h"
 #include "../../Math/Utils.h"
 
-Graphics::Water::Water(std::shared_ptr<Mesh> mesh) :
-    _mesh(mesh),
+Graphics::Water::Water() :
     _distortionOffset(0.0f),
     _distortionSpeed(DEFAULT_DISTORTION_SPEED)
 {

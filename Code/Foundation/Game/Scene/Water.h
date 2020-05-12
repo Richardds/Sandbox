@@ -13,7 +13,7 @@ namespace Graphics
     class Water : public HasPosition
     {
     public:
-        Water(std::shared_ptr<Mesh> mesh);
+        Water();
         virtual ~Water();
         std::shared_ptr<Mesh> GetMesh() const;
         void SetMesh(std::shared_ptr<Mesh> mesh);
@@ -56,6 +56,8 @@ namespace Graphics
 
     inline void Water::SetDistortionMap(std::shared_ptr<Texture> texture)
     {
+        _assert(texture);
+        _assert(Texture::State::LOADED == texture->GetState());
         this->_distortionMap = texture;
     }
 

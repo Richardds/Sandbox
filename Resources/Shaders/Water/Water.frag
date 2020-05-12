@@ -33,7 +33,7 @@ uniform sampler2D refractionSampler;
 uniform Sun sun;
 uniform Fog fog;
 
-const float distortionStrength = 0.02f;
+const float distortionStrength = 0.005f;
 const float waterReflectivity = 1.05f;
 
 void main()

@@ -137,7 +137,10 @@ std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& na
     auto it = this->_waterTiles.find(name);
     _assert(it == this->_waterTiles.end());
     std::shared_ptr<Model> waterModel = Util::ResourcesLoader::Instance().LoadModel("water");
-    std::shared_ptr<Water> water = std::make_shared<Water>(waterModel->GetMesh("default"));
+    std::shared_ptr<Water> water = std::make_shared<Water>();
+    std::shared_ptr<TexturedMesh> waterMesh = waterModel->GetMesh("default");
+    water->SetMesh(waterMesh);
+    water->SetDistortionMap(waterMesh->GetDiffuseMap());
     this->_waterTiles.emplace_hint(it, name, water);
     return water;
 }

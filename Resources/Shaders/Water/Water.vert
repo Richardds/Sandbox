@@ -18,7 +18,7 @@ uniform mat3 normalTransformation;
 void main()
 {
     // Pass texture coordinates
-    textureUV = vertexTextureUV * 4.0f;
+    textureUV = vertexTextureUV * 3.0f;
     
     // Calculate vertex world position
     vec4 fragmentPosition = worldTransformation * vec4(vertexPosition, 1.0f);

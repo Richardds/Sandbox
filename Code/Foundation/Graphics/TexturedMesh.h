@@ -53,6 +53,8 @@ namespace Graphics
 
     inline void TexturedMesh::SetDiffuseMap(std::shared_ptr<Graphics::Texture> texture)
     {
+        _assert(texture);
+        _assert(Texture::State::LOADED == texture->GetState());
         this->_diffuseMap = texture;
     }
 
@@ -68,6 +70,8 @@ namespace Graphics
 
     inline void TexturedMesh::SetNormalMap(std::shared_ptr<Graphics::Texture> texture)
     {
+        _assert(texture);
+        _assert(Texture::State::LOADED == texture->GetState());
         this->_normalMap = texture;
     }
 
@@ -83,6 +87,8 @@ namespace Graphics
 
     inline void TexturedMesh::SetSpecularMap(std::shared_ptr<Graphics::Texture> texture)
     {
+        _assert(texture);
+        _assert(Texture::State::LOADED == texture->GetState());
         this->_specularMap = texture;
     }
 
