@@ -18,6 +18,8 @@ namespace Graphics
         virtual ~EntityShader();
         void InitializeUniformVariables();
         void LoadProjection(std::shared_ptr<const Projection> projection);
+        void EnableClippingPlane(const Math::Vector4f plane);
+        void DisableClippingPlane();
         void LoadCamera(const std::shared_ptr<Camera>& view);
         void LoadSun(std::shared_ptr<Sun> sun);
         void LoadLights(const std::unordered_map<std::string, std::shared_ptr<Light>>& lights);
@@ -31,6 +33,12 @@ namespace Graphics
 
     private:
         static const int maxLightCount = 10;
+
+        struct ClippingPlane {
+            ClippingPlane() : plane(-1), enabled(-1) {}
+            GLint plane;
+            GLint enabled;
+        };
 
         struct SunLocation {
             SunLocation() : direction(-1), ambient(-1), diffuse(-1), specular(-1) {}
@@ -60,6 +68,8 @@ namespace Graphics
         GLint _viewInverseLocation;
         GLint _modelTransformationLocation;
         GLint _normalTransformationLocation;
+
+        ClippingPlane _clippingPlaneLocation;
 
         SunLocation _sunLocation;
         PointLightLocation _lightLocations[maxLightCount];

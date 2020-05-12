@@ -19,6 +19,7 @@ namespace Graphics
 
         EntityRenderer();
         virtual ~EntityRenderer();
+        std::shared_ptr<EntityShader> GetShader() const;
         bool Setup(std::shared_ptr<const Projection> projection);
         void Begin(std::shared_ptr<Camera> camera, std::shared_ptr<Sun> sun, const std::unordered_map<std::string, std::shared_ptr<Light>>& lights);
         void Render(std::shared_ptr<Entity> entity);
@@ -27,5 +28,10 @@ namespace Graphics
         State _state;
         std::shared_ptr<EntityShader> _shader;
     };
+
+    inline std::shared_ptr<EntityShader> Graphics::EntityRenderer::GetShader() const
+    {
+        return this->_shader;
+    }
 
 }

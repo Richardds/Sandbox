@@ -58,11 +58,20 @@ void Graphics::WaterRenderer::Begin(std::shared_ptr<Camera> camera, std::shared_
 	this->_refractionTexture->Activate(Texture::Bank::REFRACTION);
 }
 
-void Graphics::WaterRenderer::RenderToFrameBuffers(const std::function<void()>& renderFunction)
+void Graphics::WaterRenderer::RenderToReflectionBuffer(const std::function<void()>& renderFunction)
 {
 	this->_reflectionFrameBuffer->Activate(WaterRenderer::TEXTURE_SIZE, WaterRenderer::TEXTURE_SIZE);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderFunction();
 	this->_reflectionFrameBuffer->Deactivate();
+}
+
+void Graphics::WaterRenderer::RenderToRefractionBuffer(const std::function<void()>& renderFunction)
+{
+	this->_refractionFrameBuffer->Activate(WaterRenderer::TEXTURE_SIZE, WaterRenderer::TEXTURE_SIZE);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	renderFunction();
+	this->_refractionFrameBuffer->Deactivate();
 }
 
 void Graphics::WaterRenderer::Render(std::shared_ptr<Water> water)

@@ -69,27 +69,34 @@ void Graphics::Scene::Render()
 {
     _assert(State::RUN == this->_state);
 
+    // Render the entities to the screen buffer
+    this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
     this->RenderEntities();
-    this->RenderWater();
+
+    // Render the water tiles using multipass technique
+    for (auto& water : this->_waterTiles) {
+        this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
+        // Render scene to water reflection frame buffer
+        this->_entityRenderer->GetShader()->EnableClippingPlane(Math::Vector4f(0.0f, -1.0f, 0.0f, 0.5f));
+        this->_waterRenderer->RenderToReflectionBuffer([this]() {
+            this->RenderEntities();
+        });
+        // Render scene to water refraction frame buffer
+        this->_entityRenderer->GetShader()->EnableClippingPlane(Math::Vector4f(0.0f, 1.0f, 0.0f, -0.5f));
+        this->_waterRenderer->RenderToRefractionBuffer([this]() {
+            this->RenderEntities();
+        });
+        this->_entityRenderer->GetShader()->DisableClippingPlane();
+        // Now render to screen buffer
+        this->_waterRenderer->Begin(this->_camera, this->_sun);
+        this->_waterRenderer->Render(water.second);
+    }
 }
 
 void Graphics::Scene::RenderEntities()
 {
-    this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
     for (auto& entity : this->_entities) {
         this->_entityRenderer->Render(entity.second);
-    }
-}
-
-void Graphics::Scene::RenderWater()
-{
-    this->_waterRenderer->RenderToFrameBuffers([this]() {
-        this->RenderEntities();
-    });
-
-    this->_waterRenderer->Begin(this->_camera, this->_sun);
-    for (auto& water : this->_waterTiles) {
-        this->_waterRenderer->Render(water.second);
     }
 }
 

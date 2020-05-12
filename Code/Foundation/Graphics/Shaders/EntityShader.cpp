@@ -43,6 +43,10 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeMatrix4fLocation("worldTransformation", Math::Matrix4f(1.0f), this->_modelTransformationLocation);
     this->InitializeMatrix3fLocation("normalTransformation", Math::Matrix4f(1.0f), this->_normalTransformationLocation);
 
+    // Setup clipping plane
+    this->InitializeVector4fLocation("clippingPlane.plane", Math::Vector4f(0.0f, -1.0f, 0.0f, 0.5f), this->_clippingPlaneLocation.plane);
+    this->InitializeBoolLocation("clippingPlane.enabled", true, this->_clippingPlaneLocation.enabled);
+
     // Setup sun
     this->InitializeVector3fLocation("sun.direction", Math::Vector3f(-1.0f, -1.0f, 0.0f), this->_sunLocation.direction);
     this->InitializeVector3fLocation("sun.ambient", Math::Vector3f(0.05f), this->_sunLocation.direction);
@@ -83,6 +87,19 @@ void Graphics::EntityShader::InitializeUniformVariables()
 void Graphics::EntityShader::LoadProjection(std::shared_ptr<const Projection> projection)
 {
     this->LoadMatrix4f(this->_projectionLocation, projection->GetMatrix());
+}
+
+void Graphics::EntityShader::EnableClippingPlane(const Math::Vector4f plane)
+{
+    glEnable(GL_CLIP_DISTANCE0);
+    this->LoadBool(this->_clippingPlaneLocation.enabled, true);
+    this->LoadVector4f(this->_clippingPlaneLocation.plane, plane);
+}
+
+void Graphics::EntityShader::DisableClippingPlane()
+{
+    this->LoadBool(this->_clippingPlaneLocation.enabled, false);
+    glDisable(GL_CLIP_DISTANCE0);
 }
 
 void Graphics::EntityShader::LoadCamera(const std::shared_ptr<Graphics::Camera>& view)

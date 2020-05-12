@@ -1,5 +1,10 @@
 #version 430 core
 
+struct ClippingPlane {
+    vec4 plane;
+    bool enabled;
+};
+
 layout (location = 0) in vec3 vertexPosition;
 layout (location = 1) in vec3 vertexNormal;
 layout (location = 2) in vec2 vertexTextureUV;
@@ -17,6 +22,7 @@ uniform mat4 view;
 uniform mat4 viewInverse;
 uniform mat4 worldTransformation;
 uniform mat3 normalTransformation;
+uniform ClippingPlane clippingPlane;
 
 struct TBN {
     vec3 tangent;
@@ -29,6 +35,10 @@ void main()
     // Calculate vertex world position
     fragmentPosition = (worldTransformation * vec4(vertexPosition, 1.0f)).xyz;
     
+    if (clippingPlane.enabled) {
+        gl_ClipDistance[0] = dot(vec4(fragmentPosition, 1.0f), clippingPlane.plane);
+    }
+
     // Pass texture coordinates
     textureUV = vertexTextureUV;
 

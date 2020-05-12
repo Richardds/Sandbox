@@ -34,7 +34,6 @@ namespace Graphics
 
     protected:
         virtual void RenderEntities();
-        virtual void RenderWater();
         std::shared_ptr<Graphics::Water> AddWater(const std::string& name, float size);
         std::shared_ptr<Graphics::Light> AddLight(const std::string& name);
         std::shared_ptr<Graphics::Entity> AddEntity(const std::string& name, const std::string& resourceName);

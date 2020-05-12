@@ -20,13 +20,14 @@ namespace Graphics
             READY
         };
 
-        const unsigned int TEXTURE_SIZE = 1024;
+        const unsigned int TEXTURE_SIZE = 2048;
 
         WaterRenderer();
         virtual ~WaterRenderer();
         bool Setup(std::shared_ptr<const Projection> projection);
         void Begin(std::shared_ptr<Camera> camera, std::shared_ptr<Sun> sun);
-        void RenderToFrameBuffers(const std::function<void()>& renderFunction);
+        void RenderToReflectionBuffer(const std::function<void()>& renderFunction);
+        void RenderToRefractionBuffer(const std::function<void()>& renderFunction);
         void Render(std::shared_ptr<Water> water);
 
     private:

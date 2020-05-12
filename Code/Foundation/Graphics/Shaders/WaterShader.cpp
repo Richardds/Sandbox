@@ -15,6 +15,9 @@ Graphics::WaterShader::WaterShader() :
     _waterTransformationLocation(-1),
     _normalTransformationLocation(-1),
 
+    _reflectionSamplerLocation(-1),
+    _refractionSamplerLocation(-1),
+
     _fogDensityLocation(-1),
     _fogGradientLocation(-1),
     _fogColorLocation(-1),

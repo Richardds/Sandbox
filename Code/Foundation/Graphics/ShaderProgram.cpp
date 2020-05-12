@@ -130,7 +130,6 @@ void Graphics::ShaderProgram::LoadVector4f(GLint location, const Math::Vector4f&
 {
     _assert(this->IsInUse());
     _assert(State::LINKED == this->_state);
-    _assert(-1 != location);
 
     glUniform4fv(location, 1, glm::value_ptr(vector));
 }
