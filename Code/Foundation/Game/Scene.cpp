@@ -27,6 +27,7 @@ bool Graphics::Scene::Setup()
 
     // Setup camera
     this->_camera = std::make_shared<Graphics::TargetedCamera>(15.0f);
+    this->_camera->SetAngle(40.0f);
 
     // Setup global projection
     std::shared_ptr<Projection> projection = Core::Instance().MakeProjection(this->_camera->GetFieldOfView());
@@ -63,6 +64,10 @@ void Graphics::Scene::ProcessInput()
 void Graphics::Scene::Update(float delta)
 {
     _assert(State::RUN == this->_state);
+
+    for (auto& water : this->_waterTiles) {
+        water.second->Update(delta);
+    }
 }
 
 void Graphics::Scene::Render()

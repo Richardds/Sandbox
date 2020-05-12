@@ -32,8 +32,9 @@ bool GunnerBoi::GunnerBoiScene::Setup()
     std::shared_ptr<Graphics::Entity> terrain = this->AddEntity("terrain", "terrain");
 
     // Load water
-    std::shared_ptr<Graphics::Water> water = this->AddWater("water", 6.0f);
-    water->setPositionY(0.01f);
+    std::shared_ptr<Graphics::Water> water = this->AddWater("water", 10.0f);
+    water->SetDistortionMap(Util::ResourcesLoader::Instance().LoadTexture("water_dudv"));
+    water->setPositionY(0.25f);
 
     // Load player
     this->_player = this->SetupPlayer("arrow");

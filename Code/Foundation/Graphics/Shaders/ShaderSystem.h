@@ -25,6 +25,35 @@ namespace Graphics
         void Use();
 
     protected:
+        struct ClippingPlane {
+            ClippingPlane() : plane(-1), enabled(-1) {}
+            GLint plane;
+            GLint enabled;
+        };
+
+        struct SunLocation {
+            SunLocation() : direction(-1), ambient(-1), diffuse(-1), specular(-1) {}
+            GLint direction;
+            GLint ambient;
+            GLint diffuse;
+            GLint specular;
+        };
+
+        struct PointLightLocation {
+            PointLightLocation() : position(-1), attenuation(-1), ambient(-1), diffuse(-1), specular(-1) {}
+            GLint position;
+            GLint attenuation;
+            GLint ambient;
+            GLint diffuse;
+            GLint specular;
+        };
+
+        struct TextureSamplerLocation {
+            TextureSamplerLocation() : texture(-1), enabled(-1) {}
+            GLint texture;
+            GLint enabled;
+        };
+
         GLint GetUniformLocation(const std::string& name);
         void InitializeBoolLocation(const std::string& name, bool enabled, GLint& location);
         void InitializeIntLocation(const std::string& name, int value, GLint& location);

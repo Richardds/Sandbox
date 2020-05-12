@@ -22,6 +22,8 @@ namespace Graphics
         void LoadSun(std::shared_ptr<Sun> sun);
         void LoadFog(float density, float gradient);
         void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix);
+        void LoadHasDistortionMap(bool hasDistortionMap);
+        void LoadDistortionOffset(float offset);
 
     private:
         struct SunLocation {
@@ -37,6 +39,9 @@ namespace Graphics
         GLint _viewInverseLocation;
         GLint _waterTransformationLocation;
         GLint _normalTransformationLocation;
+
+        TextureSamplerLocation _distortionSamplerLocation;
+        GLint _distortionOffsetLocation;
 
         GLint _reflectionSamplerLocation;
         GLint _refractionSamplerLocation;

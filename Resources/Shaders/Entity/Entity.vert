@@ -32,6 +32,9 @@ struct TBN {
 
 void main()
 {
+    // Pass texture coordinates
+    textureUV = vertexTextureUV;
+
     // Calculate vertex world position
     fragmentPosition = worldTransformation * vec4(vertexPosition, 1.0f);
     
@@ -39,13 +42,12 @@ void main()
         gl_ClipDistance[0] = dot(fragmentPosition, clippingPlane.plane);
     }
 
-    // Pass texture coordinates
-    textureUV = vertexTextureUV;
-
     normal = normalTransformation * vertexNormal;
 
-    toCameraVector = viewInverse[3].xyz - fragmentPosition.xyz;
     relativeToCameraPosition = view * fragmentPosition;
+
+    // Calculate viewing vector
+    toCameraVector = viewInverse[3].xyz - fragmentPosition.xyz;
 
     // Tangent basis matrix calculation
     tbn.tangent = normalize(vec3(worldTransformation * vec4(vertexTangent, 0.0f)));

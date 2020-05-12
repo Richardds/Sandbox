@@ -15,6 +15,8 @@ Graphics::WaterShader::WaterShader() :
     _waterTransformationLocation(-1),
     _normalTransformationLocation(-1),
 
+    _distortionOffsetLocation(-1),
+
     _reflectionSamplerLocation(-1),
     _refractionSamplerLocation(-1),
 
@@ -40,6 +42,9 @@ void Graphics::WaterShader::InitializeUniformVariables()
     this->InitializeMatrix3fLocation("normalTransformation", Math::Matrix4f(1.0f), this->_normalTransformationLocation);
 
     // Setup texture mappers
+    this->InitializeBoolLocation("distortionSampler.enabled", false, this->_distortionSamplerLocation.enabled);
+    this->InitializeIntLocation("distortionSampler.texture", EnumToValue(Texture::Bank::DISTORTION), this->_distortionSamplerLocation.texture);
+    this->InitializeFloatLocation("distortionOffset", 0.0f, this->_distortionOffsetLocation);
     this->InitializeIntLocation("reflectionSampler", EnumToValue(Texture::Bank::REFLECTION), this->_reflectionSamplerLocation);
     this->InitializeIntLocation("refractionSampler", EnumToValue(Texture::Bank::REFRACTION), this->_refractionSamplerLocation);
 
@@ -88,4 +93,14 @@ void Graphics::WaterShader::LoadWorldTransformation(const Math::Matrix4f& transf
 {
     ShaderProgram::LoadMatrix4f(this->_waterTransformationLocation, transformationMatrix);
     ShaderProgram::LoadMatrix3f(this->_normalTransformationLocation, glm::transpose(glm::inverse(transformationMatrix)));
+}
+
+void Graphics::WaterShader::LoadHasDistortionMap(bool hasDistortionMap)
+{
+    ShaderProgram::LoadBool(this->_distortionSamplerLocation.enabled, hasDistortionMap);
+}
+
+void Graphics::WaterShader::LoadDistortionOffset(float offset)
+{
+    this->LoadFloat(this->_distortionOffsetLocation, offset);
 }

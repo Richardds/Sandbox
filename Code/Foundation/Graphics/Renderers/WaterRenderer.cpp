@@ -78,6 +78,5 @@ void Graphics::WaterRenderer::Render(std::shared_ptr<Water> water)
 {
 	_assert(State::READY == this->_state);
 
-	this->_shader->LoadWorldTransformation(Math::TranslationMatrix(water->getPosition()));
-	water->GetMesh()->DrawElements();
+	water->Render(this->_shader);
 }

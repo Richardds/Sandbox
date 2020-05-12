@@ -23,8 +23,9 @@ namespace Graphics
             NORMAL = 1,
             SPECULAR = 2,
 
-            REFLECTION = 3,
-            REFRACTION = 4
+            DISTORTION = 3,
+            REFLECTION = 4,
+            REFRACTION = 5
         };
 
         Texture(GLenum target);
