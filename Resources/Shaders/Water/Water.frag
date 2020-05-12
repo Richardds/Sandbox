@@ -34,6 +34,7 @@ uniform Sun sun;
 uniform Fog fog;
 
 const float distortionStrength = 0.02f;
+const float waterReflectivity = 1.05f;
 
 void main()
 {
@@ -64,7 +65,7 @@ void main()
     vec3 reflectionColor = texture(reflectionSampler, reflectionTextureUV).rgb;
     vec3 refractionColor = texture(refractionSampler, refractionTextureUV).rgb;
 
-    float mixFactor = dot(unitToCameraVector, unitNormal);
+    float mixFactor = pow(dot(unitToCameraVector, unitNormal), waterReflectivity);
     vec4 waterColor = vec4(mix(reflectionColor, refractionColor, mixFactor), 1.0f);
     vec4 blueishWaterColor = mix(waterColor, vec4(0.0f, 0.1f, 0.3f, 1.0f), 0.1f);
 
