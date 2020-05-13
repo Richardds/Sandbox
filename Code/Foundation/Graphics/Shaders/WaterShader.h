@@ -27,14 +27,6 @@ namespace Graphics
         void LoadDistortionOffset(float offset);
 
     private:
-        struct SunLocation {
-            SunLocation() : direction(-1), ambient(-1), diffuse(-1), specular(-1) {}
-            GLint direction;
-            GLint ambient;
-            GLint diffuse;
-            GLint specular;
-        };
-
         GLint _projectionLocation;
         GLint _viewLocation;
         GLint _viewInverseLocation;
@@ -47,6 +39,7 @@ namespace Graphics
 
         GLint _reflectionSamplerLocation;
         GLint _refractionSamplerLocation;
+        GLint _depthSamplerLocation;
 
         SunLocation _sunLocation;
 

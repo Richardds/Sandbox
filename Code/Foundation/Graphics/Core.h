@@ -23,8 +23,9 @@ namespace Graphics
         bool Setup();
         void Destroy();
         bool IsCreated() const;
-        bool SetRenderingContext(std::shared_ptr<Window> window);
         std::shared_ptr<Window> GetRenderingContext() const;
+        bool SetRenderingContext(std::shared_ptr<Window> window);
+        void Debug(const std::string& message);
         std::string GetGlString(GLenum name) const;
         Math::Vector4ui GetViewport() const;
         std::shared_ptr<Projection> MakeProjection(float fieldOfView) const;

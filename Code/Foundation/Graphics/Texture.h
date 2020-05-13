@@ -22,10 +22,11 @@ namespace Graphics
             DIFFUSE = 0,
             NORMAL = 1,
             SPECULAR = 2,
+            DEPTH = 3,
 
-            DISTORTION = 3,
-            REFLECTION = 4,
-            REFRACTION = 5
+            DISTORTION = 4,
+            REFLECTION = 5,
+            REFRACTION = 6
         };
 
         Texture(GLenum target);

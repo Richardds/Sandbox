@@ -36,7 +36,7 @@ void Graphics::Water::Render(std::shared_ptr<Graphics::WaterShader> shader)
     shader->LoadHasDistortionMap(hasDistortionMap);
     if (hasDistortionMap) {
         this->_mesh->GetDistortionMap()->Activate(Texture::Bank::DISTORTION);
-    }
+    }  
 
     this->_mesh->DrawElements();
 }

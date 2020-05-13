@@ -87,6 +87,18 @@ bool Graphics::Core::SetRenderingContext(std::shared_ptr<Window> window)
     return true;
 }
 
+void Graphics::Core::Debug(const std::string& message)
+{
+    glDebugMessageInsert(
+        GL_DEBUG_SOURCE_APPLICATION,
+        GL_DEBUG_TYPE_OTHER,
+        0,
+        GL_DEBUG_SEVERITY_NOTIFICATION,
+        static_cast<GLsizei>(message.length()),
+        message.c_str()
+    );
+}
+
 std::string Graphics::Core::GetGlString(GLenum name) const
 {
     const GLubyte* string_ptr = glGetString(name);
