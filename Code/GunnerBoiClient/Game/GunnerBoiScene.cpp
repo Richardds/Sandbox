@@ -48,6 +48,11 @@ bool GunnerBoi::GunnerBoiScene::Setup()
     crate3->setRotationY(45.0f);
     std::shared_ptr<Graphics::Entity> crate4 = this->AddEntity("crate_04", "crate");
     crate4->setPosition(Math::Vector3f(3.25f, 0.0f, -1.75f));
+    std::shared_ptr<Graphics::Entity> rock1 = this->AddEntity("rock_01", "rock");
+    rock1->setPosition(Math::Vector3f(-3.25f, 0.0f, -1.65f));
+    std::shared_ptr<Graphics::Entity> brickWall = this->AddEntity("brick_wall_01", "brick_wall");
+    brickWall->setPosition(Math::Vector3f(7.5f, 0.0f, -5.0f));
+    brickWall->setRotationY(-45.0f);
 
     // Register mouse scrolling
     IO::Mouse::Instance().RegisterScrolling([this](float x, float y) {
