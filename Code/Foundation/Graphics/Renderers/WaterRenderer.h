@@ -36,11 +36,9 @@ namespace Graphics
 
         std::shared_ptr<FrameBuffer> _reflectionFrameBuffer;
         std::shared_ptr<Texture> _reflectionTexture;
-        std::shared_ptr<RenderBuffer> _reflectionRenderBuffer;
 
         std::shared_ptr<FrameBuffer> _refractionFrameBuffer;
         std::shared_ptr<Texture> _refractionTexture;
-        std::shared_ptr<RenderBuffer> _refractionRenderBuffer;
     };
 
 }

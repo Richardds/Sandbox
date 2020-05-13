@@ -141,7 +141,23 @@ void Graphics::Texture::Data(std::shared_ptr<FrameBuffer> frameBuffer, unsigned 
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
 
-	glFramebufferTexture2D(GL_FRAMEBUFFER, frameBuffer->GetAttachment(), GL_TEXTURE_2D, this->_glTexture, 0);
+	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, this->_glTexture, 0);
+
+	this->_state = State::LOADED;
+}
+
+void Graphics::Texture::DepthData(std::shared_ptr<FrameBuffer> frameBuffer, unsigned int width, unsigned int height)
+{
+	_assert(State::INITIAL == this->_state);
+	_assert(this->IsBound());
+	_assert(frameBuffer->IsBound());
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+
+	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, this->_glTexture, 0);
 
 	this->_state = State::LOADED;
 }

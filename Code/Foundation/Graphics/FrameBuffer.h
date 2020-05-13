@@ -9,13 +9,12 @@ namespace Graphics
     class FrameBuffer
     {
     public:
-        FrameBuffer(GLenum attachment);
+        FrameBuffer();
         virtual ~FrameBuffer();
-        GLenum GetAttachment() const;
         void Bind();
         void Activate(unsigned int width, unsigned int height);
         void Deactivate();
-        void Attach(std::shared_ptr<RenderBuffer> renderBuffer);
+        void Attach(std::shared_ptr<RenderBuffer> renderBuffer, GLenum attachment);
         bool IsBound() const;
         void Unbind();
         GLuint GetGlFrameBuffer() const;
@@ -24,15 +23,9 @@ namespace Graphics
 
     private:
         GLuint _glFrameBuffer;
-        GLenum _attachment;
 
         static GLuint _boundFrameBuffer;
     };
-
-    inline GLenum Graphics::FrameBuffer::GetAttachment() const
-    {
-        return this->_attachment;
-    }
 
     inline bool FrameBuffer::IsBound() const
     {

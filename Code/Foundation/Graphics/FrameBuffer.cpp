@@ -4,9 +4,8 @@
 
 GLuint Graphics::FrameBuffer::_boundFrameBuffer = 0;
 
-Graphics::FrameBuffer::FrameBuffer(GLenum attachment) :
-	_glFrameBuffer(0),
-    _attachment(attachment)
+Graphics::FrameBuffer::FrameBuffer() :
+	_glFrameBuffer(0)
 {
 	glGenFramebuffers(1, &this->_glFrameBuffer);
 }
@@ -21,7 +20,6 @@ void Graphics::FrameBuffer::Bind()
 {
     if (!this->IsBound()) {
         glBindFramebuffer(GL_FRAMEBUFFER, this->_glFrameBuffer);
-        glDrawBuffer(this->_attachment);
         FrameBuffer::_boundFrameBuffer = this->_glFrameBuffer;
     }
 }
@@ -40,10 +38,12 @@ void Graphics::FrameBuffer::Deactivate()
     glViewport(0, 0, context->GetWidth(), context->GetHeight());
 }
 
-void Graphics::FrameBuffer::Attach(std::shared_ptr<RenderBuffer> renderBuffer)
+void Graphics::FrameBuffer::Attach(std::shared_ptr<RenderBuffer> renderBuffer, GLenum attachment)
 {
     _assert(this->IsBound());
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, this->_attachment, GL_RENDERBUFFER, renderBuffer->GetGlRenderBuffer());
+    _assert(renderBuffer->IsBound());
+
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, renderBuffer->GetGlRenderBuffer());
 
 }
 

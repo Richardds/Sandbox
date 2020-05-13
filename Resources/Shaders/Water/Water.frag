@@ -101,6 +101,6 @@ void main()
     float reflectSpecular = pow(max(dot(unitToCameraVector, reflectDirection), 0.0f), waterShininess);
     vec3 waterHighlights = sun.diffuse * reflectSpecular * waterSpecular;
 
-    fragmentColor = vec4(waterDiffuse + waterHighlights, 1.0f);
-    //fragmentColor = vec4(normalMapping, 1.0f);
+    //fragmentColor = vec4(normalMapping, 1.0f);                      // Normal mapping
+    fragmentColor = vec4(waterDiffuse + waterHighlights, 1.0f);     // Water + highlights
 }
