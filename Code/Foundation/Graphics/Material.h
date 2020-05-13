@@ -9,50 +9,37 @@ namespace Graphics
     class Material
     {
     public:
-        Material(const Math::Vector3f& diffuse, float reflectivity, const Math::Vector3f& specular, const Math::Vector3f& ambient);
+        Material(const Math::Vector3f& color, float specular, float reflectivity);
         virtual ~Material();
-        Math::Vector3f GetAmbient() const;
-        void SetAmbient(const Math::Vector3f& ambient);
-        Math::Vector3f GetDiffuse() const;
-        void SetDiffuse(const Math::Vector3f& diffuse);
-        Math::Vector3f GetSpecular() const;
-        void SetSpecular(const Math::Vector3f& specular);
+        Math::Vector3f GetColor() const;
+        void SetColor(const Math::Vector3f& color);
+        float GetSpecular() const;
+        void SetSpecular(float specular);
         float GetReflectivity() const;
         void SetReflectivity(float reflectivity);
 
     private:
-        Math::Vector3f _ambient;
-        Math::Vector3f _diffuse;
-        Math::Vector3f _specular;
+        Math::Vector3f _color;
+        float _specular;
         float _reflectivity;
     };
 
-    inline Math::Vector3f Graphics::Material::GetAmbient() const
+    inline Math::Vector3f Graphics::Material::GetColor() const
     {
-        return this->_ambient;
+        return this->_color;
     }
 
-    inline void Material::SetAmbient(const Math::Vector3f& ambient)
+    inline void Material::SetColor(const Math::Vector3f& color)
     {
-        this->_ambient = ambient;
+        this->_color = color;
     }
 
-    inline Math::Vector3f Graphics::Material::GetDiffuse() const
-    {
-        return this->_diffuse;
-    }
-
-    inline void Material::SetDiffuse(const Math::Vector3f& diffuse)
-    {
-        this->_diffuse = diffuse;
-    }
-
-    inline Math::Vector3f Graphics::Material::GetSpecular() const
+    inline float Graphics::Material::GetSpecular() const
     {
         return this->_specular;
     }
 
-    inline void Material::SetSpecular(const Math::Vector3f& specular)
+    inline void Material::SetSpecular(float specular)
     {
         this->_specular = specular;
     }

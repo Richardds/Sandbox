@@ -7,8 +7,8 @@
 #include "../Graphics/Renderers/WaterRenderer.h"
 #include "../Timing/Time.h"
 #include "Scene/TargetedCamera.h"
-#include "Scene/Sun.h"
-#include "Scene/Light.h"
+#include "Scene/PointLight.h"
+#include "Scene/DirectionalLight.h"
 #include "Scene/Entity.h"
 #include "Scene/Water.h"
 
@@ -35,15 +35,15 @@ namespace Graphics
     protected:
         virtual void RenderEntities();
         std::shared_ptr<Graphics::Water> AddWater(const std::string& name, float size);
-        std::shared_ptr<Graphics::Light> AddLight(const std::string& name);
+        std::shared_ptr<Graphics::PointLight> AddLight(const std::string& name);
         std::shared_ptr<Graphics::Entity> AddEntity(const std::string& name, const std::string& resourceName);
 
         std::shared_ptr<Graphics::TargetedCamera> _camera;
         std::shared_ptr<EntityRenderer> _entityRenderer;
         std::shared_ptr<WaterRenderer> _waterRenderer;
-        std::shared_ptr<Sun> _sun;
+        std::shared_ptr<DirectionalLight> _sun;
         std::unordered_map<std::string, std::shared_ptr<Water>> _waterTiles;
-        std::unordered_map<std::string, std::shared_ptr<Light>> _lights;
+        std::unordered_map<std::string, std::shared_ptr<PointLight>> _lights;
         std::unordered_map<std::string, std::shared_ptr<Entity>> _entities;
 
     private:

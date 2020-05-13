@@ -26,10 +26,16 @@ void Graphics::Water::Render(std::shared_ptr<Graphics::WaterShader> shader)
     shader->LoadWorldTransformation(Math::TranslationMatrix(this->_position));
     shader->LoadDistortionOffset(this->_distortionOffset);
 
-    bool hasDistortionMap = this->HasDistortionMap();
+    bool hasNormalMap = this->_mesh->HasNormalMap();
+    shader->LoadHasNormalMap(hasNormalMap);
+    if (hasNormalMap) {
+        this->_mesh->GetNormalMap()->Activate(Texture::Bank::NORMAL);
+    }
+
+    bool hasDistortionMap = this->_mesh->HasDistortionMap();
     shader->LoadHasDistortionMap(hasDistortionMap);
     if (hasDistortionMap) {
-        this->_distortionMap->Activate(Texture::Bank::DISTORTION);
+        this->_mesh->GetDistortionMap()->Activate(Texture::Bank::DISTORTION);
     }
 
     this->_mesh->DrawElements();

@@ -151,20 +151,15 @@ Math::Vector3f Util::AssimpLoader::ParseColor(const aiColor3D& assimpColor) cons
 
 Graphics::Material Util::AssimpLoader::ParseMaterial(const aiMaterial* assimpMaterial) const
 {
-    aiColor3D assimpAmbientColor;
-    assimpMaterial->Get(AI_MATKEY_COLOR_AMBIENT, assimpAmbientColor);
-    Math::Vector3f ambient = this->ParseColor(assimpAmbientColor);
+    aiColor3D assimpColor;
+    assimpMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, assimpColor);
+    Math::Vector3f color = this->ParseColor(assimpColor);
 
-    aiColor3D assimpDiffuseColor;
-    assimpMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, assimpDiffuseColor);
-    Math::Vector3f diffuse = this->ParseColor(assimpDiffuseColor);
+    float specular;
+    assimpMaterial->Get(AI_MATKEY_SHININESS_STRENGTH, specular);
 
-    aiColor3D assimpSpecularColor;
-    assimpMaterial->Get(AI_MATKEY_COLOR_SPECULAR, assimpSpecularColor);
-    Math::Vector3f specular = this->ParseColor(assimpSpecularColor);
+    float shininess;
+    assimpMaterial->Get(AI_MATKEY_SHININESS, shininess);
 
-    float reflectivity;
-    assimpMaterial->Get(AI_MATKEY_SHININESS, reflectivity);
-
-    return Graphics::Material(diffuse, reflectivity, specular, ambient);
+    return Graphics::Material(color, specular, shininess);
 }

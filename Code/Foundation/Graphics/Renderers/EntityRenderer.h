@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../Shaders/EntityShader.h"
-#include "../../Game/Scene/Sun.h"
-#include "../../Game/Scene/Light.h"
+#include "../../Game/Scene/PointLight.h"
+#include "../../Game/Scene/DirectionalLight.h"
 #include "../../Game/Scene/Entity.h"
 #include "../Projection.h"
 
@@ -21,7 +21,7 @@ namespace Graphics
         virtual ~EntityRenderer();
         std::shared_ptr<EntityShader> GetShader() const;
         bool Setup(std::shared_ptr<const Projection> projection);
-        void Begin(std::shared_ptr<Camera> camera, std::shared_ptr<Sun> sun, const std::unordered_map<std::string, std::shared_ptr<Light>>& lights);
+        void Begin(std::shared_ptr<Camera> camera, std::shared_ptr<DirectionalLight> sun, const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights);
         void Render(std::shared_ptr<Entity> entity);
 
     private:

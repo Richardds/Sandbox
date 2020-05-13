@@ -42,6 +42,8 @@ void Graphics::WaterShader::InitializeUniformVariables()
     this->InitializeMatrix3fLocation("normalTransformation", Math::Matrix4f(1.0f), this->_normalTransformationLocation);
 
     // Setup texture mappers
+    this->InitializeBoolLocation("normalSampler.enabled", false, this->_normalSamplerLocation.enabled);
+    this->InitializeIntLocation("normalSampler.texture", EnumToValue(Texture::Bank::NORMAL), this->_normalSamplerLocation.texture);
     this->InitializeBoolLocation("distortionSampler.enabled", false, this->_distortionSamplerLocation.enabled);
     this->InitializeIntLocation("distortionSampler.texture", EnumToValue(Texture::Bank::DISTORTION), this->_distortionSamplerLocation.texture);
     this->InitializeFloatLocation("distortionOffset", 0.0f, this->_distortionOffsetLocation);
@@ -50,14 +52,14 @@ void Graphics::WaterShader::InitializeUniformVariables()
 
     // Setup sun
     this->InitializeVector3fLocation("sun.direction", Math::Vector3f(-1.0f, -1.0f, 0.0f), this->_sunLocation.direction);
-    this->InitializeVector3fLocation("sun.ambient", Math::Vector3f(0.05f), this->_sunLocation.direction);
-    this->InitializeVector3fLocation("sun.diffuse", Math::Vector3f(0.15f), this->_sunLocation.direction);
-    this->InitializeVector3fLocation("sun.specular", Math::Vector3f(0.1f), this->_sunLocation.direction);
+    this->InitializeVector3fLocation("sun.ambient", Math::Vector3f(0.2f), this->_sunLocation.ambient);
+    this->InitializeVector3fLocation("sun.diffuse", Math::Vector3f(0.5f), this->_sunLocation.diffuse);
+    this->InitializeFloatLocation("sun.specular", 1.0f, this->_sunLocation.specular);
 
     // Setup fog
     this->InitializeFloatLocation("fog.density", 0.0175f, this->_fogDensityLocation);
     this->InitializeFloatLocation("fog.gradient", 7.5f, this->_fogGradientLocation);
-    this->InitializeVector3fLocation("fog.color", Math::Vector3f(0.0f), this->_fogColorLocation);
+    this->InitializeVector3fLocation("fog.color", Math::Vector3f(0.2f, 0.325f, 0.375f), this->_fogColorLocation);
 }
 
 void Graphics::WaterShader::LoadProjection(std::shared_ptr<const Projection> projection)
@@ -74,13 +76,15 @@ void Graphics::WaterShader::LoadView(const std::shared_ptr<Graphics::Camera>& vi
     this->LoadMatrix4f(this->_viewInverseLocation, glm::inverse(this->_viewMatrix));
 }
 
-void Graphics::WaterShader::LoadSun(std::shared_ptr<Sun> sun)
+void Graphics::WaterShader::LoadSun(std::shared_ptr<DirectionalLight> sun)
 {
-    Math::Vector3f diffuse = sun->GetIntensity() * sun->GetColor();
+    Math::Vector3f diffuseColor = sun->GetIntensity() * sun->GetColor();
+    Math::Vector3f ambientColor = diffuseColor / 5.0f;
+
     this->LoadVector3f(this->_sunLocation.direction, sun->GetDirection());
-    this->LoadVector3f(this->_sunLocation.direction, diffuse / 3.0f);
-    this->LoadVector3f(this->_sunLocation.direction, diffuse);
-    this->LoadVector3f(this->_sunLocation.direction, diffuse / 15.0f);
+    this->LoadVector3f(this->_sunLocation.ambient, ambientColor);
+    this->LoadVector3f(this->_sunLocation.diffuse, diffuseColor);
+    this->LoadFloat(this->_sunLocation.specular, 1.0f);
 }
 
 void Graphics::WaterShader::LoadFog(float density, float gradient)
@@ -93,6 +97,11 @@ void Graphics::WaterShader::LoadWorldTransformation(const Math::Matrix4f& transf
 {
     ShaderProgram::LoadMatrix4f(this->_waterTransformationLocation, transformationMatrix);
     ShaderProgram::LoadMatrix3f(this->_normalTransformationLocation, glm::transpose(glm::inverse(transformationMatrix)));
+}
+
+void Graphics::WaterShader::LoadHasNormalMap(bool hasNormalMap)
+{
+    ShaderProgram::LoadBool(this->_normalSamplerLocation.enabled, hasNormalMap);
 }
 
 void Graphics::WaterShader::LoadHasDistortionMap(bool hasDistortionMap)

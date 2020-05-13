@@ -2,8 +2,8 @@
 
 #include "ShaderSystem.h"
 #include "../../Game/Scene/Camera.h"
-#include "../../Game/Scene/Light.h"
-#include "../../Game/Scene/Sun.h"
+#include "../../Game/Scene/PointLight.h"
+#include "../../Game/Scene/DirectionalLight.h"
 #include "../../Math/Matrix.h"
 #include "../Projection.h"
 #include "../Material.h"
@@ -21,9 +21,9 @@ namespace Graphics
         void EnableClippingPlane(const Math::Vector4f plane);
         void DisableClippingPlane();
         void LoadCamera(const std::shared_ptr<Camera>& view);
-        void LoadSun(std::shared_ptr<Sun> sun);
-        void LoadLights(const std::unordered_map<std::string, std::shared_ptr<Light>>& lights);
-        void LoadLight(int index, const std::shared_ptr<Light>& light);
+        void LoadSun(std::shared_ptr<DirectionalLight> sun);
+        void LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights);
+        void LoadLight(int index, const std::shared_ptr<PointLight>& light);
         void LoadFog(float density, float gradient);
         void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix);
         void LoadMaterial(const Material& material);
@@ -55,9 +55,9 @@ namespace Graphics
         GLint _fogColorLocation;
 
         GLint _materialAmbientLocation;
-        GLint _materialDiffuseLocation;
+        GLint _materialColorLocation;
         GLint _materialSpecularLocation;
-        GLint _materialReflectivityLocation;
+        GLint _materialShininessLocation;
 
 
         Math::Matrix4f _viewMatrix;

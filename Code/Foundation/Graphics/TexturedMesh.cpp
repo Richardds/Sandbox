@@ -1,7 +1,7 @@
 #include "TexturedMesh.h"
 
 Graphics::TexturedMesh::TexturedMesh(std::shared_ptr<Mesh> mesh) :
-    _material(Math::Vector3f(0.85f), 5.0f, Math::Vector3f(0.5f), Math::Vector3f(0.1f)),
+    _material(Math::Vector3f(0.85f), 0.5f, 25.0f),
     Mesh(mesh->GetVertexArray(), mesh->GetVertexBuffer(), mesh->GetElementBuffer(), mesh->GetElementsCount())
 {
 }

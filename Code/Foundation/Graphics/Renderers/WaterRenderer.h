@@ -3,7 +3,7 @@
 #include <functional>
 
 #include "../Shaders/WaterShader.h"
-#include "../../Game/Scene/Sun.h"
+#include "../../Game/Scene/DirectionalLight.h"
 #include "../../Game/Scene/Water.h"
 #include "../FrameBuffer.h"
 #include "../RenderBuffer.h"
@@ -25,7 +25,7 @@ namespace Graphics
         WaterRenderer();
         virtual ~WaterRenderer();
         bool Setup(std::shared_ptr<const Projection> projection);
-        void Begin(std::shared_ptr<Camera> camera, std::shared_ptr<Sun> sun);
+        void Begin(std::shared_ptr<Camera> camera, std::shared_ptr<DirectionalLight> sun);
         void RenderToReflectionBuffer(const std::function<void()>& renderFunction);
         void RenderToRefractionBuffer(const std::function<void()>& renderFunction);
         void Render(std::shared_ptr<Water> water);

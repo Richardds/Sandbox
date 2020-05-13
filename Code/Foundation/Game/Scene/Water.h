@@ -3,8 +3,7 @@
 #include <memory>
 
 #include "../Attributes/HasPosition.h"
-#include "../../Graphics/Mesh.h"
-#include "../../Graphics/Texture.h"
+#include "../../Graphics/TexturedMesh.h"
 #include "../../Graphics/Shaders/WaterShader.h"
 
 namespace Graphics
@@ -15,50 +14,29 @@ namespace Graphics
     public:
         Water();
         virtual ~Water();
-        std::shared_ptr<Mesh> GetMesh() const;
-        void SetMesh(std::shared_ptr<Mesh> mesh);
-        std::shared_ptr<Texture> GetDistortionMap() const;
-        bool HasDistortionMap() const;
-        void SetDistortionMap(std::shared_ptr<Texture> texture);
+        std::shared_ptr<TexturedMesh> GetMesh() const;
+        void SetMesh(std::shared_ptr<TexturedMesh> mesh);
         float GetDistortionSpeed() const;
         void SetDistortionSpeed(float speed);
         void Update(float delta);
         void Render(std::shared_ptr<WaterShader> shader);
 
     private:
-        static constexpr float DEFAULT_DISTORTION_SPEED = 0.025f;
+        static constexpr float DEFAULT_DISTORTION_SPEED = 0.015f;
 
-        std::shared_ptr<Mesh> _mesh;
-        std::shared_ptr<Texture> _distortionMap;
+        std::shared_ptr<TexturedMesh> _mesh;
         float _distortionOffset;
         float _distortionSpeed;
     };
 
-    inline std::shared_ptr<Mesh> Graphics::Water::GetMesh() const
+    inline std::shared_ptr<TexturedMesh> Graphics::Water::GetMesh() const
     {
         return this->_mesh;
     }
 
-    inline void Graphics::Water::SetMesh(std::shared_ptr<Mesh> mesh)
+    inline void Graphics::Water::SetMesh(std::shared_ptr<TexturedMesh> mesh)
     {
         this->_mesh = mesh;
-    }
-
-    inline std::shared_ptr<Texture> Water::GetDistortionMap() const
-    {
-        return this->_distortionMap;
-    }
-
-    inline bool Water::HasDistortionMap() const
-    {
-        return static_cast<bool>(this->_distortionMap);
-    }
-
-    inline void Water::SetDistortionMap(std::shared_ptr<Texture> texture)
-    {
-        _assert(texture);
-        _assert(Texture::State::LOADED == texture->GetState());
-        this->_distortionMap = texture;
     }
 
     inline float Water::GetDistortionSpeed() const

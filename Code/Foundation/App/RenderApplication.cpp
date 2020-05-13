@@ -79,7 +79,7 @@ void App::RenderApplication::OnConfigureContext()
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.2f, 0.325f, 0.375f, 1.0f);
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK); 

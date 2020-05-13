@@ -23,7 +23,7 @@
     <ClCompile Include="Game\Scene\DirectionalLight.cpp" />
     <ClCompile Include="Game\Scene\Entity.cpp" />
     <ClCompile Include="Game\Scene\Light.cpp" />
-    <ClCompile Include="Game\Scene\Sun.cpp" />
+    <ClCompile Include="Game\Scene\PointLight.cpp" />
     <ClCompile Include="Game\Scene\TargetedCamera.cpp" />
     <ClCompile Include="Game\Scene\Water.cpp" />
     <ClCompile Include="Graphics\Buffer.cpp" />
@@ -74,7 +74,7 @@
     <ClInclude Include="Game\Scene\DirectionalLight.h" />
     <ClInclude Include="Game\Scene\Entity.h" />
     <ClInclude Include="Game\Scene\Light.h" />
-    <ClInclude Include="Game\Scene\Sun.h" />
+    <ClInclude Include="Game\Scene\PointLight.h" />
     <ClInclude Include="Game\Scene\TargetedCamera.h" />
     <ClInclude Include="Game\Scene\Water.h" />
     <ClInclude Include="Graphics\Buffer.h" />

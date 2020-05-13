@@ -48,7 +48,7 @@ bool Graphics::WaterRenderer::Setup(std::shared_ptr<const Projection> projection
 	return true;
 }
 
-void Graphics::WaterRenderer::Begin(std::shared_ptr<Camera> camera, std::shared_ptr<Sun> sun)
+void Graphics::WaterRenderer::Begin(std::shared_ptr<Camera> camera, std::shared_ptr<DirectionalLight> sun)
 {
 	this->_shader->Use();
 	this->_shader->LoadView(camera);

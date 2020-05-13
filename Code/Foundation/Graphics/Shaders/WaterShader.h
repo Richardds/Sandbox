@@ -2,8 +2,8 @@
 
 #include "ShaderSystem.h"
 #include "../../Game/Scene/Camera.h"
-#include "../../Game/Scene/Sun.h"
-#include "../../Game/Scene/Light.h"
+#include "../../Game/Scene/PointLight.h"
+#include "../../Game/Scene/DirectionalLight.h"
 #include "../../Math/Matrix.h"
 #include "../Projection.h"
 #include "../Material.h"
@@ -19,9 +19,10 @@ namespace Graphics
         void InitializeUniformVariables();
         void LoadProjection(std::shared_ptr<const Projection> projection);
         void LoadView(const std::shared_ptr<Camera>& view);
-        void LoadSun(std::shared_ptr<Sun> sun);
+        void LoadSun(std::shared_ptr<DirectionalLight> sun);
         void LoadFog(float density, float gradient);
         void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix);
+        void LoadHasNormalMap(bool hasNormalMap);
         void LoadHasDistortionMap(bool hasDistortionMap);
         void LoadDistortionOffset(float offset);
 
@@ -40,6 +41,7 @@ namespace Graphics
         GLint _waterTransformationLocation;
         GLint _normalTransformationLocation;
 
+        TextureSamplerLocation _normalSamplerLocation;
         TextureSamplerLocation _distortionSamplerLocation;
         GLint _distortionOffsetLocation;
 

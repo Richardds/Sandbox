@@ -48,9 +48,9 @@ bool Graphics::Scene::Setup()
     }
 
     // Setup sun
-    this->_sun = std::make_shared<Sun>();
-    this->_sun->SetDirection(Math::Vector3f(-1.0f, -1.0f, 0.0f));
-    this->_sun->SetInstensity(0.15f);
+    this->_sun = std::make_shared<DirectionalLight>();
+    this->_sun->SetDirection(Math::Vector3f(0.0f, -1.0f, 1.0f));
+    this->_sun->SetInstensity(0.5f);
 
     this->_state = State::RUN;
 
@@ -63,7 +63,7 @@ void Graphics::Scene::ProcessInput()
 
     if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::RIGHT)) {
         Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
-        mouseMotion *= 25.0f;
+        mouseMotion *= 50.0f;
         this->_camera->IncreaseAngle(-mouseMotion.y);
     }
 }
@@ -146,17 +146,17 @@ std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& na
     std::shared_ptr<Model> waterModel = Util::ResourcesLoader::Instance().LoadModel("water");
     std::shared_ptr<Water> water = std::make_shared<Water>();
     std::shared_ptr<TexturedMesh> waterMesh = waterModel->GetMesh("default");
+    waterMesh->SetDistortionMap(Util::ResourcesLoader::Instance().LoadTexture("water_d"));
     water->SetMesh(waterMesh);
-    water->SetDistortionMap(waterMesh->GetDiffuseMap());
     this->_waterTiles.emplace_hint(it, name, water);
     return water;
 }
 
-std::shared_ptr<Graphics::Light> Graphics::Scene::AddLight(const std::string& name)
+std::shared_ptr<Graphics::PointLight> Graphics::Scene::AddLight(const std::string& name)
 {
     auto it = this->_lights.find(name);
     _assert(it == this->_lights.end());
-    std::shared_ptr<Light> light = std::make_shared<Light>();
+    std::shared_ptr<PointLight> light = std::make_shared<PointLight>();
     this->_lights.emplace_hint(it, name, light);
     return light;
 }

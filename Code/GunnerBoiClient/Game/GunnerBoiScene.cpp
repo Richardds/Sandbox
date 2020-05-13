@@ -24,9 +24,9 @@ bool GunnerBoi::GunnerBoiScene::Setup()
     this->_camera->SetDistance(10.0f);
 
     // Configure lights
-    std::shared_ptr<Graphics::Light> pointLight = this->AddLight("player_light");
-    pointLight->setPosition(Math::Vector3f(0.0f, 10.0f, 0.0f));
-    pointLight->SetAttenuation(Math::Vector3f(1.0f, 0.045f, 0.0075f));
+    std::shared_ptr<Graphics::PointLight> playerLight = this->AddLight("player_light");
+    playerLight->setPosition(Math::Vector3f(0.0f, 5.0f, 0.0f));
+    playerLight->SetAttenuation(Math::Vector3f(1.0f, 0.045f, 0.0095f));
 
     // Load terrain
     std::shared_ptr<Graphics::Entity> terrain = this->AddEntity("terrain", "terrain");

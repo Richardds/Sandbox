@@ -23,12 +23,16 @@ namespace Graphics
         bool HasSpecularMap() const;
         std::shared_ptr<Graphics::Texture> GetSpecularMap() const;
         void SetSpecularMap(std::shared_ptr<Graphics::Texture> texture);
+        bool HasDistortionMap() const;
+        std::shared_ptr<Graphics::Texture> GetDistortionMap() const;
+        void SetDistortionMap(std::shared_ptr<Graphics::Texture> texture);
 
     private:
         Material _material;
         std::shared_ptr<Graphics::Texture> _diffuseMap;
         std::shared_ptr<Graphics::Texture> _normalMap;
         std::shared_ptr<Graphics::Texture> _specularMap;
+        std::shared_ptr<Graphics::Texture> _distortionMap;
     };
 
     inline Graphics::Material Graphics::TexturedMesh::GetMaterial() const
@@ -90,6 +94,23 @@ namespace Graphics
         _assert(texture);
         _assert(Texture::State::LOADED == texture->GetState());
         this->_specularMap = texture;
+    }
+
+    inline bool TexturedMesh::HasDistortionMap() const
+    {
+        return static_cast<bool>(this->_distortionMap);
+    }
+
+    inline std::shared_ptr<Graphics::Texture> TexturedMesh::GetDistortionMap() const
+    {
+        return this->_distortionMap;
+    }
+
+    inline void TexturedMesh::SetDistortionMap(std::shared_ptr<Graphics::Texture> texture)
+    {
+        _assert(texture);
+        _assert(Texture::State::LOADED == texture->GetState());
+        this->_distortionMap = texture;
     }
 
 }

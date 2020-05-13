@@ -30,7 +30,7 @@ bool Graphics::EntityRenderer::Setup(std::shared_ptr<const Projection> projectio
 	return true;
 }
 
-void Graphics::EntityRenderer::Begin(std::shared_ptr<Camera> camera, std::shared_ptr<Sun> sun, const std::unordered_map<std::string, std::shared_ptr<Light>>& lights)
+void Graphics::EntityRenderer::Begin(std::shared_ptr<Camera> camera, std::shared_ptr<DirectionalLight> sun, const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights)
 {
 	this->_shader->Use();
 	this->_shader->LoadCamera(camera);

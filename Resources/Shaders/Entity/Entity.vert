@@ -1,5 +1,11 @@
 #version 430 core
 
+struct TBN {
+    vec3 tangent;
+    vec3 normal;
+    vec3 bitangent;
+};
+
 struct ClippingPlane {
     vec4 plane;
     bool enabled;
@@ -24,12 +30,6 @@ uniform mat4 worldTransformation;
 uniform mat3 normalTransformation;
 uniform ClippingPlane clippingPlane;
 
-struct TBN {
-    vec3 tangent;
-    vec3 normal;
-    vec3 bitangent;
-} tbn;
-
 void main()
 {
     // Pass texture coordinates
@@ -41,15 +41,16 @@ void main()
     if (clippingPlane.enabled) {
         gl_ClipDistance[0] = dot(fragmentPosition, clippingPlane.plane);
     }
-
+    
+    // Calculate normal relative to vertex position
     normal = normalTransformation * vertexNormal;
-
+    // Calculate position relative to the camera
     relativeToCameraPosition = view * fragmentPosition;
-
     // Calculate viewing vector
     toCameraVector = viewInverse[3].xyz - fragmentPosition.xyz;
 
     // Tangent basis matrix calculation
+    TBN tbn;
     tbn.tangent = normalize(vec3(worldTransformation * vec4(vertexTangent, 0.0f)));
     tbn.normal = normalize(vec3(worldTransformation * vec4(vertexNormal, 0.0f)));
     tbn.bitangent = normalize(cross(vertexTangent, tbn.normal));

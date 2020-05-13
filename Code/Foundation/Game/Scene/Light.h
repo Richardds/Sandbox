@@ -1,27 +1,34 @@
 #pragma once
 
-#include "../Attributes/HasPosition.h"
+#include "../../Math/Vector.h"
 
 namespace Graphics
 {
 
-    class Light : public HasPosition
+    class Light
     {
     public:
         Light();
-        Light(Math::Vector3f position);
-        Light(Math::Vector3f position, Math::Vector3f color);
-        Light(Math::Vector3f position, Math::Vector3f color, Math::Vector3f attenuation);
         virtual ~Light();
+        float GetIntensity() const;
+        void SetInstensity(float intensity);
         Math::Vector3f GetColor() const;
         void SetColor(const Math::Vector3f& color);
-        Math::Vector3f GetAttenuation() const;
-        void SetAttenuation(const Math::Vector3f& attenuation);
 
     private:
+        float _intensity;
         Math::Vector3f _color;
-        Math::Vector3f _attenuation;
     };
+
+    inline float Graphics::Light::GetIntensity() const
+    {
+        return this->_intensity;
+    }
+
+    inline void Light::SetInstensity(float intensity)
+    {
+        this->_intensity = intensity;
+    }
 
     inline Math::Vector3f Graphics::Light::GetColor() const
     {
@@ -31,16 +38,6 @@ namespace Graphics
     inline void Graphics::Light::SetColor(const Math::Vector3f& color)
     {
         this->_color = color;
-    }
-
-    inline Math::Vector3f Graphics::Light::GetAttenuation() const
-    {
-        return this->_attenuation;
-    }
-
-    inline void Light::SetAttenuation(const Math::Vector3f& attenuation)
-    {
-        this->_attenuation = attenuation;
     }
 
 }
