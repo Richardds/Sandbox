@@ -28,7 +28,7 @@ bool Graphics::Scene::Setup()
 
     // Setup camera
     this->_camera = std::make_shared<Graphics::TargetedCamera>(15.0f);
-    this->_camera->SetAngle(40.0f);
+    this->_camera->setRotationX(40.0f);
 
     // Setup global projection
     std::shared_ptr<Projection> projection = Core::Instance().MakeProjection(this->_camera->GetFieldOfView());
@@ -57,7 +57,7 @@ bool Graphics::Scene::Setup()
     // Setup sun
     this->_sun = std::make_shared<DirectionalLight>();
     this->_sun->SetDirection(Math::Vector3f(0.0f, -1.0f, 1.0f));
-    this->_sun->SetInstensity(0.5f);
+    this->_sun->SetInstensity(0.6f);
 
     this->_state = State::RUN;
 
@@ -71,7 +71,7 @@ void Graphics::Scene::ProcessInput()
     if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::RIGHT)) {
         Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
         mouseMotion *= 50.0f;
-        this->_camera->IncreaseAngle(-mouseMotion.y);
+        this->_camera->increaseRotation(-mouseMotion.y, mouseMotion.x, 0.0f);
     }
 }
 
@@ -164,7 +164,7 @@ std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& na
     _assert(it == this->_waterTiles.end());
     std::shared_ptr<Model> waterModel = Util::ResourcesLoader::Instance().LoadModel("water");
     std::shared_ptr<Water> water = std::make_shared<Water>();
-    std::shared_ptr<TexturedMesh> waterMesh = waterModel->GetMesh("default");
+    std::shared_ptr<TexturedMesh> waterMesh = waterModel->GetMesh("_default");
     waterMesh->SetDistortionMap(Util::ResourcesLoader::Instance().LoadTexture("water_d"));
     water->SetMesh(waterMesh);
     this->_waterTiles.emplace_hint(it, name, water);

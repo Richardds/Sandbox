@@ -33,13 +33,14 @@ struct Material {
 };
 
 in vec4 fragmentPosition;
-in vec2 textureUV;
+in vec2 textureCoords;
 in vec3 normal;
-in vec3 toCameraVector;
 in vec4 relativeToCameraPosition;
 in mat3 fromTangentSpace;
 
 out vec4 fragmentColor;
+
+uniform vec3 viewPosition;
 
 uniform TextureSampler diffuseSampler;
 uniform TextureSampler normalSampler;
@@ -51,16 +52,31 @@ uniform PointLight light[10];
 uniform Fog fog;
 uniform Material material;
 
+const float minDiffuseFactor = 0.2f;
+
+float diffuseFactor(vec3 lightDirection, vec3 normal)
+{
+    return max(dot(lightDirection, normal), minDiffuseFactor);
+}
+
+float specularFactor(float shininess, vec3 viewDirection, vec3 lightDirection, vec3 normal)
+{
+    vec3 reflectedLightDirection = reflect(lightDirection, normal);
+    return pow(max(dot(viewDirection, reflectedLightDirection), 0.0f), shininess);
+}
+
 void main()
 {
-    // Normalize vectors
+    // Calculate view position
+    vec3 viewDirection = normalize(viewPosition - fragmentPosition.xyz);
+
+    // Normalize normal vector
     vec3 unitNormal = normalize(normal);
-    vec3 unitToCameraVector = normalize(toCameraVector);
 
     // Map diffuse color
     vec3 materialDiffuse = material.color;
     if (diffuseSampler.enabled) {
-        materialDiffuse = texture(diffuseSampler.texture, textureUV).rgb;
+        materialDiffuse = texture(diffuseSampler.texture, textureCoords).rgb;
         // Discard fragment when mapped to invisible
         if (materialDiffuse.r == 1.0f && materialDiffuse.b == 1.0f) {
             discard;
@@ -70,40 +86,29 @@ void main()
     // Map normal vector
     vec3 normalMapping = unitNormal;
     if (normalSampler.enabled) {
-        normalMapping = normalize(fromTangentSpace * (texture(normalSampler.texture, textureUV).rgb * 2.0f - 1.0f));
+        normalMapping = normalize(fromTangentSpace * (texture(normalSampler.texture, textureCoords).rgb * 2.0f - 1.0f));
     }
 
     // Map specular strength
     float materialSpecular = material.specular;
     if (specularSampler.enabled) {
-        materialSpecular = texture(specularSampler.texture, textureUV).r;
+        materialSpecular = texture(specularSampler.texture, textureCoords).r;
     }
 
     // Calculate fragment color using Phong lighting model
-    vec3 unitSunDirection = normalize(-sun.direction);
+    vec3 sunDirection = normalize(sun.direction);
     
     vec3 ambient = sun.ambient * materialDiffuse;
-
-    float dynamicDiffuse = max(dot(normalMapping, unitSunDirection), 0.2f);
-    vec3 diffuse = sun.diffuse * dynamicDiffuse * materialDiffuse;
-
-    vec3 reflectDirection = reflect(-unitSunDirection, normalMapping);
-    float reflectSpecular = pow(max(dot(unitToCameraVector, reflectDirection), 0.0f), material.shininess);
-    float specular = sun.specular * reflectSpecular * materialSpecular;
+    vec3 diffuse = sun.diffuse * materialDiffuse * diffuseFactor(sunDirection, normalMapping);
+    float specular = sun.specular * material.specular * specularFactor(material.shininess, viewDirection, sunDirection, normalMapping);
 
     for (int index = 0; index < lightsCount; index++) {
-        vec3 lightDirection = light[index].position - fragmentPosition.xyz;
-        vec3 unitLightDirection = normalize(lightDirection);
+        vec3 lightDirection = normalize(light[index].position - fragmentPosition.xyz);
+        float lightDistance = length(light[index].position - fragmentPosition.xyz);
+        float attenuation = light[index].attenuation.x + (light[index].attenuation.y * lightDistance) + (light[index].attenuation.z * lightDistance * lightDistance);
 
-        float lightDistance = length(lightDirection);
-        float lightAttenuationFactor = light[index].attenuation.x + (light[index].attenuation.y * lightDistance) + (light[index].attenuation.z * lightDistance * lightDistance);
-
-        dynamicDiffuse = max(dot(normalMapping, unitLightDirection), 0.2f);
-        diffuse += (light[index].diffuse * dynamicDiffuse * materialDiffuse) / lightAttenuationFactor;
-
-        reflectDirection = reflect(-unitLightDirection, normalMapping);
-        reflectSpecular = pow(max(dot(unitToCameraVector, reflectDirection), 0.0f), material.shininess);
-        specular += (light[index].specular * reflectSpecular * materialSpecular) / lightAttenuationFactor;
+        diffuse += (light[index].diffuse * materialDiffuse * diffuseFactor(lightDirection, normalMapping)) / attenuation;
+        specular += (light[index].specular * material.specular * specularFactor(material.shininess, viewDirection, lightDirection, normalMapping)) / attenuation;
     }
 
     vec3 phongModelColor = ambient + diffuse + specular;

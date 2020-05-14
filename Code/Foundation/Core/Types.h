@@ -26,7 +26,12 @@ namespace Timing
 
 }
 
-struct VertexData {
+struct VertexData2 {
+    Math::Vector3f vertex;
+    Math::Vector2f texture;
+};
+
+struct VertexData3 {
     Math::Vector3f vertex;
     Math::Vector3f normal;
     Math::Vector2f texture;

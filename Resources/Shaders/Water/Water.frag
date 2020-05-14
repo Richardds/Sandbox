@@ -19,14 +19,15 @@ struct Fog {
 };
 
 in vec4 fragmentPosition;
-in vec2 textureUV;
+in vec2 textureCoords;
 in vec3 normal;
-in vec3 toCameraVector;
 in vec4 relativeToCameraPosition;
 in mat3 fromTangentSpace;
 in vec4 position;
 
 out vec4 fragmentColor;
+
+uniform vec3 viewPosition;
 
 uniform TextureSampler normalSampler;
 uniform TextureSampler distortionSampler;
@@ -40,59 +41,74 @@ uniform Fog fog;
 const float distortionStrength = 0.01f;
 
 const float waterTransparency = 0.75f;
-const float waterSpecular = 0.8f;
+const float waterSpecular = 0.45f;
 const float waterShininess = 12.0f;
+
+const float minDiffuseFactor = 0.2f;
+
+float diffuseFactor(vec3 lightDirection, vec3 normal)
+{
+    return max(dot(lightDirection, normal), minDiffuseFactor);
+}
+
+float specularFactor(float shininess, vec3 viewDirection, vec3 lightDirection, vec3 normal)
+{
+    vec3 reflectedLightDirection = reflect(lightDirection, normal);
+    return pow(max(dot(viewDirection, reflectedLightDirection), 0.0f), shininess);
+}
 
 void main()
 {
-    // Normalize vectors
+    // Calculate view position
+    vec3 viewDirection = normalize(viewPosition - fragmentPosition.xyz);
+
+    // Normalize normal vector
     vec3 unitNormal = normalize(normal);
-    vec3 unitToCameraVector = normalize(toCameraVector);
 
     // Normalized device coordinates
     vec2 ndc = (position.xy / position.w) / 2.0f + 0.5f;
 
+    // Calculate texture distortion
     vec2 distortion = vec2(0.0f, 0.0f);
-    vec2 distortedTextureUV = textureUV;
+    vec2 distortedTextureCoords = textureCoords;
 
     if (distortionSampler.enabled) {
-        distortedTextureUV = texture(distortionSampler.texture, vec2(textureUV.x + distortionOffset, textureUV.y)).rg * 0.25f;
-        distortedTextureUV = textureUV + vec2(distortedTextureUV.x, distortedTextureUV.y + distortionOffset);
-
-        distortion = (texture(distortionSampler.texture, distortedTextureUV).rg * 2.0f - 1.0f) * distortionStrength;
+        distortedTextureCoords = texture(distortionSampler.texture, vec2(textureCoords.x + distortionOffset, textureCoords.y)).rg * 0.25f;
+        distortedTextureCoords = textureCoords + vec2(distortedTextureCoords.x, distortedTextureCoords.y + distortionOffset);
+        distortion = (texture(distortionSampler.texture, distortedTextureCoords).rg * 2.0f - 1.0f) * distortionStrength;
     }
 
     vec3 normalMapping = unitNormal;
     if (normalSampler.enabled) {
-        normalMapping = texture(normalSampler.texture, distortedTextureUV).rgb;
+        normalMapping = texture(normalSampler.texture, distortedTextureCoords).rgb;
         normalMapping = normalize(fromTangentSpace * vec3(normalMapping.x * 2.0f - 1.0f, normalMapping.y, normalMapping.z * 2.0f - 1.0f));
     }
 
-    vec2 reflectionTextureUV = vec2(ndc.x, -ndc.y);
-    vec2 refractionTextureUV = ndc;
+    vec2 reflectionTextureCoords = vec2(ndc.x, -ndc.y);
+    vec2 refractionTextureCoords = ndc;
 
-    reflectionTextureUV += distortion;
-    reflectionTextureUV.x = clamp(reflectionTextureUV.x, 0.0f, 1.0f);
-    reflectionTextureUV.y = clamp(reflectionTextureUV.y, -1.0f, 0.0f);
+    reflectionTextureCoords += distortion;
+    reflectionTextureCoords.x = clamp(reflectionTextureCoords.x, 0.0f, 1.0f);
+    reflectionTextureCoords.y = clamp(reflectionTextureCoords.y, -1.0f, 0.0f);
 
-    refractionTextureUV += distortion;
-    refractionTextureUV = clamp(refractionTextureUV, 0.0f, 1.0f);
+    refractionTextureCoords += distortion;
+    refractionTextureCoords = clamp(refractionTextureCoords, 0.0f, 1.0f);
 
-    vec3 reflectionColor = texture(reflectionSampler, reflectionTextureUV).rgb;
-    vec3 refractionColor = texture(refractionSampler, refractionTextureUV).rgb;
+    vec3 reflectionColor = texture(reflectionSampler, reflectionTextureCoords).rgb;
+    vec3 refractionColor = texture(refractionSampler, refractionTextureCoords).rgb;
 
     // Calculate Fresnel effect
-    float mixFactor = pow(dot(unitToCameraVector, unitNormal), waterTransparency);
+    float mixFactor = pow(dot(viewDirection, unitNormal), waterTransparency);
+
     // Calculate water color using reflection, refraction and fresnel effect
     vec3 waterDiffuse = mix(reflectionColor, refractionColor, mixFactor);
+
     // Apply slight bluish color
     waterDiffuse = mix(waterDiffuse, vec3(0.0f, 0.1f, 0.2f), 0.1f);
 
-    vec3 unitSunDirection = normalize(-sun.direction);
-    vec3 reflectDirection = reflect(-unitSunDirection, normalMapping);
-    float reflectSpecular = pow(max(dot(unitToCameraVector, reflectDirection), 0.0f), waterShininess);
-    vec3 waterHighlights = sun.diffuse * reflectSpecular * waterSpecular;
+    vec3 sunDirection = normalize(sun.direction);
+    float specular = sun.specular * waterSpecular * specularFactor(waterShininess, viewDirection, sunDirection, normalMapping);
 
-    //fragmentColor = vec4(normalMapping, 1.0f);                      // Normal mapping
-    fragmentColor = vec4(waterDiffuse + waterHighlights, 1.0f);     // Water + highlights
+    //fragmentColor = vec4(normalMapping, 1.0f);               // Normal mapping
+    fragmentColor = vec4(waterDiffuse + specular, 1.0f);     // Water + highlights
 }

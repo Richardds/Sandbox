@@ -9,7 +9,10 @@ namespace Graphics
     class TexturedMesh : public Mesh
     {
     public:
-        TexturedMesh(std::shared_ptr<Mesh> mesh);
+        TexturedMesh(std::shared_ptr<Graphics::VertexArray> vertexArrayObject,
+                     std::shared_ptr<Graphics::Buffer> vertexBuffer,
+                     std::shared_ptr<Graphics::Buffer> elementsBuffer,
+                     uint32_t elementsCount);
         virtual ~TexturedMesh();
         Material GetMaterial() const;
         void SetMaterial(const Material& material);

@@ -18,7 +18,7 @@ namespace Graphics
         virtual ~WaterShader();
         void InitializeUniformVariables();
         void LoadProjection(std::shared_ptr<const Projection> projection);
-        void LoadView(const std::shared_ptr<Camera>& view);
+        void LoadCamera(const std::shared_ptr<Camera>& camera);
         void LoadSun(std::shared_ptr<DirectionalLight> sun);
         void LoadFog(float density, float gradient);
         void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix);
@@ -29,7 +29,7 @@ namespace Graphics
     private:
         GLint _projectionLocation;
         GLint _viewLocation;
-        GLint _viewInverseLocation;
+        GLint _viewPositionLocation;
         GLint _worldTransformationLocation;
         GLint _normalTransformationLocation;
 

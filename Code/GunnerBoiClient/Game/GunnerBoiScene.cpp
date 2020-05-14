@@ -33,7 +33,6 @@ bool GunnerBoi::GunnerBoiScene::Setup()
 
     // Load water
     std::shared_ptr<Graphics::Water> water = this->AddWater("water", 10.0f);
-    water->setPositionY(0.25f);
 
     // Load player
     this->_player = this->SetupPlayer("arrow");

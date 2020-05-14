@@ -1,8 +1,11 @@
 #include "TexturedMesh.h"
 
-Graphics::TexturedMesh::TexturedMesh(std::shared_ptr<Mesh> mesh) :
-    _material(Math::Vector3f(0.85f), 0.5f, 25.0f),
-    Mesh(mesh->GetVertexArray(), mesh->GetVertexBuffer(), mesh->GetElementBuffer(), mesh->GetElementsCount())
+Graphics::TexturedMesh::TexturedMesh(std::shared_ptr<Graphics::VertexArray> vertexArrayObject,
+                                     std::shared_ptr<Graphics::Buffer> vertexBuffer,
+                                     std::shared_ptr<Graphics::Buffer> elementsBuffer,
+                                     uint32_t elementsCount) :
+    Mesh(vertexArrayObject, vertexBuffer, elementsBuffer, elementsCount),
+    _material(Math::Vector3f(0.85f), 0.5f, 25.0f)
 {
 }
 

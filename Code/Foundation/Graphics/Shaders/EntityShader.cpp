@@ -11,7 +11,7 @@ Graphics::EntityShader::EntityShader() :
     ShaderSystem("Entity"),
     _projectionLocation(-1),
     _viewLocation(-1),
-    _viewInverseLocation(-1),
+    _viewPositionLocation(-1),
     _worldTransformationLocation(-1),
     _normalTransformationLocation(-1),
 
@@ -39,7 +39,7 @@ void Graphics::EntityShader::InitializeUniformVariables()
     // Setup transformations
     this->InitializeMatrix4fLocation("projection", Math::Matrix4f(1.0f), this->_projectionLocation);
     this->InitializeMatrix4fLocation("view", Math::Matrix4f(1.0f), this->_viewLocation);
-    this->InitializeMatrix4fLocation("viewInverse", Math::Matrix4f(1.0f), this->_viewInverseLocation);
+    this->InitializeVector3fLocation("viewPosition", Math::Vector3f(1.0f), this->_viewPositionLocation);
     this->InitializeMatrix4fLocation("worldTransformation", Math::Matrix4f(1.0f), this->_worldTransformationLocation);
     this->InitializeMatrix3fLocation("normalTransformation", Math::Matrix4f(1.0f), this->_normalTransformationLocation);
 
@@ -101,13 +101,16 @@ void Graphics::EntityShader::DisableClippingPlane()
     glDisable(GL_CLIP_DISTANCE0);
 }
 
-void Graphics::EntityShader::LoadCamera(const std::shared_ptr<Graphics::Camera>& view)
+void Graphics::EntityShader::LoadCamera(const std::shared_ptr<Graphics::Camera>& camera)
 {
-    _assert(view);
+    _assert(camera);
 
-    this->_viewMatrix = Math::ViewMatrix(view->getPosition(), view->getRotationX(), view->getRotationY());
+    this->_viewMatrix = Math::ViewMatrix(camera->getPosition(), camera->getRotationX(), camera->getRotationY());
+
+    //this->_viewMatrix = glm::lookAt(camera->getPosition(), Math::Vector3f(0.0f, 0.0f, 0.0f), Math::Vector3f(0.0f, 1.0f, 0.0f));
+
     this->LoadMatrix4f(this->_viewLocation, this->_viewMatrix);
-    this->LoadMatrix4f(this->_viewInverseLocation, glm::inverse(this->_viewMatrix));
+    this->LoadVector3f(this->_viewPositionLocation, camera->getPosition());
 }
 
 void Graphics::EntityShader::LoadSun(std::shared_ptr<DirectionalLight> sun)

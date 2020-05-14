@@ -4,9 +4,9 @@
 #include "../../Math/Utils.h"
 
 Graphics::TargetedCamera::TargetedCamera(float distance) :
-    _distance(distance),
-    _angle(45.0f)
+    _distance(distance)
 {
+    this->setRotationX(45.0f);
     this->LookAt(Math::Vector3f(0.0f, 0.0f, 0.0f));
 }
 
@@ -14,19 +14,18 @@ Graphics::TargetedCamera::~TargetedCamera()
 {
 }
 
-void Graphics::TargetedCamera::IncreaseDistance(float distance)
+void Graphics::TargetedCamera::LookAt(Math::Vector3f target)
 {
-    this->_distance += distance;
-}
-
-void Graphics::TargetedCamera::LookAt(Math::Vector3f position)
-{
-    const float radians = glm::radians(this->_angle);
-    position.y += std::sinf(radians) * this->_distance;
-    position.z += std::cosf(radians) * this->_distance;
-
-    this->_position = position;
-    this->_rotX = -this->_angle;
+    const float radiansX = glm::radians(this->_rotX);
+    const float radiansY = glm::radians(this->_rotY);
+    
+    float offsetX = std::sinf(radiansY) * this->_distance;
+    float offsetY = std::sinf(radiansX) * this->_distance;
+    float offsetZ = std::cosf(radiansX) * this->_distance;
+    
+    this->_position.x = target.x - offsetX;
+    this->_position.y = target.y + offsetY;
+    this->_position.z = target.z + offsetZ;
 }
 
 void Graphics::TargetedCamera::Update(std::shared_ptr<HasPosition> target)

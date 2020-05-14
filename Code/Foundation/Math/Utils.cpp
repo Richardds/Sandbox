@@ -8,8 +8,8 @@ Math::Matrix4f Math::ProjectionMatrix(float aspectRatio, float fieldOfView, floa
 Math::Matrix4f Math::ViewMatrix(const Vector3f& position, float rotX, float rotY)
 {
     Matrix4f viewMatrix(1.0f);
-    viewMatrix = glm::rotate(viewMatrix, glm::radians(-rotX), Math::Vector3f(1.0f, 0.0f, 0.0f));
-    viewMatrix = glm::rotate(viewMatrix, glm::radians(-rotY), Math::Vector3f(0.0f, 1.0f, 0.0f));
+    viewMatrix = glm::rotate(viewMatrix, glm::radians(rotX), Math::Vector3f(1.0f, 0.0f, 0.0f));
+    viewMatrix = glm::rotate(viewMatrix, glm::radians(rotY), Math::Vector3f(0.0f, 1.0f, 0.0f));
     viewMatrix = glm::translate(viewMatrix, -position);
 
     return viewMatrix;

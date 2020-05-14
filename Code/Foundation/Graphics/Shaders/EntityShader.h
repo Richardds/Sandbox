@@ -20,7 +20,7 @@ namespace Graphics
         void LoadProjection(std::shared_ptr<const Projection> projection);
         void EnableClippingPlane(const Math::Vector4f plane);
         void DisableClippingPlane();
-        void LoadCamera(const std::shared_ptr<Camera>& view);
+        void LoadCamera(const std::shared_ptr<Camera>& camera);
         void LoadSun(std::shared_ptr<DirectionalLight> sun);
         void LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights);
         void LoadLight(int index, const std::shared_ptr<PointLight>& light);
@@ -36,7 +36,7 @@ namespace Graphics
 
         GLint _projectionLocation;
         GLint _viewLocation;
-        GLint _viewInverseLocation;
+        GLint _viewPositionLocation;
         GLint _worldTransformationLocation;
         GLint _normalTransformationLocation;
 

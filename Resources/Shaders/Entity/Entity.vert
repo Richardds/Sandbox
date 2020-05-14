@@ -11,15 +11,14 @@ struct ClippingPlane {
     bool enabled;
 };
 
-layout (location = 0) in vec3 vertexPosition;
-layout (location = 1) in vec3 vertexNormal;
-layout (location = 2) in vec2 vertexTexture;
-layout (location = 3) in vec3 vertexTangent;
+layout (location = 0) in vec3 a_Position;
+layout (location = 1) in vec3 a_Normal;
+layout (location = 2) in vec2 a_Texture;
+layout (location = 3) in vec3 a_Tangent;
 
 out vec4 fragmentPosition;
-out vec2 textureUV;
+out vec2 textureCoords;
 out vec3 normal;
-out vec3 toCameraVector;
 out vec4 relativeToCameraPosition;
 out mat3 fromTangentSpace;
 
@@ -32,29 +31,29 @@ uniform ClippingPlane clippingPlane;
 
 void main()
 {
-    // Pass texture coordinates
-    textureUV = vertexTexture;
-
     // Calculate vertex world position
-    fragmentPosition = worldTransformation * vec4(vertexPosition, 1.0f);
-    
+    fragmentPosition = worldTransformation * vec4(a_Position, 1.0f);
+
+    // Apply culling if enabled
     if (clippingPlane.enabled) {
         gl_ClipDistance[0] = dot(fragmentPosition, clippingPlane.plane);
     }
+
+    // Pass interpolated texture coordinates
+    textureCoords = a_Texture;
     
     // Calculate normal relative to vertex position
-    normal = normalTransformation * vertexNormal;
+    normal = normalTransformation * a_Normal;
+
     // Calculate position relative to the camera
     relativeToCameraPosition = view * fragmentPosition;
-    // Calculate viewing vector
-    toCameraVector = viewInverse[3].xyz - fragmentPosition.xyz;
 
     // Tangent basis matrix calculation
     TBN tbn;
-    tbn.tangent = normalize(vec3(worldTransformation * vec4(vertexTangent, 0.0f)));
-    tbn.normal = normalize(vec3(worldTransformation * vec4(vertexNormal, 0.0f)));
-    tbn.bitangent = normalize(cross(vertexTangent, tbn.normal));
+    tbn.tangent = normalize((worldTransformation * vec4(a_Tangent, 0.0f)).xyz);
+    tbn.normal = normalize((worldTransformation * vec4(a_Normal, 0.0f)).xyz);
     tbn.tangent = normalize(tbn.tangent - dot(tbn.tangent, tbn.normal) * tbn.normal);
+    tbn.bitangent = normalize(cross(tbn.normal, tbn.tangent));
     fromTangentSpace = mat3(tbn.tangent, tbn.bitangent, tbn.normal);
 
     // Apply projection

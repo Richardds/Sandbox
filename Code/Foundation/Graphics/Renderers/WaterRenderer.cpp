@@ -51,7 +51,7 @@ bool Graphics::WaterRenderer::Setup(std::shared_ptr<const Projection> projection
 void Graphics::WaterRenderer::Begin(std::shared_ptr<Camera> camera, std::shared_ptr<DirectionalLight> sun)
 {
 	this->_shader->Use();
-	this->_shader->LoadView(camera);
+	this->_shader->LoadCamera(camera);
 	this->_shader->LoadSun(sun);
 
 	this->_reflectionTexture->Activate(Texture::Bank::REFLECTION);

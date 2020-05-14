@@ -108,8 +108,7 @@ std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* 
     ebo->Unbind();
     vbo->Unbind();
 
-    std::shared_ptr<Graphics::Mesh> localMesh = std::make_shared<Graphics::Mesh>(vao, vbo, ebo, static_cast<uint32_t>(elements.size()));
-    std::shared_ptr<Graphics::TexturedMesh> texturedMesh = std::make_shared<Graphics::TexturedMesh>(localMesh);
+    std::shared_ptr<Graphics::TexturedMesh> texturedMesh = std::make_shared<Graphics::TexturedMesh>(vao, vbo, ebo, static_cast<uint32_t>(elements.size()));
 
     aiMaterial* material = this->_scene->mMaterials[mesh->mMaterialIndex];
     aiString assetPath;
