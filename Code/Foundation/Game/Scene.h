@@ -5,6 +5,7 @@
 
 #include "../Graphics/Renderers/EntityRenderer.h"
 #include "../Graphics/Renderers/WaterRenderer.h"
+#include "../Graphics/Renderers/HUDRenderer.h"
 #include "../Timing/Time.h"
 #include "Scene/TargetedCamera.h"
 #include "Scene/PointLight.h"
@@ -33,6 +34,7 @@ namespace Graphics
         Math::Vector3f GetScreenWorldPosition(Math::Vector2ui screenPosition) const;
 
     protected:
+        virtual void RenderScene();
         virtual void RenderEntities();
         std::shared_ptr<Graphics::Water> AddWater(const std::string& name, float size);
         std::shared_ptr<Graphics::PointLight> AddLight(const std::string& name);
@@ -41,6 +43,7 @@ namespace Graphics
         std::shared_ptr<Graphics::TargetedCamera> _camera;
         std::shared_ptr<EntityRenderer> _entityRenderer;
         std::shared_ptr<WaterRenderer> _waterRenderer;
+        std::shared_ptr<HUDRenderer> _hudRenderer;
         std::shared_ptr<DirectionalLight> _sun;
         std::unordered_map<std::string, std::shared_ptr<Water>> _waterTiles;
         std::unordered_map<std::string, std::shared_ptr<PointLight>> _lights;

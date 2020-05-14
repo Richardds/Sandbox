@@ -59,13 +59,13 @@ void Util::AssimpLoader::ProcessNode(aiNode* node)
 
 std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* mesh)
 {
-    std::vector<VertexData> data;
+    std::vector<VertexData3> data;
     std::vector<uint32_t> elements;
 
     this->_meshCount++;
 
     for (uint32_t i = 0; i < mesh->mNumVertices; i++) {
-        VertexData vertexData;
+        VertexData3 vertexData;
         vertexData.vertex.x = mesh->mVertices[i].x;
         vertexData.vertex.y = mesh->mVertices[i].y;
         vertexData.vertex.z = mesh->mVertices[i].z;

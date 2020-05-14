@@ -12,7 +12,7 @@ Graphics::WaterShader::WaterShader() :
     _projectionLocation(-1),
     _viewLocation(-1),
     _viewInverseLocation(-1),
-    _waterTransformationLocation(-1),
+    _worldTransformationLocation(-1),
     _normalTransformationLocation(-1),
 
     _distortionOffsetLocation(-1),
@@ -38,7 +38,7 @@ void Graphics::WaterShader::InitializeUniformVariables()
     this->InitializeMatrix4fLocation("projection", Math::Matrix4f(1.0f), this->_projectionLocation);
     this->InitializeMatrix4fLocation("view", Math::Matrix4f(1.0f), this->_viewLocation);
     this->InitializeMatrix4fLocation("viewInverse", Math::Matrix4f(1.0f), this->_viewInverseLocation);
-    this->InitializeMatrix4fLocation("worldTransformation", Math::Matrix4f(1.0f), this->_waterTransformationLocation);
+    this->InitializeMatrix4fLocation("worldTransformation", Math::Matrix4f(1.0f), this->_worldTransformationLocation);
     this->InitializeMatrix3fLocation("normalTransformation", Math::Matrix4f(1.0f), this->_normalTransformationLocation);
 
     // Setup texture mappers
@@ -95,7 +95,7 @@ void Graphics::WaterShader::LoadFog(float density, float gradient)
 
 void Graphics::WaterShader::LoadWorldTransformation(const Math::Matrix4f& transformationMatrix)
 {
-    ShaderProgram::LoadMatrix4f(this->_waterTransformationLocation, transformationMatrix);
+    ShaderProgram::LoadMatrix4f(this->_worldTransformationLocation, transformationMatrix);
     ShaderProgram::LoadMatrix3f(this->_normalTransformationLocation, glm::transpose(glm::inverse(transformationMatrix)));
 }
 

@@ -37,7 +37,7 @@ namespace Graphics
         GLint _projectionLocation;
         GLint _viewLocation;
         GLint _viewInverseLocation;
-        GLint _modelTransformationLocation;
+        GLint _worldTransformationLocation;
         GLint _normalTransformationLocation;
 
         ClippingPlane _clippingPlaneLocation;

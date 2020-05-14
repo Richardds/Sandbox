@@ -43,6 +43,9 @@
     <Filter Include="Graphics\Renderers">
       <UniqueIdentifier>{344ce12d-7400-4d57-aa52-a5676628201c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util\Generators">
+      <UniqueIdentifier>{786b1ac6-4dda-47d8-aba7-8b27edde85b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Debug.cpp">
@@ -110,9 +113,6 @@
     </ClCompile>
     <ClCompile Include="Util\Loaders\DirectDrawSurfaceLoader.cpp">
       <Filter>Util\Loaders</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Shaders\UIShader.cpp">
-      <Filter>Graphics\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\UI\Rectangle.cpp">
       <Filter>Graphics\UI</Filter>
@@ -185,6 +185,15 @@
     </ClCompile>
     <ClCompile Include="Game\Scene\PointLight.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Renderers\HUDRenderer.cpp">
+      <Filter>Graphics\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Shaders\HUDShader.cpp">
+      <Filter>Graphics\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\Generators\PrimitiveGenerator.cpp">
+      <Filter>Util\Generators</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -269,9 +278,6 @@
     <ClInclude Include="Util\Loaders\DirectDrawSurfaceLoader.h">
       <Filter>Util\Loaders</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Shaders\UIShader.h">
-      <Filter>Graphics\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\UI\Rectangle.h">
       <Filter>Graphics\UI</Filter>
     </ClInclude>
@@ -346,6 +352,15 @@
     </ClInclude>
     <ClInclude Include="Game\Scene\PointLight.h">
       <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Renderers\HUDRenderer.h">
+      <Filter>Graphics\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Shaders\HUDShader.h">
+      <Filter>Graphics\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Generators\PrimitiveGenerator.h">
+      <Filter>Util\Generators</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

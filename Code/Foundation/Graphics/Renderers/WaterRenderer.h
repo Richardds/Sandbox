@@ -6,7 +6,6 @@
 #include "../../Game/Scene/DirectionalLight.h"
 #include "../../Game/Scene/Water.h"
 #include "../FrameBuffer.h"
-#include "../RenderBuffer.h"
 #include "../Texture.h"
 
 namespace Graphics

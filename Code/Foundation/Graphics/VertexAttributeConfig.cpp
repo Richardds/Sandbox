@@ -34,7 +34,7 @@ void Graphics::VertexAttributeConfig::Append(GLenum type, uint16_t count)
 	this->_size += attributeSize;
 }
 
-void Graphics::VertexAttributeConfig::Apply(std::shared_ptr<VertexArray> vao)
+void Graphics::VertexAttributeConfig::Apply(std::shared_ptr<VertexArray> vao) const
 {
 	_assert(vao);
 	_assert(vao->IsBound());

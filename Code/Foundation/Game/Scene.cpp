@@ -47,6 +47,13 @@ bool Graphics::Scene::Setup()
         return false;
     }
 
+    // Setup HUD renderer
+    this->_hudRenderer = std::make_shared<HUDRenderer>();
+    if (!this->_hudRenderer->Setup(projection)) {
+        IO::Console::Instance().Error("Failed setup HUD renderer\n");
+        return false;
+    }
+
     // Setup sun
     this->_sun = std::make_shared<DirectionalLight>();
     this->_sun->SetDirection(Math::Vector3f(0.0f, -1.0f, 1.0f));
@@ -81,6 +88,18 @@ void Graphics::Scene::Render()
 {
     _assert(State::RUN == this->_state);
 
+    this->RenderScene();
+    
+    this->_hudRenderer->RenderToMapBuffer([this]() {
+        this->RenderScene();
+    });
+
+    this->_hudRenderer->Begin(Math::Vector3f(0.0f, 0.0f, 0.0f), 10.0f);
+    this->_hudRenderer->Render(Math::Vector2f(-0.8f, -0.8f));
+}
+
+void Graphics::Scene::RenderScene()
+{
     // Render the entities to the screen buffer
     this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
     this->RenderEntities();

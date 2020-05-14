@@ -38,6 +38,7 @@ namespace Graphics
         void LoadFloat(GLint location, float value);
         void LoadMatrix3f(GLint location, const Math::Matrix3f& matrix);
         void LoadMatrix4f(GLint location, const Math::Matrix4f& matrix);
+        void LoadVector2f(GLint location, const Math::Vector2f& vector);
         void LoadVector3f(GLint location, const Math::Vector3f& vector);
         void LoadVector4f(GLint location, const Math::Vector4f& vector);
 

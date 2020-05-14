@@ -13,7 +13,7 @@ struct ClippingPlane {
 
 layout (location = 0) in vec3 vertexPosition;
 layout (location = 1) in vec3 vertexNormal;
-layout (location = 2) in vec2 vertexTextureUV;
+layout (location = 2) in vec2 vertexTexture;
 layout (location = 3) in vec3 vertexTangent;
 
 out vec4 fragmentPosition;
@@ -33,7 +33,7 @@ uniform ClippingPlane clippingPlane;
 void main()
 {
     // Pass texture coordinates
-    textureUV = vertexTextureUV;
+    textureUV = vertexTexture;
 
     // Calculate vertex world position
     fragmentPosition = worldTransformation * vec4(vertexPosition, 1.0f);

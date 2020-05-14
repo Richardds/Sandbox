@@ -12,14 +12,6 @@ struct Sun {
     float specular;
 };
 
-struct PointLight {
-    vec3 position;
-    vec3 attenuation;
-    vec3 ambient;
-    vec3 diffuse;
-    float specular;
-};
-
 struct Fog {
     float density;
     float gradient;

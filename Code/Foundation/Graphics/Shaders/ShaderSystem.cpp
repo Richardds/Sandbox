@@ -110,6 +110,15 @@ void Graphics::ShaderSystem::InitializeMatrix4fLocation(const std::string& name,
     ShaderProgram::LoadMatrix4f(location, matrix);
 }
 
+void Graphics::ShaderSystem::InitializeVector2fLocation(const std::string& name, Math::Vector2f vector, GLint& location)
+{
+    location = this->GetUniformLocation(name);
+    if (location == -1) {
+        IO::Console::Instance().Warning("Failed to initialize Vector2f '%s' uniform location!\n", name.c_str());
+    }
+    ShaderProgram::LoadVector2f(location, vector);
+}
+
 void Graphics::ShaderSystem::InitializeVector3fLocation(const std::string& name, Math::Vector3f vector, GLint& location)
 {
     location = this->GetUniformLocation(name);

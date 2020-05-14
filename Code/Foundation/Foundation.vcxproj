@@ -35,13 +35,14 @@
     <ClCompile Include="Graphics\Projection.cpp" />
     <ClCompile Include="Graphics\RenderBuffer.cpp" />
     <ClCompile Include="Graphics\Renderers\EntityRenderer.cpp" />
+    <ClCompile Include="Graphics\Renderers\HUDRenderer.cpp" />
     <ClCompile Include="Graphics\Renderers\WaterRenderer.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
     <ClCompile Include="Graphics\ShaderProgram.cpp" />
     <ClCompile Include="Graphics\Shaders\DepthShader.cpp" />
     <ClCompile Include="Graphics\Shaders\EntityShader.cpp" />
+    <ClCompile Include="Graphics\Shaders\HUDShader.cpp" />
     <ClCompile Include="Graphics\Shaders\ShaderSystem.cpp" />
-    <ClCompile Include="Graphics\Shaders\UIShader.cpp" />
     <ClCompile Include="Graphics\Shaders\WaterShader.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\TexturedMesh.cpp" />
@@ -55,6 +56,7 @@
     <ClCompile Include="Math\Utils.cpp" />
     <ClCompile Include="Timing\Time.cpp" />
     <ClCompile Include="Util\FourCC.cpp" />
+    <ClCompile Include="Util\Generators\PrimitiveGenerator.cpp" />
     <ClCompile Include="Util\Loaders\DirectDrawSurfaceLoader.cpp" />
     <ClCompile Include="Util\Loaders\AssimpLoader.cpp" />
     <ClCompile Include="Util\ResourcesLoader.cpp" />
@@ -86,13 +88,14 @@
     <ClInclude Include="Graphics\Projection.h" />
     <ClInclude Include="Graphics\RenderBuffer.h" />
     <ClInclude Include="Graphics\Renderers\EntityRenderer.h" />
+    <ClInclude Include="Graphics\Renderers\HUDRenderer.h" />
     <ClInclude Include="Graphics\Renderers\WaterRenderer.h" />
     <ClInclude Include="Graphics\Shader.h" />
     <ClInclude Include="Graphics\ShaderProgram.h" />
     <ClInclude Include="Graphics\Shaders\DepthShader.h" />
     <ClInclude Include="Graphics\Shaders\EntityShader.h" />
+    <ClInclude Include="Graphics\Shaders\HUDShader.h" />
     <ClInclude Include="Graphics\Shaders\ShaderSystem.h" />
-    <ClInclude Include="Graphics\Shaders\UIShader.h" />
     <ClInclude Include="Graphics\Shaders\WaterShader.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Graphics\TexturedMesh.h" />
@@ -110,6 +113,7 @@
     <ClInclude Include="Math\Vector.h" />
     <ClInclude Include="Timing\Time.h" />
     <ClInclude Include="Util\FourCC.h" />
+    <ClInclude Include="Util\Generators\PrimitiveGenerator.h" />
     <ClInclude Include="Util\Loaders\DirectDrawSurfaceLoader.h" />
     <ClInclude Include="Util\Loaders\AssimpLoader.h" />
     <ClInclude Include="Util\ResourcesLoader.h" />

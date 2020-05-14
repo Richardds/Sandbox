@@ -60,6 +60,7 @@ namespace Graphics
         void InitializeFloatLocation(const std::string& name, float value, GLint& location);
         void InitializeMatrix3fLocation(const std::string& name, Math::Matrix3f matrix, GLint& location);
         void InitializeMatrix4fLocation(const std::string& name, Math::Matrix4f matrix, GLint& location);
+        void InitializeVector2fLocation(const std::string& name, Math::Vector2f vector, GLint& location);
         void InitializeVector3fLocation(const std::string& name, Math::Vector3f vector, GLint& location);
         void InitializeVector4fLocation(const std::string& name, Math::Vector4f vector, GLint& location);
 

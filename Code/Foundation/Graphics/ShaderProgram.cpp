@@ -118,6 +118,14 @@ void Graphics::ShaderProgram::LoadMatrix4f(GLint location, const Math::Matrix4f&
     glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
+void Graphics::ShaderProgram::LoadVector2f(GLint location, const Math::Vector2f& vector)
+{
+    _assert(this->IsInUse());
+    _assert(State::LINKED == this->_state);
+
+    glUniform2fv(location, 1, glm::value_ptr(vector));
+}
+
 void Graphics::ShaderProgram::LoadVector3f(GLint location, const Math::Vector3f& vector)
 {
     _assert(this->IsInUse());

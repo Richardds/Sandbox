@@ -30,7 +30,7 @@ namespace Graphics
         GLint _projectionLocation;
         GLint _viewLocation;
         GLint _viewInverseLocation;
-        GLint _waterTransformationLocation;
+        GLint _worldTransformationLocation;
         GLint _normalTransformationLocation;
 
         TextureSamplerLocation _normalSamplerLocation;

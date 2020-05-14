@@ -12,7 +12,7 @@ Graphics::EntityShader::EntityShader() :
     _projectionLocation(-1),
     _viewLocation(-1),
     _viewInverseLocation(-1),
-    _modelTransformationLocation(-1),
+    _worldTransformationLocation(-1),
     _normalTransformationLocation(-1),
 
     _lightsCountLocation(-1),
@@ -40,7 +40,7 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeMatrix4fLocation("projection", Math::Matrix4f(1.0f), this->_projectionLocation);
     this->InitializeMatrix4fLocation("view", Math::Matrix4f(1.0f), this->_viewLocation);
     this->InitializeMatrix4fLocation("viewInverse", Math::Matrix4f(1.0f), this->_viewInverseLocation);
-    this->InitializeMatrix4fLocation("worldTransformation", Math::Matrix4f(1.0f), this->_modelTransformationLocation);
+    this->InitializeMatrix4fLocation("worldTransformation", Math::Matrix4f(1.0f), this->_worldTransformationLocation);
     this->InitializeMatrix3fLocation("normalTransformation", Math::Matrix4f(1.0f), this->_normalTransformationLocation);
 
     // Setup clipping plane
@@ -154,7 +154,7 @@ void Graphics::EntityShader::LoadFog(float density, float gradient)
 
 void Graphics::EntityShader::LoadWorldTransformation(const Math::Matrix4f& transformationMatrix)
 {
-    ShaderProgram::LoadMatrix4f(this->_modelTransformationLocation, transformationMatrix);
+    ShaderProgram::LoadMatrix4f(this->_worldTransformationLocation, transformationMatrix);
     ShaderProgram::LoadMatrix3f(this->_normalTransformationLocation, glm::transpose(glm::inverse(transformationMatrix)));
 }
 

@@ -8,7 +8,7 @@ struct TBN {
 
 layout (location = 0) in vec3 vertexPosition;
 layout (location = 1) in vec3 vertexNormal;
-layout (location = 2) in vec2 vertexTextureUV;
+layout (location = 2) in vec2 vertexTexture;
 layout (location = 3) in vec3 vertexTangent;
 
 out vec4 fragmentPosition;
@@ -30,7 +30,7 @@ const float waterTiling = 2.0f;
 void main()
 {
     // Pass texture coordinates
-    textureUV = vertexTextureUV * waterTiling;
+    textureUV = vertexTexture * waterTiling;
     
     // Calculate vertex world position
     fragmentPosition = worldTransformation * vec4(vertexPosition, 1.0f);
