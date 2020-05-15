@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "../../Math/Utils.h"
 
 Graphics::Camera::Camera() :
     Camera(70.0f)

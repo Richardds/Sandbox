@@ -1,6 +1,4 @@
 #include "TargetedCamera.h"
-#include "../../Core/Debug.h"
-#include "../../Math/Constants.h"
 #include "../../Math/Utils.h"
 
 Graphics::TargetedCamera::TargetedCamera(float distance) :

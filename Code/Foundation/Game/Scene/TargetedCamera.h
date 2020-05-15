@@ -1,9 +1,6 @@
 #pragma once
 
-#include <memory>
-
 #include "Camera.h"
-#include "../Attributes/HasPosition.h"
 
 namespace Graphics
 {
