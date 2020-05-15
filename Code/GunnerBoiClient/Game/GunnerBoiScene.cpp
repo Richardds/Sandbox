@@ -5,7 +5,8 @@
 
 #include "GunnerBoiScene.h"
 
-GunnerBoi::GunnerBoiScene::GunnerBoiScene()
+GunnerBoi::GunnerBoiScene::GunnerBoiScene() :
+    _lockCameraToTarget(true)
 {
 }
 
@@ -65,6 +66,7 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
 {
     Graphics::Scene::ProcessInput();
 
+    // Player navigation and interation
     if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::LEFT)) {
         Math::Vector3f worldPosition = this->GetScreenWorldPosition(IO::Mouse::Instance().GetCoords());
         Math::Vector2f target = Math::Vector2f(worldPosition.x, worldPosition.z);
@@ -81,6 +83,33 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
             this->_player->Follow();
         }
     }
+
+    // Camera motion
+    if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::RIGHT)) {
+        Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
+        mouseMotion *= 50.0f;
+
+        // Invert camera motion on free camera
+        if (!this->_lockCameraToTarget) {
+            mouseMotion *= -1;
+        }
+
+        this->_camera->increaseRotation(-mouseMotion.y, mouseMotion.x, 0.0f);
+    }
+
+    // Camera modes
+    if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::ONE)) {
+        this->_lockCameraToTarget = true;
+    }
+    else if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::TWO)) {
+        this->_lockCameraToTarget = false;
+    }
+    else if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::THREE)) {
+        this->_lockCameraToTarget = false;
+    }
+    else if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::FOUR)) {
+        this->_lockCameraToTarget = false;
+    }
 }
 
 void GunnerBoi::GunnerBoiScene::Update(float delta)
@@ -90,7 +119,10 @@ void GunnerBoi::GunnerBoiScene::Update(float delta)
     this->_projectileManager->Update(delta);
 
     this->_player->Update(delta);
-    this->_camera->Update(this->_player);
+
+    if (this->_lockCameraToTarget) {
+        this->_camera->LookAt(this->_player->getPosition());
+    }
 
     Math::Vector3f playerPosition = this->_player->getPosition();
     float lightPositionY = this->_lights["player_light"]->getPositionY();

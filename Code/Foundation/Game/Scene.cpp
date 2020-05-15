@@ -67,12 +67,6 @@ bool Graphics::Scene::Setup()
 void Graphics::Scene::ProcessInput()
 {
     _assert(State::RUN == this->_state);
-
-    if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::RIGHT)) {
-        Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
-        mouseMotion *= 50.0f;
-        this->_camera->increaseRotation(-mouseMotion.y, mouseMotion.x, 0.0f);
-    }
 }
 
 void Graphics::Scene::Update(float delta)

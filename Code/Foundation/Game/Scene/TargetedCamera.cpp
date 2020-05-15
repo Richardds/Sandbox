@@ -27,10 +27,3 @@ void Graphics::TargetedCamera::LookAt(Math::Vector3f target)
     this->_position.y = target.y + offsetY;
     this->_position.z = target.z + offsetZ;
 }
-
-void Graphics::TargetedCamera::Update(std::shared_ptr<HasPosition> target)
-{
-    _assert(target);
-
-    this->LookAt(target->getPosition());
-}

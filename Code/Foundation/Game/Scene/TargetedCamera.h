@@ -17,7 +17,6 @@ namespace Graphics
         void SetDistance(float distance);
         void IncreaseDistance(float distance);
         void LookAt(Math::Vector3f target);
-        void Update(std::shared_ptr<HasPosition> target);
 
     private:
         float _distance;

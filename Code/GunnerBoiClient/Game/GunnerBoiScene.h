@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include <Game/Scene.h>
 #include <Game/Scene/TargetedCamera.h>
 
@@ -31,6 +33,8 @@ namespace GunnerBoi
     private:
         std::shared_ptr<Boi> _player;
         std::shared_ptr<ProjectileManager> _projectileManager;
+
+        bool _lockCameraToTarget;
     };
 
 }
