@@ -33,7 +33,7 @@ bool GunnerBoi::GunnerBoiScene::Setup()
     std::shared_ptr<Graphics::Entity> terrain = this->AddEntity("terrain", "terrain");
 
     // Load water
-    std::shared_ptr<Graphics::Water> water = this->AddWater("water", 10.0f);
+    std::shared_ptr<Graphics::Water> water = this->AddWater("default", 100.0f);
 
     // Load player
     this->_player = this->SetupPlayer("arrow");

@@ -9,6 +9,11 @@ Graphics::TexturedMesh::TexturedMesh(std::shared_ptr<Graphics::VertexArray> vert
 {
 }
 
+Graphics::TexturedMesh::TexturedMesh(std::shared_ptr<Mesh> mesh) :
+    TexturedMesh(mesh->GetVertexArray(), mesh->GetVertexBuffer(), mesh->GetElementBuffer(), mesh->GetElementsCount())
+{
+}
+
 Graphics::TexturedMesh::~TexturedMesh()
 {
 }

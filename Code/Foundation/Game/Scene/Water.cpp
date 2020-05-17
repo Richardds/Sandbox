@@ -3,7 +3,8 @@
 
 Graphics::Water::Water() :
     _distortionOffset(0.0f),
-    _distortionSpeed(DEFAULT_DISTORTION_SPEED)
+    _distortionSpeed(DEFAULT_DISTORTION_SPEED),
+	_tiling(DEFAULT_TILING)
 {
 }
 
@@ -25,6 +26,7 @@ void Graphics::Water::Render(std::shared_ptr<Graphics::WaterShader> shader)
 
     shader->LoadWorldTransformation(Math::TranslationMatrix(this->_position));
     shader->LoadDistortionOffset(this->_distortionOffset);
+    shader->LoadTextureTiling(this->_tiling);
 
     bool hasNormalMap = this->_mesh->HasNormalMap();
     shader->LoadHasNormalMap(hasNormalMap);
@@ -36,7 +38,7 @@ void Graphics::Water::Render(std::shared_ptr<Graphics::WaterShader> shader)
     shader->LoadHasDistortionMap(hasDistortionMap);
     if (hasDistortionMap) {
         this->_mesh->GetDistortionMap()->Activate(Texture::Bank::DISTORTION);
-    }  
+    }
 
     this->_mesh->DrawElements();
 }

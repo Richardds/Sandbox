@@ -13,6 +13,7 @@ namespace Graphics
                      std::shared_ptr<Graphics::Buffer> vertexBuffer,
                      std::shared_ptr<Graphics::Buffer> elementsBuffer,
                      uint32_t elementsCount);
+        TexturedMesh(std::shared_ptr<Mesh> mesh);
         virtual ~TexturedMesh();
         Material GetMaterial() const;
         void SetMaterial(const Material& material);

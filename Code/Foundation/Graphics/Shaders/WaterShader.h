@@ -22,6 +22,7 @@ namespace Graphics
         void LoadSun(std::shared_ptr<DirectionalLight> sun);
         void LoadFog(float density, float gradient);
         void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix);
+        void LoadTextureTiling(float tiling);
         void LoadHasNormalMap(bool hasNormalMap);
         void LoadHasDistortionMap(bool hasDistortionMap);
         void LoadDistortionOffset(float offset);
@@ -33,6 +34,7 @@ namespace Graphics
         GLint _worldTransformationLocation;
         GLint _normalTransformationLocation;
 
+        GLint _textureTilingLocation;
         TextureSamplerLocation _normalSamplerLocation;
         TextureSamplerLocation _distortionSamplerLocation;
         GLint _distortionOffsetLocation;

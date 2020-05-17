@@ -7,6 +7,7 @@
 #include "../IO/Keyboard.h"
 #include "../IO/Mouse.h"
 #include "../Util/ResourcesLoader.h"
+#include "../Util/Generators/PrimitiveGenerator.h"
 
 Graphics::Scene::Scene() :
     _state(State::INITIAL)
@@ -56,7 +57,7 @@ bool Graphics::Scene::Setup()
 
     // Setup sun
     this->_sun = std::make_shared<DirectionalLight>();
-    this->_sun->SetDirection(Math::Vector3f(0.0f, -1.0f, 1.0f));
+    this->_sun->SetDirection(Math::Vector3f(0.0f, -1.0f, 0.25f));
     this->_sun->SetInstensity(0.6f);
 
     this->_state = State::RUN;
@@ -158,11 +159,12 @@ std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& na
 {
     auto it = this->_waterTiles.find(name);
     _assert(it == this->_waterTiles.end());
-    std::shared_ptr<Model> waterModel = Util::ResourcesLoader::Instance().LoadModel("water");
     std::shared_ptr<Water> water = std::make_shared<Water>();
-    std::shared_ptr<TexturedMesh> waterMesh = waterModel->GetMesh("_default");
+    std::shared_ptr<TexturedMesh> waterMesh = std::make_shared<TexturedMesh>(Util::PrimitiveGenerator::Instance().Generate3dQuad(size));
     waterMesh->SetDistortionMap(Util::ResourcesLoader::Instance().LoadTexture("water_d"));
+    waterMesh->SetNormalMap(Util::ResourcesLoader::Instance().LoadTexture("water_n"));
     water->SetMesh(waterMesh);
+    water->SetTiling(size / 5.0f);
     this->_waterTiles.emplace_hint(it, name, water);
     return water;
 }

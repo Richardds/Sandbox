@@ -16,7 +16,7 @@ Graphics::WaterShader::WaterShader() :
     _normalTransformationLocation(-1),
 
     _distortionOffsetLocation(-1),
-
+    _textureTilingLocation(-1),
     _reflectionSamplerLocation(-1),
     _refractionSamplerLocation(-1),
 
@@ -42,6 +42,7 @@ void Graphics::WaterShader::InitializeUniformVariables()
     this->InitializeMatrix3fLocation("normalTransformation", Math::Matrix4f(1.0f), this->_normalTransformationLocation);
 
     // Setup texture mappers
+    this->InitializeFloatLocation("textureTiling", 1.0f, this->_textureTilingLocation);
     this->InitializeBoolLocation("normalSampler.enabled", false, this->_normalSamplerLocation.enabled);
     this->InitializeIntLocation("normalSampler.texture", EnumToValue(Texture::Bank::NORMAL), this->_normalSamplerLocation.texture);
     this->InitializeBoolLocation("distortionSampler.enabled", false, this->_distortionSamplerLocation.enabled);
@@ -97,6 +98,11 @@ void Graphics::WaterShader::LoadWorldTransformation(const Math::Matrix4f& transf
 {
     ShaderProgram::LoadMatrix4f(this->_worldTransformationLocation, transformationMatrix);
     ShaderProgram::LoadMatrix3f(this->_normalTransformationLocation, glm::transpose(glm::inverse(transformationMatrix)));
+}
+
+void Graphics::WaterShader::LoadTextureTiling(float tiling)
+{
+    this->LoadFloat(this->_textureTilingLocation, tiling);
 }
 
 void Graphics::WaterShader::LoadHasNormalMap(bool hasNormalMap)

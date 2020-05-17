@@ -18,15 +18,19 @@ namespace Graphics
         void SetMesh(std::shared_ptr<TexturedMesh> mesh);
         float GetDistortionSpeed() const;
         void SetDistortionSpeed(float speed);
+        float GetTiling() const;
+        void SetTiling(float tiling);
         void Update(float delta);
         void Render(std::shared_ptr<WaterShader> shader);
 
     private:
-        static constexpr float DEFAULT_DISTORTION_SPEED = 0.015f;
+        static constexpr float DEFAULT_DISTORTION_SPEED = 0.025f;
+        static constexpr float DEFAULT_TILING = 1.0f;
 
         std::shared_ptr<TexturedMesh> _mesh;
         float _distortionOffset;
         float _distortionSpeed;
+        float _tiling;
     };
 
     inline std::shared_ptr<TexturedMesh> Graphics::Water::GetMesh() const
@@ -47,6 +51,16 @@ namespace Graphics
     inline void Water::SetDistortionSpeed(float speed)
     {
         this->_distortionSpeed = speed;
+    }
+
+    inline float Water::GetTiling() const
+    {
+        return this->_tiling;
+    }
+
+    inline void Water::SetTiling(float tiling)
+    {
+        this->_tiling = tiling;
     }
 
 }

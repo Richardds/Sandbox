@@ -23,6 +23,7 @@ uniform mat4 view;
 uniform mat4 viewInverse;
 uniform mat4 worldTransformation;
 uniform mat3 normalTransformation;
+uniform float textureTiling;
 
 void main()
 {
@@ -30,7 +31,7 @@ void main()
     fragmentPosition = worldTransformation * vec4(a_Position, 1.0f);
 
     // Pass interpolated texture coordinates
-    textureCoords = a_Texture;
+    textureCoords = a_Texture * textureTiling;
     
     // Calculate vertex world position
     fragmentPosition = worldTransformation * vec4(a_Position, 1.0f);
