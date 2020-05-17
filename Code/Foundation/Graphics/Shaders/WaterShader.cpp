@@ -48,6 +48,8 @@ void Graphics::WaterShader::InitializeUniformVariables()
 	                            this->_reflectionSamplerLocation);
 	this->InitializeIntLocation("refractionSampler", EnumToValue(Texture::Bank::Refraction),
 	                            this->_refractionSamplerLocation);
+	this->InitializeIntLocation("depthSampler", EnumToValue(Texture::Bank::Depth),
+		                        this->_depthSamplerLocation);
 
 	// Setup sun
 	this->InitializeVector3fLocation("sun.direction", Math::Vector3f(-1.0f, -1.0f, 0.0f), this->_sunLocation.direction);

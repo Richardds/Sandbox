@@ -22,7 +22,7 @@ namespace Graphics
 
 		HUDRenderer();
 		bool Setup(const std::shared_ptr<const Projection>& projection);
-		void Begin(const Math::Vector3f& position, float height) const;
+		void Begin() const;
 		void RenderToMapBuffer(const std::function<void()>& renderFunction) const;
 		void Render(const Math::Vector2f& screenPosition) const;
 

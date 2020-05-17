@@ -34,15 +34,16 @@ uniform TextureSampler distortionSampler;
 uniform float distortionOffset;
 uniform sampler2D reflectionSampler;
 uniform sampler2D refractionSampler;
+uniform sampler2D depthSampler;
 
 uniform Sun sun;
 uniform Fog fog;
 
 const float distortionStrength = 0.01f;
 
-const float waterTransparency = 0.75f;
-const float waterSpecular = 0.45f;
-const float waterShininess = 12.0f;
+const float waterTransparency = 0.95f;
+const float waterSpecular = 0.125f;
+const float waterShininess = 50.5f;
 
 const float minDiffuseFactor = 0.2f;
 
@@ -55,6 +56,11 @@ float specularFactor(float shininess, vec3 viewDirection, vec3 lightDirection, v
 {
     vec3 reflectedLightDirection = reflect(lightDirection, normal);
     return pow(max(dot(viewDirection, reflectedLightDirection), 0.0f), shininess);
+}
+
+float deproject(float value, float nearPlane, float farPlane)
+{
+    return 2.0f * nearPlane * farPlane / (farPlane + nearPlane - (2.0f * value - 1.0f) * (farPlane - nearPlane));
 }
 
 void main()
@@ -94,6 +100,14 @@ void main()
     refractionTextureCoords += distortion;
     refractionTextureCoords = clamp(refractionTextureCoords, 0.0f, 1.0f);
 
+    const float nearPlane = 0.01f;
+    const float farPlane = 1000.f;
+
+    float floorDistance = deproject(texture(depthSampler, refractionTextureCoords).r, nearPlane, farPlane);
+    float waterDistance = deproject(gl_FragCoord.z, nearPlane, farPlane);
+    float waterDepth = floorDistance - waterDistance;
+    float waterAlpha = clamp(waterDepth * 1000.0f, 0.0f, 1.0f);
+
     vec3 reflectionColor = texture(reflectionSampler, reflectionTextureCoords).rgb;
     vec3 refractionColor = texture(refractionSampler, refractionTextureCoords).rgb;
 
@@ -119,4 +133,6 @@ void main()
     //fragmentColor = vec4(normalMapping, 1.0f);            // Normal mapping
     //fragmentColor = vec4(waterDiffuse + specular, 1.0f);  // Water + highlights
     fragmentColor = vec4(fadedColor, 1.0f);                 // Water + highlights + Fog
+
+    fragmentColor = vec4(fadedColor, waterAlpha);
 }

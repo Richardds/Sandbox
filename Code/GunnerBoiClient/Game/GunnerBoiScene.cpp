@@ -3,6 +3,7 @@
 #include <Util/ResourcesLoader.h>
 
 #include "GunnerBoiScene.h"
+#include "IO/Console.h"
 #include "Timing/Time.h"
 
 GunnerBoi::GunnerBoiScene::GunnerBoiScene() :
@@ -13,6 +14,14 @@ GunnerBoi::GunnerBoiScene::GunnerBoiScene() :
 bool GunnerBoi::GunnerBoiScene::Setup()
 {
 	_Assert(Graphics::Scene::Setup());
+
+	// Setup HUD renderer
+	this->_hudRenderer = std::make_shared<Graphics::HUDRenderer>();
+	if (!this->_hudRenderer->Setup(this->_projection))
+	{
+		IO::Console::Instance().Error("Failed setup HUD renderer\n");
+		return false;
+	}
 
 	// Create projectile manager
 	this->_projectileManager = std::make_shared<ProjectileManager>();
@@ -142,7 +151,7 @@ void GunnerBoi::GunnerBoiScene::Update(const float delta)
 
 	// Update water motion
 	const float time = Timing::Time::Now().Get<Timing::Milliseconds>().count();
-	this->_waterTiles["default"]->SetPositionY(glm::sin(time / 3000.0f) / 12.5f);
+	this->_waterTiles["default"]->SetPositionY(glm::sin(time / 2000.0f) / 25.0f);
 }
 
 void GunnerBoi::GunnerBoiScene::Render()
@@ -162,8 +171,7 @@ std::shared_ptr<GunnerBoi::Boi> GunnerBoi::GunnerBoiScene::SetupPlayer(const std
 	const auto it = this->_entities.find(playerEntityName);
 	_Assert(it == this->_entities.end());
 	std::shared_ptr<Boi> player = std::make_shared<Boi>();
-	std::shared_ptr<Graphics::Model> model = Util::ResourcesLoader::Instance().LoadModel(resourceName);
-	player->SetModel(model);
+	player->SetModel(Util::ResourcesLoader::Instance().LoadModel(resourceName));
 	this->_entities.emplace_hint(it, playerEntityName, player);
 	return player;
 }

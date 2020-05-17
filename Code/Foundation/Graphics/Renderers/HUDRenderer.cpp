@@ -21,7 +21,7 @@ bool Graphics::HUDRenderer::Setup(const std::shared_ptr<const Projection>& proje
 	}
 
 	// Generate basic quad for map texture rendering
-	this->_mapMesh = Util::PrimitiveGenerator::Instance().Generate3dQuad(0.4f);
+	this->_mapMesh = Util::PrimitiveGenerator::Instance().Generate2dQuad(0.4f);
 
 	this->_shader->Use();
 	this->_shader->LoadAspectRatio(projection->GetAspectRatio());
@@ -39,18 +39,16 @@ bool Graphics::HUDRenderer::Setup(const std::shared_ptr<const Projection>& proje
 	return true;
 }
 
-void Graphics::HUDRenderer::Begin(const Math::Vector3f& position, float height) const
+void Graphics::HUDRenderer::Begin() const
 {
 	this->_shader->Use();
 	this->_mapTexture->Activate(Texture::Bank::Diffuse);
-
-	// TODO
 }
 
 void Graphics::HUDRenderer::RenderToMapBuffer(const std::function<void()>& renderFunction) const
 {
 	this->_mapFrameBuffer->Activate(TEXTURE_SIZE, TEXTURE_SIZE);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	this->_mapFrameBuffer->Clear();
 	renderFunction();
 	this->_mapFrameBuffer->Deactivate();
 }

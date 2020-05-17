@@ -27,11 +27,11 @@ bool Graphics::Scene::Setup()
 	this->_camera->SetRotationX(40.0f);
 
 	// Setup global projection
-	const std::shared_ptr<Projection> projection = Core::Instance().MakeProjection(this->_camera->GetFieldOfView());
+	this->_projection = Core::Instance().MakeProjection(this->_camera->GetFieldOfView());
 
 	// Setup entity renderer
 	this->_entityRenderer = std::make_shared<EntityRenderer>();
-	if (!this->_entityRenderer->Setup(projection))
+	if (!this->_entityRenderer->Setup(this->_projection))
 	{
 		IO::Console::Instance().Error("Failed setup entity renderer\n");
 		return false;
@@ -39,17 +39,9 @@ bool Graphics::Scene::Setup()
 
 	// Setup water renderer
 	this->_waterRenderer = std::make_shared<WaterRenderer>();
-	if (!this->_waterRenderer->Setup(projection))
+	if (!this->_waterRenderer->Setup(this->_projection))
 	{
 		IO::Console::Instance().Error("Failed setup water renderer\n");
-		return false;
-	}
-
-	// Setup HUD renderer
-	this->_hudRenderer = std::make_shared<HUDRenderer>();
-	if (!this->_hudRenderer->Setup(projection))
-	{
-		IO::Console::Instance().Error("Failed setup HUD renderer\n");
 		return false;
 	}
 
@@ -82,19 +74,6 @@ void Graphics::Scene::Render()
 {
 	_Assert(State::Run == this->_state);
 
-	this->RenderScene();
-
-	this->_hudRenderer->RenderToMapBuffer([this]()
-	{
-		this->RenderScene();
-	});
-
-	this->_hudRenderer->Begin(Math::Vector3f(0.0f, 0.0f, 0.0f), 10.0f);
-	this->_hudRenderer->Render(Math::Vector2f(-0.8f, -0.8f));
-}
-
-void Graphics::Scene::RenderScene()
-{
 	// Render the entities to the screen buffer
 	this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
 	this->RenderEntities();
@@ -111,9 +90,9 @@ void Graphics::Scene::RenderScene()
 		this->_entityRenderer->GetShader()->EnableClippingPlane(
 			Math::Vector4f(0.0f, 1.0f, 0.0f, -water.second->GetPositionY()));
 		this->_waterRenderer->RenderToReflectionBuffer([this]()
-		{
-			this->RenderEntities();
-		});
+			{
+				this->RenderEntities();
+			});
 		this->_camera->IncreasePositionY(distance);
 		this->_camera->InvertRotationX();
 		// Render scene to water refraction frame buffer
@@ -122,13 +101,16 @@ void Graphics::Scene::RenderScene()
 		this->_entityRenderer->GetShader()->EnableClippingPlane(
 			Math::Vector4f(0.0f, -1.0f, 0.0f, water.second->GetPositionY() + 0.025f));
 		this->_waterRenderer->RenderToRefractionBuffer([this]()
-		{
-			this->RenderEntities();
-		});
+			{
+				this->RenderEntities();
+			});
 		this->_entityRenderer->GetShader()->DisableClippingPlane();
 		// Now render to screen buffer
 		this->_waterRenderer->Begin(this->_camera, this->_sun);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		this->_waterRenderer->Render(water.second);
+		glDisable(GL_BLEND);
 	}
 }
 
