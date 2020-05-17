@@ -2,43 +2,42 @@
 #include "../../Math/Utils.h"
 
 Graphics::Water::Water() :
-    _distortionOffset(0.0f),
-    _distortionSpeed(DEFAULT_DISTORTION_SPEED),
+	_distortionOffset(0.0f),
+	_distortionSpeed(DEFAULT_DISTORTION_SPEED),
 	_tiling(DEFAULT_TILING)
 {
 }
 
-Graphics::Water::~Water()
+void Graphics::Water::Update(const float delta)
 {
+	this->_distortionOffset += this->_distortionSpeed * delta;
+	this->_distortionOffset = glm::mod(this->_distortionOffset, 1.0f);
 }
 
-void Graphics::Water::Update(float delta)
+void Graphics::Water::Render(const std::shared_ptr<WaterShader>& shader) const
 {
-    this->_distortionOffset += this->_distortionSpeed * delta;
-    this->_distortionOffset = glm::mod(this->_distortionOffset, 1.0f);
-}
+	if (!this->_mesh)
+	{
+		return;
+	}
 
-void Graphics::Water::Render(std::shared_ptr<Graphics::WaterShader> shader)
-{
-    if (!this->_mesh) {
-        return;
-    }
+	shader->LoadWorldTransformation(Math::TranslationMatrix(this->_position));
+	shader->LoadDistortionOffset(this->_distortionOffset);
+	shader->LoadTextureTiling(this->_tiling);
 
-    shader->LoadWorldTransformation(Math::TranslationMatrix(this->_position));
-    shader->LoadDistortionOffset(this->_distortionOffset);
-    shader->LoadTextureTiling(this->_tiling);
+	const bool hasNormalMap = this->_mesh->HasNormalMap();
+	shader->LoadHasNormalMap(hasNormalMap);
+	if (hasNormalMap)
+	{
+		this->_mesh->GetNormalMap()->Activate(Texture::Bank::Normal);
+	}
 
-    bool hasNormalMap = this->_mesh->HasNormalMap();
-    shader->LoadHasNormalMap(hasNormalMap);
-    if (hasNormalMap) {
-        this->_mesh->GetNormalMap()->Activate(Texture::Bank::NORMAL);
-    }
+	const bool hasDistortionMap = this->_mesh->HasDistortionMap();
+	shader->LoadHasDistortionMap(hasDistortionMap);
+	if (hasDistortionMap)
+	{
+		this->_mesh->GetDistortionMap()->Activate(Texture::Bank::Distortion);
+	}
 
-    bool hasDistortionMap = this->_mesh->HasDistortionMap();
-    shader->LoadHasDistortionMap(hasDistortionMap);
-    if (hasDistortionMap) {
-        this->_mesh->GetDistortionMap()->Activate(Texture::Bank::DISTORTION);
-    }
-
-    this->_mesh->DrawElements();
+	this->_mesh->DrawElements();
 }

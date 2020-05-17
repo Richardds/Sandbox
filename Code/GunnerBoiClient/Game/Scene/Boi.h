@@ -3,64 +3,62 @@
 #include <Game/Scene/Actor.h>
 #include <Graphics/Model.h>
 #include <Math/Vector.h>
-#include <Timing/Time.h>
 
 #include "../Scene/Projectile.h"
 
 namespace GunnerBoi
 {
+	class Boi : public Graphics::Actor
+	{
+	public:
+		enum class State
+		{
+			Idle,
+			Running,
+			Following
+		};
 
-    class Boi : public Graphics::Actor
-    {
-    public:
-        enum class State {
-            IDLE,
-            RUNNING,
-            FOLLOWING
-        };
+		Boi();
 
-        Boi();
-        virtual ~Boi();
-        State GetState() const;
-        Math::Vector2f GetTarget() const;
-        void SetTarget(Math::Vector2f target);
-        void Follow();
-        void Idle();
-        bool IsReadyToFire() const;
-        std::shared_ptr<Projectile> Fire();
-        void Update(float delta);
+		[[nodiscard]] State GetState() const;
+		[[nodiscard]] Math::Vector2f GetTarget() const;
+		void SetTarget(const Math::Vector2f& target);
+		void Follow();
+		void Idle();
+		[[nodiscard]] bool IsReadyToFire() const;
+		[[nodiscard]] std::shared_ptr<Projectile> Fire();
+		void Update(float delta) override;
 
-    private:
-        State _state;
-        Math::Vector2f _target;
-        float _attackSpeed;
-        float _countdown;
-    };
+	private:
+		State _state;
+		Math::Vector2f _target;
+		float _attackSpeed;
+		float _countdown;
+	};
 
-    inline Boi::State GunnerBoi::Boi::GetState() const
-    {
-        return this->_state;
-    }
+	inline Boi::State Boi::GetState() const
+	{
+		return this->_state;
+	}
 
 
-    inline Math::Vector2f GunnerBoi::Boi::GetTarget() const
-    {
-        return this->_target;
-    }
+	inline Math::Vector2f Boi::GetTarget() const
+	{
+		return this->_target;
+	}
 
-    inline void GunnerBoi::Boi::SetTarget(Math::Vector2f target)
-    {
-        this->_target = target;
-    }
+	inline void Boi::SetTarget(const Math::Vector2f& target)
+	{
+		this->_target = target;
+	}
 
-    inline void Boi::Follow()
-    {
-        this->_state = State::FOLLOWING;
-    }
+	inline void Boi::Follow()
+	{
+		this->_state = State::Following;
+	}
 
-    inline void Boi::Idle()
-    {
-        this->_state = State::IDLE;
-    }
-
+	inline void Boi::Idle()
+	{
+		this->_state = State::Idle;
+	}
 }

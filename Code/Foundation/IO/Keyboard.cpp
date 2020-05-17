@@ -1,34 +1,25 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include "Keyboard.h"
 #include "../Core/Debug.h"
+#include "../Core/Types.h"
 #include "../Graphics/Core.h"
 
-IO::Keyboard::Keyboard()
-{
-}
-
-IO::Keyboard::~Keyboard()
-{
-}
 
 bool IO::Keyboard::IsKeyPressed(Key key) const
 {
-    _assert(Graphics::Core::Instance().IsCreated());
+	_Assert(Graphics::Core::Instance().IsCreated());
 
-    return glfwGetKey(
-        Graphics::Core::Instance().GetRenderingContext()->GetGlfwWindow(),
-        static_cast<std::underlying_type<Key>::type>(key)
-    );
+	return glfwGetKey(
+		Graphics::Core::Instance().GetRenderingContext()->GetGlfwWindow(),
+		static_cast<std::underlying_type<Key>::type>(key)
+	);
 }
 
 bool IO::Keyboard::IsAltPressed() const
 {
-    return this->IsKeyPressed(Key::LEFT_ALT);
+	return this->IsKeyPressed(Key::LeftAlt);
 }
 
 bool IO::Keyboard::IsControlPressed() const
 {
-    return this->IsKeyPressed(Key::LEFT_CONTROL);
+	return this->IsKeyPressed(Key::LeftControl);
 }

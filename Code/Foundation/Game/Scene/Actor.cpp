@@ -1,41 +1,34 @@
-#include <cmath>
-
 #include "Actor.h"
 #include "../../Math/Utils.h"
-#include "../../Core/Debug.h"
 
 Graphics::Actor::Actor() :
-    _movingSpeed(5.0f)
+	_movingSpeed(5.0f)
 {
 }
 
-Graphics::Actor::~Actor()
+void Graphics::Actor::Move(const float distance)
 {
+	this->IncreasePosition(Math::Vector3f(
+		std::sinf(glm::radians(this->_rotationY)) * distance,
+		0.0f,
+		std::cosf(glm::radians(this->_rotationY)) * distance
+	));
 }
 
-void Graphics::Actor::Move(float distance)
+void Graphics::Actor::Update(const float delta)
 {
-    this->increasePosition(Math::Vector3f(
-        std::sinf(glm::radians(this->_rotY)) * distance,
-        0.0f,
-        std::cosf(glm::radians(this->_rotY)) * distance
-    ));
+	this->Move(this->_movingSpeed * delta);
 }
 
-void Graphics::Actor::Update(float delta)
+void Graphics::Actor::LookAt(const Math::Vector2f target)
 {
-    this->Move(this->_movingSpeed * delta);
+	this->_rotationY = Math::LookAt(
+		Math::Vector2f(this->_position.x, this->_position.z),
+		target
+	);
 }
 
-void Graphics::Actor::LookAt(Math::Vector2f target)
+float Graphics::Actor::DistanceTo(const Math::Vector2f target) const
 {
-    this->_rotY = Math::LookAt(
-        Math::Vector2f(this->_position.x, this->_position.z),
-        target
-    );
-}
-
-float Graphics::Actor::DistanceTo(Math::Vector2f target) const
-{
-    return glm::distance(Math::Vector2f(this->_position.x, this->_position.z), target);
+	return distance(Math::Vector2f(this->_position.x, this->_position.z), target);
 }

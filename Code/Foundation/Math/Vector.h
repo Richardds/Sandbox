@@ -6,7 +6,6 @@
 
 namespace Math
 {
-
 	typedef glm::vec<2, float, glm::defaultp> Vector2f;
 	typedef glm::vec<3, float, glm::defaultp> Vector3f;
 	typedef glm::vec<4, float, glm::defaultp> Vector4f;
@@ -34,5 +33,4 @@ namespace Math
 	typedef glm::vec<2, uint64_t, glm::defaultp> Vector2ui64;
 	typedef glm::vec<3, uint64_t, glm::defaultp> Vector3ui64;
 	typedef glm::vec<4, uint64_t, glm::defaultp> Vector4ui64;
-
 }

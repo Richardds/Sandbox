@@ -4,34 +4,32 @@
 
 namespace Graphics
 {
+	class TargetedCamera : public Camera
+	{
+	public:
+		explicit TargetedCamera(float distance);
 
-    class TargetedCamera : public Camera
-    {
-    public:
-        TargetedCamera(float distance);
-        virtual ~TargetedCamera();
-        float GetDistance() const;
-        void SetDistance(float distance);
-        void IncreaseDistance(float distance);
-        void Spectate(Math::Vector3f target);
+		[[nodiscard]] float GetDistance() const;
+		void SetDistance(float distance);
+		void IncreaseDistance(float distance);
+		void Spectate(const Math::Vector3f& target);
 
-    private:
-        float _distance;
-    };
+	private:
+		float _distance;
+	};
 
-    inline float Graphics::TargetedCamera::GetDistance() const
-    {
-        return this->_distance;
-    }
+	inline float TargetedCamera::GetDistance() const
+	{
+		return this->_distance;
+	}
 
-    inline void Graphics::TargetedCamera::SetDistance(float distance)
-    {
-        this->_distance = distance;
-    }
+	inline void TargetedCamera::SetDistance(const float distance)
+	{
+		this->_distance = distance;
+	}
 
-    inline void Graphics::TargetedCamera::IncreaseDistance(float distance)
-    {
-        this->_distance += distance;
-    }
-
+	inline void TargetedCamera::IncreaseDistance(const float distance)
+	{
+		this->_distance += distance;
+	}
 }

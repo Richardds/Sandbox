@@ -2,50 +2,48 @@
 
 #include <memory>
 
-#include "Material.h"
-#include "VertexArray.h"
 #include "Buffer.h"
-#include "Shaders/EntityShader.h"
+#include "VertexArray.h"
 
 namespace Graphics
 {
+	class Mesh
+	{
+	public:
+		Mesh(std::shared_ptr<VertexArray> vertexArrayObject, std::shared_ptr<Buffer> vertexBuffer,
+		     std::shared_ptr<Buffer> elementsBuffer, uint32_t elementsCount);
+		virtual ~Mesh() = default;
 
-    class Mesh
-    {
-    public:
-        Mesh(std::shared_ptr<Graphics::VertexArray> vertexArrayObject, std::shared_ptr<Graphics::Buffer> vertexBuffer, std::shared_ptr<Graphics::Buffer> elementsBuffer, uint32_t elementsCount);
-        virtual ~Mesh();
-        void DrawElements();
-        std::shared_ptr<Graphics::VertexArray> GetVertexArray() const;
-        std::shared_ptr<Graphics::Buffer> GetVertexBuffer() const;
-        std::shared_ptr<Graphics::Buffer> GetElementBuffer() const;
-        uint32_t GetElementsCount() const;
+		void DrawElements() const;
+		[[nodiscard]] std::shared_ptr<VertexArray> GetVertexArray() const;
+		[[nodiscard]] std::shared_ptr<Buffer> GetVertexBuffer() const;
+		[[nodiscard]] std::shared_ptr<Buffer> GetElementBuffer() const;
+		[[nodiscard]] uint32_t GetElementsCount() const;
 
-    protected:
-        std::shared_ptr<Graphics::VertexArray> _vao;
-        std::shared_ptr<Graphics::Buffer> _vbo;
-        std::shared_ptr<Graphics::Buffer> _ebo;
-        uint32_t _elementsCount;
-    };
+	protected:
+		std::shared_ptr<VertexArray> _vao;
+		std::shared_ptr<Buffer> _vbo;
+		std::shared_ptr<Buffer> _ebo;
+		uint32_t _elementsCount;
+	};
 
-    inline std::shared_ptr<Graphics::VertexArray> Graphics::Mesh::GetVertexArray() const
-    {
-        return this->_vao;
-    }
+	inline std::shared_ptr<VertexArray> Mesh::GetVertexArray() const
+	{
+		return this->_vao;
+	}
 
-    inline std::shared_ptr<Graphics::Buffer> Mesh::GetVertexBuffer() const
-    {
-        return this->_vbo;
-    }
+	inline std::shared_ptr<Buffer> Mesh::GetVertexBuffer() const
+	{
+		return this->_vbo;
+	}
 
-    inline std::shared_ptr<Graphics::Buffer> Mesh::GetElementBuffer() const
-    {
-        return this->_ebo;
-    }
+	inline std::shared_ptr<Buffer> Mesh::GetElementBuffer() const
+	{
+		return this->_ebo;
+	}
 
-    inline uint32_t Mesh::GetElementsCount() const
-    {
-        return this->_elementsCount;
-    }
-
+	inline uint32_t Mesh::GetElementsCount() const
+	{
+		return this->_elementsCount;
+	}
 }

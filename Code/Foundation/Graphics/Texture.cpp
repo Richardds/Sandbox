@@ -4,13 +4,13 @@
 #include "../Core/Types.h"
 
 std::unordered_map<GLenum, GLuint> Graphics::Texture::_boundTextures = {
-    {GL_TEXTURE_1D, 0},
-    {GL_TEXTURE_2D, 0},
-    {GL_TEXTURE_3D, 0}
+	{GL_TEXTURE_1D, 0},
+	{GL_TEXTURE_2D, 0},
+	{GL_TEXTURE_3D, 0}
 };
 
-Graphics::Texture::Texture(GLenum target) :
-	_state(State::INITIAL),
+Graphics::Texture::Texture(const GLenum target) :
+	_state(State::Initial),
 	_target(target),
 	_glTexture(0),
 	_width(0),
@@ -25,38 +25,40 @@ Graphics::Texture::~Texture()
 	glDeleteTextures(1, &this->_glTexture);
 }
 
-void Graphics::Texture::Bind()
+void Graphics::Texture::Bind() const
 {
-	if (!this->IsBound()) {
+	if (!this->IsBound())
+	{
 		glBindTexture(this->_target, this->_glTexture);
-		Texture::_boundTextures[this->_target] = this->_glTexture;
+		_boundTextures[this->_target] = this->_glTexture;
 	}
 }
 
-void Graphics::Texture::Activate(Bank bank)
+void Graphics::Texture::Activate(const Bank bank) const
 {
 	this->Unbind();
 	glActiveTexture(GL_TEXTURE0 + EnumToValue(bank));
 	this->Bind();
 }
 
-void Graphics::Texture::Unbind()
+void Graphics::Texture::Unbind() const
 {
-	if (this->IsBound()) {
+	if (this->IsBound())
+	{
 		glBindTexture(this->_target, 0);
-		Texture::_boundTextures[this->_target] = 0;
+		_boundTextures[this->_target] = 0;
 	}
 }
 
 void Graphics::Texture::Data(const gli::texture& texture)
 {
-	_assert(State::INITIAL == this->_state);
-	_assert(this->IsBound());
+	_Assert(State::Initial == this->_state);
+	_Assert(this->IsBound());
 
-	gli::gl GL(gli::gl::PROFILE_GL33);
-	gli::gl::format const format = GL.translate(texture.format(), texture.swizzles());
+	const gli::gl internalFormat(gli::gl::PROFILE_GL33);
+	gli::gl::format const format = internalFormat.translate(texture.format(), texture.swizzles());
 
-	_assert(gli::TARGET_2D == texture.target());
+	_Assert(gli::TARGET_2D == texture.target());
 
 	glm::tvec3<GLsizei> const extent(texture.extent());
 
@@ -82,10 +84,12 @@ void Graphics::Texture::Data(const gli::texture& texture)
 		this->_width, this->_height
 	);
 
-	for (std::size_t level = 0; level < texture.levels(); ++level) {
+	for (std::size_t level = 0; level < texture.levels(); ++level)
+	{
 		glm::tvec3<GLsizei> extent(texture.extent(level));
 
-		if (gli::is_compressed(texture.format())) {
+		if (is_compressed(texture.format()))
+		{
 			glCompressedTexSubImage2D(
 				this->_target,
 				static_cast<GLint>(level),
@@ -96,7 +100,8 @@ void Graphics::Texture::Data(const gli::texture& texture)
 				texture.data(0, 0, level)
 			);
 		}
-		else {
+		else
+		{
 			glTexSubImage2D(
 				this->_target,
 				static_cast<GLint>(level),
@@ -109,13 +114,13 @@ void Graphics::Texture::Data(const gli::texture& texture)
 		}
 	}
 
-	this->_state = State::LOADED;
+	this->_state = State::Loaded;
 }
 
-void Graphics::Texture::Data(const void * pixels, unsigned int width, unsigned int height)
+void Graphics::Texture::Data(const void* pixels, const unsigned int width, const unsigned int height)
 {
-	_assert(State::INITIAL == this->_state);
-	_assert(this->IsBound());
+	_Assert(State::Initial == this->_state);
+	_Assert(this->IsBound());
 
 	this->_width = width;
 	this->_height = height;
@@ -127,14 +132,15 @@ void Graphics::Texture::Data(const void * pixels, unsigned int width, unsigned i
 
 	glTexImage2D(this->_target, 0, GL_RGB, this->_width, this->_height, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
 
-	this->_state = State::LOADED;
+	this->_state = State::Loaded;
 }
 
-void Graphics::Texture::Data(std::shared_ptr<FrameBuffer> frameBuffer, unsigned int width, unsigned int height)
+void Graphics::Texture::Data(const std::shared_ptr<FrameBuffer>& frameBuffer, const unsigned int width,
+                             const unsigned int height)
 {
-	_assert(State::INITIAL == this->_state);
-	_assert(this->IsBound());
-	_assert(frameBuffer->IsBound());
+	_Assert(State::Initial == this->_state);
+	_Assert(this->IsBound());
+	_Assert(frameBuffer->IsBound());
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -143,14 +149,15 @@ void Graphics::Texture::Data(std::shared_ptr<FrameBuffer> frameBuffer, unsigned 
 
 	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, this->_glTexture, 0);
 
-	this->_state = State::LOADED;
+	this->_state = State::Loaded;
 }
 
-void Graphics::Texture::DepthData(std::shared_ptr<FrameBuffer> frameBuffer, unsigned int width, unsigned int height)
+void Graphics::Texture::DepthData(const std::shared_ptr<FrameBuffer>& frameBuffer, const unsigned int width,
+                                  const unsigned int height)
 {
-	_assert(State::INITIAL == this->_state);
-	_assert(this->IsBound());
-	_assert(frameBuffer->IsBound());
+	_Assert(State::Initial == this->_state);
+	_Assert(this->IsBound());
+	_Assert(frameBuffer->IsBound());
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -159,14 +166,15 @@ void Graphics::Texture::DepthData(std::shared_ptr<FrameBuffer> frameBuffer, unsi
 
 	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, this->_glTexture, 0);
 
-	this->_state = State::LOADED;
+	this->_state = State::Loaded;
 }
 
-void Graphics::Texture::UnbindBound(GLenum target)
+void Graphics::Texture::UnbindBound(const GLenum target)
 {
-	GLuint bound = Texture::GetBound(target);
-	if (bound != 0) {
+	const GLuint bound = GetBound(target);
+	if (bound != 0)
+	{
 		glBindTexture(target, 0);
-		Texture::_boundTextures[target] = 0;
+		_boundTextures[target] = 0;
 	}
 }

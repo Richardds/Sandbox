@@ -10,17 +10,17 @@ GunnerBoi::MeshExporterApplication::~MeshExporterApplication()
 
 bool GunnerBoi::MeshExporterApplication::Open()
 {
-    if (Application::Open())
-    {
-        // TODO
+	if (Application::Open())
+	{
+		// TODO
 
-        return true;
-    }
+		return true;
+	}
 
-    return false;
+	return false;
 }
 
 void GunnerBoi::MeshExporterApplication::Close()
 {
-    Application::Close();
+	Application::Close();
 }

@@ -1,13 +1,9 @@
 #include "Rectangle.h"
 
-Graphics::Rectangle::Rectangle(float width, float height, Math::Vector3f color) :
+Graphics::Rectangle::Rectangle(const float width, const float height, const Math::Vector3f& color) :
 	_width(width),
 	_height(height),
 	_color(color)
-{
-}
-
-Graphics::Rectangle::~Rectangle()
 {
 }
 

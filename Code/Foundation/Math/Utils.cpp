@@ -1,60 +1,62 @@
 #include "Utils.h"
 
-Math::Matrix4f Math::ProjectionMatrix(float aspectRatio, float fieldOfView, float nearPlane, float farPlane)
+Math::Matrix4f Math::ProjectionMatrix(const float aspectRatio, const float fieldOfView, const float nearPlane,
+                                      const float farPlane)
 {
-    return glm::perspective(glm::radians(fieldOfView), aspectRatio, nearPlane, farPlane);
+	return glm::perspective(glm::radians(fieldOfView), aspectRatio, nearPlane, farPlane);
 }
 
-Math::Matrix4f Math::ViewMatrix(const Vector3f& position, float rotX, float rotY)
+Math::Matrix4f Math::ViewMatrix(const Vector3f& position, const float rotationX, const float rotationY)
 {
-    Matrix4f viewMatrix(1.0f);
-    viewMatrix = glm::rotate(viewMatrix, glm::radians(rotX), Math::Vector3f(1.0f, 0.0f, 0.0f));
-    viewMatrix = glm::rotate(viewMatrix, glm::radians(rotY), Math::Vector3f(0.0f, 1.0f, 0.0f));
-    viewMatrix = glm::translate(viewMatrix, -position);
+	Matrix4f viewMatrix(1.0f);
+	viewMatrix = rotate(viewMatrix, glm::radians(rotationX), Vector3f(1.0f, 0.0f, 0.0f));
+	viewMatrix = rotate(viewMatrix, glm::radians(rotationY), Vector3f(0.0f, 1.0f, 0.0f));
+	viewMatrix = translate(viewMatrix, -position);
 
-    return viewMatrix;
+	return viewMatrix;
 }
 
-Math::Matrix4f Math::TransformationMatrix(const Vector3f& position, float rotX, float rotY, float rotZ, float scale)
+Math::Matrix4f Math::TransformationMatrix(const Vector3f& position, const float rotationX, const float rotationY,
+                                          const float rotationZ, const float scale)
 {
-    Matrix4f tranformationMatrix(1.0f);
-    tranformationMatrix = glm::translate(tranformationMatrix, position);
-    tranformationMatrix = glm::rotate(tranformationMatrix, glm::radians(rotX), Vector3f(1.0f, 0.0f, 0.0f));
-    tranformationMatrix = glm::rotate(tranformationMatrix, glm::radians(rotY), Vector3f(0.0f, 1.0f, 0.0f));
-    tranformationMatrix = glm::rotate(tranformationMatrix, glm::radians(rotZ), Vector3f(0.0f, 0.0f, 1.0f));
-    tranformationMatrix = glm::scale(tranformationMatrix, Vector3f(scale));
+	Matrix4f transformationMatrix(1.0f);
+	transformationMatrix = translate(transformationMatrix, position);
+	transformationMatrix = rotate(transformationMatrix, glm::radians(rotationX), Vector3f(1.0f, 0.0f, 0.0f));
+	transformationMatrix = rotate(transformationMatrix, glm::radians(rotationY), Vector3f(0.0f, 1.0f, 0.0f));
+	transformationMatrix = rotate(transformationMatrix, glm::radians(rotationZ), Vector3f(0.0f, 0.0f, 1.0f));
+	transformationMatrix = glm::scale(transformationMatrix, Vector3f(scale));
 
-    return tranformationMatrix;
+	return transformationMatrix;
 }
 
 Math::Matrix4f Math::TranslationMatrix(const Vector3f& position)
 {
-    Matrix4f translationMatrix(1.0f);
-    translationMatrix = glm::translate(translationMatrix, position);
+	Matrix4f translationMatrix(1.0f);
+	translationMatrix = translate(translationMatrix, position);
 
-    return translationMatrix;
+	return translationMatrix;
 }
 
-Math::Matrix4f Math::RotationMatrix(float rotX, float rotY, float rotZ)
+Math::Matrix4f Math::RotationMatrix(const float rotationX, const float rotationY, const float rotationZ)
 {
-    Matrix4f rotationMatrix(1.0f);
-    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotX), Vector3f(1.0f, 0.0f, 0.0f));
-    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotY), Vector3f(0.0f, 1.0f, 0.0f));
-    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotZ), Vector3f(0.0f, 0.0f, 1.0f));
+	Matrix4f rotationMatrix(1.0f);
+	rotationMatrix = rotate(rotationMatrix, glm::radians(rotationX), Vector3f(1.0f, 0.0f, 0.0f));
+	rotationMatrix = rotate(rotationMatrix, glm::radians(rotationY), Vector3f(0.0f, 1.0f, 0.0f));
+	rotationMatrix = rotate(rotationMatrix, glm::radians(rotationZ), Vector3f(0.0f, 0.0f, 1.0f));
 
-    return rotationMatrix;
+	return rotationMatrix;
 }
 
-Math::Matrix4f Math::ScaleMatrix(float scale)
+Math::Matrix4f Math::ScaleMatrix(const float scale)
 {
-    Matrix4f scaleMatrix(1.0f);
-    scaleMatrix = glm::scale(scaleMatrix, Vector3f(scale));
+	Matrix4f scaleMatrix(1.0f);
+	scaleMatrix = glm::scale(scaleMatrix, Vector3f(scale));
 
-    return scaleMatrix;
+	return scaleMatrix;
 }
 
 float Math::LookAt(const Vector2f& position, const Vector2f& target)
 {
-    Vector2f diff = target - position;
-    return glm::degrees(glm::atan(-diff.y, diff.x)) + 90.0f;
+	const Vector2f diff = target - position;
+	return glm::degrees(glm::atan(-diff.y, diff.x)) + 90.0f;
 }

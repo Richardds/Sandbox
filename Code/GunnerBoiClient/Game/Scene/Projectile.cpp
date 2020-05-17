@@ -1,16 +1,16 @@
 #include "Projectile.h"
 
-GunnerBoi::Projectile::Projectile(std::shared_ptr<Actor> actor) :
-    Projectile(actor->getPosition(), actor->getRotationY())
+GunnerBoi::Projectile::Projectile(const std::shared_ptr<Actor>& actor) :
+	Projectile(actor->GetPosition(), actor->GetRotationY())
 {
 }
 
-GunnerBoi::Projectile::Projectile(Math::Vector3f position, float rotation) :
-    _origin(position),
-    _range(25.0f)
+GunnerBoi::Projectile::Projectile(const Math::Vector3f& position, const float rotation) :
+	_origin(position),
+	_range(25.0f)
 {
-    this->setPosition(position);
-    this->setRotationY(rotation);
+	this->SetPosition(position);
+	this->SetRotationY(rotation);
 }
 
 GunnerBoi::Projectile::~Projectile()
@@ -19,10 +19,10 @@ GunnerBoi::Projectile::~Projectile()
 
 float GunnerBoi::Projectile::DistanceToOrigin() const
 {
-    return this->DistanceTo(this->_origin);
+	return this->DistanceTo(this->_origin);
 }
 
 bool GunnerBoi::Projectile::OutOfRange() const
 {
-    return this->DistanceToOrigin() > this->_range;
+	return this->DistanceToOrigin() > this->_range;
 }

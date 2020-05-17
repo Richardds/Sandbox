@@ -3,29 +3,31 @@
 GLuint Graphics::VertexArray::_boundVertexArray = 0;
 
 Graphics::VertexArray::VertexArray() :
-    _glVertexArray(0)
+	_glVertexArray(0)
 {
-    glGenVertexArrays(1, &this->_glVertexArray);
+	glGenVertexArrays(1, &this->_glVertexArray);
 }
 
 Graphics::VertexArray::~VertexArray()
 {
-    this->Unbind();
-    glDeleteVertexArrays(1, &this->_glVertexArray);
+	this->Unbind();
+	glDeleteVertexArrays(1, &this->_glVertexArray);
 }
 
-void Graphics::VertexArray::Bind()
+void Graphics::VertexArray::Bind() const
 {
-    if (!this->IsBound()) {
-        glBindVertexArray(this->_glVertexArray);
-        VertexArray::_boundVertexArray = this->_glVertexArray;
-    }
+	if (!this->IsBound())
+	{
+		glBindVertexArray(this->_glVertexArray);
+		_boundVertexArray = this->_glVertexArray;
+	}
 }
 
-void Graphics::VertexArray::Unbind()
+void Graphics::VertexArray::Unbind() const
 {
-    if (this->IsBound()) {
-        glBindVertexArray(0);
-        VertexArray::_boundVertexArray = 0;
-    }
+	if (this->IsBound())
+	{
+		glBindVertexArray(0);
+		_boundVertexArray = 0;
+	}
 }

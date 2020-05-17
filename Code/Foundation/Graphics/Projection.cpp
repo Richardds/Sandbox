@@ -1,15 +1,12 @@
 #include "Projection.h"
 #include "../Math/Utils.h"
 
-Graphics::Projection::Projection(float aspectRatio, float fieldOfView, float nearPlane, float farPlane) :
+Graphics::Projection::Projection(const float aspectRatio, const float fieldOfView, const float nearPlane,
+                                 const float farPlane) :
 	_aspectRatio(aspectRatio),
 	_fieldOfView(fieldOfView),
 	_nearPlane(nearPlane),
 	_farPlane(farPlane)
-{
-}
-
-Graphics::Projection::~Projection()
 {
 }
 

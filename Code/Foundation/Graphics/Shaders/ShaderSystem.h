@@ -1,73 +1,88 @@
 #pragma once
 
 #include <string>
-#include <vector>
 #include <unordered_map>
 
 #include "../ShaderProgram.h"
 
 namespace Graphics
 {
+	class ShaderSystem : public ShaderProgram
+	{
+	public:
+		enum class State
+		{
+			Initial,
+			Shader,
+			Ready
+		};
 
-    class ShaderSystem : public ShaderProgram
-    {
-    public:
-        enum class State {
-            INITIAL,
-            SHADER,
-            READY
-        };
+		explicit ShaderSystem(std::string name);
+		virtual ~ShaderSystem() = default;
 
-        ShaderSystem(const std::string& name);
-        virtual ~ShaderSystem();
-        virtual void InitializeUniformVariables() = 0;
-        bool Setup();
-        void Use();
+		virtual void InitializeUniformVariables() = 0;
+		bool Setup();
+		void Use() override;
 
-    protected:
-        struct ClippingPlane {
-            ClippingPlane() : plane(-1), enabled(-1) {}
-            GLint plane;
-            GLint enabled;
-        };
+	protected:
+		struct ClippingPlane
+		{
+			ClippingPlane() : plane(-1), enabled(-1)
+			{
+			}
 
-        struct SunLocation {
-            SunLocation() : direction(-1), ambient(-1), diffuse(-1), specular(-1) {}
-            GLint direction;
-            GLint ambient;
-            GLint diffuse;
-            GLint specular;
-        };
+			GLint plane;
+			GLint enabled;
+		};
 
-        struct PointLightLocation {
-            PointLightLocation() : position(-1), attenuation(-1), ambient(-1), diffuse(-1), specular(-1) {}
-            GLint position;
-            GLint attenuation;
-            GLint ambient;
-            GLint diffuse;
-            GLint specular;
-        };
+		struct SunLocation
+		{
+			SunLocation() : direction(-1), ambient(-1), diffuse(-1), specular(-1)
+			{
+			}
 
-        struct TextureSamplerLocation {
-            TextureSamplerLocation() : texture(-1), enabled(-1) {}
-            GLint texture;
-            GLint enabled;
-        };
+			GLint direction;
+			GLint ambient;
+			GLint diffuse;
+			GLint specular;
+		};
 
-        GLint GetUniformLocation(const std::string& name);
-        void InitializeBoolLocation(const std::string& name, bool enabled, GLint& location);
-        void InitializeIntLocation(const std::string& name, int value, GLint& location);
-        void InitializeFloatLocation(const std::string& name, float value, GLint& location);
-        void InitializeMatrix3fLocation(const std::string& name, Math::Matrix3f matrix, GLint& location);
-        void InitializeMatrix4fLocation(const std::string& name, Math::Matrix4f matrix, GLint& location);
-        void InitializeVector2fLocation(const std::string& name, Math::Vector2f vector, GLint& location);
-        void InitializeVector3fLocation(const std::string& name, Math::Vector3f vector, GLint& location);
-        void InitializeVector4fLocation(const std::string& name, Math::Vector4f vector, GLint& location);
+		struct PointLightLocation
+		{
+			PointLightLocation() : position(-1), attenuation(-1), ambient(-1), diffuse(-1), specular(-1)
+			{
+			}
 
-    private:
-        State _state;
-        std::string _name;
-        std::unordered_map<std::string, GLint> _uniformVariables;
-    };
+			GLint position;
+			GLint attenuation;
+			GLint ambient;
+			GLint diffuse;
+			GLint specular;
+		};
 
+		struct TextureSamplerLocation
+		{
+			TextureSamplerLocation() : texture(-1), enabled(-1)
+			{
+			}
+
+			GLint texture;
+			GLint enabled;
+		};
+
+		GLint GetUniformLocation(const std::string& name) override;
+		void InitializeBoolLocation(const std::string& name, bool enabled, GLint& location);
+		void InitializeIntLocation(const std::string& name, int value, GLint& location);
+		void InitializeFloatLocation(const std::string& name, float value, GLint& location);
+		void InitializeMatrix3fLocation(const std::string& name, const Math::Matrix3f& matrix, GLint& location);
+		void InitializeMatrix4fLocation(const std::string& name, const Math::Matrix4f& matrix, GLint& location);
+		void InitializeVector2fLocation(const std::string& name, const Math::Vector2f& vector, GLint& location);
+		void InitializeVector3fLocation(const std::string& name, const Math::Vector3f& vector, GLint& location);
+		void InitializeVector4fLocation(const std::string& name, const Math::Vector4f& vector, GLint& location);
+
+	private:
+		State _state;
+		std::string _name;
+		std::unordered_map<std::string, GLint> _uniformVariables;
+	};
 }

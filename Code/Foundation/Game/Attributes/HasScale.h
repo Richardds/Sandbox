@@ -2,29 +2,28 @@
 
 namespace Graphics
 {
+	class HasScale
+	{
+	public:
+		HasScale();
+		explicit HasScale(float scale);
+		virtual ~HasScale() = default;
 
-    class HasScale
-    {
-    public:
-        HasScale();
-        HasScale(float scale);
+		[[nodiscard]] float GetScale() const;
+		void SetScale(float scale);
+		void IncreaseScale(float scale);
 
-        float getScale() const;
-        void setScale(float scale);
-        void increaseScale(float scale);
+	protected:
+		float _scale;
+	};
 
-    protected:
-        float _scale;
-    };
+	inline float HasScale::GetScale() const
+	{
+		return this->_scale;
+	}
 
-    inline float HasScale::getScale() const
-    {
-        return this->_scale;
-    }
-
-    inline void HasScale::setScale(float scale)
-    {
-        this->_scale = scale;
-    }
-
+	inline void HasScale::SetScale(const float scale)
+	{
+		this->_scale = scale;
+	}
 }

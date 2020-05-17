@@ -4,17 +4,14 @@
 
 namespace Graphics
 {
+	class DepthShader : public ShaderSystem
+	{
+	public:
+		DepthShader();
+		void InitializeUniformVariables() override;
+		void LoadTransformation(const Math::Matrix4f& transformation);
 
-    class DepthShader : public ShaderSystem
-    {
-    public:
-        DepthShader();
-        virtual ~DepthShader();
-        void InitializeUniformVariables();
-        void LoadTransformation(const Math::Matrix4f& transformation);
-        
-    private:
-        GLint _transformationPosition;
-    };
-
+	private:
+		GLint _transformationPosition;
+	};
 }

@@ -7,22 +7,20 @@
 
 namespace GunnerBoi
 {
+	class GunnerBoiApplication : public App::RenderApplication
+	{
+	public:
+		GunnerBoiApplication();
 
-    class GunnerBoiApplication : public App::RenderApplication
-    {
-    public:
-        GunnerBoiApplication();
-        virtual ~GunnerBoiApplication();
-        bool Open();
-        void Close();
+		bool Open() override;
+		void Close() override;
 
-    protected:
-        void OnProcessInput();
-        void OnUpdateLogic();
-        void OnUpdateFrame();
+	protected:
+		void OnProcessInput() override;
+		void OnUpdateLogic() override;
+		void OnUpdateFrame() override;
 
-    private:
-        std::shared_ptr<GunnerBoiScene> _scene;
-    };
-
+	private:
+		std::shared_ptr<GunnerBoiScene> _scene;
+	};
 }

@@ -5,11 +5,7 @@ Graphics::VertexAttributeConfig::VertexAttributeConfig() :
 {
 }
 
-Graphics::VertexAttributeConfig::~VertexAttributeConfig()
-{
-}
-
-void Graphics::VertexAttributeConfig::Append(GLenum type, uint16_t count)
+void Graphics::VertexAttributeConfig::Append(const GLenum type, const uint16_t count)
 {
 	size_t elementSize = 0;
 
@@ -26,24 +22,26 @@ void Graphics::VertexAttributeConfig::Append(GLenum type, uint16_t count)
 		break;
 	}
 
-	_assert(0 < elementSize);
+	_Assert(0 < elementSize);
 
-	size_t attributeSize = count * elementSize;
-	VertexAttribute attribute = { type, count, attributeSize };
+	const size_t attributeSize = count * elementSize;
+	VertexAttribute attribute = {type, count, attributeSize};
 	this->_attributes.emplace_back(attribute);
 	this->_size += attributeSize;
 }
 
-void Graphics::VertexAttributeConfig::Apply(std::shared_ptr<VertexArray> vao) const
+void Graphics::VertexAttributeConfig::Apply(const std::shared_ptr<VertexArray>& vao) const
 {
-	_assert(vao);
-	_assert(vao->IsBound());
+	_Assert(vao);
+	_Assert(vao->IsBound());
 
 	size_t pointer = 0;
 	uint16_t count = 0;
 
-	for (const auto& attribute : this->_attributes) {
-		glVertexAttribPointer(count, attribute.count, attribute.type, GL_FALSE, static_cast<GLsizei>(this->_size), (const void*)pointer);
+	for (const auto& attribute : this->_attributes)
+	{
+		glVertexAttribPointer(count, attribute.count, attribute.type, GL_FALSE, static_cast<GLsizei>(this->_size),
+		                      reinterpret_cast<const void*>(pointer));
 		glEnableVertexAttribArray(count);
 
 		pointer += attribute.size;

@@ -2,42 +2,40 @@
 
 #include <functional>
 
-#include "../Shaders/WaterShader.h"
-#include "../../Game/Scene/DirectionalLight.h"
-#include "../../Game/Scene/Water.h"
 #include "../FrameBuffer.h"
 #include "../Texture.h"
+#include "../../Game/Scene/DirectionalLight.h"
+#include "../../Game/Scene/Water.h"
+#include "../Shaders/WaterShader.h"
 
 namespace Graphics
 {
+	class WaterRenderer
+	{
+	public:
+		enum class State
+		{
+			Initial,
+			Ready
+		};
 
-    class WaterRenderer
-    {
-    public:
-        enum class State {
-            INITIAL,
-            READY
-        };
+		const unsigned int TEXTURE_SIZE = 2048;
 
-        const unsigned int TEXTURE_SIZE = 2048;
+		WaterRenderer();
+		bool Setup(const std::shared_ptr<const Projection>& projection);
+		void Begin(const std::shared_ptr<Camera>& camera, const std::shared_ptr<DirectionalLight>& sun) const;
+		void RenderToReflectionBuffer(const std::function<void()>& renderFunction) const;
+		void RenderToRefractionBuffer(const std::function<void()>& renderFunction) const;
+		void Render(const std::shared_ptr<Water>& water) const;
 
-        WaterRenderer();
-        virtual ~WaterRenderer();
-        bool Setup(std::shared_ptr<const Projection> projection);
-        void Begin(std::shared_ptr<Camera> camera, std::shared_ptr<DirectionalLight> sun);
-        void RenderToReflectionBuffer(const std::function<void()>& renderFunction);
-        void RenderToRefractionBuffer(const std::function<void()>& renderFunction);
-        void Render(std::shared_ptr<Water> water);
+	private:
+		State _state;
+		std::shared_ptr<WaterShader> _shader;
 
-    private:
-        State _state;
-        std::shared_ptr<WaterShader> _shader;
+		std::shared_ptr<FrameBuffer> _reflectionFrameBuffer;
+		std::shared_ptr<Texture> _reflectionTexture;
 
-        std::shared_ptr<FrameBuffer> _reflectionFrameBuffer;
-        std::shared_ptr<Texture> _reflectionTexture;
-
-        std::shared_ptr<FrameBuffer> _refractionFrameBuffer;
-        std::shared_ptr<Texture> _refractionTexture;
-    };
-
+		std::shared_ptr<FrameBuffer> _refractionFrameBuffer;
+		std::shared_ptr<Texture> _refractionTexture;
+	};
 }

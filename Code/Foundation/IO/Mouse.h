@@ -4,36 +4,35 @@
 
 #include "../Core/Singleton.h"
 #include "../Math/Vector.h"
+#include "../Core/Types.h"
 
 namespace IO
 {
+	class Mouse
+	{
+	_Singleton(Mouse)
 
-    class Mouse
-    {
-        _Singleton(Mouse)
+	public:
+		enum class Key
+		{
+			Left = GLFW_MOUSE_BUTTON_1,
+			Right = GLFW_MOUSE_BUTTON_2,
+			Middle = GLFW_MOUSE_BUTTON_3
+		};
 
-    public:
-        enum Key {
-            LEFT = GLFW_MOUSE_BUTTON_1,
-            RIGHT = GLFW_MOUSE_BUTTON_2,
-            MIDDLE = GLFW_MOUSE_BUTTON_3
-        };
+		Mouse();
+		[[nodiscard]] bool IsKeyPressed(Key key) const;
+		[[nodiscard]] Math::Vector2ui GetCoords() const;
+		[[nodiscard]] Math::Vector2i GetRelativeMotion();
+		[[nodiscard]] Math::Vector2f GetGlCoords() const;
+		[[nodiscard]] Math::Vector2f GetRelativeGlMotion();
+		void FlushMotion();
+		void RegisterScrolling(const std::function<void (float, float)>& callback);
+		void DoScroll(float x, float y) const;
 
-        Mouse();
-        virtual ~Mouse();
-        bool IsKeyPressed(Key key) const;
-        Math::Vector2ui GetCoords() const;
-        Math::Vector2i GetRelativeMotion();
-        Math::Vector2f GetGlCoords() const;
-        Math::Vector2f GetRelativeGlMotion();
-        void FlushMotion();
-        void RegisterScrolling(const std::function<void (float, float)>& callback);
-        void DoScroll(float x, float y);
-
-    private:
-        std::function<void(float, float)> _scrollCallback;
-        Math::Vector2ui _lastMotion;
-        Math::Vector2f _lastGlMotion;
-    };
-
+	private:
+		std::function<void(float, float)> _scrollCallback;
+		Math::Vector2ui _lastMotion;
+		Math::Vector2f _lastGlMotion;
+	};
 }

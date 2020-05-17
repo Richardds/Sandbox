@@ -4,11 +4,9 @@
 
 namespace Math
 {
+	constexpr float Pi = glm::pi<float>();
+	constexpr float Pi2 = glm::half_pi<float>();
+	constexpr float Pi4 = glm::quarter_pi<float>();
 
-	constexpr float PI = glm::pi<float>();
-	constexpr float PI_2 = glm::half_pi<float>();
-	constexpr float PI_4 = glm::quarter_pi<float>();
-
-	constexpr float SQRT_2 = glm::root_two<float>();
-
+	constexpr float Sqrt2 = glm::root_two<float>();
 }

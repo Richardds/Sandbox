@@ -1,40 +1,36 @@
 #pragma once
 
-#include <vector>
-
 #include <Game/Scene.h>
-#include <Game/Scene/TargetedCamera.h>
 
-#include "Scene/Boi.h"
 #include "Managers/ProjectileManager.h"
+#include "Scene/Boi.h"
 
 namespace GunnerBoi
 {
+	class GunnerBoiScene : public Graphics::Scene
+	{
+	public:
+		enum class State
+		{
+			Initial,
+			Run
+		};
 
-    class GunnerBoiScene : public Graphics::Scene
-    {
-    public:
-        enum class State {
-            INITIAL,
-            RUN
-        };
+		GunnerBoiScene();
 
-        GunnerBoiScene();
-        virtual ~GunnerBoiScene();
-        bool Setup();
-        void ProcessInput();
-        void Update(float delta);
-        void Render();
-        std::shared_ptr<Boi> SetupPlayer(const std::string& resourceName);
+		bool Setup() override;
+		void ProcessInput() override;
+		void Update(float delta) override;
+		void Render() override;
+		std::shared_ptr<Boi> SetupPlayer(const std::string& resourceName);
 
-    protected:
-        void RenderEntities();
+	protected:
+		void RenderEntities() override;
 
-    private:
-        std::shared_ptr<Boi> _player;
-        std::shared_ptr<ProjectileManager> _projectileManager;
+	private:
+		std::shared_ptr<Boi> _player;
+		std::shared_ptr<ProjectileManager> _projectileManager;
 
-        bool _lockCameraToPlayer;
-    };
-
+		bool _lockCameraToPlayer;
+	};
 }

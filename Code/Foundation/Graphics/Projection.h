@@ -4,67 +4,64 @@
 
 namespace Graphics
 {
+	class Projection
+	{
+	public:
+		Projection(float aspectRatio, float fieldOfView, float nearPlane, float farPlane);
+		[[nodiscard]] Math::Matrix4f GetMatrix() const;
+		[[nodiscard]] float GetAspectRatio() const;
+		void SetAspectRatio(float aspectRatio);
+		[[nodiscard]] float GetFieldOfView() const;
+		void SetFieldOfView(float fieldOfView);
+		[[nodiscard]] float GetNearPlane() const;
+		void SetNearPlane(float nearPlane);
+		[[nodiscard]] float GetFarPlane() const;
+		void SetFarPlane(float farPlane);
 
-    class Projection
-    {
-    public:
-        Projection(float aspectRatio, float fieldOfView, float nearPlane, float farPlane);
-        virtual ~Projection();
-        Math::Matrix4f GetMatrix() const;
-        float GetAspectRatio() const;
-        void SetAspectRatio(float aspectRatio);
-        float GetFieldOfView() const;
-        void SetFieldOfView(float fieldOfView);
-        float GetNearPlane() const;
-        void SetNearPlane(float nearPlane);
-        float GetFarPlane() const;
-        void SetFarPlane(float farPlane);
+	private:
+		float _aspectRatio;
+		float _fieldOfView;
+		float _nearPlane;
+		float _farPlane;
+	};
 
-    private:
-        float _aspectRatio;
-        float _fieldOfView;
-        float _nearPlane;
-        float _farPlane;
-    };
+	inline float Projection::GetAspectRatio() const
+	{
+		return this->_aspectRatio;
+	}
 
-    inline float Projection::GetAspectRatio() const
-    {
-        return this->_aspectRatio;
-    }
+	inline void Projection::SetAspectRatio(const float aspectRatio)
+	{
+		this->_aspectRatio = aspectRatio;
+	}
 
-    inline void Projection::SetAspectRatio(float aspectRatio)
-    {
-        this->_aspectRatio = aspectRatio;
-    }
+	inline float Projection::GetFieldOfView() const
+	{
+		return this->_fieldOfView;
+	}
 
-    inline float Projection::GetFieldOfView() const
-    {
-        return this->_fieldOfView;
-    }
+	inline void Projection::SetFieldOfView(const float fieldOfView)
+	{
+		this->_fieldOfView = fieldOfView;
+	}
 
-    inline void Projection::SetFieldOfView(float fieldOfView)
-    {
-        this->_fieldOfView = fieldOfView;
-    }
+	inline float Projection::GetNearPlane() const
+	{
+		return this->_nearPlane;
+	}
 
-    inline float Projection::GetNearPlane() const
-    {
-        return this->_nearPlane;
-    }
+	inline void Projection::SetNearPlane(const float nearPlane)
+	{
+		this->_nearPlane = nearPlane;
+	}
 
-    inline void Projection::SetNearPlane(float nearPlane)
-    {
-        this->_nearPlane = nearPlane;
-    }
+	inline float Projection::GetFarPlane() const
+	{
+		return this->_farPlane;
+	}
 
-    inline float Projection::GetFarPlane() const
-    {
-        return this->_farPlane;
-    }
-
-    inline void Projection::SetFarPlane(float farPlane)
-    {
-        this->_farPlane = farPlane;
-    }
-
+	inline void Projection::SetFarPlane(const float farPlane)
+	{
+		this->_farPlane = farPlane;
+	}
 }

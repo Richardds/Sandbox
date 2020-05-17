@@ -1,35 +1,31 @@
 #include "Time.h"
 
 Timing::Time::Time() :
-    _time()
+	_time()
 {
 }
 
 Timing::Time::Time(const Time& rhs)
 {
-    this->_time = rhs._time;
+	this->_time = rhs._time;
 }
 
-Timing::Time::Time(TimePoint time) :
-    _time(time)
-{
-}
-
-Timing::Time::~Time()
+Timing::Time::Time(const TimePoint time) :
+	_time(time)
 {
 }
 
 void Timing::Time::operator=(const Time& rhs)
 {
-    this->_time = rhs._time;
+	this->_time = rhs._time;
 }
 
-Timing::Duration Timing::Time::Diff(Time rhs) const
+Timing::Duration Timing::Time::Diff(const Time& rhs) const
 {
-    return std::chrono::duration_cast<Duration>(this->_time - rhs._time);
+	return std::chrono::duration_cast<Duration>(this->_time - rhs._time);
 }
 
 Timing::Time Timing::Time::Now()
 {
-    return std::chrono::time_point_cast<Microseconds>(std::chrono::steady_clock::now());
+	return std::chrono::time_point_cast<Microseconds>(std::chrono::steady_clock::now());
 }

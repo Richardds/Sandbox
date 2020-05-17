@@ -5,28 +5,28 @@
 
 namespace Graphics
 {
+	class Camera : public HasPosition, public HasRotation
+	{
+	public:
+		Camera();
+		virtual ~Camera() = default;
 
-    class Camera : public HasPosition, public HasRotation
-    {
-    public:
-        Camera();
-        Camera(float fieldOfView);
-        virtual ~Camera();
-        float GetFieldOfView() const;
-        void SetFieldOfView(float fieldOfView);
+		explicit Camera(float fieldOfView);
+		[[nodiscard]] float GetFieldOfView() const;
+		void SetFieldOfView(float fieldOfView);
+		void LookAt(Math::Vector3f target);
 
-    private:
-        float _fieldOfView;
-    };
+	private:
+		float _fieldOfView;
+	};
 
-    inline float Graphics::Camera::GetFieldOfView() const
-    {
-        return this->_fieldOfView;
-    }
+	inline float Camera::GetFieldOfView() const
+	{
+		return this->_fieldOfView;
+	}
 
-    inline void Camera::SetFieldOfView(float fieldOfView)
-    {
-        this->_fieldOfView = fieldOfView;
-    }
-
+	inline void Camera::SetFieldOfView(const float fieldOfView)
+	{
+		this->_fieldOfView = fieldOfView;
+	}
 }

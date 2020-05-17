@@ -4,63 +4,63 @@
 
 namespace App
 {
-    
-    class Application
-    {
-    public:
-        Application();
-        virtual ~Application();
-        virtual bool Open();
-        virtual void Run();
-        virtual void Close();
-        void SetTitle(const std::string& title);
-        const std::string& GetTitle() const;
-        void SetVersion(const std::string& version);
-        const std::string& GetVersion() const;
-        bool IsOpen() const;
-        int GetStatusCode() const;
+	class Application
+	{
+	public:
+		Application();
+		virtual ~Application();
 
-    protected:
-        void SetReturnCode(int code);
+		virtual bool Open();
+		virtual void Run();
+		virtual void Close();
+		void SetTitle(const std::string& title);
+		[[nodiscard]] const std::string& GetTitle() const;
+		void SetVersion(const std::string& version);
+		[[nodiscard]] const std::string& GetVersion() const;
+		[[nodiscard]] bool IsOpen() const;
+		[[nodiscard]] int GetStatusCode() const;
 
-        std::string _title;
-        std::string _version;
-        bool _isOpen;
-        int _statusCode;
-    };
+	protected:
+		void SetReturnCode(int code);
 
-    inline void Application::SetTitle(const std::string& title)
-    {
-        this->_title = title;
-    }
+		std::string _title;
+		std::string _version;
+		bool _isOpen;
+		int _statusCode;
+	};
 
-    inline const std::string& Application::GetTitle() const
-    {
-        return this->_title;
-    }
+	inline void Application::SetTitle(const std::string& title)
+	{
+		this->_title = title;
+	}
 
-    inline void Application::SetVersion(const std::string& version)
-    {
-        this->_version = version;
-    }
+	inline const std::string& Application::GetTitle() const
+	{
+		return this->_title;
+	}
 
-    inline const std::string& Application::GetVersion() const
-    {
-        return this->_version;
-    }
+	inline void Application::SetVersion(const std::string& version)
+	{
+		this->_version = version;
+	}
 
-    inline bool Application::IsOpen() const
-    {
-        return this->_isOpen;
-    }
+	inline const std::string& Application::GetVersion() const
+	{
+		return this->_version;
+	}
 
-    inline int Application::GetStatusCode() const
-    {
-        return this->_statusCode;
-    }
+	inline bool Application::IsOpen() const
+	{
+		return this->_isOpen;
+	}
 
-    inline void Application::SetReturnCode(int code)
-    {
-        this->_statusCode = code;
-    }
+	inline int Application::GetStatusCode() const
+	{
+		return this->_statusCode;
+	}
+
+	inline void Application::SetReturnCode(const int code)
+	{
+		this->_statusCode = code;
+	}
 }

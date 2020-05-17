@@ -1,24 +1,21 @@
 #include "HUDRenderer.h"
-#include "../../Math/Utils.h"
 #include "../../IO/Console.h"
+#include "../../Math/Utils.h"
 #include "../../Util/Generators/PrimitiveGenerator.h"
 
 Graphics::HUDRenderer::HUDRenderer() :
-	_state(State::INITIAL)
+	_state(State::Initial)
 {
 }
 
-Graphics::HUDRenderer::~HUDRenderer()
+bool Graphics::HUDRenderer::Setup(const std::shared_ptr<const Projection>& projection)
 {
-}
-
-bool Graphics::HUDRenderer::Setup(std::shared_ptr<const Projection> projection)
-{
-	_assert(State::INITIAL == this->_state);
+	_Assert(State::Initial == this->_state);
 
 	// Setup water shader
 	this->_shader = std::make_shared<HUDShader>();
-	if (!this->_shader->Setup()) {
+	if (!this->_shader->Setup())
+	{
 		IO::Console::Instance().Error("Failed to load water shader\n");
 		return false;
 	}
@@ -29,36 +26,38 @@ bool Graphics::HUDRenderer::Setup(std::shared_ptr<const Projection> projection)
 	this->_shader->Use();
 	this->_shader->LoadAspectRatio(projection->GetAspectRatio());
 
-	this->_mapFrameBuffer = std::make_shared<Graphics::FrameBuffer>();
+	this->_mapFrameBuffer = std::make_shared<FrameBuffer>();
 	this->_mapFrameBuffer->Bind();
 	this->_mapTexture = std::make_shared<Texture>(GL_TEXTURE_2D);
 	this->_mapTexture->Bind();
-	this->_mapTexture->Data(this->_mapFrameBuffer, HUDRenderer::TEXTURE_SIZE, HUDRenderer::TEXTURE_SIZE);
+	this->_mapTexture->Data(this->_mapFrameBuffer, TEXTURE_SIZE, TEXTURE_SIZE);
 	this->_mapTexture->Unbind();
 	this->_mapFrameBuffer->Unbind();
 
-	this->_state = State::READY;
+	this->_state = State::Ready;
 
 	return true;
 }
 
-void Graphics::HUDRenderer::Begin(const Math::Vector3f& position, float height)
+void Graphics::HUDRenderer::Begin(const Math::Vector3f& position, float height) const
 {
 	this->_shader->Use();
-	this->_mapTexture->Activate(Texture::Bank::DIFFUSE);
+	this->_mapTexture->Activate(Texture::Bank::Diffuse);
+
+	// TODO
 }
 
-void Graphics::HUDRenderer::RenderToMapBuffer(const std::function<void()>& renderFunction)
+void Graphics::HUDRenderer::RenderToMapBuffer(const std::function<void()>& renderFunction) const
 {
-	this->_mapFrameBuffer->Activate(HUDRenderer::TEXTURE_SIZE, HUDRenderer::TEXTURE_SIZE);
+	this->_mapFrameBuffer->Activate(TEXTURE_SIZE, TEXTURE_SIZE);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderFunction();
 	this->_mapFrameBuffer->Deactivate();
 }
 
-void Graphics::HUDRenderer::Render(const Math::Vector2f& screenPosition)
+void Graphics::HUDRenderer::Render(const Math::Vector2f& screenPosition) const
 {
-	_assert(State::READY == this->_state);
+	_Assert(State::Ready == this->_state);
 
 	this->_shader->LoadPosition(screenPosition);
 

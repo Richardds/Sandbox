@@ -1,80 +1,82 @@
 #include "Window.h"
+
+#include <utility>
 #include "Core.h"
 
 Graphics::Window::Window() :
-    _isCreated(false),
-    _width(1280),
-    _height(720),
-    _glfwWindow(nullptr)
+	_isCreated(false),
+	_width(1280),
+	_height(720),
+	_glfwWindow(nullptr)
 {
 }
 
-Graphics::Window::Window(unsigned int width, unsigned int height, const std::string& title) :
-    _isCreated(false),
-    _width(width),
-    _height(height),
-    _title(title),
-    _glfwWindow(nullptr)
+Graphics::Window::Window(const unsigned int width, const unsigned int height, std::string title) :
+	_isCreated(false),
+	_width(width),
+	_height(height),
+	_title(std::move(title)),
+	_glfwWindow(nullptr)
 {
 }
 
 Graphics::Window::~Window()
 {
-    _assert(!this->IsCreated());
+	_Assert(!this->IsCreated());
 }
 
 bool Graphics::Window::Create()
 {
-    _assert(!this->IsCreated());
-    _assert(Core::Instance().IsCreated());
+	_Assert(!this->IsCreated());
+	_Assert(Core::Instance().IsCreated());
 
-    this->_glfwWindow = glfwCreateWindow(
-        static_cast<int>(this->_width),
-        static_cast<int>(this->_height),
-        this->_title.c_str(),
-        NULL,
-        NULL
-    );
+	this->_glfwWindow = glfwCreateWindow(
+		static_cast<int>(this->_width),
+		static_cast<int>(this->_height),
+		this->_title.c_str(),
+		nullptr,
+		NULL
+	);
 
-    _assert(nullptr != this->_glfwWindow);
+	_Assert(nullptr != this->_glfwWindow);
 
-    this->_isCreated = true;
+	this->_isCreated = true;
 
-    return true;
+	return true;
 }
 
-void Graphics::Window::Open()
+void Graphics::Window::Open() const
 {
-    glfwShowWindow(this->_glfwWindow);
+	glfwShowWindow(this->_glfwWindow);
 }
 
-void Graphics::Window::Close()
+void Graphics::Window::Close() const
 {
-    glfwHideWindow(this->_glfwWindow);
+	glfwHideWindow(this->_glfwWindow);
 }
 
 void Graphics::Window::Destroy()
 {
-    _assert(this->IsCreated());
+	_Assert(this->IsCreated());
 
-    glfwDestroyWindow(this->_glfwWindow);
+	glfwDestroyWindow(this->_glfwWindow);
 
-    this->_isCreated = false;
+	this->_isCreated = false;
 }
 
-void Graphics::Window::SwapBuffers()
+void Graphics::Window::SwapBuffers() const
 {
-    _assert(this->IsCreated());
-    glfwSwapBuffers(this->_glfwWindow);
+	_Assert(this->IsCreated());
+	glfwSwapBuffers(this->_glfwWindow);
 }
 
 bool Graphics::Window::IsCloseRequested() const
 {
-    _assert(this->IsCreated());
-    return glfwWindowShouldClose(this->_glfwWindow);
+	_Assert(this->IsCreated());
+	return glfwWindowShouldClose(this->_glfwWindow);
 }
 
 float Graphics::Window::GetAspectRatio() const
 {
-    return static_cast<float>(this->_width) / static_cast<float>(this->_height);
+	return static_cast<float>(this->_width) / static_cast<float>(this->_height);
 }

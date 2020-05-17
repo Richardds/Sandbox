@@ -4,40 +4,39 @@
 
 namespace Graphics
 {
+	class Light
+	{
+	public:
+		Light();
+		virtual ~Light() = default;
 
-    class Light
-    {
-    public:
-        Light();
-        virtual ~Light();
-        float GetIntensity() const;
-        void SetInstensity(float intensity);
-        Math::Vector3f GetColor() const;
-        void SetColor(const Math::Vector3f& color);
+		[[nodiscard]] float GetIntensity() const;
+		void SetIntensity(float intensity);
+		[[nodiscard]] Math::Vector3f GetColor() const;
+		void SetColor(const Math::Vector3f& color);
 
-    private:
-        float _intensity;
-        Math::Vector3f _color;
-    };
+	private:
+		float _intensity;
+		Math::Vector3f _color;
+	};
 
-    inline float Graphics::Light::GetIntensity() const
-    {
-        return this->_intensity;
-    }
+	inline float Light::GetIntensity() const
+	{
+		return this->_intensity;
+	}
 
-    inline void Light::SetInstensity(float intensity)
-    {
-        this->_intensity = intensity;
-    }
+	inline void Light::SetIntensity(const float intensity)
+	{
+		this->_intensity = intensity;
+	}
 
-    inline Math::Vector3f Graphics::Light::GetColor() const
-    {
-        return this->_color;
-    }
+	inline Math::Vector3f Light::GetColor() const
+	{
+		return this->_color;
+	}
 
-    inline void Graphics::Light::SetColor(const Math::Vector3f& color)
-    {
-        this->_color = color;
-    }
-
+	inline void Light::SetColor(const Math::Vector3f& color)
+	{
+		this->_color = color;
+	}
 }

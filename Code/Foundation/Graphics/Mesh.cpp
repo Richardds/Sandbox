@@ -1,20 +1,20 @@
 #include "Mesh.h"
 
-Graphics::Mesh::Mesh(std::shared_ptr<Graphics::VertexArray> vertexArrayObject, std::shared_ptr<Graphics::Buffer> vertexBuffer, std::shared_ptr<Graphics::Buffer> elementsBuffer, uint32_t elementsCount) :
-    _vao(vertexArrayObject),
-    _vbo(vertexBuffer),
-    _ebo(elementsBuffer),
-    _elementsCount(elementsCount)
+#include <utility>
+
+Graphics::Mesh::Mesh(std::shared_ptr<VertexArray> vertexArrayObject,
+                     std::shared_ptr<Buffer> vertexBuffer, std::shared_ptr<Buffer> elementsBuffer,
+                     const uint32_t elementsCount) :
+	_vao(std::move(vertexArrayObject)),
+	_vbo(std::move(vertexBuffer)),
+	_ebo(std::move(elementsBuffer)),
+	_elementsCount(elementsCount)
 {
 }
 
-Graphics::Mesh::~Mesh()
+void Graphics::Mesh::DrawElements() const
 {
-}
-
-void Graphics::Mesh::DrawElements()
-{
-    this->_vao->Bind();
-    glDrawElements(GL_TRIANGLES, this->_elementsCount * 3, GL_UNSIGNED_INT, 0);
-    this->_vao->Unbind();
+	this->_vao->Bind();
+	glDrawElements(GL_TRIANGLES, this->_elementsCount * 3, GL_UNSIGNED_INT, nullptr);
+	this->_vao->Unbind();
 }

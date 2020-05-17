@@ -7,4 +7,4 @@
         static Type instance; \
         return instance; \
     } \
-    private: \
+    private:

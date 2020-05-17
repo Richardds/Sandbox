@@ -4,14 +4,12 @@
 
 namespace GunnerBoi
 {
-
-    class MeshExporterApplication : public App::Application
-    {
-    public:
-        MeshExporterApplication();
-        virtual ~MeshExporterApplication();
-        bool Open();
-        void Close();
-    };
-
+	class MeshExporterApplication : public App::Application
+	{
+	public:
+		MeshExporterApplication();
+		virtual ~MeshExporterApplication();
+		bool Open() override;
+		void Close() override;
+	};
 }

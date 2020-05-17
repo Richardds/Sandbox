@@ -5,29 +5,26 @@ Graphics::Entity::Entity()
 {
 }
 
-Graphics::Entity::Entity(Math::Vector3f position, float rotX, float rotY, float rotZ) :
-    HasPosition(position),
-    HasRotation(rotX, rotY, rotZ)
+Graphics::Entity::Entity(const Math::Vector3f& position, const float rotX, const float rotY, const float rotZ) :
+	HasPosition(position),
+	HasRotation(rotX, rotY, rotZ)
 {
 }
 
-Graphics::Entity::~Entity()
+void Graphics::Entity::Render(const std::shared_ptr<EntityShader>& shader) const
 {
-}
+	if (!this->_model || this->_model->GetMeshes().empty())
+	{
+		return;
+	}
 
-void Graphics::Entity::Render(std::shared_ptr<Graphics::EntityShader> shader)
-{
-    if (!this->_model || this->_model->GetMeshes().size() == 0) {
-        return;
-    }
+	shader->LoadWorldTransformation(
+		Math::TransformationMatrix(
+			this->_position,
+			this->_rotationX, this->_rotationY, this->_rotationZ,
+			this->_scale
+		)
+	);
 
-    shader->LoadWorldTransformation(
-        Math::TransformationMatrix(
-            this->_position,
-            this->_rotX, this->_rotY, this->_rotZ,
-            this->_scale
-        )
-    );
-
-    this->_model->Render(shader);
+	this->_model->Render(shader);
 }

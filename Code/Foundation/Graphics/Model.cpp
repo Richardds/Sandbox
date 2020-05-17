@@ -2,32 +2,29 @@
 #include "../Core/Debug.h"
 
 Graphics::Model::Model() :
-	_state(State::INITIAL)
+	_state(State::Initial)
 {
 }
 
-Graphics::Model::~Model()
+void Graphics::Model::Render(const std::shared_ptr<EntityShader>& shader)
 {
-}
-
-void Graphics::Model::Render(std::shared_ptr<EntityShader> shader)
-{
-	for (auto& mesh : this->_meshes) {
+	for (auto& mesh : this->_meshes)
+	{
 		mesh.second->Render(shader);
 	}
 }
 
-void Graphics::Model::AddMesh(const std::string& name, std::shared_ptr<TexturedMesh> mesh)
+void Graphics::Model::AddMesh(const std::string& name, const std::shared_ptr<TexturedMesh>& mesh)
 {
-	_assert(State::INITIAL == this->_state);
+	_Assert(State::Initial == this->_state);
 	this->_meshes[name] = mesh;
 }
 
 std::shared_ptr<Graphics::TexturedMesh> Graphics::Model::GetMesh(const std::string& name) const
 {
-	auto mesh = this->_meshes.find(name);
+	const auto mesh = this->_meshes.find(name);
 
-	_assert(mesh != this->_meshes.end());
+	_Assert(mesh != this->_meshes.end());
 
 	return mesh->second;
 }
@@ -39,7 +36,7 @@ std::unordered_map<std::string, std::shared_ptr<Graphics::TexturedMesh>> Graphic
 
 void Graphics::Model::FinishLoading()
 {
-	_assert(State::INITIAL == this->_state);
+	_Assert(State::Initial == this->_state);
 
-	this->_state = State::LOADED;
+	this->_state = State::Loaded;
 }
