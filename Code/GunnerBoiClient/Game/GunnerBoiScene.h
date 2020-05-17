@@ -34,7 +34,7 @@ namespace GunnerBoi
         std::shared_ptr<Boi> _player;
         std::shared_ptr<ProjectileManager> _projectileManager;
 
-        bool _lockCameraToTarget;
+        bool _lockCameraToPlayer;
     };
 
 }

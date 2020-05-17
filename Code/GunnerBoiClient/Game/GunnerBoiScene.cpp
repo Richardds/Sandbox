@@ -6,7 +6,7 @@
 #include "GunnerBoiScene.h"
 
 GunnerBoi::GunnerBoiScene::GunnerBoiScene() :
-    _lockCameraToTarget(true)
+    _lockCameraToPlayer(true)
 {
 }
 
@@ -56,7 +56,9 @@ bool GunnerBoi::GunnerBoiScene::Setup()
 
     // Register mouse scrolling
     IO::Mouse::Instance().RegisterScrolling([this](float x, float y) {
-        this->_camera->IncreaseDistance(y);
+        if (this->_lockCameraToPlayer) {
+            this->_camera->IncreaseDistance(y);
+        }
     });
 
     return true;
@@ -90,7 +92,7 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
         mouseMotion *= 50.0f;
 
         // Invert camera motion on free camera
-        if (!this->_lockCameraToTarget) {
+        if (!this->_lockCameraToPlayer) {
             mouseMotion *= -1;
         }
 
@@ -99,16 +101,17 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
 
     // Camera modes
     if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::ONE)) {
-        this->_lockCameraToTarget = true;
+        this->_lockCameraToPlayer = true;
     }
     else if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::TWO)) {
-        this->_lockCameraToTarget = false;
+        this->_lockCameraToPlayer = false;
+        this->_camera->setPosition(Math::Vector3f(-10.0f, 10.0f, 5.0f));
+        this->_camera->LookAt(Math::Vector3f(0.0f, 0.0f, 0.0f));
     }
     else if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::THREE)) {
-        this->_lockCameraToTarget = false;
-    }
-    else if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::FOUR)) {
-        this->_lockCameraToTarget = false;
+        this->_lockCameraToPlayer = false;
+        this->_camera->setPosition(Math::Vector3f(15.0f, 20.0f, 10.0f));
+        this->_camera->LookAt(Math::Vector3f(0.0f, 0.0f, 0.0f));
     }
 }
 
@@ -120,8 +123,8 @@ void GunnerBoi::GunnerBoiScene::Update(float delta)
 
     this->_player->Update(delta);
 
-    if (this->_lockCameraToTarget) {
-        this->_camera->LookAt(this->_player->getPosition());
+    if (this->_lockCameraToPlayer) {
+        this->_camera->Spectate(this->_player->getPosition());
     }
 
     Math::Vector3f playerPosition = this->_player->getPosition();

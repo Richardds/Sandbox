@@ -5,14 +5,14 @@ Graphics::TargetedCamera::TargetedCamera(float distance) :
     _distance(distance)
 {
     this->setRotationX(45.0f);
-    this->LookAt(Math::Vector3f(0.0f, 0.0f, 0.0f));
+    this->Spectate(Math::Vector3f(0.0f, 0.0f, 0.0f));
 }
 
 Graphics::TargetedCamera::~TargetedCamera()
 {
 }
 
-void Graphics::TargetedCamera::LookAt(Math::Vector3f target)
+void Graphics::TargetedCamera::Spectate(Math::Vector3f target)
 {
     const float radiansX = glm::radians(this->_rotX);
     const float radiansY = glm::radians(this->_rotY);

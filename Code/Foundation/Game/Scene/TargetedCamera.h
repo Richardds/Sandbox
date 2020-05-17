@@ -13,7 +13,7 @@ namespace Graphics
         float GetDistance() const;
         void SetDistance(float distance);
         void IncreaseDistance(float distance);
-        void LookAt(Math::Vector3f target);
+        void Spectate(Math::Vector3f target);
 
     private:
         float _distance;

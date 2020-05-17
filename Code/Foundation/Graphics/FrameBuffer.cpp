@@ -31,6 +31,13 @@ void Graphics::FrameBuffer::Activate(unsigned int width, unsigned int height)
     glViewport(0, 0, width, height);
 }
 
+void Graphics::FrameBuffer::Clear()
+{
+    _assert(this->IsBound());
+	
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
 void Graphics::FrameBuffer::Deactivate()
 {
     this->Unbind();
