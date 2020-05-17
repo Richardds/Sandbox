@@ -91,7 +91,7 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
 	if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::Right))
 	{
 		Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
-		mouseMotion *= 50.0f;
+		mouseMotion *= 75.0f;
 
 		// Invert camera motion on free camera
 		if (!this->_lockCameraToPlayer)

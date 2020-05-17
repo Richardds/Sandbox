@@ -6,7 +6,6 @@
 #include "../Graphics/Renderers/EntityRenderer.h"
 #include "../Graphics/Renderers/HUDRenderer.h"
 #include "../Graphics/Renderers/WaterRenderer.h"
-#include "../Timing/Time.h"
 #include "Scene/DirectionalLight.h"
 #include "Scene/Entity.h"
 #include "Scene/PointLight.h"

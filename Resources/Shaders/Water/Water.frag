@@ -109,6 +109,14 @@ void main()
     vec3 sunDirection = normalize(sun.direction);
     float specular = sun.specular * waterSpecular * specularFactor(waterShininess, viewDirection, sunDirection, normalMapping);
 
-    //fragmentColor = vec4(normalMapping, 1.0f);               // Normal mapping
-    fragmentColor = vec4(waterDiffuse + specular, 1.0f);     // Water + highlights
+    // Calculate fragment visibility
+    float distanceToCamera = length(relativeToCameraPosition.xyz);
+    float fragmentVisibility = clamp(exp(-pow(distanceToCamera * fog.density, fog.gradient)), 0.0f, 1.0f);
+
+    // Fade fragment color by visibility
+    vec3 fadedColor = mix(fog.color, waterDiffuse + specular, fragmentVisibility);
+
+    //fragmentColor = vec4(normalMapping, 1.0f);            // Normal mapping
+    //fragmentColor = vec4(waterDiffuse + specular, 1.0f);  // Water + highlights
+    fragmentColor = vec4(fadedColor, 1.0f);                 // Water + highlights + Fog
 }

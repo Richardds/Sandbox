@@ -120,8 +120,8 @@ void main()
     // Fade fragment color by visibility
     vec3 fadedColor = mix(fog.color, phongModelColor, fragmentVisibility);
 
-    //fragmentColor = vec4(vec3(gl_FragCoord.z), 1.0f);   // Depth mapping
-    //fragmentColor = vec4(normalMapping, 1.0f);          // Normal mapping
-    //fragmentColor = vec4(phongModelColor, 1.0f);        // Phong
+    //fragmentColor = vec4(vec3(gl_FragCoord.z), 1.0f); // Depth mapping
+    //fragmentColor = vec4(normalMapping, 1.0f);        // Normal mapping
+    //fragmentColor = vec4(phongModelColor, 1.0f);      // Phong
     fragmentColor = vec4(fadedColor, 1.0f);             // Phong + Fog
 }
