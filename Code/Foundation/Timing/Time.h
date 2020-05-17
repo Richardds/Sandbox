@@ -9,9 +9,9 @@ namespace Timing
 	class Time
 	{
 	public:
-		Time();
+		Time() = default;
 		Time(const Time& rhs);
-		Time(TimePoint time);
+		explicit Time(TimePoint time);
 		void operator=(const Time& rhs);
 		[[nodiscard]] Duration Diff(const Time& rhs) const;
 		template <typename T>

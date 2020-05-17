@@ -1,10 +1,5 @@
 #include "Time.h"
 
-Timing::Time::Time() :
-	_time()
-{
-}
-
 Timing::Time::Time(const Time& rhs)
 {
 	this->_time = rhs._time;
@@ -27,5 +22,5 @@ Timing::Duration Timing::Time::Diff(const Time& rhs) const
 
 Timing::Time Timing::Time::Now()
 {
-	return std::chrono::time_point_cast<Microseconds>(std::chrono::steady_clock::now());
+	return Time(std::chrono::time_point_cast<Microseconds>(std::chrono::steady_clock::now()));
 }

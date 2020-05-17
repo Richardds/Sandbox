@@ -3,6 +3,7 @@
 #include <Util/ResourcesLoader.h>
 
 #include "GunnerBoiScene.h"
+#include "Timing/Time.h"
 
 GunnerBoi::GunnerBoiScene::GunnerBoiScene() :
 	_lockCameraToPlayer(true)
@@ -134,9 +135,14 @@ void GunnerBoi::GunnerBoiScene::Update(const float delta)
 		this->_camera->Spectate(this->_player->GetPosition());
 	}
 
+	// Update player light position
 	const Math::Vector3f playerPosition = this->_player->GetPosition();
 	const float lightPositionY = this->_lights["player_light"]->GetPositionY();
 	this->_lights["player_light"]->SetPosition(Math::Vector3f(playerPosition.x, lightPositionY, playerPosition.z));
+
+	// Update water motion
+	const float time = Timing::Time::Now().Get<Timing::Milliseconds>().count();
+	this->_waterTiles["default"]->SetPositionY(glm::sin(time / 3000.0f) / 12.5f);
 }
 
 void GunnerBoi::GunnerBoiScene::Render()
