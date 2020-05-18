@@ -9,9 +9,9 @@ Graphics::Actor::Actor() :
 void Graphics::Actor::Move(const float distance)
 {
 	this->IncreasePosition(Math::Vector3f(
-		std::sinf(glm::radians(this->_rotationY)) * distance,
+		glm::sin(glm::radians(this->_rotationY)) * distance,
 		0.0f,
-		std::cosf(glm::radians(this->_rotationY)) * distance
+		glm::cos(glm::radians(this->_rotationY)) * distance
 	));
 }
 

@@ -4,6 +4,8 @@
 #include <Graphics/Model.h>
 #include <Math/Vector.h>
 
+
+#include "../Managers/ProjectileManager.h"
 #include "../Scene/Projectile.h"
 
 namespace GunnerBoi
@@ -26,7 +28,9 @@ namespace GunnerBoi
 		void Follow();
 		void Idle();
 		[[nodiscard]] bool IsReadyToFire() const;
-		[[nodiscard]] std::shared_ptr<Projectile> Fire();
+		void SingleFire(std::shared_ptr<ProjectileManager>& projectileManager);
+		void StarFire(std::shared_ptr<ProjectileManager>& projectileManager, unsigned int count);
+		void BeamFire(std::shared_ptr<ProjectileManager>& projectileManager, unsigned int count);
 		void Update(float delta) override;
 
 	private:

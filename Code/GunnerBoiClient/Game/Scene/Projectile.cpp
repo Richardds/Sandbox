@@ -7,14 +7,10 @@ GunnerBoi::Projectile::Projectile(const std::shared_ptr<Actor>& actor) :
 
 GunnerBoi::Projectile::Projectile(const Math::Vector3f& position, const float rotation) :
 	_origin(position),
-	_range(25.0f)
+	_range(75.0f)
 {
 	this->SetPosition(position);
 	this->SetRotationY(rotation);
-}
-
-GunnerBoi::Projectile::~Projectile()
-{
 }
 
 float GunnerBoi::Projectile::DistanceToOrigin() const

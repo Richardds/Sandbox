@@ -75,30 +75,30 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
 {
 	Scene::ProcessInput();
 
+	const Math::Vector3f worldPosition = this->GetScreenWorldPosition(IO::Mouse::Instance().GetCoords());
+	const Math::Vector2f worldPointer = Math::Vector2f(worldPosition.x, worldPosition.z);
+
 	// Player navigation and interaction
 	if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::Left))
 	{
-		const Math::Vector3f worldPosition = this->GetScreenWorldPosition(IO::Mouse::Instance().GetCoords());
-		const Math::Vector2f target = Math::Vector2f(worldPosition.x, worldPosition.z);
+		this->_player->LookAt(worldPointer);
 		if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::LeftShift))
 		{
 			this->_player->Idle();
-			this->_player->LookAt(target);
 
 			if (this->_player->IsReadyToFire())
 			{
-				this->_projectileManager->Manage(this->_player->Fire());
+				this->_player->SingleFire(this->_projectileManager);
 			}
 		}
 		else
 		{
-			this->_player->SetTarget(target);
+			this->_player->SetTarget(worldPointer);
 			this->_player->Follow();
 		}
 	}
-
 	// Camera motion
-	if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::Right))
+	else if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::Right))
 	{
 		Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
 		mouseMotion *= 75.0f;
@@ -110,6 +110,23 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
 		}
 
 		this->_camera->IncreaseRotation(-mouseMotion.y, mouseMotion.x, 0.0f);
+	}
+
+	// Additional skills
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::X))
+	{
+		if (this->_player->IsReadyToFire())
+		{
+			this->_player->StarFire(this->_projectileManager, 5);
+		}
+	}
+	else if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Z))
+	{
+		if (this->_player->IsReadyToFire())
+		{
+			this->_player->LookAt(worldPointer);
+			this->_player->BeamFire(this->_projectileManager, 4);
+		}
 	}
 
 	// Camera modes

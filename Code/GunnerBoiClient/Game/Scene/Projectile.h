@@ -10,7 +10,6 @@ namespace GunnerBoi
 	public:
 		explicit Projectile(const std::shared_ptr<Actor>& actor);
 		Projectile(const Math::Vector3f& position, float rotation);
-		virtual ~Projectile();
 
 		[[nodiscard]] float DistanceToOrigin() const;
 		[[nodiscard]] bool OutOfRange() const;
