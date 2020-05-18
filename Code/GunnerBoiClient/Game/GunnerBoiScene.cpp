@@ -168,7 +168,7 @@ void GunnerBoi::GunnerBoiScene::Update(const float delta)
 
 	// Update water motion
 	const float time = Timing::Time::Now().Get<Timing::Milliseconds>().count();
-	this->_waterTiles["default"]->SetPositionY(glm::sin(time / 2000.0f) / 25.0f);
+	this->_waterTiles["default"]->SetPositionY(glm::sin(time / 1500.0f) / 35.0f);
 }
 
 void GunnerBoi::GunnerBoiScene::Render()
