@@ -1,4 +1,4 @@
-#include <exception>
+#include <stdexcept>
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 

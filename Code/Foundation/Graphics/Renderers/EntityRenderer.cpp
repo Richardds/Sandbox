@@ -42,6 +42,7 @@ void Graphics::EntityRenderer::Begin(const std::shared_ptr<Camera>& camera,
 
 void Graphics::EntityRenderer::Render(const std::shared_ptr<Entity>& entity) const
 {
+	_Assert(entity);
 	_Assert(State::Ready == this->_state);
 
 	entity->Render(this->_shader);

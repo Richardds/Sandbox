@@ -21,9 +21,7 @@ Graphics::EntityShader::EntityShader() :
 
 	_materialColorLocation(-1),
 	_materialSpecularLocation(-1),
-	_materialShininessLocation(-1),
-
-	_viewMatrix(1.0f)
+	_materialShininessLocation(-1)
 {
 }
 
@@ -86,35 +84,34 @@ void Graphics::EntityShader::InitializeUniformVariables()
 	                            this->_specularSamplerLocation.texture);
 }
 
-void Graphics::EntityShader::LoadProjection(const std::shared_ptr<const Projection>& projection)
+void Graphics::EntityShader::LoadProjection(const std::shared_ptr<const Projection>& projection) const
 {
 	this->LoadMatrix4f(this->_projectionLocation, projection->GetMatrix());
 }
 
-void Graphics::EntityShader::EnableClippingPlane(const Math::Vector4f& plane)
+void Graphics::EntityShader::EnableClippingPlane(const Math::Vector4f& plane) const
 {
 	glEnable(GL_CLIP_DISTANCE0);
 	this->LoadBool(this->_clippingPlaneLocation.enabled, true);
 	this->LoadVector4f(this->_clippingPlaneLocation.plane, plane);
 }
 
-void Graphics::EntityShader::DisableClippingPlane()
+void Graphics::EntityShader::DisableClippingPlane() const
 {
 	this->LoadBool(this->_clippingPlaneLocation.enabled, false);
 	glDisable(GL_CLIP_DISTANCE0);
 }
 
-void Graphics::EntityShader::LoadCamera(const std::shared_ptr<Camera>& camera)
+void Graphics::EntityShader::LoadCamera(const std::shared_ptr<Camera>& camera) const
 {
 	_Assert(camera);
 
-	this->_viewMatrix = Math::ViewMatrix(camera->GetPosition(), camera->GetRotationX(), camera->GetRotationY());
-
-	this->LoadMatrix4f(this->_viewLocation, this->_viewMatrix);
+	const Math::Matrix4f viewMatrix = Math::ViewMatrix(camera->GetPosition(), camera->GetRotationX(), camera->GetRotationY());
+	this->LoadMatrix4f(this->_viewLocation, viewMatrix);
 	this->LoadVector3f(this->_viewPositionLocation, camera->GetPosition());
 }
 
-void Graphics::EntityShader::LoadSun(const std::shared_ptr<DirectionalLight>& sun)
+void Graphics::EntityShader::LoadSun(const std::shared_ptr<DirectionalLight>& sun) const
 {
 	const Math::Vector3f diffuseColor = sun->GetIntensity() * sun->GetColor();
 	const Math::Vector3f ambientColor = diffuseColor / 5.0f;
@@ -125,7 +122,7 @@ void Graphics::EntityShader::LoadSun(const std::shared_ptr<DirectionalLight>& su
 	this->LoadFloat(this->_sunLocation.specular, 1.0f);
 }
 
-void Graphics::EntityShader::LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights)
+void Graphics::EntityShader::LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const
 {
 	const int lightsCount = static_cast<int>(lights.size());
 	_Assert(EntityShader::maxLightCount > lightsCount - 1);
@@ -139,7 +136,7 @@ void Graphics::EntityShader::LoadLights(const std::unordered_map<std::string, st
 	}
 }
 
-void Graphics::EntityShader::LoadLight(const int index, const std::shared_ptr<PointLight>& light)
+void Graphics::EntityShader::LoadLight(const int index, const std::shared_ptr<PointLight>& light) const
 {
 	_Assert(EntityShader::maxLightCount > index);
 	const Math::Vector3f diffuseColor = light->GetIntensity() * light->GetColor();
@@ -151,37 +148,37 @@ void Graphics::EntityShader::LoadLight(const int index, const std::shared_ptr<Po
 	this->LoadVector3f(this->_lightLocations[index].attenuation, light->GetAttenuation());
 }
 
-void Graphics::EntityShader::LoadFog(float density, float gradient)
+void Graphics::EntityShader::LoadFog(float density, float gradient) const
 {
 	this->LoadFloat(this->_fogDensityLocation, density);
 	this->LoadFloat(this->_fogGradientLocation, gradient);
 }
 
-void Graphics::EntityShader::LoadWorldTransformation(const Math::Matrix4f& transformationMatrix)
+void Graphics::EntityShader::LoadWorldTransformation(const Math::Matrix4f& transformationMatrix) const
 {
 	this->LoadMatrix4f(this->_worldTransformationLocation, transformationMatrix);
 	this->LoadMatrix3f(this->_normalTransformationLocation,
 	                   transpose(inverse(transformationMatrix)));
 }
 
-void Graphics::EntityShader::LoadMaterial(const Material& material)
+void Graphics::EntityShader::LoadMaterial(const Material& material) const
 {
 	this->LoadVector3f(this->_materialColorLocation, material.GetColor());
 	this->LoadFloat(this->_materialSpecularLocation, material.GetSpecular());
 	this->LoadFloat(this->_materialShininessLocation, material.GetReflectivity());
 }
 
-void Graphics::EntityShader::LoadHasDiffuseMap(const bool hasDiffuseMap)
+void Graphics::EntityShader::LoadHasDiffuseMap(const bool hasDiffuseMap) const
 {
 	this->LoadBool(this->_diffuseSamplerLocation.enabled, hasDiffuseMap);
 }
 
-void Graphics::EntityShader::LoadHasNormalMap(const bool hasNormalMap)
+void Graphics::EntityShader::LoadHasNormalMap(const bool hasNormalMap) const
 {
 	this->LoadBool(this->_normalSamplerLocation.enabled, hasNormalMap);
 }
 
-void Graphics::EntityShader::LoadHasSpecularMap(const bool hasSpecularMap)
+void Graphics::EntityShader::LoadHasSpecularMap(const bool hasSpecularMap) const
 {
 	this->LoadBool(this->_specularSamplerLocation.enabled, hasSpecularMap);
 }

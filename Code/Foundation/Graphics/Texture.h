@@ -1,7 +1,6 @@
 #pragma once
 
 #include <unordered_map>
-#include <gli/texture.hpp>
 
 #include "Core.h"
 #include "FrameBuffer.h"
@@ -29,21 +28,26 @@ namespace Graphics
 			Refraction = 6
 		};
 
-		explicit Texture(GLenum target);
+		explicit Texture();
 		virtual ~Texture();
 		[[nodiscard]] State GetState() const;
 		void Bind() const;
 		void Activate(Bank bank) const;
 		[[nodiscard]] bool IsBound() const;
 		void Unbind() const;
-		void Data(const gli::texture& texture);
 		void Data(const void* pixels, unsigned int width, unsigned int height);
 		void Data(const std::shared_ptr<FrameBuffer>& frameBuffer, unsigned int width, unsigned int height);
 		void DepthData(const std::shared_ptr<FrameBuffer>& frameBuffer, unsigned int width, unsigned int height);
+		void FinishLoading();
 		[[nodiscard]] GLenum GetTarget() const;
+		void SetTarget(GLenum target);
 		[[nodiscard]] GLuint GetGlTexture() const;
-		[[nodiscard]] GLsizei GetWidth() const;
-		[[nodiscard]] GLsizei GetHeight() const;
+		[[nodiscard]] unsigned int GetWidth() const;
+		void SetWidth(unsigned int width);
+		[[nodiscard]] unsigned int GetHeight() const;
+		void SetHeight(unsigned int height);
+		[[nodiscard]] unsigned int GetDepth() const;
+		void SetDepth(unsigned int depth);
 
 		static GLuint GetBound(GLenum target);
 		static void UnbindBound(GLenum target);
@@ -54,6 +58,7 @@ namespace Graphics
 		GLuint _glTexture;
 		GLsizei _width;
 		GLsizei _height;
+		GLsizei _depth;
 
 		static std::unordered_map<GLenum, GLuint> _boundTextures;
 	};
@@ -78,14 +83,43 @@ namespace Graphics
 		return this->_glTexture;
 	}
 
-	inline GLsizei Texture::GetWidth() const
+	inline void Texture::SetTarget(const GLenum target)
+	{
+		_Assert(State::Initial == this->_state);
+		this->_target = target;
+	}
+
+	inline unsigned int Texture::GetWidth() const
 	{
 		return this->_width;
 	}
+	
+	inline void Texture::SetWidth(const unsigned int width)
+	{
+		_Assert(State::Initial == this->_state);
+		this->_width = width;
+	}
 
-	inline GLsizei Texture::GetHeight() const
+	inline unsigned int Texture::GetHeight() const
 	{
 		return this->_height;
+	}
+
+	inline void Texture::SetHeight(const unsigned int height)
+	{
+		_Assert(State::Initial == this->_state);
+		this->_height = height;
+	}
+
+	inline unsigned int Texture::GetDepth() const
+	{
+		return this->_depth;
+	}
+
+	inline void Texture::SetDepth(const unsigned int depth)
+	{
+		_Assert(State::Initial == this->_state);
+		this->_depth = depth;
 	}
 
 	inline GLuint Texture::GetBound(const GLenum target)

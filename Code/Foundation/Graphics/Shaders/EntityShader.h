@@ -15,19 +15,19 @@ namespace Graphics
 	public:
 		EntityShader();
 		void InitializeUniformVariables() override;
-		void LoadProjection(const std::shared_ptr<const Projection>& projection);
-		void EnableClippingPlane(const Math::Vector4f& plane);
-		void DisableClippingPlane();
-		void LoadCamera(const std::shared_ptr<Camera>& camera);
-		void LoadSun(const std::shared_ptr<DirectionalLight>& sun);
-		void LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights);
-		void LoadLight(int index, const std::shared_ptr<PointLight>& light);
-		void LoadFog(float density, float gradient);
-		void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix);
-		void LoadMaterial(const Material& material);
-		void LoadHasDiffuseMap(bool hasDiffuseMap);
-		void LoadHasNormalMap(bool hasNormalMap);
-		void LoadHasSpecularMap(bool hasSpecularMap);
+		void LoadProjection(const std::shared_ptr<const Projection>& projection) const;
+		void EnableClippingPlane(const Math::Vector4f& plane) const;
+		void DisableClippingPlane() const;
+		void LoadCamera(const std::shared_ptr<Camera>& camera) const;
+		void LoadSun(const std::shared_ptr<DirectionalLight>& sun) const;
+		void LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const;
+		void LoadLight(int index, const std::shared_ptr<PointLight>& light) const;
+		void LoadFog(float density, float gradient) const;
+		void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix) const;
+		void LoadMaterial(const Material& material) const;
+		void LoadHasDiffuseMap(bool hasDiffuseMap) const;
+		void LoadHasNormalMap(bool hasNormalMap) const;
+		void LoadHasSpecularMap(bool hasSpecularMap) const;
 
 	private:
 		static const int maxLightCount = 10;
@@ -55,7 +55,5 @@ namespace Graphics
 		GLint _materialColorLocation;
 		GLint _materialSpecularLocation;
 		GLint _materialShininessLocation;
-
-		Math::Matrix4f _viewMatrix;
 	};
 }

@@ -2,16 +2,16 @@
 
 Graphics::DepthShader::DepthShader() :
 	ShaderSystem("Depth"),
-	_transformationPosition(-1)
+	_projectionPosition(-1)
 {
 }
 
 void Graphics::DepthShader::InitializeUniformVariables()
 {
-	this->InitializeMatrix4fLocation("transformation", Math::Matrix4f(1.0f), this->_transformationPosition);
+	this->InitializeMatrix4fLocation("transformation", Math::Matrix4f(1.0f), this->_projectionPosition);
 }
 
-void Graphics::DepthShader::LoadTransformation(const Math::Matrix4f& transformation)
+void Graphics::DepthShader::LoadProjection(const Math::Matrix4f& transformation) const
 {
-	this->LoadMatrix4f(this->_transformationPosition, transformation);
+	this->LoadMatrix4f(this->_projectionPosition, transformation);
 }

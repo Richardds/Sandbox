@@ -20,9 +20,7 @@ Graphics::WaterShader::WaterShader() :
 
 	_fogDensityLocation(-1),
 	_fogGradientLocation(-1),
-	_fogColorLocation(-1),
-
-	_viewMatrix(1.0f)
+	_fogColorLocation(-1)
 {
 }
 
@@ -68,12 +66,12 @@ void Graphics::WaterShader::LoadProjection(const std::shared_ptr<const Projectio
 	this->LoadMatrix4f(this->_projectionLocation, projection->GetMatrix());
 }
 
-void Graphics::WaterShader::LoadCamera(const std::shared_ptr<Camera>& camera)
+void Graphics::WaterShader::LoadCamera(const std::shared_ptr<Camera>& camera) const
 {
 	_Assert(camera);
 
-	this->_viewMatrix = Math::ViewMatrix(camera->GetPosition(), camera->GetRotationX(), camera->GetRotationY());
-	this->LoadMatrix4f(this->_viewLocation, this->_viewMatrix);
+	const Math::Matrix4f viewMatrix = Math::ViewMatrix(camera->GetPosition(), camera->GetRotationX(), camera->GetRotationY());
+	this->LoadMatrix4f(this->_viewLocation, viewMatrix);
 	this->LoadVector3f(this->_viewPositionLocation, camera->GetPosition());
 }
 

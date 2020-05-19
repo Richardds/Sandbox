@@ -9,9 +9,9 @@ namespace Graphics
 	public:
 		DepthShader();
 		void InitializeUniformVariables() override;
-		void LoadTransformation(const Math::Matrix4f& transformation);
+		void LoadProjection(const Math::Matrix4f& transformation) const;
 
 	private:
-		GLint _transformationPosition;
+		GLint _projectionPosition;
 	};
 }

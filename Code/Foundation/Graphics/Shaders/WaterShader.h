@@ -15,7 +15,7 @@ namespace Graphics
 		WaterShader();
 		void InitializeUniformVariables() override;
 		void LoadProjection(const std::shared_ptr<const Projection>& projection) const;
-		void LoadCamera(const std::shared_ptr<Camera>& camera);
+		void LoadCamera(const std::shared_ptr<Camera>& camera) const;
 		void LoadSun(const std::shared_ptr<DirectionalLight>& sun) const;
 		void LoadFog(float density, float gradient) const;
 		void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix) const;
@@ -45,7 +45,5 @@ namespace Graphics
 		GLint _fogDensityLocation;
 		GLint _fogGradientLocation;
 		GLint _fogColorLocation;
-
-		Math::Matrix4f _viewMatrix;
 	};
 }

@@ -3,6 +3,7 @@
 #include <string>
 #include <unordered_map>
 
+#include "../Graphics/Renderers/SkyboxRenderer.h"
 #include "../Graphics/Renderers/EntityRenderer.h"
 #include "../Graphics/Renderers/WaterRenderer.h"
 #include "Scene/DirectionalLight.h"
@@ -33,6 +34,7 @@ namespace Graphics
 
 	protected:
 		virtual void RenderEntities();
+		virtual void RenderSkybox();
 		[[nodiscard]] Math::Vector3f GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const;
 		std::shared_ptr<Water> AddWater(const std::string& name, float size);
 		std::shared_ptr<PointLight> AddLight(const std::string& name);
@@ -40,12 +42,14 @@ namespace Graphics
 
 		std::shared_ptr<Projection> _projection;
 		std::shared_ptr<TargetedCamera> _camera;
+		std::shared_ptr<SkyboxRenderer> _skyboxRenderer;
 		std::shared_ptr<EntityRenderer> _entityRenderer;
 		std::shared_ptr<WaterRenderer> _waterRenderer;
 		std::shared_ptr<DirectionalLight> _sun;
-		std::unordered_map<std::string, std::shared_ptr<Water>> _waterTiles;
+		std::shared_ptr<Texture> _skybox;
 		std::unordered_map<std::string, std::shared_ptr<PointLight>> _lights;
 		std::unordered_map<std::string, std::shared_ptr<Entity>> _entities;
+		std::unordered_map<std::string, std::shared_ptr<Water>> _waterTiles;
 
 	private:
 		State _state;

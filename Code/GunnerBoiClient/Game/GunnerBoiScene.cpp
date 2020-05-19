@@ -15,20 +15,15 @@ bool GunnerBoi::GunnerBoiScene::Setup()
 {
 	_Assert(Graphics::Scene::Setup());
 
-	// Setup HUD renderer
-	this->_hudRenderer = std::make_shared<Graphics::HUDRenderer>();
-	if (!this->_hudRenderer->Setup(this->_projection))
-	{
-		IO::Console::Instance().Error("Failed setup HUD renderer\n");
-		return false;
-	}
-
 	// Create projectile manager
 	this->_projectileManager = std::make_shared<ProjectileManager>();
 
 	// Configure camera
 	this->_camera->SetDistance(10.0f);
 
+	// Load Skybox
+	this->_skybox = Util::ResourcesLoader::Instance().LoadCubeMap("day");
+	
 	// Configure lights
 	std::shared_ptr<Graphics::PointLight> playerLight = this->AddLight("player_light");
 	playerLight->SetPosition(Math::Vector3f(0.0f, 5.0f, 0.0f));

@@ -30,6 +30,14 @@ bool Graphics::Scene::Setup()
 	this->_projection = Core::Instance().MakeProjection(this->_camera->GetFieldOfView());
 
 	// Setup entity renderer
+	this->_skyboxRenderer = std::make_shared<SkyboxRenderer>();
+	if (!this->_skyboxRenderer->Setup(this->_projection))
+	{
+		IO::Console::Instance().Error("Failed setup skybox renderer\n");
+		return false;
+	}
+	
+	// Setup entity renderer
 	this->_entityRenderer = std::make_shared<EntityRenderer>();
 	if (!this->_entityRenderer->Setup(this->_projection))
 	{
@@ -74,38 +82,42 @@ void Graphics::Scene::Render()
 {
 	_Assert(State::Run == this->_state);
 
+	// Render the skybox to the screen buffer
+	this->RenderSkybox();
+
 	// Render the entities to the screen buffer
-	this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
 	this->RenderEntities();
 
 	// Render the water tiles using multi-pass technique
 	for (auto& water : this->_waterTiles)
 	{
 		// Render scene to water reflection frame buffer
-		const float distance = 2.0f * (this->_camera->GetPositionY() - water.second->GetPositionY());
-		this->_camera->IncreasePositionY(-distance);
-		this->_camera->InvertRotationX();
-		this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
 		// Cull everything under the water
 		this->_entityRenderer->GetShader()->EnableClippingPlane(
 			Math::Vector4f(0.0f, 1.0f, 0.0f, -water.second->GetPositionY()));
+		const float distance = 2.0f * (this->_camera->GetPositionY() - water.second->GetPositionY());
+		this->_camera->IncreasePositionY(-distance);
+		this->_camera->InvertRotationX();
 		this->_waterRenderer->RenderToReflectionBuffer([this]()
-			{
-				this->RenderEntities();
-			});
+		{
+			this->RenderSkybox();
+			this->RenderEntities();
+		});
 		this->_camera->IncreasePositionY(distance);
 		this->_camera->InvertRotationX();
+		
 		// Render scene to water refraction frame buffer
-		this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
 		// Cull everything 0.025 units above the water
 		this->_entityRenderer->GetShader()->EnableClippingPlane(
 			Math::Vector4f(0.0f, -1.0f, 0.0f, water.second->GetPositionY() + 0.025f));
 		this->_waterRenderer->RenderToRefractionBuffer([this]()
-			{
-				this->RenderEntities();
-			});
+		{
+			this->RenderSkybox();
+			this->RenderEntities();
+		});
 		this->_entityRenderer->GetShader()->DisableClippingPlane();
-		// Now render to screen buffer
+		
+		// Render the water tile to the screen buffer
 		this->_waterRenderer->Begin(this->_camera, this->_sun);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -116,9 +128,20 @@ void Graphics::Scene::Render()
 
 void Graphics::Scene::RenderEntities()
 {
+	this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
+	
 	for (auto& entity : this->_entities)
 	{
 		this->_entityRenderer->Render(entity.second);
+	}
+}
+
+void Graphics::Scene::RenderSkybox()
+{
+	if (this->_skybox)
+	{
+		this->_skyboxRenderer->Begin(this->_camera, this->_sun);
+		this->_skyboxRenderer->Render(this->_skybox);
 	}
 }
 

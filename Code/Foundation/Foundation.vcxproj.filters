@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Util">
@@ -186,14 +186,14 @@
     <ClCompile Include="Game\Scene\PointLight.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Renderers\HUDRenderer.cpp">
-      <Filter>Graphics\Renderers</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Shaders\HUDShader.cpp">
-      <Filter>Graphics\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="Util\Generators\PrimitiveGenerator.cpp">
       <Filter>Util\Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Shaders\SkyboxShader.cpp">
+      <Filter>Graphics\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Renderers\SkyboxRenderer.cpp">
+      <Filter>Graphics\Renderers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -353,14 +353,14 @@
     <ClInclude Include="Game\Scene\PointLight.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Renderers\HUDRenderer.h">
-      <Filter>Graphics\Renderers</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Shaders\HUDShader.h">
-      <Filter>Graphics\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="Util\Generators\PrimitiveGenerator.h">
       <Filter>Util\Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Shaders\SkyboxShader.h">
+      <Filter>Graphics\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Renderers\SkyboxRenderer.h">
+      <Filter>Graphics\Renderers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

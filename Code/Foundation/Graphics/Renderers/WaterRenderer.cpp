@@ -24,7 +24,8 @@ bool Graphics::WaterRenderer::Setup(const std::shared_ptr<const Projection>& pro
 	// Reflection
 	this->_reflectionFrameBuffer = std::make_shared<FrameBuffer>();
 	this->_reflectionFrameBuffer->Bind();
-	this->_reflectionTexture = std::make_shared<Texture>(GL_TEXTURE_2D);
+	this->_reflectionTexture = std::make_shared<Texture>();
+	this->_reflectionTexture->SetTarget(GL_TEXTURE_2D);
 	this->_reflectionTexture->Bind();
 	this->_reflectionTexture->Data(this->_reflectionFrameBuffer, TEXTURE_SIZE, TEXTURE_SIZE);
 	this->_reflectionTexture->Unbind();
@@ -34,12 +35,14 @@ bool Graphics::WaterRenderer::Setup(const std::shared_ptr<const Projection>& pro
 	this->_refractionFrameBuffer = std::make_shared<FrameBuffer>();
 	this->_refractionFrameBuffer->Bind();
 	
-	this->_refractionTexture = std::make_shared<Texture>(GL_TEXTURE_2D);
+	this->_refractionTexture = std::make_shared<Texture>();
+	this->_refractionTexture->SetTarget(GL_TEXTURE_2D);
 	this->_refractionTexture->Bind();
 	this->_refractionTexture->Data(this->_refractionFrameBuffer, TEXTURE_SIZE, TEXTURE_SIZE);
 	this->_refractionTexture->Unbind();
 
-	this->_depthTexture = std::make_shared<Texture>(GL_TEXTURE_2D);
+	this->_depthTexture = std::make_shared<Texture>();
+	this->_depthTexture->SetTarget(GL_TEXTURE_2D);
 	this->_depthTexture->Bind();
 	this->_depthTexture->DepthData(this->_refractionFrameBuffer, TEXTURE_SIZE, TEXTURE_SIZE);
 	this->_depthTexture->Unbind();
@@ -81,6 +84,7 @@ void Graphics::WaterRenderer::RenderToRefractionBuffer(const std::function<void(
 
 void Graphics::WaterRenderer::Render(const std::shared_ptr<Water>& water) const
 {
+	_Assert(water);
 	_Assert(State::Ready == this->_state);
 
 	water->Render(this->_shader);
