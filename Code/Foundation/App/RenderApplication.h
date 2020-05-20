@@ -16,14 +16,16 @@ namespace App
 		bool Open() override;
 		void Run() override;
 		void Close() override;
+		void SetTitle(const std::string& title) override;
+		void UpdateTitleStats() const;
 
 	protected:
 		virtual void OnConfigureContext();
-		virtual void OnProcessInput();
+		virtual void OnProcessInput() = 0;
 		void PrintDeviceInfo() const;
 		void OnInitializeFrame();
-		virtual void OnUpdateLogic();
-		virtual void OnUpdateFrame();
+		virtual void OnUpdateLogic() = 0;
+		virtual void OnUpdateFrame() = 0;
 		void SetQuitRequested(bool isQuitRequested);
 		[[nodiscard]] bool IsQuitRequested() const;
 		[[nodiscard]] Timing::Time GetTime() const;
@@ -31,11 +33,14 @@ namespace App
 		[[nodiscard]] float GetFrameDelta() const;
 
 	private:
-		void UpdateTime();
+		void UpdateTiming();
 
 		std::shared_ptr<Graphics::Window> _window;
 		Timing::Time _time;
 		Timing::Duration _frameTime;
+		float _currentSecond;
+		unsigned int _frameCount;
+		unsigned int _lastFrameCount;
 		bool _isQuitRequested;
 	};
 

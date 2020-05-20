@@ -4,9 +4,7 @@
 #include <Graphics/Model.h>
 #include <Math/Vector.h>
 
-
 #include "../Managers/ProjectileManager.h"
-#include "../Scene/Projectile.h"
 
 namespace GunnerBoi
 {
@@ -44,7 +42,6 @@ namespace GunnerBoi
 	{
 		return this->_state;
 	}
-
 
 	inline Math::Vector2f Boi::GetTarget() const
 	{

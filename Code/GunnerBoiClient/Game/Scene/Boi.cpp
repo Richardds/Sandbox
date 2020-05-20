@@ -72,7 +72,7 @@ void GunnerBoi::Boi::Update(const float delta)
 
 	if (State::Following == this->_state)
 	{
-		if (this->DistanceTo(this->_target) < 0.05f)
+		if (this->DistanceTo(this->_target) < 0.1f)
 		{
 			this->_state = State::Idle;
 		}

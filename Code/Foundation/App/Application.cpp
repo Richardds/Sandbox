@@ -21,11 +21,6 @@ bool App::Application::Open()
 	return true;
 }
 
-void App::Application::Run()
-{
-	// Override
-}
-
 void App::Application::Close()
 {
 	_Assert(this->IsOpen());

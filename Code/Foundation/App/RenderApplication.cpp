@@ -6,6 +6,9 @@
 
 App::RenderApplication::RenderApplication() :
 	_frameTime(0.0f),
+	_currentSecond(0.0f),
+	_frameCount(0),
+	_lastFrameCount(0),
 	_isQuitRequested(false)
 {
 }
@@ -22,7 +25,7 @@ bool App::RenderApplication::Open()
 			return false;
 		}
 
-		this->_window = std::make_shared<Graphics::Window>(1280, 720, this->GetTitle());
+		this->_window = std::make_shared<Graphics::Window>(1280, 720, this->_title.c_str());
 		this->_window->Create();
 
 		if (!Graphics::Core::Instance().SetRenderingContext(this->_window))
@@ -47,7 +50,7 @@ void App::RenderApplication::Run()
 
 	while (!this->IsQuitRequested())
 	{
-		this->UpdateTime();
+		this->UpdateTiming();
 		this->OnProcessInput();
 		this->OnUpdateLogic();
 		this->OnInitializeFrame();
@@ -69,14 +72,42 @@ void App::RenderApplication::Close()
 	Application::Close();
 }
 
+void App::RenderApplication::SetTitle(const std::string& title)
+{
+	Application::SetTitle(title);
+	if (this->_window)
+	{
+		this->_window->SetTitle(title);
+	}
+}
+
+void App::RenderApplication::UpdateTitleStats() const
+{
+	_Assert(200 > this->_title.size());
+
+	if (this->_frameCount == 0)
+	{
+		this->_window->SetTitle(this->_title);
+		return;
+	}
+	
+	char titleBuffer[256];
+	const float averageFrameTime = this->_currentSecond / static_cast<float>(this->_frameCount);
+	const float averageFrameTimeMs = averageFrameTime / 1000.0f;
+	
+	sprintf_s(titleBuffer, 256, "%s | Frame rate: %3u | Avg. frame time: %3.3f ms", this->_title.c_str(), this->_lastFrameCount, averageFrameTimeMs);
+	
+	this->_window->SetTitle(titleBuffer);
+}
+
 void App::RenderApplication::OnConfigureContext()
 {
+	glClearColor(0.2f, 0.325f, 0.375f, 1.0f);
+	
 	glEnable(GL_MULTISAMPLE);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
-
-	glClearColor(0.2f, 0.325f, 0.375f, 1.0f);
 
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
@@ -85,11 +116,6 @@ void App::RenderApplication::OnConfigureContext()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	this->_window->Open();
-}
-
-void App::RenderApplication::OnProcessInput()
-{
-	// Override
 }
 
 void App::RenderApplication::OnInitializeFrame()
@@ -113,25 +139,26 @@ void App::RenderApplication::PrintDeviceInfo() const
 	);
 }
 
-void App::RenderApplication::OnUpdateLogic()
-{
-	// Override
-}
-
-void App::RenderApplication::OnUpdateFrame()
-{
-	// Override
-}
-
 float App::RenderApplication::GetFrameDelta() const
 {
 	return std::chrono::duration_cast<Timing::Seconds>(this->_frameTime).count();
 }
 
-void App::RenderApplication::UpdateTime()
+void App::RenderApplication::UpdateTiming()
 {
-	Timing::Time now = Timing::Time::Now();
+	const Timing::Time now = Timing::Time::Now();
 
 	this->_frameTime = now.Diff(this->_time);
 	this->_time = Timing::Time::Now();
+
+	if (this->_currentSecond > 999999.999f)
+	{
+		this->UpdateTitleStats();
+		this->_lastFrameCount = this->_frameCount;
+		this->_currentSecond = 0.0f;
+		this->_frameCount = 0;
+	}
+
+	this->_currentSecond += this->_frameTime.count();
+	this->_frameCount++;
 }

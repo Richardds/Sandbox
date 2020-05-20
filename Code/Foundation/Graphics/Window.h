@@ -63,6 +63,7 @@ namespace Graphics
 	inline void Window::SetTitle(const std::string& title)
 	{
 		this->_title = title;
+		glfwSetWindowTitle(this->_glfwWindow, this->_title.c_str());
 	}
 
 	inline const std::string& Window::GetTitle() const
