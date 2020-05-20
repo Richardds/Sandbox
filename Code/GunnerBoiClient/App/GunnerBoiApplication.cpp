@@ -1,6 +1,7 @@
 #include <Graphics/Core.h>
 
 #include "GunnerBoiApplication.h"
+#include "IO/Keyboard.h"
 
 bool GunnerBoi::GunnerBoiApplication::Open()
 {
@@ -24,6 +25,18 @@ void GunnerBoi::GunnerBoiApplication::Close()
 
 void GunnerBoi::GunnerBoiApplication::OnProcessInput()
 {
+	// Disable vertical sync
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::F10))
+	{
+		this->SetVSyncEnabled(false);
+	}
+
+	// Enable vertical sync
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::F11))
+	{
+		this->SetVSyncEnabled(true);
+	}
+	
 	this->_scene->ProcessInput();
 }
 

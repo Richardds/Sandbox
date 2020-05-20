@@ -9,7 +9,8 @@ App::RenderApplication::RenderApplication() :
 	_currentSecond(0.0f),
 	_frameCount(0),
 	_lastFrameCount(0),
-	_isQuitRequested(false)
+	_isQuitRequested(false),
+	_vSyncEnabled(true)
 {
 }
 
@@ -95,13 +96,20 @@ void App::RenderApplication::UpdateTitleStats() const
 	const float averageFrameTime = this->_currentSecond / static_cast<float>(this->_frameCount);
 	const float averageFrameTimeMs = averageFrameTime / 1000.0f;
 	
-	sprintf_s(titleBuffer, 256, "%s | Frame rate: %3u | Avg. frame time: %3.3f ms", this->_title.c_str(), this->_lastFrameCount, averageFrameTimeMs);
+	sprintf_s(titleBuffer, 256, "%s | Frame rate: %3u | Avg. frame time: %3.3f ms | VSync %s",
+		this->_title.c_str(),
+		this->_lastFrameCount,
+		averageFrameTimeMs,
+		this->_vSyncEnabled ? "enabled" : "disabled"
+	);
 	
 	this->_window->SetTitle(titleBuffer);
 }
 
 void App::RenderApplication::OnConfigureContext()
 {
+	this->SetVSyncEnabled(true);
+	
 	glClearColor(0.2f, 0.325f, 0.375f, 1.0f);
 	
 	glEnable(GL_MULTISAMPLE);
@@ -137,6 +145,12 @@ void App::RenderApplication::PrintDeviceInfo() const
 		Graphics::Core::Instance().GetDeviceName().c_str(),
 		Graphics::Core::Instance().GetDriverVersion().c_str()
 	);
+}
+
+void App::RenderApplication::SetVSyncEnabled(const bool enabled)
+{
+	this->_vSyncEnabled = enabled;
+	glfwSwapInterval(this->_vSyncEnabled ? 1 : 0);
 }
 
 float App::RenderApplication::GetFrameDelta() const

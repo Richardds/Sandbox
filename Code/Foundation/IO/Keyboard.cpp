@@ -3,7 +3,6 @@
 #include "../Core/Types.h"
 #include "../Graphics/Core.h"
 
-
 bool IO::Keyboard::IsKeyPressed(Key key) const
 {
 	_Assert(Graphics::Core::Instance().IsCreated());
