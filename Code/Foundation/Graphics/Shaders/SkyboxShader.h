@@ -17,5 +17,6 @@ namespace Graphics
 	private:
 		GLint _projectionLocation;
 		GLint _viewLocation;
+		GLint _textureLocation;
 	};
 }

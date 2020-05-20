@@ -4,13 +4,13 @@
 
 Util::PrimitiveGenerator::PrimitiveGenerator()
 {
-	this->_2dAttributesTemplate.Append(GL_FLOAT, 3);
-	this->_2dAttributesTemplate.Append(GL_FLOAT, 2);
+	this->_2dQuadAttributesTemplate.Append(GL_FLOAT, 3);
+	this->_2dQuadAttributesTemplate.Append(GL_FLOAT, 2);
 
-	this->_3dAttributesTemplate.Append(GL_FLOAT, 3);
-	this->_3dAttributesTemplate.Append(GL_FLOAT, 3);
-	this->_3dAttributesTemplate.Append(GL_FLOAT, 2);
-	this->_3dAttributesTemplate.Append(GL_FLOAT, 3);
+	this->_3dQuadAttributesTemplate.Append(GL_FLOAT, 3);
+	this->_3dQuadAttributesTemplate.Append(GL_FLOAT, 3);
+	this->_3dQuadAttributesTemplate.Append(GL_FLOAT, 2);
+	this->_3dQuadAttributesTemplate.Append(GL_FLOAT, 3);
 }
 
 std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate2dQuad(const float size)
@@ -29,7 +29,7 @@ std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate2dQuad(const f
 		1, 2, 3
 	});
 
-	return this->Store(vertexData, elements, this->_2dAttributesTemplate);
+	return this->Store(vertexData, elements, this->_2dQuadAttributesTemplate);
 }
 
 std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate3dQuad(const float size)
@@ -60,5 +60,5 @@ std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate3dQuad(const f
 		1, 2, 3
 	});
 
-	return this->Store(vertexData, elements, this->_3dAttributesTemplate);
+	return this->Store(vertexData, elements, this->_3dQuadAttributesTemplate);
 }

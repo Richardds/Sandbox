@@ -55,7 +55,7 @@ bool Graphics::Scene::Setup()
 
 	// Setup sun
 	this->_sun = std::make_shared<DirectionalLight>();
-	this->_sun->SetDirection(Math::Vector3f(0.0f, -1.0f, 0.25f));
+	this->_sun->SetDirection(Math::Vector3f(1.0f, -1.0f, 0.0f));
 	this->_sun->SetIntensity(0.6f);
 
 	this->_state = State::Run;
@@ -81,9 +81,6 @@ void Graphics::Scene::Update(const float delta)
 void Graphics::Scene::Render()
 {
 	_Assert(State::Run == this->_state);
-
-	// Render the skybox to the screen buffer
-	this->RenderSkybox();
 
 	// Render the entities to the screen buffer
 	this->RenderEntities();
@@ -124,6 +121,9 @@ void Graphics::Scene::Render()
 		this->_waterRenderer->Render(water.second);
 		glDisable(GL_BLEND);
 	}
+
+	// Render the skybox to the screen buffer
+	this->RenderSkybox();
 }
 
 void Graphics::Scene::RenderEntities()
@@ -136,13 +136,10 @@ void Graphics::Scene::RenderEntities()
 	}
 }
 
-void Graphics::Scene::RenderSkybox()
+void Graphics::Scene::RenderSkybox() const
 {
-	if (this->_skybox)
-	{
-		this->_skyboxRenderer->Begin(this->_camera, this->_sun);
-		this->_skyboxRenderer->Render(this->_skybox);
-	}
+	this->_skyboxRenderer->Begin(this->_camera);
+	this->_skyboxRenderer->Render(this->_skybox);
 }
 
 Math::Vector3f Graphics::Scene::GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const

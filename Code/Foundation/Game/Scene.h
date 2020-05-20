@@ -9,6 +9,7 @@
 #include "Scene/DirectionalLight.h"
 #include "Scene/Entity.h"
 #include "Scene/PointLight.h"
+#include "Scene/Skybox.h"
 #include "Scene/TargetedCamera.h"
 #include "Scene/Water.h"
 
@@ -34,7 +35,7 @@ namespace Graphics
 
 	protected:
 		virtual void RenderEntities();
-		virtual void RenderSkybox();
+		void RenderSkybox() const;
 		[[nodiscard]] Math::Vector3f GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const;
 		std::shared_ptr<Water> AddWater(const std::string& name, float size);
 		std::shared_ptr<PointLight> AddLight(const std::string& name);
@@ -46,7 +47,7 @@ namespace Graphics
 		std::shared_ptr<EntityRenderer> _entityRenderer;
 		std::shared_ptr<WaterRenderer> _waterRenderer;
 		std::shared_ptr<DirectionalLight> _sun;
-		std::shared_ptr<Texture> _skybox;
+		std::shared_ptr<Skybox> _skybox;
 		std::unordered_map<std::string, std::shared_ptr<PointLight>> _lights;
 		std::unordered_map<std::string, std::shared_ptr<Entity>> _entities;
 		std::unordered_map<std::string, std::shared_ptr<Water>> _waterTiles;

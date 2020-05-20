@@ -24,6 +24,7 @@
     <ClCompile Include="Game\Scene\Entity.cpp" />
     <ClCompile Include="Game\Scene\Light.cpp" />
     <ClCompile Include="Game\Scene\PointLight.cpp" />
+    <ClCompile Include="Game\Scene\Skybox.cpp" />
     <ClCompile Include="Game\Scene\TargetedCamera.cpp" />
     <ClCompile Include="Game\Scene\Water.cpp" />
     <ClCompile Include="Graphics\Buffer.cpp" />
@@ -57,6 +58,7 @@
     <ClCompile Include="Timing\Time.cpp" />
     <ClCompile Include="Util\FourCC.cpp" />
     <ClCompile Include="Util\Generators\PrimitiveGenerator.cpp" />
+    <ClCompile Include="Util\Generators\SkyboxGenerator.cpp" />
     <ClCompile Include="Util\Loaders\DirectDrawSurfaceLoader.cpp" />
     <ClCompile Include="Util\Loaders\AssimpLoader.cpp" />
     <ClCompile Include="Util\ResourcesLoader.cpp" />
@@ -77,6 +79,7 @@
     <ClInclude Include="Game\Scene\Entity.h" />
     <ClInclude Include="Game\Scene\Light.h" />
     <ClInclude Include="Game\Scene\PointLight.h" />
+    <ClInclude Include="Game\Scene\Skybox.h" />
     <ClInclude Include="Game\Scene\TargetedCamera.h" />
     <ClInclude Include="Game\Scene\Water.h" />
     <ClInclude Include="Graphics\Buffer.h" />
@@ -113,7 +116,9 @@
     <ClInclude Include="Math\Vector.h" />
     <ClInclude Include="Timing\Time.h" />
     <ClInclude Include="Util\FourCC.h" />
+    <ClInclude Include="Util\Generators\Generator.h" />
     <ClInclude Include="Util\Generators\PrimitiveGenerator.h" />
+    <ClInclude Include="Util\Generators\SkyboxGenerator.h" />
     <ClInclude Include="Util\Loaders\DirectDrawSurfaceLoader.h" />
     <ClInclude Include="Util\Loaders\AssimpLoader.h" />
     <ClInclude Include="Util\ResourcesLoader.h" />

@@ -195,6 +195,12 @@
     <ClCompile Include="Graphics\Renderers\SkyboxRenderer.cpp">
       <Filter>Graphics\Renderers</Filter>
     </ClCompile>
+    <ClCompile Include="Util\Generators\SkyboxGenerator.cpp">
+      <Filter>Util\Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Skybox.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Debug.h">
@@ -361,6 +367,15 @@
     </ClInclude>
     <ClInclude Include="Graphics\Renderers\SkyboxRenderer.h">
       <Filter>Graphics\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Generators\Generator.h">
+      <Filter>Util\Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Generators\SkyboxGenerator.h">
+      <Filter>Util\Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Skybox.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

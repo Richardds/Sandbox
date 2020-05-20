@@ -22,7 +22,8 @@ bool GunnerBoi::GunnerBoiScene::Setup()
 	this->_camera->SetDistance(10.0f);
 
 	// Load Skybox
-	this->_skybox = Util::ResourcesLoader::Instance().LoadCubeMap("day");
+	std::shared_ptr<Graphics::Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadCubeMap("day");
+	this->_skybox = std::make_shared<Graphics::Skybox>(skyboxTexture, 500.0f);
 	
 	// Configure lights
 	std::shared_ptr<Graphics::PointLight> playerLight = this->AddLight("player_light");
@@ -33,7 +34,7 @@ bool GunnerBoi::GunnerBoiScene::Setup()
 	std::shared_ptr<Graphics::Entity> terrain = this->AddEntity("terrain", "terrain");
 
 	// Load water
-	std::shared_ptr<Graphics::Water> water = this->AddWater("default", 100.0f);
+	std::shared_ptr<Graphics::Water> water = this->AddWater("default", 500.0f);
 
 	// Load player
 	this->_player = this->SetupPlayer("arrow");
