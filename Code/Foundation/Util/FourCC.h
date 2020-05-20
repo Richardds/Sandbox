@@ -25,6 +25,6 @@ namespace Util
 		static FourCC FromString(const std::string& fourCC);
 
 	private:
-		uint32_t _fourCC{};
+		uint32_t _fourCC;
 	};
 }

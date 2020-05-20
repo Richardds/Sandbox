@@ -56,11 +56,13 @@
     <ClCompile Include="IO\Mouse.cpp" />
     <ClCompile Include="Math\Utils.cpp" />
     <ClCompile Include="Timing\Time.cpp" />
+    <ClCompile Include="Util\Exporters\AssimpExporter.cpp" />
     <ClCompile Include="Util\FourCC.cpp" />
     <ClCompile Include="Util\Generators\PrimitiveGenerator.cpp" />
     <ClCompile Include="Util\Generators\SkyboxGenerator.cpp" />
     <ClCompile Include="Util\Loaders\DirectDrawSurfaceLoader.cpp" />
     <ClCompile Include="Util\Loaders\AssimpLoader.cpp" />
+    <ClCompile Include="Util\Loaders\ModelLoader.cpp" />
     <ClCompile Include="Util\ResourcesLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -115,12 +117,14 @@
     <ClInclude Include="Math\Utils.h" />
     <ClInclude Include="Math\Vector.h" />
     <ClInclude Include="Timing\Time.h" />
+    <ClInclude Include="Util\Exporters\AssimpExporter.h" />
     <ClInclude Include="Util\FourCC.h" />
     <ClInclude Include="Util\Generators\Generator.h" />
     <ClInclude Include="Util\Generators\PrimitiveGenerator.h" />
     <ClInclude Include="Util\Generators\SkyboxGenerator.h" />
     <ClInclude Include="Util\Loaders\DirectDrawSurfaceLoader.h" />
     <ClInclude Include="Util\Loaders\AssimpLoader.h" />
+    <ClInclude Include="Util\Loaders\ModelLoader.h" />
     <ClInclude Include="Util\ResourcesLoader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -6,6 +6,7 @@
 #include "../IO/Console.h"
 #include "Loaders/AssimpLoader.h"
 #include "Loaders/DirectDrawSurfaceLoader.h"
+#include "Loaders/ModelLoader.h"
 
 Util::ResourcesLoader::ResourcesLoader() :
 	_root("Resources")
@@ -128,7 +129,7 @@ std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadCubeMap(const std:
 	return cubeMap;
 }
 
-std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadModel(const std::string& name)
+std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadFBX(const std::string& name)
 {
 	const auto it = this->_models.find(name);
 	if (it != this->_models.end())
@@ -162,7 +163,7 @@ std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadModel(const std::str
 	modelFile.close();
 
 	AssimpLoader loader;
-
+	
 	try
 	{
 		model = loader.Load(buffer);
@@ -172,6 +173,36 @@ std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadModel(const std::str
 		IO::Console::Instance().Error("Failed to load model '%s': %s\n", name.c_str(), e.what());
 		return model;
 	}
+
+	this->_models.emplace(name, model);
+
+	return model;
+}
+
+std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadModel(const std::string& name)
+{
+	const auto it = this->_models.find(name);
+	if (it != this->_models.end())
+	{
+		return it->second;
+	}
+
+	IO::Console::Instance().Info("Loading '%s' model\n", name.c_str());
+
+	std::shared_ptr<Graphics::Model> model = std::make_shared<Graphics::Model>();
+
+	const std::string path = this->_root + "/Models/" + name + ".model";
+
+	std::ifstream modelFile(path, std::ios::binary);
+	if (!modelFile.is_open())
+	{
+		IO::Console::Instance().Error("Failed to open model '%s'\n", name.c_str());
+		return model;
+	}
+
+	ModelLoader loader;
+	model = loader.Load(modelFile);
+	modelFile.close();
 
 	this->_models.emplace(name, model);
 

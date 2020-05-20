@@ -2,10 +2,6 @@
 
 #include "GunnerBoiApplication.h"
 
-GunnerBoi::GunnerBoiApplication::GunnerBoiApplication()
-{
-}
-
 bool GunnerBoi::GunnerBoiApplication::Open()
 {
 	if (RenderApplication::Open())

@@ -66,6 +66,8 @@ std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* 
 
 	this->_meshCount++;
 
+	data.reserve(mesh->mNumVertices);
+	
 	for (uint32_t i = 0; i < mesh->mNumVertices; i++)
 	{
 		VertexData3 vertexData = {};
@@ -87,10 +89,13 @@ std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* 
 		data.push_back(vertexData);
 	}
 
+	elements.reserve(mesh->mNumFaces);
+
 	for (uint32_t i = 0; i < mesh->mNumFaces; i++)
 	{
 		aiFace face = mesh->mFaces[i];
-		for (uint32_t j = 0; j < face.mNumIndices; j++)
+		_Assert(3 == face.mNumIndices);
+		for (uint32_t j = 0; j < 3; j++)
 		{
 			elements.push_back(face.mIndices[j]);
 		}

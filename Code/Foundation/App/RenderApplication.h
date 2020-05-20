@@ -12,7 +12,6 @@ namespace App
 	{
 	public:
 		RenderApplication();
-		virtual ~RenderApplication();
 
 		bool Open() override;
 		void Run() override;

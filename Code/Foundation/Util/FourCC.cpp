@@ -7,7 +7,7 @@ Util::FourCC::FourCC() :
 {
 }
 
-Util::FourCC::FourCC(uint32_t fourCC) :
+Util::FourCC::FourCC(const uint32_t fourCC) :
 	_fourCC(fourCC)
 {
 }

@@ -10,7 +10,7 @@ namespace GunnerBoi
 	class GunnerBoiApplication : public App::RenderApplication
 	{
 	public:
-		GunnerBoiApplication();
+		GunnerBoiApplication() = default;
 
 		bool Open() override;
 		void Close() override;

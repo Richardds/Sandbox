@@ -39,7 +39,7 @@ bool GunnerBoi::GunnerBoiScene::Setup()
 	// Load player
 	this->_player = this->SetupPlayer("arrow");
 
-	// Load other models
+	// Load other models	
 	std::shared_ptr<Graphics::Entity> crate1 = this->AddEntity("crate_01", "crate");
 	crate1->SetPosition(Math::Vector3f(-1.5f, 0.0f, -3.0f));
 	std::shared_ptr<Graphics::Entity> crate2 = this->AddEntity("crate_02", "crate");

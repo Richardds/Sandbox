@@ -46,6 +46,9 @@
     <Filter Include="Util\Generators">
       <UniqueIdentifier>{786b1ac6-4dda-47d8-aba7-8b27edde85b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util\Exporters">
+      <UniqueIdentifier>{51656c77-33ea-4181-9334-588705fdd8d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Debug.cpp">
@@ -200,6 +203,12 @@
     </ClCompile>
     <ClCompile Include="Game\Scene\Skybox.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\Exporters\AssimpExporter.cpp">
+      <Filter>Util\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\Loaders\ModelLoader.cpp">
+      <Filter>Util\Loaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -376,6 +385,12 @@
     </ClInclude>
     <ClInclude Include="Game\Scene\Skybox.h">
       <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Exporters\AssimpExporter.h">
+      <Filter>Util\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Loaders\ModelLoader.h">
+      <Filter>Util\Loaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

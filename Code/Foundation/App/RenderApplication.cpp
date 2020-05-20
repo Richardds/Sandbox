@@ -10,11 +10,6 @@ App::RenderApplication::RenderApplication() :
 {
 }
 
-App::RenderApplication::~RenderApplication()
-{
-	_Assert(!this->IsOpen());
-}
-
 bool App::RenderApplication::Open()
 {
 	_Assert(!this->IsOpen());

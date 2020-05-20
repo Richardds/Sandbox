@@ -26,6 +26,16 @@ namespace Timing
 	using Duration = Microseconds;
 }
 
+namespace Util
+{
+	// Diffuse texture bitfield
+	static const uint8_t HAS_TEXTURE_DIFFUSE  = 0b001;
+	// Normals map bitfield
+	static const uint8_t HAS_TEXTURE_NORMALS  = 0b010;
+	// Specular map bitfield
+	static const uint8_t HAS_TEXTURE_SPECULAR = 0b100;
+}
+
 struct VertexData2
 {
 	Math::Vector3f vertex;
