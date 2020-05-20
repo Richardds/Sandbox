@@ -40,12 +40,6 @@ bool Graphics::WaterRenderer::Setup(const std::shared_ptr<const Projection>& pro
 	this->_refractionTexture->Bind();
 	this->_refractionTexture->Data(this->_refractionFrameBuffer, TEXTURE_SIZE, TEXTURE_SIZE);
 	this->_refractionTexture->Unbind();
-
-	this->_depthTexture = std::make_shared<Texture>();
-	this->_depthTexture->SetTarget(GL_TEXTURE_2D);
-	this->_depthTexture->Bind();
-	this->_depthTexture->DepthData(this->_refractionFrameBuffer, TEXTURE_SIZE, TEXTURE_SIZE);
-	this->_depthTexture->Unbind();
 	
 	this->_refractionFrameBuffer->Unbind();
 
@@ -63,7 +57,6 @@ void Graphics::WaterRenderer::Begin(const std::shared_ptr<Camera>& camera,
 
 	this->_reflectionTexture->Activate(Texture::Bank::Reflection);
 	this->_refractionTexture->Activate(Texture::Bank::Refraction);
-	this->_depthTexture->Activate(Texture::Bank::Depth);
 }
 
 void Graphics::WaterRenderer::RenderToReflectionBuffer(const std::function<void()>& renderFunction) const

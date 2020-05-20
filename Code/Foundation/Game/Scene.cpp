@@ -116,10 +116,7 @@ void Graphics::Scene::Render()
 		
 		// Render the water tile to the screen buffer
 		this->_waterRenderer->Begin(this->_camera, this->_sun);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		this->_waterRenderer->Render(water.second);
-		glDisable(GL_BLEND);
 	}
 
 	// Render the skybox to the screen buffer

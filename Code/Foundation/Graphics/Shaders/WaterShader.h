@@ -17,7 +17,8 @@ namespace Graphics
 		void LoadProjection(const std::shared_ptr<const Projection>& projection) const;
 		void LoadCamera(const std::shared_ptr<Camera>& camera) const;
 		void LoadSun(const std::shared_ptr<DirectionalLight>& sun) const;
-		void LoadFog(float density, float gradient) const;
+		void LoadFog(const Math::Vector3f& color, float density, float gradient) const;
+		void LoadFogEnabled(bool enabled);
 		void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix) const;
 		void LoadTextureTiling(float tiling) const;
 		void LoadHasNormalMap(bool hasNormalMap) const;
@@ -38,12 +39,14 @@ namespace Graphics
 
 		GLint _reflectionSamplerLocation;
 		GLint _refractionSamplerLocation;
-		GLint _depthSamplerLocation;
 
 		SunLocation _sunLocation;
 
+		GLint _fogEnabledLocation;
+		GLint _fogColorLocation;
 		GLint _fogDensityLocation;
 		GLint _fogGradientLocation;
-		GLint _fogColorLocation;
+
+		bool _fogEnabled;
 	};
 }

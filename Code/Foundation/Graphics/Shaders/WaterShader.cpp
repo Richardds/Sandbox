@@ -16,11 +16,13 @@ Graphics::WaterShader::WaterShader() :
 	_distortionOffsetLocation(-1),
 	_reflectionSamplerLocation(-1),
 	_refractionSamplerLocation(-1),
-	_depthSamplerLocation(-1),
 
+	_fogEnabledLocation(-1),
+	_fogColorLocation(-1),
 	_fogDensityLocation(-1),
 	_fogGradientLocation(-1),
-	_fogColorLocation(-1)
+
+	_fogEnabled(true)
 {
 }
 
@@ -46,8 +48,6 @@ void Graphics::WaterShader::InitializeUniformVariables()
 	                            this->_reflectionSamplerLocation);
 	this->InitializeIntLocation("refractionSampler", EnumToValue(Texture::Bank::Refraction),
 	                            this->_refractionSamplerLocation);
-	this->InitializeIntLocation("depthSampler", EnumToValue(Texture::Bank::Depth),
-		                        this->_depthSamplerLocation);
 
 	// Setup sun
 	this->InitializeVector3fLocation("sun.direction", Math::Vector3f(-1.0f, -1.0f, 0.0f), this->_sunLocation.direction);
@@ -56,9 +56,10 @@ void Graphics::WaterShader::InitializeUniformVariables()
 	this->InitializeFloatLocation("sun.specular", 1.0f, this->_sunLocation.specular);
 
 	// Setup fog
+	this->InitializeBoolLocation("fog.enabled", this->_fogEnabled, this->_fogEnabledLocation);
+	this->InitializeVector3fLocation("fog.color", Math::Vector3f(0.2f, 0.325f, 0.375f), this->_fogColorLocation);
 	this->InitializeFloatLocation("fog.density", 0.0175f, this->_fogDensityLocation);
 	this->InitializeFloatLocation("fog.gradient", 7.5f, this->_fogGradientLocation);
-	this->InitializeVector3fLocation("fog.color", Math::Vector3f(0.2f, 0.325f, 0.375f), this->_fogColorLocation);
 }
 
 void Graphics::WaterShader::LoadProjection(const std::shared_ptr<const Projection>& projection) const
@@ -86,10 +87,20 @@ void Graphics::WaterShader::LoadSun(const std::shared_ptr<DirectionalLight>& sun
 	this->LoadFloat(this->_sunLocation.specular, 1.0f);
 }
 
-void Graphics::WaterShader::LoadFog(const float density, const float gradient) const
+void Graphics::WaterShader::LoadFog(const Math::Vector3f& color, const float density, const float gradient) const
 {
+	this->LoadVector3f(this->_fogColorLocation, color);
 	this->LoadFloat(this->_fogDensityLocation, density);
 	this->LoadFloat(this->_fogGradientLocation, gradient);
+}
+
+void Graphics::WaterShader::LoadFogEnabled(const bool enabled)
+{
+	if (this->_fogEnabled != enabled)
+	{
+		this->_fogEnabled = enabled;
+		this->LoadBool(this->_fogEnabled, this->_fogEnabled);
+	}
 }
 
 void Graphics::WaterShader::LoadWorldTransformation(const Math::Matrix4f& transformationMatrix) const
