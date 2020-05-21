@@ -21,6 +21,7 @@ struct PointLight {
 };
 
 struct Fog {
+    bool enabled;
     float density;
     float gradient;
     vec3 color;
@@ -113,15 +114,17 @@ void main()
 
     vec3 phongModelColor = ambient + diffuse + specular;
 
-    // Calculate fragment visibility
-    float distanceToCamera = length(relativeToCameraPosition.xyz);
-    float fragmentVisibility = clamp(exp(-pow(distanceToCamera * fog.density, fog.gradient)), 0.0f, 1.0f);
+    fragmentColor = vec4(phongModelColor, 1.0f); // Phong lighting
 
-    // Fade fragment color by visibility
-    vec3 fadedColor = mix(fog.color, phongModelColor, fragmentVisibility);
+    // Apply fog effect if enabled
+    if (fog.enabled) {
+        // Calculate fragment visibility
+        float distanceToCamera = length(relativeToCameraPosition.xyz);
+        float fragmentVisibility = clamp(exp(-pow(distanceToCamera * fog.density, fog.gradient)), 0.0f, 1.0f);
 
-    //fragmentColor = vec4(vec3(gl_FragCoord.z), 1.0f); // Depth mapping
-    //fragmentColor = vec4(normalMapping, 1.0f);        // Normal mapping
-    //fragmentColor = vec4(phongModelColor, 1.0f);      // Phong
-    fragmentColor = vec4(fadedColor, 1.0f);             // Phong + Fog
+        // Fade fragment color by visibility
+        fragmentColor = vec4(mix(fog.color, phongModelColor, fragmentVisibility), 1.0f);
+    }
+
+    //fragmentColor = vec4(normalMapping, 1.0f);        // Debug normal mapping
 }

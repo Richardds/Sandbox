@@ -15,13 +15,16 @@ Graphics::EntityShader::EntityShader() :
 
 	_lightsCountLocation(-1),
 
+	_fogEnabledLocation(-1),
 	_fogDensityLocation(-1),
 	_fogGradientLocation(-1),
 	_fogColorLocation(-1),
 
 	_materialColorLocation(-1),
 	_materialSpecularLocation(-1),
-	_materialShininessLocation(-1)
+	_materialShininessLocation(-1),
+
+	_fogEnabled(false)
 {
 }
 
@@ -62,6 +65,7 @@ void Graphics::EntityShader::InitializeUniformVariables()
 	}
 
 	// Setup fog
+	this->InitializeBoolLocation("fog.enabled", this->_fogEnabled, this->_fogEnabledLocation);
 	this->InitializeFloatLocation("fog.density", 0.0175f, this->_fogDensityLocation);
 	this->InitializeFloatLocation("fog.gradient", 7.5f, this->_fogGradientLocation);
 	this->InitializeVector3fLocation("fog.color", Math::Vector3f(0.2f, 0.325f, 0.375f), this->_fogColorLocation);
@@ -148,10 +152,20 @@ void Graphics::EntityShader::LoadLight(const int index, const std::shared_ptr<Po
 	this->LoadVector3f(this->_lightLocations[index].attenuation, light->GetAttenuation());
 }
 
-void Graphics::EntityShader::LoadFog(float density, float gradient) const
+void Graphics::EntityShader::LoadFog(const Math::Vector3f& color, const float density, const float gradient) const
 {
+	this->LoadVector3f(this->_fogColorLocation, color);
 	this->LoadFloat(this->_fogDensityLocation, density);
 	this->LoadFloat(this->_fogGradientLocation, gradient);
+}
+
+void Graphics::EntityShader::LoadFogEnabled(const bool enabled)
+{
+	if (this->_fogEnabled != enabled)
+	{
+		this->_fogEnabled = enabled;
+		this->LoadBool(this->_fogEnabledLocation, this->_fogEnabled);
+	}
 }
 
 void Graphics::EntityShader::LoadWorldTransformation(const Math::Matrix4f& transformationMatrix) const

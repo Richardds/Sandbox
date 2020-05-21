@@ -392,5 +392,8 @@
     <ClInclude Include="Util\Loaders\ModelLoader.h">
       <Filter>Util\Loaders</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\Renderers\Renderer.h">
+      <Filter>Graphics\Renderers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

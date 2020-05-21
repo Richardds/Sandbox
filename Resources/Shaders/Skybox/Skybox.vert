@@ -9,10 +9,8 @@ uniform mat4 view;
 
 void main()
 {
-    // Pass interpolated texture coordinates
+    // Pass interpolated position coordinates as texture coordinates
     textureCoords = a_Position;
 
-    vec4 position = projection * view * vec4(a_Position, 1.0f);
-
-    gl_Position = position;
+    gl_Position = projection * view * vec4(a_Position, 1.0f);
 }

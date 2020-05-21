@@ -22,7 +22,8 @@ namespace Graphics
 		void LoadSun(const std::shared_ptr<DirectionalLight>& sun) const;
 		void LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const;
 		void LoadLight(int index, const std::shared_ptr<PointLight>& light) const;
-		void LoadFog(float density, float gradient) const;
+		void LoadFog(const Math::Vector3f& color, float density, float gradient) const;
+		void LoadFogEnabled(bool enabled);
 		void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix) const;
 		void LoadMaterial(const Material& material) const;
 		void LoadHasDiffuseMap(bool hasDiffuseMap) const;
@@ -48,6 +49,7 @@ namespace Graphics
 		TextureSamplerLocation _normalSamplerLocation;
 		TextureSamplerLocation _specularSamplerLocation;
 
+		GLint _fogEnabledLocation;
 		GLint _fogDensityLocation;
 		GLint _fogGradientLocation;
 		GLint _fogColorLocation;
@@ -55,5 +57,7 @@ namespace Graphics
 		GLint _materialColorLocation;
 		GLint _materialSpecularLocation;
 		GLint _materialShininessLocation;
+
+		bool _fogEnabled;
 	};
 }

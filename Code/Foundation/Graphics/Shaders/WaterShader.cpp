@@ -22,7 +22,7 @@ Graphics::WaterShader::WaterShader() :
 	_fogDensityLocation(-1),
 	_fogGradientLocation(-1),
 
-	_fogEnabled(true)
+	_fogEnabled(false)
 {
 }
 
@@ -99,7 +99,7 @@ void Graphics::WaterShader::LoadFogEnabled(const bool enabled)
 	if (this->_fogEnabled != enabled)
 	{
 		this->_fogEnabled = enabled;
-		this->LoadBool(this->_fogEnabled, this->_fogEnabled);
+		this->LoadBool(this->_fogEnabledLocation, this->_fogEnabled);
 	}
 }
 

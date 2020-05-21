@@ -5,7 +5,7 @@
 GunnerBoi::Boi::Boi() :
 	_state(State::Idle),
 	_target(0.0f),
-	_attackSpeed(1.5f),
+	_attackSpeed(DEFAULT_ATTACK_SPEED),
 	_countdown(0.0f)
 {
 }

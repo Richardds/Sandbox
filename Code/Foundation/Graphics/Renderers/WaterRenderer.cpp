@@ -1,14 +1,9 @@
 #include "WaterRenderer.h"
 #include "../../IO/Console.h"
 
-Graphics::WaterRenderer::WaterRenderer() :
-	_state(State::Initial)
-{
-}
-
 bool Graphics::WaterRenderer::Setup(const std::shared_ptr<const Projection>& projection)
 {
-	_Assert(State::Initial == this->_state);
+	_Assert(State::Initial == this->GetState());
 
 	// Setup water shader
 	this->_shader = std::make_shared<WaterShader>();
@@ -43,7 +38,7 @@ bool Graphics::WaterRenderer::Setup(const std::shared_ptr<const Projection>& pro
 	
 	this->_refractionFrameBuffer->Unbind();
 
-	this->_state = State::Ready;
+	this->FinishLoading();
 
 	return true;
 }
@@ -78,7 +73,7 @@ void Graphics::WaterRenderer::RenderToRefractionBuffer(const std::function<void(
 void Graphics::WaterRenderer::Render(const std::shared_ptr<Water>& water) const
 {
 	_Assert(water);
-	_Assert(State::Ready == this->_state);
+	_Assert(State::Ready == this->GetState());
 
 	water->Render(this->_shader);
 }

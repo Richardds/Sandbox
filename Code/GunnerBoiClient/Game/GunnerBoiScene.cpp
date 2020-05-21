@@ -142,6 +142,26 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
 		this->_camera->SetPosition(Math::Vector3f(15.0f, 20.0f, 10.0f));
 		this->_camera->LookAt(Math::Vector3f(0.0f, 0.0f, 0.0f));
 	}
+
+	// Enabled fog
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::F))
+	{
+		this->_renderSkybox = false;
+		this->_waterRenderer->GetShader()->Use();
+		this->_waterRenderer->GetShader()->LoadFogEnabled(true);
+		this->_entityRenderer->GetShader()->Use();
+		this->_entityRenderer->GetShader()->LoadFogEnabled(true);
+	}
+
+	// Disable fog
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::G))
+	{
+		this->_renderSkybox = true;
+		this->_waterRenderer->GetShader()->Use();
+		this->_waterRenderer->GetShader()->LoadFogEnabled(false);
+		this->_entityRenderer->GetShader()->Use();
+		this->_entityRenderer->GetShader()->LoadFogEnabled(false);
+	}
 }
 
 void GunnerBoi::GunnerBoiScene::Update(const float delta)
@@ -163,8 +183,8 @@ void GunnerBoi::GunnerBoiScene::Update(const float delta)
 	this->_lights["player_light"]->SetPosition(Math::Vector3f(playerPosition.x, lightPositionY, playerPosition.z));
 
 	// Update water motion
-	const float time = Timing::Time::Now().Get<Timing::Milliseconds>().count();
-	this->_waterTiles["default"]->SetPositionY(glm::sin(time / 1500.0f) / 35.0f);
+	const float time = Timing::Time::Now().Get<Timing::Seconds>().count();
+	this->_waterTiles["default"]->SetPositionY(glm::sin(time / 1.75f) / 35.0f);
 }
 
 void GunnerBoi::GunnerBoiScene::Render()

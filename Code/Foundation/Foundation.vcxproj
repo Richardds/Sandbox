@@ -93,6 +93,7 @@
     <ClInclude Include="Graphics\Projection.h" />
     <ClInclude Include="Graphics\RenderBuffer.h" />
     <ClInclude Include="Graphics\Renderers\EntityRenderer.h" />
+    <ClInclude Include="Graphics\Renderers\Renderer.h" />
     <ClInclude Include="Graphics\Renderers\SkyboxRenderer.h" />
     <ClInclude Include="Graphics\Renderers\WaterRenderer.h" />
     <ClInclude Include="Graphics\Shader.h" />

@@ -9,6 +9,7 @@
 #include "../Util/Generators/PrimitiveGenerator.h"
 
 Graphics::Scene::Scene() :
+	_renderSkybox(true),
 	_state(State::Initial)
 {
 }
@@ -135,8 +136,11 @@ void Graphics::Scene::RenderEntities()
 
 void Graphics::Scene::RenderSkybox() const
 {
-	this->_skyboxRenderer->Begin(this->_camera);
-	this->_skyboxRenderer->Render(this->_skybox);
+	if (this->_renderSkybox)
+	{
+		this->_skyboxRenderer->Begin(this->_camera);
+		this->_skyboxRenderer->Render(this->_skybox);
+	}
 }
 
 Math::Vector3f Graphics::Scene::GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const

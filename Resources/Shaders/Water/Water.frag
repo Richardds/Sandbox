@@ -13,6 +13,7 @@ struct Sun {
 };
 
 struct Fog {
+    bool enabled;
     float density;
     float gradient;
     vec3 color;
@@ -109,15 +110,17 @@ void main()
     vec3 sunDirection = normalize(sun.direction);
     float specular = sun.specular * waterSpecular * specularFactor(waterShininess, viewDirection, sunDirection, normalMapping);
 
-    // Calculate fragment visibility
-    float distanceToCamera = length(relativeToCameraPosition.xyz);
-    float fragmentVisibility = clamp(exp(-pow(distanceToCamera * fog.density, fog.gradient)), 0.0f, 1.0f);
+    fragmentColor = vec4(waterDiffuse + specular, 1.0f); // Water + highlights
 
-    // Fade fragment color by visibility
-    vec3 fadedColor = mix(fog.color, waterDiffuse + specular, fragmentVisibility);
+    // Apply fog effect if enabled
+    if (fog.enabled) {
+        // Calculate fragment visibility
+        float distanceToCamera = length(relativeToCameraPosition.xyz);
+        float fragmentVisibility = clamp(exp(-pow(distanceToCamera * fog.density, fog.gradient)), 0.0f, 1.0f);
 
-    //fragmentColor = vec4(normalMapping, 1.0f);            // Normal mapping
-    fragmentColor = vec4(waterDiffuse + specular, 1.0f);  // Water + highlights
-    //fragmentColor = vec4(fadedColor, 1.0f);                 // Water + highlights + Fog
-    //fragmentColor = vec4(fadedColor, waterAlpha);         // Water + highlights + Fog + Transparency?
+        // Fade fragment color by visibility
+        fragmentColor = vec4(mix(fog.color, waterDiffuse + specular, fragmentVisibility), 1.0f);
+    }
+
+    //fragmentColor = vec4(normalMapping, 1.0f);         // Debug normal mapping
 }

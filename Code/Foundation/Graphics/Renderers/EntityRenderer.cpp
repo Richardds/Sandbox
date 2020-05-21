@@ -1,18 +1,9 @@
 #include "EntityRenderer.h"
 #include "../../IO/Console.h"
 
-Graphics::EntityRenderer::EntityRenderer() :
-	_state(State::Initial)
-{
-}
-
-Graphics::EntityRenderer::~EntityRenderer()
-{
-}
-
 bool Graphics::EntityRenderer::Setup(const std::shared_ptr<const Projection>& projection)
 {
-	_Assert(State::Initial == this->_state);
+	_Assert(State::Initial == this->GetState());
 
 	// Setup entity shader
 	this->_shader = std::make_shared<EntityShader>();
@@ -25,7 +16,7 @@ bool Graphics::EntityRenderer::Setup(const std::shared_ptr<const Projection>& pr
 	this->_shader->Use();
 	this->_shader->LoadProjection(projection);
 
-	this->_state = State::Ready;
+	this->FinishLoading();
 
 	return true;
 }
@@ -43,7 +34,7 @@ void Graphics::EntityRenderer::Begin(const std::shared_ptr<Camera>& camera,
 void Graphics::EntityRenderer::Render(const std::shared_ptr<Entity>& entity) const
 {
 	_Assert(entity);
-	_Assert(State::Ready == this->_state);
+	_Assert(State::Ready == this->GetState());
 
 	entity->Render(this->_shader);
 }

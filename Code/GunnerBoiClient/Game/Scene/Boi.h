@@ -18,6 +18,8 @@ namespace GunnerBoi
 			Following
 		};
 
+		static constexpr float DEFAULT_ATTACK_SPEED = 3.0f;
+
 		Boi();
 
 		[[nodiscard]] State GetState() const;
