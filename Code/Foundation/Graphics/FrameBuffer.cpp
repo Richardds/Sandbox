@@ -41,8 +41,7 @@ void Graphics::FrameBuffer::Clear() const
 void Graphics::FrameBuffer::Deactivate() const
 {
 	this->Unbind();
-	const std::shared_ptr<Window> context = Core::Instance().GetRenderingContext();
-	glViewport(0, 0, context->GetWidth(), context->GetHeight());
+	Core::Instance().GetRenderingContext()->ApplyViewport();
 }
 
 void Graphics::FrameBuffer::Attach(const std::shared_ptr<RenderBuffer>& renderBuffer, const GLenum attachment) const

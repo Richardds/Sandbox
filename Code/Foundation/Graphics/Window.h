@@ -26,10 +26,14 @@ namespace Graphics
 		[[nodiscard]] float GetAspectRatio() const;
 		void SetTitle(const std::string& title);
 		[[nodiscard]] const std::string& GetTitle() const;
+		void ApplyViewport() const;
+		void EnterFullScreen();
+		void ExitFullScreen();
 		[[nodiscard]] GLFWwindow* GetGlfwWindow() const;
 
 	private:
 		bool _isCreated;
+		bool _fullScreenEnabled;
 		unsigned int _width;
 		unsigned int _height;
 		std::string _title;

@@ -4,15 +4,13 @@
 #include "Core.h"
 
 Graphics::Window::Window() :
-	_isCreated(false),
-	_width(1280),
-	_height(720),
-	_glfwWindow(nullptr)
+	Window(1280, 720, "")
 {
 }
 
 Graphics::Window::Window(const unsigned int width, const unsigned int height, std::string title) :
 	_isCreated(false),
+	_fullScreenEnabled(false),
 	_width(width),
 	_height(height),
 	_title(std::move(title)),
@@ -29,7 +27,7 @@ bool Graphics::Window::Create()
 {
 	_Assert(!this->IsCreated());
 	_Assert(Core::Instance().IsCreated());
-
+	
 	this->_glfwWindow = glfwCreateWindow(
 		static_cast<int>(this->_width),
 		static_cast<int>(this->_height),
@@ -79,4 +77,62 @@ bool Graphics::Window::IsCloseRequested() const
 float Graphics::Window::GetAspectRatio() const
 {
 	return static_cast<float>(this->_width) / static_cast<float>(this->_height);
+}
+
+void Graphics::Window::ApplyViewport() const
+{
+	_Assert(this->IsCreated());
+	
+	if (this->_fullScreenEnabled)
+	{
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+		
+		glViewport(0, 0, mode->width, mode->height);
+	} else
+	{
+		glViewport(0, 0, this->_width, this->_height);
+	}
+}
+
+void Graphics::Window::EnterFullScreen()
+{
+	if (!this->_fullScreenEnabled)
+	{
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+		this->_fullScreenEnabled = true;
+		this->ApplyViewport();
+		glfwSetWindowMonitor(
+			this->_glfwWindow,
+			monitor,
+			0,
+			0,
+			mode->width,
+			mode->height,
+			mode->refreshRate
+		);
+	}
+}
+
+void Graphics::Window::ExitFullScreen()
+{
+	if (this->_fullScreenEnabled)
+	{
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+		this->_fullScreenEnabled = false;
+		this->ApplyViewport();
+		glfwSetWindowMonitor(
+			this->_glfwWindow,
+			nullptr,
+			static_cast<int>(static_cast<float>(mode->width) / 2.0f - static_cast<float>(this->_width) / 2.0f),
+			static_cast<int>(static_cast<float>(mode->height) / 2.0f - static_cast<float>(this->_height) / 2.0f),
+			static_cast<int>(this->_width),
+			static_cast<int>(this->_height),
+			mode->refreshRate
+		);
+	}
 }

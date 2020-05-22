@@ -23,6 +23,18 @@ void GunnerBoi::GunnerBoiApplication::Close()
 
 void GunnerBoi::GunnerBoiApplication::OnProcessInput()
 {
+	// Disable full screen
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Escape))
+	{
+		Graphics::Core::Instance().GetRenderingContext()->ExitFullScreen();
+	}
+
+	// Enable full screen
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::F5))
+	{
+		Graphics::Core::Instance().GetRenderingContext()->EnterFullScreen();
+	}
+	
 	// Disable wireframe mode
 	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::F8))
 	{
