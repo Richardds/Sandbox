@@ -1,8 +1,8 @@
-#include "Precompiled.h"
-#include "Util/Exporters/AssimpExporter.h"
-#include "Core/Types.h"
-#include "Util/FourCC.h"
-#include "Util/ResourcesLoader.h"
+#include <Precompiled.h>
+#include <Core/Types.h>
+#include <Exporters/AssimpExporter.h>
+#include <Util/FourCC.h>
+#include <Util/ResourcesLoader.h>
 
 Util::AssimpExporter::AssimpExporter() :
 	_scene(nullptr)
@@ -116,8 +116,8 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
 		const aiFace face = mesh->mFaces[i];
 		for (uint32_t j = 0; j < face.mNumIndices; j++)
 		{
-			const uint32_t indice = face.mIndices[j];
-			this->Write(file, indice);
+			const uint32_t index = face.mIndices[j];
+			this->Write(file, index);
 		}
 	}
 

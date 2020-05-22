@@ -1,7 +1,8 @@
-#include "MeshExporterApplication.h"
+#include <Precompiled.h>
+#include <IO/Console.h>
 
-#include "IO/Console.h"
-#include "Util/Exporters/AssimpExporter.h"
+#include "App/MeshExporterApplication.h"
+#include "Exporters/AssimpExporter.h"
 
 bool Sandbox::MeshExporterApplication::Open()
 {

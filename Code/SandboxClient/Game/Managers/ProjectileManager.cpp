@@ -1,7 +1,8 @@
+#include <Precompiled.h>
 #include <IO/Console.h>
+#include <Util/ResourcesLoader.h>
 
 #include "ProjectileManager.h"
-#include <Util/ResourcesLoader.h>
 
 Sandbox::ProjectileManager::ProjectileManager()
 {

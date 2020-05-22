@@ -12,10 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App\MeshExporterApplication.cpp" />
+    <ClCompile Include="Exporters\AssimpExporter.cpp" />
     <ClCompile Include="MeshExporter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\MeshExporterApplication.h" />
+    <ClInclude Include="Exporters\AssimpExporter.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -54,25 +56,26 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(DEV_HOME)Include;$(SolutionDir)Code\Foundation;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)Code\Foundation;$(DEV_HOME)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DEV_HOME)Library;$(SolutionDir)Bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(DEV_HOME)Include;$(SolutionDir)Code\Foundation;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)Code\Foundation;$(DEV_HOME)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DEV_HOME)Library;$(SolutionDir)Bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>Precompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(SolutionDir)Bin\Intermediate\Foundation\$(Configuration)\Foundation.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -82,8 +85,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -91,6 +93,8 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>Precompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(SolutionDir)Bin\Intermediate\Foundation\$(Configuration)\Foundation.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -1,10 +1,10 @@
+#include "Precompiled.h"
+
 #include <IO/Keyboard.h>
 #include <IO/Mouse.h>
 #include <Util/ResourcesLoader.h>
 
 #include "SandboxScene.h"
-#include "IO/Console.h"
-#include "Timing/Time.h"
 
 Sandbox::SandboxScene::SandboxScene() :
 	_lockCameraToPlayer(true)

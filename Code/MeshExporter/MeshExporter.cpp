@@ -1,5 +1,7 @@
+#include <Precompiled.h>
+#include <IO/Console.h>
+
 #include "App/MeshExporterApplication.h"
-#include "IO/Console.h"
 
 using namespace Sandbox;
 

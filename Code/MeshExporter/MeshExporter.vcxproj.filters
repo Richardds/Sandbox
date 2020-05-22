@@ -4,16 +4,25 @@
     <Filter Include="App">
       <UniqueIdentifier>{9f8c50bd-6a3d-40cd-877d-d449e3dab4c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Exporters">
+      <UniqueIdentifier>{06da86eb-8156-4e95-8a04-29f6b96aab20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App\MeshExporterApplication.cpp">
       <Filter>App</Filter>
     </ClCompile>
     <ClCompile Include="MeshExporter.cpp" />
+    <ClCompile Include="Exporters\AssimpExporter.cpp">
+      <Filter>Exporters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\MeshExporterApplication.h">
       <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Exporters\AssimpExporter.h">
+      <Filter>Exporters</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

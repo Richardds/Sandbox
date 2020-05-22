@@ -1,5 +1,7 @@
-#include "SandboxApplication.h"
-#include "IO/Keyboard.h"
+#include <Precompiled.h>
+#include <IO/Keyboard.h>
+
+#include "App/SandboxApplication.h"
 
 bool Sandbox::SandboxApplication::Open()
 {

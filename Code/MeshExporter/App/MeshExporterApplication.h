@@ -1,7 +1,6 @@
 #pragma once
 
-#include <fstream>
-#include <vector>
+#include <Precompiled.h>
 #include <App/Application.h>
 
 namespace Sandbox

@@ -1,3 +1,5 @@
+#include <Precompiled.h>
+
 #include "App/SandboxApplication.h"
 
 using namespace Sandbox;

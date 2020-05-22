@@ -1,9 +1,9 @@
 #pragma once
 
-#include <memory>
+#include <Precompiled.h>
 #include <App/RenderApplication.h>
 
-#include "../Game/SandboxScene.h"
+#include "Game/SandboxScene.h"
 
 namespace Sandbox
 {

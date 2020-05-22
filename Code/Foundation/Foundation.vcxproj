@@ -56,7 +56,6 @@
     <ClCompile Include="IO\Mouse.cpp" />
     <ClCompile Include="Math\Utils.cpp" />
     <ClCompile Include="Timing\Time.cpp" />
-    <ClCompile Include="Util\Exporters\AssimpExporter.cpp" />
     <ClCompile Include="Util\FourCC.cpp" />
     <ClCompile Include="Util\Generators\PrimitiveGenerator.cpp" />
     <ClCompile Include="Util\Generators\SkyboxGenerator.cpp" />
@@ -119,7 +118,6 @@
     <ClInclude Include="Math\Vector.h" />
     <ClInclude Include="Precompiled.h" />
     <ClInclude Include="Timing\Time.h" />
-    <ClInclude Include="Util\Exporters\AssimpExporter.h" />
     <ClInclude Include="Util\FourCC.h" />
     <ClInclude Include="Util\Generators\Generator.h" />
     <ClInclude Include="Util\Generators\PrimitiveGenerator.h" />
@@ -166,14 +164,14 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(DEV_HOME)Include;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(DEV_HOME)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(DEV_HOME)Include;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(DEV_HOME)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

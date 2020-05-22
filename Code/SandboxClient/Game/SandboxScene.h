@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Precompiled.h>
 #include <Game/Scene.h>
 
 #include "Managers/ProjectileManager.h"
