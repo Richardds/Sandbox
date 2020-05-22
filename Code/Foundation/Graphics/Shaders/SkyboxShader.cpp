@@ -9,7 +9,8 @@ Graphics::SkyboxShader::SkyboxShader() :
 	ShaderSystem("Skybox"),
 	_projectionLocation(-1),
 	_viewLocation(-1),
-	_textureLocation(-1)
+	_textureLocation(-1),
+	_darkeningFactorLocation(-1)
 {
 }
 
@@ -21,6 +22,9 @@ void Graphics::SkyboxShader::InitializeUniformVariables()
 
 	// Setup skybox texture
 	this->InitializeIntLocation("texture", EnumToValue(Texture::Bank::Diffuse), this->_textureLocation);
+
+	// Setup darkening factor
+	this->InitializeFloatLocation("darkeningFactor", 1.0f, this->_darkeningFactorLocation);
 }
 
 void Graphics::SkyboxShader::LoadProjection(const std::shared_ptr<const Projection>& projection) const
@@ -38,4 +42,9 @@ void Graphics::SkyboxShader::LoadCamera(const std::shared_ptr<Camera>& camera) c
 	viewMatrix[3].z = 0.0f;
 	
 	this->LoadMatrix4f(this->_viewLocation, viewMatrix);
+}
+
+void Graphics::SkyboxShader::LoadDarkeningFactor(const float darkeningFactor) const
+{
+	this->LoadFloat(this->_darkeningFactorLocation, darkeningFactor);
 }

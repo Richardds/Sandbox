@@ -5,6 +5,7 @@
 #include "../Projection.h"
 #include "../../Game/Scene/Camera.h"
 #include "../../Game/Scene/DirectionalLight.h"
+#include "../../Game/Scene/PointLight.h"
 #include "../../Math/Matrix.h"
 
 namespace Graphics
@@ -17,6 +18,8 @@ namespace Graphics
 		void LoadProjection(const std::shared_ptr<const Projection>& projection) const;
 		void LoadCamera(const std::shared_ptr<Camera>& camera) const;
 		void LoadSun(const std::shared_ptr<DirectionalLight>& sun) const;
+		void LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const;
+		void LoadLight(int index, const std::shared_ptr<PointLight>& light) const;
 		void LoadFog(const Math::Vector3f& color, float density, float gradient) const;
 		void LoadFogEnabled(bool enabled);
 		void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix) const;
@@ -26,6 +29,8 @@ namespace Graphics
 		void LoadDistortionOffset(float offset) const;
 
 	private:
+		static const int MAX_LIGHT_COUNT = 10;
+		
 		GLint _projectionLocation;
 		GLint _viewLocation;
 		GLint _viewPositionLocation;
@@ -41,6 +46,8 @@ namespace Graphics
 		GLint _refractionSamplerLocation;
 
 		SunLocation _sunLocation;
+		PointLightLocation _lightLocations[MAX_LIGHT_COUNT];
+		GLint _lightsCountLocation;
 
 		GLint _fogEnabledLocation;
 		GLint _fogColorLocation;

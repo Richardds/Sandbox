@@ -50,7 +50,7 @@ void Graphics::EntityShader::InitializeUniformVariables()
 
 	// Setup point lights
 	this->InitializeIntLocation("lightsCount", 0, this->_lightsCountLocation);
-	for (int index = 0; index < maxLightCount; index++)
+	for (int index = 0; index < MAX_LIGHT_COUNT; index++)
 	{
 		this->InitializeVector3fLocation("light[" + std::to_string(index) + "].position", Math::Vector3f(0.0f),
 		                                 this->_lightLocations[index].position);
@@ -129,7 +129,7 @@ void Graphics::EntityShader::LoadSun(const std::shared_ptr<DirectionalLight>& su
 void Graphics::EntityShader::LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const
 {
 	const int lightsCount = static_cast<int>(lights.size());
-	_Assert(EntityShader::maxLightCount > lightsCount - 1);
+	_Assert(EntityShader::MAX_LIGHT_COUNT > lightsCount - 1);
 	this->LoadInt(this->_lightsCountLocation, lightsCount);
 
 	int index = 0;
@@ -142,7 +142,7 @@ void Graphics::EntityShader::LoadLights(const std::unordered_map<std::string, st
 
 void Graphics::EntityShader::LoadLight(const int index, const std::shared_ptr<PointLight>& light) const
 {
-	_Assert(EntityShader::maxLightCount > index);
+	_Assert(EntityShader::MAX_LIGHT_COUNT > index);
 	const Math::Vector3f diffuseColor = light->GetIntensity() * light->GetColor();
 	const Math::Vector3f ambientColor = diffuseColor / 5.0f;
 	this->LoadVector3f(this->_lightLocations[index].position, light->GetPosition());

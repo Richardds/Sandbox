@@ -13,12 +13,15 @@ namespace Graphics
 		[[nodiscard]] float GetMovingSpeed() const;
 		void SetMovingSpeed(float speed);
 		void Move(float distance);
-		virtual void Update(float delta);
+		virtual void GoForward(float delta);
+		virtual void TurnLeft(float delta);
+		virtual void TurnRight(float delta);
 		void LookAt(Math::Vector2f target);
 		[[nodiscard]] float DistanceTo(Math::Vector2f target) const;
 
 	private:
 		float _movingSpeed;
+		float _turningSpeed;
 	};
 
 	inline float Actor::GetMovingSpeed() const

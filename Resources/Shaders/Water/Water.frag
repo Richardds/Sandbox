@@ -12,6 +12,14 @@ struct Sun {
     float specular;
 };
 
+struct PointLight {
+    vec3 position;
+    vec3 attenuation;
+    vec3 ambient;
+    vec3 diffuse;
+    float specular;
+};
+
 struct Fog {
     bool enabled;
     float density;
@@ -37,6 +45,8 @@ uniform sampler2D reflectionSampler;
 uniform sampler2D refractionSampler;
 
 uniform Sun sun;
+uniform int lightsCount;
+uniform PointLight light[10];
 uniform Fog fog;
 
 const float distortionStrength = 0.01f;
@@ -45,7 +55,7 @@ const float waterTransparency = 0.95f;
 const float waterSpecular = 0.125f;
 const float waterShininess = 50.5f;
 
-const float minDiffuseFactor = 0.2f;
+const float minDiffuseFactor = 0.075f;
 
 float diffuseFactor(vec3 lightDirection, vec3 normal)
 {
@@ -108,7 +118,17 @@ void main()
     waterDiffuse = mix(waterDiffuse, vec3(0.0f, 0.1f, 0.2f), 0.1f);
 
     vec3 sunDirection = normalize(sun.direction);
+    vec3 diffuse = sun.diffuse * waterDiffuse * diffuseFactor(sunDirection, normalMapping);
     float specular = sun.specular * waterSpecular * specularFactor(waterShininess, viewDirection, sunDirection, normalMapping);
+
+    for (int index = 0; index < lightsCount; index++) {
+        vec3 lightDirection = normalize(light[index].position - fragmentPosition.xyz);
+        float lightDistance = length(light[index].position - fragmentPosition.xyz);
+        float attenuation = light[index].attenuation.x + (light[index].attenuation.y * lightDistance) + (light[index].attenuation.z * lightDistance * lightDistance);
+
+        diffuse += (light[index].diffuse * waterDiffuse * diffuseFactor(lightDirection, normalMapping)) / attenuation;
+        specular += (light[index].specular * waterSpecular * specularFactor(waterShininess, viewDirection, lightDirection, normalMapping)) / attenuation;
+    }
 
     fragmentColor = vec4(waterDiffuse + specular, 1.0f); // Water + highlights
 

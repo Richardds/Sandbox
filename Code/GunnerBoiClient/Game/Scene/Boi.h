@@ -31,7 +31,7 @@ namespace GunnerBoi
 		void SingleFire(std::shared_ptr<ProjectileManager>& projectileManager);
 		void StarFire(std::shared_ptr<ProjectileManager>& projectileManager, unsigned int count);
 		void BeamFire(std::shared_ptr<ProjectileManager>& projectileManager, unsigned int count);
-		void Update(float delta) override;
+		void Update(float delta);
 
 	private:
 		State _state;

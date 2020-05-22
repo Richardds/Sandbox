@@ -14,7 +14,7 @@ void GunnerBoi::ProjectileManager::Update(const float delta)
 
 	while (it != this->_projectiles.end())
 	{
-		(*it)->Update(delta);
+		(*it)->GoForward(delta);
 
 		if ((*it)->OutOfRange())
 		{

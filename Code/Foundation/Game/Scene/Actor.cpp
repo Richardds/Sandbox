@@ -2,7 +2,8 @@
 #include "../../Math/Utils.h"
 
 Graphics::Actor::Actor() :
-	_movingSpeed(5.0f)
+	_movingSpeed(5.0f),
+	_turningSpeed(180.0f)
 {
 }
 
@@ -15,9 +16,19 @@ void Graphics::Actor::Move(const float distance)
 	));
 }
 
-void Graphics::Actor::Update(const float delta)
+void Graphics::Actor::GoForward(const float delta)
 {
 	this->Move(this->_movingSpeed * delta);
+}
+
+void Graphics::Actor::TurnLeft(const float delta)
+{
+	this->IncreaseRotationY(this->_turningSpeed * delta);
+}
+
+void Graphics::Actor::TurnRight(const float delta)
+{
+	this->IncreaseRotationY(-1 * this->_turningSpeed * delta);
 }
 
 void Graphics::Actor::LookAt(const Math::Vector2f target)

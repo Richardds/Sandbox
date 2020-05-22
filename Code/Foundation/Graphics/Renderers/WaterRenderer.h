@@ -19,7 +19,9 @@ namespace Graphics
 		WaterRenderer() = default;
 		
 		bool Setup(const std::shared_ptr<const Projection>& projection);
-		void Begin(const std::shared_ptr<Camera>& camera, const std::shared_ptr<DirectionalLight>& sun) const;
+		void Begin(const std::shared_ptr<Camera>& camera,
+				   const std::shared_ptr<DirectionalLight>& sun,
+			       const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const;
 		void RenderToReflectionBuffer(const std::function<void()>& renderFunction) const;
 		void RenderToRefractionBuffer(const std::function<void()>& renderFunction) const;
 		void Render(const std::shared_ptr<Water>& water) const;

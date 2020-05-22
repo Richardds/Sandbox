@@ -31,7 +31,7 @@ namespace Graphics
 		void LoadHasSpecularMap(bool hasSpecularMap) const;
 
 	private:
-		static const int maxLightCount = 10;
+		static const int MAX_LIGHT_COUNT = 10;
 
 		GLint _projectionLocation;
 		GLint _viewLocation;
@@ -42,7 +42,7 @@ namespace Graphics
 		ClippingPlane _clippingPlaneLocation;
 
 		SunLocation _sunLocation;
-		PointLightLocation _lightLocations[maxLightCount];
+		PointLightLocation _lightLocations[MAX_LIGHT_COUNT];
 		GLint _lightsCountLocation;
 
 		TextureSamplerLocation _diffuseSamplerLocation;

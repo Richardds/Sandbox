@@ -52,7 +52,9 @@ namespace Graphics
 		std::unordered_map<std::string, std::shared_ptr<Entity>> _entities;
 		std::unordered_map<std::string, std::shared_ptr<Water>> _waterTiles;
 
+		float _time;
 		bool _renderSkybox;
+		bool _paused;
 		
 	private:
 		State _state;

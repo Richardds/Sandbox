@@ -79,7 +79,7 @@ void GunnerBoi::Boi::Update(const float delta)
 		else
 		{
 			this->LookAt(this->_target);
-			Actor::Update(delta);
+			this->GoForward(delta);
 		}
 	}
 }

@@ -53,7 +53,7 @@ uniform PointLight light[10];
 uniform Fog fog;
 uniform Material material;
 
-const float minDiffuseFactor = 0.2f;
+const float minDiffuseFactor = 0.075f;
 
 float diffuseFactor(vec3 lightDirection, vec3 normal)
 {

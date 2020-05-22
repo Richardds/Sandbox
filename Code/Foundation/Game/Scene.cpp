@@ -3,13 +3,16 @@
 #include "../Graphics/Core.h"
 #include "../Graphics/Projection.h"
 #include "../IO/Console.h"
+#include "../IO/Keyboard.h"
 #include "../IO/Mouse.h"
 #include "../Math/Utils.h"
 #include "../Util/ResourcesLoader.h"
 #include "../Util/Generators/PrimitiveGenerator.h"
 
 Graphics::Scene::Scene() :
+	_time(0.0f),
 	_renderSkybox(true),
+	_paused(false),
 	_state(State::Initial)
 {
 }
@@ -67,15 +70,33 @@ bool Graphics::Scene::Setup()
 void Graphics::Scene::ProcessInput()
 {
 	_Assert(State::Run == this->_state);
+
+	// Pause scene
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::P))
+	{
+		this->_paused = true;
+	}
+
+	// Resume scene
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::R))
+	{
+		this->_paused = false;
+	}
 }
 
 void Graphics::Scene::Update(const float delta)
 {
 	_Assert(State::Run == this->_state);
 
-	for (auto& water : this->_waterTiles)
+	if (!this->_paused)
 	{
-		water.second->Update(delta);
+		this->_time += delta;
+
+		// GoForward water distortion offset motion
+		for (auto& water : this->_waterTiles)
+		{
+			water.second->Update(delta);
+		}
 	}
 }
 
@@ -116,7 +137,7 @@ void Graphics::Scene::Render()
 		this->_entityRenderer->GetShader()->DisableClippingPlane();
 		
 		// Render the water tile to the screen buffer
-		this->_waterRenderer->Begin(this->_camera, this->_sun);
+		this->_waterRenderer->Begin(this->_camera, this->_sun, this->_lights);
 		this->_waterRenderer->Render(water.second);
 	}
 

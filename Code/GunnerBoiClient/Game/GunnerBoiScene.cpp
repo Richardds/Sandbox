@@ -182,9 +182,18 @@ void GunnerBoi::GunnerBoiScene::Update(const float delta)
 	const float lightPositionY = this->_lights["player_light"]->GetPositionY();
 	this->_lights["player_light"]->SetPosition(Math::Vector3f(playerPosition.x, lightPositionY, playerPosition.z));
 
-	// Update water motion
-	const float time = Timing::Time::Now().Get<Timing::Seconds>().count();
-	this->_waterTiles["default"]->SetPositionY(glm::sin(time / 1.75f) / 35.0f);
+	// Time based updates
+	if (!this->_paused)
+	{
+		// GoForward water motion
+		this->_waterTiles["default"]->SetPositionY(glm::sin(this->_time / 1.75f) / 35.0f);
+
+		// GoForward scene day & night cycle effect
+		const float darkeningFactor = (glm::sin(this->_time / 10.0f) + 1.0f) / 2.1622f + 0.075f; // Interval <0.075-1.000>
+		this->_skyboxRenderer->GetShader()->Use();
+		this->_skyboxRenderer->GetShader()->LoadDarkeningFactor(darkeningFactor);
+		this->_sun->SetIntensity(darkeningFactor);
+	}
 }
 
 void GunnerBoi::GunnerBoiScene::Render()
