@@ -3,7 +3,7 @@
 #include <Game/Scene/Actor.h>
 #include <Math/Vector.h>
 
-namespace GunnerBoi
+namespace Sandbox
 {
 	class Projectile : public Graphics::Actor
 	{

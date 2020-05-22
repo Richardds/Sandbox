@@ -1,8 +1,8 @@
 #include <Math/Utils.h>
 
-#include "Boi.h"
+#include "Player.h"
 
-GunnerBoi::Boi::Boi() :
+Sandbox::Player::Player() :
 	_state(State::Idle),
 	_target(0.0f),
 	_attackSpeed(DEFAULT_ATTACK_SPEED),
@@ -10,12 +10,12 @@ GunnerBoi::Boi::Boi() :
 {
 }
 
-bool GunnerBoi::Boi::IsReadyToFire() const
+bool Sandbox::Player::IsReadyToFire() const
 {
 	return this->_countdown == 0.0f;
 }
 
-void GunnerBoi::Boi::SingleFire(std::shared_ptr<ProjectileManager>& projectileManager)
+void Sandbox::Player::SingleFire(std::shared_ptr<ProjectileManager>& projectileManager)
 {
 	this->_countdown = 1.0f / this->_attackSpeed;
 	std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(this->_position, this->_rotationY);
@@ -24,7 +24,7 @@ void GunnerBoi::Boi::SingleFire(std::shared_ptr<ProjectileManager>& projectileMa
 	projectileManager->Manage(projectile);
 }
 
-void GunnerBoi::Boi::StarFire(std::shared_ptr<ProjectileManager>& projectileManager, const unsigned int count)
+void Sandbox::Player::StarFire(std::shared_ptr<ProjectileManager>& projectileManager, const unsigned int count)
 {
 	this->_countdown = 3.0f / this->_attackSpeed;
 
@@ -40,7 +40,7 @@ void GunnerBoi::Boi::StarFire(std::shared_ptr<ProjectileManager>& projectileMana
 	}
 }
 
-void GunnerBoi::Boi::BeamFire(std::shared_ptr<ProjectileManager>& projectileManager, const unsigned int count)
+void Sandbox::Player::BeamFire(std::shared_ptr<ProjectileManager>& projectileManager, const unsigned int count)
 {
 	this->_countdown = 5.0f / this->_attackSpeed;
 
@@ -61,7 +61,7 @@ void GunnerBoi::Boi::BeamFire(std::shared_ptr<ProjectileManager>& projectileMana
 	}
 }
 
-void GunnerBoi::Boi::Update(const float delta)
+void Sandbox::Player::Update(const float delta)
 {
 	// Update projectile countdown
 	if (this->_countdown > 0.0f)

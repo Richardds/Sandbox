@@ -1,7 +1,7 @@
 #include "App/MeshExporterApplication.h"
 #include "IO/Console.h"
 
-using namespace GunnerBoi;
+using namespace Sandbox;
 
 int main(int argc, char* argv[])
 {

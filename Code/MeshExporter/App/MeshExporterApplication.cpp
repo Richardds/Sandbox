@@ -3,7 +3,7 @@
 #include "IO/Console.h"
 #include "Util/Exporters/AssimpExporter.h"
 
-bool GunnerBoi::MeshExporterApplication::Open()
+bool Sandbox::MeshExporterApplication::Open()
 {
 	if (Application::Open())
 	{
@@ -54,7 +54,7 @@ bool GunnerBoi::MeshExporterApplication::Open()
 	return false;
 }
 
-void GunnerBoi::MeshExporterApplication::Run()
+void Sandbox::MeshExporterApplication::Run()
 {
 	Util::AssimpExporter exporter;
 
@@ -69,7 +69,7 @@ void GunnerBoi::MeshExporterApplication::Run()
 	IO::Console::Instance().Info("Model '%s' successfully exported\n", this->_modelFilePath.c_str());
 }
 
-void GunnerBoi::MeshExporterApplication::Close()
+void Sandbox::MeshExporterApplication::Close()
 {
 	this->_modelFile.close();
 	

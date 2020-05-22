@@ -1,4 +1,4 @@
-# GunnerBoi
+# Sandbox
 
 Is semestral project of BI-PGR course on CTU in Prague, FIT.
 

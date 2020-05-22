@@ -3,11 +3,11 @@
 #include <Game/Scene.h>
 
 #include "Managers/ProjectileManager.h"
-#include "Scene/Boi.h"
+#include "Scene/Player.h"
 
-namespace GunnerBoi
+namespace Sandbox
 {
-	class GunnerBoiScene : public Graphics::Scene
+	class SandboxScene : public Graphics::Scene
 	{
 	public:
 		enum class State
@@ -18,19 +18,19 @@ namespace GunnerBoi
 
 		static constexpr float SUN_LOWER_LIMIT = 0.075f;
 
-		GunnerBoiScene();
+		SandboxScene();
 
 		bool Setup() override;
 		void ProcessInput() override;
 		void Update(float delta) override;
 		void Render() override;
-		std::shared_ptr<Boi> SetupPlayer(const std::string& resourceName);
+		std::shared_ptr<Player> SetupPlayer(const std::string& resourceName);
 
 	protected:
 		void RenderEntities() override;
 
 	private:
-		std::shared_ptr<Boi> _player;
+		std::shared_ptr<Player> _player;
 		std::shared_ptr<ProjectileManager> _projectileManager;
 
 		bool _lockCameraToPlayer;

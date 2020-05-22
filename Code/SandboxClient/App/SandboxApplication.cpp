@@ -1,13 +1,13 @@
-#include "GunnerBoiApplication.h"
+#include "SandboxApplication.h"
 #include "IO/Keyboard.h"
 
-bool GunnerBoi::GunnerBoiApplication::Open()
+bool Sandbox::SandboxApplication::Open()
 {
 	if (RenderApplication::Open())
 	{
 		this->PrintDeviceInfo();
 
-		this->_scene = std::make_shared<GunnerBoiScene>();
+		this->_scene = std::make_shared<SandboxScene>();
 		_Assert(this->_scene->Setup());
 
 		return true;
@@ -16,12 +16,12 @@ bool GunnerBoi::GunnerBoiApplication::Open()
 	return false;
 }
 
-void GunnerBoi::GunnerBoiApplication::Close()
+void Sandbox::SandboxApplication::Close()
 {
 	RenderApplication::Close();
 }
 
-void GunnerBoi::GunnerBoiApplication::OnProcessInput()
+void Sandbox::SandboxApplication::OnProcessInput()
 {
 	// Disable full screen
 	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Escape))
@@ -62,12 +62,12 @@ void GunnerBoi::GunnerBoiApplication::OnProcessInput()
 	this->_scene->ProcessInput();
 }
 
-void GunnerBoi::GunnerBoiApplication::OnUpdateLogic()
+void Sandbox::SandboxApplication::OnUpdateLogic()
 {
 	this->_scene->Update(this->GetFrameDelta());
 }
 
-void GunnerBoi::GunnerBoiApplication::OnUpdateFrame()
+void Sandbox::SandboxApplication::OnUpdateFrame()
 {
 	this->_scene->Render();
 }

@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="GunnerBoiClient.cpp" />
-    <ClCompile Include="App\GunnerBoiApplication.cpp">
+    <ClCompile Include="SandboxClient.cpp" />
+    <ClCompile Include="App\SandboxApplication.cpp">
       <Filter>App</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GunnerBoiScene.cpp">
+    <ClCompile Include="Game\SandboxScene.cpp">
       <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scene\Boi.cpp">
-      <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scene\Projectile.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Game\Managers\ProjectileManager.cpp">
       <Filter>Game\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Player.cpp">
+      <Filter>Game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -33,20 +33,20 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App\GunnerBoiApplication.h">
+    <ClInclude Include="App\SandboxApplication.h">
       <Filter>App</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GunnerBoiScene.h">
+    <ClInclude Include="Game\SandboxScene.h">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\Boi.h">
-      <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scene\Projectile.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Game\Managers\ProjectileManager.h">
       <Filter>Game\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Player.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

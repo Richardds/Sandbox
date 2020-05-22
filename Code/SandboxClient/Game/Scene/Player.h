@@ -1,14 +1,13 @@
 #pragma once
 
 #include <Game/Scene/Actor.h>
-#include <Graphics/Model.h>
 #include <Math/Vector.h>
 
 #include "../Managers/ProjectileManager.h"
 
-namespace GunnerBoi
+namespace Sandbox
 {
-	class Boi : public Graphics::Actor
+	class Player : public Graphics::Actor
 	{
 	public:
 		enum class State
@@ -20,7 +19,7 @@ namespace GunnerBoi
 
 		static constexpr float DEFAULT_ATTACK_SPEED = 3.0f;
 
-		Boi();
+		Player();
 
 		[[nodiscard]] State GetState() const;
 		[[nodiscard]] Math::Vector2f GetTarget() const;
@@ -40,27 +39,27 @@ namespace GunnerBoi
 		float _countdown;
 	};
 
-	inline Boi::State Boi::GetState() const
+	inline Player::State Player::GetState() const
 	{
 		return this->_state;
 	}
 
-	inline Math::Vector2f Boi::GetTarget() const
+	inline Math::Vector2f Player::GetTarget() const
 	{
 		return this->_target;
 	}
 
-	inline void Boi::SetTarget(const Math::Vector2f& target)
+	inline void Player::SetTarget(const Math::Vector2f& target)
 	{
 		this->_target = target;
 	}
 
-	inline void Boi::Follow()
+	inline void Player::Follow()
 	{
 		this->_state = State::Following;
 	}
 
-	inline void Boi::Idle()
+	inline void Player::Idle()
 	{
 		this->_state = State::Idle;
 	}

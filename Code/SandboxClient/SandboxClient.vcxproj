@@ -14,7 +14,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{1401F661-1482-4AC9-A7C4-86BBA2961EF1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>GunnerBoiClient</RootNamespace>
+    <RootNamespace>SandboxClient</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -94,18 +94,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="App\GunnerBoiApplication.cpp" />
-    <ClCompile Include="Game\GunnerBoiScene.cpp" />
+    <ClCompile Include="App\SandboxApplication.cpp" />
+    <ClCompile Include="Game\SandboxScene.cpp" />
     <ClCompile Include="Game\Managers\ProjectileManager.cpp" />
-    <ClCompile Include="Game\Scene\Boi.cpp" />
+    <ClCompile Include="Game\Scene\Player.cpp" />
     <ClCompile Include="Game\Scene\Projectile.cpp" />
-    <ClCompile Include="GunnerBoiClient.cpp" />
+    <ClCompile Include="SandboxClient.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App\GunnerBoiApplication.h" />
-    <ClInclude Include="Game\GunnerBoiScene.h" />
+    <ClInclude Include="App\SandboxApplication.h" />
+    <ClInclude Include="Game\SandboxScene.h" />
     <ClInclude Include="Game\Managers\ProjectileManager.h" />
-    <ClInclude Include="Game\Scene\Boi.h" />
+    <ClInclude Include="Game\Scene\Player.h" />
     <ClInclude Include="Game\Scene\Projectile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

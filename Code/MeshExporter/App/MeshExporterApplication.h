@@ -4,7 +4,7 @@
 #include <vector>
 #include <App/Application.h>
 
-namespace GunnerBoi
+namespace Sandbox
 {
 	class MeshExporterApplication : public App::Application
 	{

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GunnerBoiClient", "Code\GunnerBoiClient\GunnerBoiClient.vcxproj", "{1401F661-1482-4AC9-A7C4-86BBA2961EF1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SandboxClient", "Code\SandboxClient\SandboxClient.vcxproj", "{1401F661-1482-4AC9-A7C4-86BBA2961EF1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CEC8D571-AB20-4255-969C-EDF732551FF1} = {CEC8D571-AB20-4255-969C-EDF732551FF1}
 	EndProjectSection
@@ -17,46 +17,22 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MeshExporter", "Code\MeshEx
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|ARM = Debug|ARM
-		Debug|ARM64 = Debug|ARM64
 		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|ARM = Release|ARM
-		Release|ARM64 = Release|ARM64
 		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Debug|ARM.ActiveCfg = Debug|x64
-		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Debug|ARM64.ActiveCfg = Debug|x64
 		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Debug|x64.ActiveCfg = Debug|x64
 		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Debug|x64.Build.0 = Debug|x64
-		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Debug|x86.ActiveCfg = Debug|x64
-		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Release|ARM.ActiveCfg = Release|x64
-		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Release|ARM64.ActiveCfg = Release|x64
 		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Release|x64.ActiveCfg = Release|x64
 		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Release|x64.Build.0 = Release|x64
-		{1401F661-1482-4AC9-A7C4-86BBA2961EF1}.Release|x86.ActiveCfg = Release|x64
-		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Debug|ARM.ActiveCfg = Debug|x64
-		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Debug|ARM64.ActiveCfg = Debug|x64
 		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Debug|x64.ActiveCfg = Debug|x64
 		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Debug|x64.Build.0 = Debug|x64
-		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Debug|x86.ActiveCfg = Debug|x64
-		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Release|ARM.ActiveCfg = Release|x64
-		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Release|ARM64.ActiveCfg = Release|x64
 		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Release|x64.ActiveCfg = Release|x64
 		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Release|x64.Build.0 = Release|x64
-		{CEC8D571-AB20-4255-969C-EDF732551FF1}.Release|x86.ActiveCfg = Release|x64
-		{BCACCF77-2F6B-4164-B337-F33EC134AE04}.Debug|ARM.ActiveCfg = Debug|x64
-		{BCACCF77-2F6B-4164-B337-F33EC134AE04}.Debug|ARM64.ActiveCfg = Debug|x64
 		{BCACCF77-2F6B-4164-B337-F33EC134AE04}.Debug|x64.ActiveCfg = Debug|x64
 		{BCACCF77-2F6B-4164-B337-F33EC134AE04}.Debug|x64.Build.0 = Debug|x64
-		{BCACCF77-2F6B-4164-B337-F33EC134AE04}.Debug|x86.ActiveCfg = Debug|x64
-		{BCACCF77-2F6B-4164-B337-F33EC134AE04}.Release|ARM.ActiveCfg = Release|x64
-		{BCACCF77-2F6B-4164-B337-F33EC134AE04}.Release|ARM64.ActiveCfg = Release|x64
 		{BCACCF77-2F6B-4164-B337-F33EC134AE04}.Release|x64.ActiveCfg = Release|x64
 		{BCACCF77-2F6B-4164-B337-F33EC134AE04}.Release|x64.Build.0 = Release|x64
-		{BCACCF77-2F6B-4164-B337-F33EC134AE04}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

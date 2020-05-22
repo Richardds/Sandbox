@@ -1,11 +1,11 @@
-#include "App/GunnerBoiApplication.h"
+#include "App/SandboxApplication.h"
 
-using namespace GunnerBoi;
+using namespace Sandbox;
 
 int main()
 {
-	GunnerBoiApplication app;
-	app.SetTitle("Gunner Boi");
+	SandboxApplication app;
+	app.SetTitle("Sandbox");
 	app.SetVersion("0.0.1 dev");
 
 	if (app.Open())

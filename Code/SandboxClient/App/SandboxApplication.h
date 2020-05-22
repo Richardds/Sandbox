@@ -3,14 +3,14 @@
 #include <memory>
 #include <App/RenderApplication.h>
 
-#include "../Game/GunnerBoiScene.h"
+#include "../Game/SandboxScene.h"
 
-namespace GunnerBoi
+namespace Sandbox
 {
-	class GunnerBoiApplication : public App::RenderApplication
+	class SandboxApplication : public App::RenderApplication
 	{
 	public:
-		GunnerBoiApplication() = default;
+		SandboxApplication() = default;
 
 		bool Open() override;
 		void Close() override;
@@ -21,6 +21,6 @@ namespace GunnerBoi
 		void OnUpdateFrame() override;
 
 	private:
-		std::shared_ptr<GunnerBoiScene> _scene;
+		std::shared_ptr<SandboxScene> _scene;
 	};
 }

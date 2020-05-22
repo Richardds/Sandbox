@@ -2,16 +2,16 @@
 #include <IO/Mouse.h>
 #include <Util/ResourcesLoader.h>
 
-#include "GunnerBoiScene.h"
+#include "SandboxScene.h"
 #include "IO/Console.h"
 #include "Timing/Time.h"
 
-GunnerBoi::GunnerBoiScene::GunnerBoiScene() :
+Sandbox::SandboxScene::SandboxScene() :
 	_lockCameraToPlayer(true)
 {
 }
 
-bool GunnerBoi::GunnerBoiScene::Setup()
+bool Sandbox::SandboxScene::Setup()
 {
 	_Assert(Graphics::Scene::Setup());
 
@@ -67,7 +67,7 @@ bool GunnerBoi::GunnerBoiScene::Setup()
 	return true;
 }
 
-void GunnerBoi::GunnerBoiScene::ProcessInput()
+void Sandbox::SandboxScene::ProcessInput()
 {
 	Scene::ProcessInput();
 
@@ -164,7 +164,7 @@ void GunnerBoi::GunnerBoiScene::ProcessInput()
 	}
 }
 
-void GunnerBoi::GunnerBoiScene::Update(const float delta)
+void Sandbox::SandboxScene::Update(const float delta)
 {
 	Scene::Update(delta);
 
@@ -196,23 +196,23 @@ void GunnerBoi::GunnerBoiScene::Update(const float delta)
 	}
 }
 
-void GunnerBoi::GunnerBoiScene::Render()
+void Sandbox::SandboxScene::Render()
 {
 	Scene::Render();
 }
 
-void GunnerBoi::GunnerBoiScene::RenderEntities()
+void Sandbox::SandboxScene::RenderEntities()
 {
 	Scene::RenderEntities();
 	this->_projectileManager->RenderWith(this->_entityRenderer);
 }
 
-std::shared_ptr<GunnerBoi::Boi> GunnerBoi::GunnerBoiScene::SetupPlayer(const std::string& resourceName)
+std::shared_ptr<Sandbox::Player> Sandbox::SandboxScene::SetupPlayer(const std::string& resourceName)
 {
 	const std::string playerEntityName = "player";
 	const auto it = this->_entities.find(playerEntityName);
 	_Assert(it == this->_entities.end());
-	std::shared_ptr<Boi> player = std::make_shared<Boi>();
+	std::shared_ptr<Player> player = std::make_shared<Player>();
 	player->SetModel(Util::ResourcesLoader::Instance().LoadModel(resourceName));
 	this->_entities.emplace_hint(it, playerEntityName, player);
 	return player;

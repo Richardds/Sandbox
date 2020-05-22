@@ -3,12 +3,12 @@
 #include "ProjectileManager.h"
 #include <Util/ResourcesLoader.h>
 
-GunnerBoi::ProjectileManager::ProjectileManager()
+Sandbox::ProjectileManager::ProjectileManager()
 {
 	this->_projectileModel = Util::ResourcesLoader::Instance().LoadModel("projectile");
 }
 
-void GunnerBoi::ProjectileManager::Update(const float delta)
+void Sandbox::ProjectileManager::Update(const float delta)
 {
 	auto it = this->_projectiles.begin();
 
@@ -29,7 +29,7 @@ void GunnerBoi::ProjectileManager::Update(const float delta)
 	}
 }
 
-void GunnerBoi::ProjectileManager::RenderWith(const std::shared_ptr<Graphics::EntityRenderer>& renderer)
+void Sandbox::ProjectileManager::RenderWith(const std::shared_ptr<Graphics::EntityRenderer>& renderer)
 {
 	for (std::shared_ptr<Projectile>& projectile : this->_projectiles)
 	{
@@ -37,7 +37,7 @@ void GunnerBoi::ProjectileManager::RenderWith(const std::shared_ptr<Graphics::En
 	}
 }
 
-void GunnerBoi::ProjectileManager::Manage(const std::shared_ptr<Projectile>& projectile)
+void Sandbox::ProjectileManager::Manage(const std::shared_ptr<Projectile>& projectile)
 {
 	projectile->SetModel(this->_projectileModel);
 	this->_projectiles.emplace_back(projectile);

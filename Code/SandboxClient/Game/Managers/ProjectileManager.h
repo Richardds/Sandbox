@@ -5,7 +5,7 @@
 
 #include "../Scene/Projectile.h"
 
-namespace GunnerBoi
+namespace Sandbox
 {
 	class ProjectileManager
 	{
