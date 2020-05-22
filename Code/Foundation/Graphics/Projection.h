@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../Math/Matrix.h"
+#include "Precompiled.h"
+#include "Math/Matrix.h"
 
 namespace Graphics
 {

@@ -1,6 +1,7 @@
-#include "SkyboxRenderer.h"
-#include "../../IO/Console.h"
-#include "../../Util/Generators/SkyboxGenerator.h"
+#include "Precompiled.h"
+#include "Graphics/Renderers/SkyboxRenderer.h"
+#include "IO/Console.h"
+#include "Util/Generators/SkyboxGenerator.h"
 
 bool Graphics::SkyboxRenderer::Setup(const std::shared_ptr<const Projection>& projection)
 {

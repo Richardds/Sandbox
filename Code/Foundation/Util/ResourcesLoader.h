@@ -1,12 +1,10 @@
 #pragma once
 
-#include <string>
-#include <unordered_map>
-
-#include "../Core/Singleton.h"
-#include "../Graphics/Model.h"
-#include "../Graphics/Shader.h"
-#include "../Graphics/Texture.h"
+#include "Precompiled.h"
+#include "Core/Singleton.h"
+#include "Graphics/Model.h"
+#include "Graphics/Shader.h"
+#include "Graphics/Texture.h"
 
 namespace Util
 {

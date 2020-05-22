@@ -1,9 +1,9 @@
-#include "ModelLoader.h"
-
-#include "../FourCC.h"
-#include "../ResourcesLoader.h"
-#include "../../Core/Types.h"
-#include "../../Math/Vector.h"
+#include "Precompiled.h"
+#include "Util/Loaders/ModelLoader.h"
+#include "Core/Types.h"
+#include "Math/Vector.h"
+#include "Util/FourCC.h"
+#include "Util/ResourcesLoader.h"
 
 Util::ModelLoader::ModelLoader()
 {

@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Renderer.h"
-#include "../../Game/Scene/Skybox.h"
-#include "../../Game/Scene/Water.h"
-#include "../Shaders/SkyboxShader.h"
+#include "Precompiled.h"
+#include "Graphics/Renderers/Renderer.h"
+#include "Game/Scene/Skybox.h"
+#include "Game/Scene/Water.h"
+#include "Graphics/Shaders/SkyboxShader.h"
 
 namespace Graphics
 {

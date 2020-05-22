@@ -1,5 +1,6 @@
-#include "TargetedCamera.h"
-#include "../../Math/Utils.h"
+#include "Precompiled.h"
+#include "Game/Scene/TargetedCamera.h"
+#include "Math/Utils.h"
 
 Graphics::TargetedCamera::TargetedCamera(const float distance) :
 	_distance(distance)

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glm/gtc/quaternion.hpp>
+#include "Precompiled.h"
 
 namespace Math
 {

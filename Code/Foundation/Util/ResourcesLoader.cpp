@@ -1,12 +1,9 @@
-#include <fstream>
-#include <string>
-#include <gli/load_dds.hpp>
-
-#include "ResourcesLoader.h"
-#include "../IO/Console.h"
-#include "Loaders/AssimpLoader.h"
-#include "Loaders/DirectDrawSurfaceLoader.h"
-#include "Loaders/ModelLoader.h"
+#include "Precompiled.h"
+#include "Util/ResourcesLoader.h"
+#include "IO/Console.h"
+#include "Util/Loaders/AssimpLoader.h"
+#include "Util/Loaders/DirectDrawSurfaceLoader.h"
+#include "Util/Loaders/ModelLoader.h"
 
 Util::ResourcesLoader::ResourcesLoader() :
 	_root("Resources")

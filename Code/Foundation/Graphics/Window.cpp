@@ -1,7 +1,6 @@
-#include "Window.h"
-
-#include <utility>
-#include "Core.h"
+#include "Precompiled.h"
+#include "Graphics/Window.h"
+#include "Graphics/Core.h"
 
 Graphics::Window::Window() :
 	Window(1280, 720, "")

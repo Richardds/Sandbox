@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Precompiled.h"
+
 namespace Core
 {
 	void Abort(const char*, const char*, int);

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Light.h"
+#include "Precompiled.h"
+#include "Game/Scene/Light.h"
 
 namespace Graphics
 {

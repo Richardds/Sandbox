@@ -1,5 +1,6 @@
-#include "EntityRenderer.h"
-#include "../../IO/Console.h"
+#include "Precompiled.h"
+#include "Graphics/Renderers/EntityRenderer.h"
+#include "IO/Console.h"
 
 bool Graphics::EntityRenderer::Setup(const std::shared_ptr<const Projection>& projection)
 {

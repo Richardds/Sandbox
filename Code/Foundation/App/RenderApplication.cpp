@@ -1,8 +1,9 @@
-#include "RenderApplication.h"
-#include "../Core/Debug.h"
-#include "../Graphics/Core.h"
-#include "../IO/Console.h"
-#include "../IO/Mouse.h"
+#include "Precompiled.h"
+#include "App/RenderApplication.h"
+#include "Core/Debug.h"
+#include "Graphics/Core.h"
+#include "IO/Console.h"
+#include "IO/Mouse.h"
 
 App::RenderApplication::RenderApplication() :
 	_frameTime(0.0f),

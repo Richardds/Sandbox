@@ -1,5 +1,6 @@
-#include "Camera.h"
-#include "../../Math/Utils.h"
+#include "Precompiled.h"
+#include "Game/Scene/Camera.h"
+#include "Math/Utils.h"
 
 Graphics::Camera::Camera() :
 	Camera(70.0f)

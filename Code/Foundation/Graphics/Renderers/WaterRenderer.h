@@ -1,13 +1,12 @@
 #pragma once
 
-#include <functional>
-
-#include "Renderer.h"
-#include "../FrameBuffer.h"
-#include "../Texture.h"
-#include "../../Game/Scene/DirectionalLight.h"
-#include "../../Game/Scene/Water.h"
-#include "../Shaders/WaterShader.h"
+#include "Precompiled.h"
+#include "Game/Scene/DirectionalLight.h"
+#include "Game/Scene/Water.h"
+#include "Graphics/FrameBuffer.h"
+#include "Graphics/Texture.h"
+#include "Graphics/Renderers/Renderer.h"
+#include "Graphics/Shaders/WaterShader.h"
 
 namespace Graphics
 {

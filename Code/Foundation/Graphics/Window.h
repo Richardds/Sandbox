@@ -1,9 +1,7 @@
 #pragma once
 
-#include <string>
-
-#include "../Core/Debug.h"
-#include "../Core/Types.h"
+#include "Precompiled.h"
+#include "Core/Debug.h"
 
 namespace Graphics
 {

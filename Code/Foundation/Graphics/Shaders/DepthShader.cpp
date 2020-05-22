@@ -1,4 +1,5 @@
-#include "DepthShader.h"
+#include "Precompiled.h"
+#include "Graphics/Shaders/DepthShader.h"
 
 Graphics::DepthShader::DepthShader() :
 	ShaderSystem("Depth"),

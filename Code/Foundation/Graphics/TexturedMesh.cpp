@@ -1,4 +1,5 @@
-#include "TexturedMesh.h"
+#include "Precompiled.h"
+#include "Graphics/TexturedMesh.h"
 
 Graphics::TexturedMesh::TexturedMesh(std::shared_ptr<VertexArray> vertexArrayObject,
                                      std::shared_ptr<Buffer> vertexBuffer,

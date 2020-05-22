@@ -1,4 +1,5 @@
-#include "SkyboxGenerator.h"
+#include "Precompiled.h"
+#include "Util/Generators/SkyboxGenerator.h"
 
 Util::SkyboxGenerator::SkyboxGenerator()
 {

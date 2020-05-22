@@ -1,9 +1,7 @@
 #pragma once
 
-#include <string>
-#include <unordered_map>
-
-#include "../ShaderProgram.h"
+#include "Precompiled.h"
+#include "Graphics/ShaderProgram.h"
 
 namespace Graphics
 {

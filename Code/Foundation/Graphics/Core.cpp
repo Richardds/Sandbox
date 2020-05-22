@@ -1,11 +1,12 @@
-#include "Core.h"
-#include "Buffer.h"
-#include "ShaderProgram.h"
-#include "Texture.h"
-#include "VertexArray.h"
-#include "../Core/Debug.h"
-#include "../IO/Console.h"
-#include "../Math/Utils.h"
+#include "Precompiled.h"
+#include "Graphics/Core.h"
+#include "Core/Debug.h"
+#include "Graphics/Buffer.h"
+#include "Graphics/ShaderProgram.h"
+#include "Graphics/Texture.h"
+#include "Graphics/VertexArray.h"
+#include "IO/Console.h"
+#include "Math/Utils.h"
 
 Graphics::Core::Core() :
 	_isCreated(false)

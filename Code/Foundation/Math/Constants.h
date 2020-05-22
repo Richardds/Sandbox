@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glm/gtc/constants.hpp>
+#include "Precompiled.h"
 
 namespace Math
 {

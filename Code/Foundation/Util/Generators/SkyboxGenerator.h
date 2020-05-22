@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Generator.h"
-#include "../../Core/Singleton.h"
+#include "Precompiled.h"
+#include "Core/Singleton.h"
+#include "Util/Generators/Generator.h"
 
 namespace Util
 {

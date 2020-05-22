@@ -1,8 +1,7 @@
 #pragma once
 
-#include <string>
-
-#include "../Core/Singleton.h"
+#include "Precompiled.h"
+#include "Core/Singleton.h"
 
 namespace IO
 {

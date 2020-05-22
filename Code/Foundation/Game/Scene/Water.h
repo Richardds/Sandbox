@@ -1,10 +1,9 @@
 #pragma once
 
-#include <memory>
-
-#include "../../Graphics/TexturedMesh.h"
-#include "../../Graphics/Shaders/WaterShader.h"
-#include "../Attributes/HasPosition.h"
+#include "Precompiled.h"
+#include "Graphics/TexturedMesh.h"
+#include "Graphics/Shaders/WaterShader.h"
+#include "Game/Attributes/HasPosition.h"
 
 namespace Graphics
 {

@@ -1,9 +1,7 @@
 #pragma once
 
-#include <unordered_map>
-#include <vector>
-
-#include "Core.h"
+#include "Precompiled.h"
+#include "Graphics/Core.h"
 
 namespace Graphics
 {

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "ShaderSystem.h"
+#include "Precompiled.h"
+#include "Graphics/Shaders/ShaderSystem.h"
 
 namespace Graphics
 {

@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Core.h"
-#include "../Math/Vector.h"
+#include "Precompiled.h"
+#include "Graphics/Core.h"
+#include "Math/Vector.h"
 
 namespace Graphics
 {

@@ -1,9 +1,7 @@
 #pragma once
 
-#include <vector>
-
-#include "Core.h"
-#include "VertexArray.h"
+#include "Precompiled.h"
+#include "Graphics/VertexArray.h"
 
 namespace Graphics
 {

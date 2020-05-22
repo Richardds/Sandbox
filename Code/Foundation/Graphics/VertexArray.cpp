@@ -1,4 +1,5 @@
-#include "VertexArray.h"
+#include "Precompiled.h"
+#include "Graphics/VertexArray.h"
 
 GLuint Graphics::VertexArray::_boundVertexArray = 0;
 

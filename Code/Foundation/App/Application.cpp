@@ -1,5 +1,6 @@
-#include "Application.h"
-#include "../Core/Debug.h"
+#include "Precompiled.h"
+#include "App/Application.h"
+#include "Core/Debug.h"
 
 App::Application::Application() :
 	_title("Application"),

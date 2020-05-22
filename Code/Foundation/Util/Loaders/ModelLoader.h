@@ -1,11 +1,9 @@
 #pragma once
 
-#include <string>
-#include <fstream>
-
-#include "../../Graphics/Material.h"
-#include "../../Graphics/Model.h"
-#include "../../Graphics/VertexAttributeConfig.h"
+#include "Precompiled.h"
+#include "Graphics/Material.h"
+#include "Graphics/Model.h"
+#include "Graphics/VertexAttributeConfig.h"
 
 namespace Util
 {

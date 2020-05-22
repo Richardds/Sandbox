@@ -1,10 +1,8 @@
 #pragma once
 
-#include <vector>
-#include <gli/gl.hpp>
-
-#include "../../Core/Singleton.h"
-#include "../../Graphics/Texture.h"
+#include "Precompiled.h"
+#include "Core/Singleton.h"
+#include "Graphics/Texture.h"
 
 namespace Util
 {

@@ -1,5 +1,6 @@
-#include "WaterRenderer.h"
-#include "../../IO/Console.h"
+#include "Precompiled.h"
+#include "Graphics/Renderers/WaterRenderer.h"
+#include "IO/Console.h"
 
 bool Graphics::WaterRenderer::Setup(const std::shared_ptr<const Projection>& projection)
 {

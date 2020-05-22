@@ -1,13 +1,10 @@
 #pragma once
 
-#include <memory>
-#include <string>
-
-#include "Projection.h"
-#include "Window.h"
-#include "../Core/Singleton.h"
-#include "../Core/Types.h"
-#include "../Math/Vector.h"
+#include "Precompiled.h"
+#include "Core/Singleton.h"
+#include "Graphics/Projection.h"
+#include "Graphics/Window.h"
+#include "Math/Vector.h"
 
 namespace Graphics
 {

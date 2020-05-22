@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Entity.h"
+#include "Precompiled.h"
+#include "Game/Scene/Entity.h"
 
 namespace Graphics
 {

@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Material.h"
-#include "Mesh.h"
-#include "Texture.h"
-#include "Shaders/EntityShader.h"
+#include "Precompiled.h"
+#include "Graphics/Material.h"
+#include "Graphics/Mesh.h"
+#include "Graphics/Texture.h"
+#include "Graphics/Shaders/EntityShader.h"
 
 namespace Graphics
 {

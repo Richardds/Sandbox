@@ -1,5 +1,6 @@
-#include "Water.h"
-#include "../../Math/Utils.h"
+#include "Precompiled.h"
+#include "Game/Scene/Water.h"
+#include "Math/Utils.h"
 
 Graphics::Water::Water() :
 	_distortionOffset(0.0f),

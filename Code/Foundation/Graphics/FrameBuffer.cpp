@@ -1,5 +1,6 @@
-#include "FrameBuffer.h"
-#include "Texture.h"
+#include "Precompiled.h"
+#include "Graphics/FrameBuffer.h"
+#include "Graphics/Texture.h"
 
 GLuint Graphics::FrameBuffer::_boundFrameBuffer = 0;
 

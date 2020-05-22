@@ -1,4 +1,5 @@
-#include "Time.h"
+#include "Precompiled.h"
+#include "Timing/Time.h"
 
 Timing::Time::Time(const Time& rhs)
 {

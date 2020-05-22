@@ -1,10 +1,9 @@
 #pragma once
 
-#include <memory>
-
-#include "Application.h"
-#include "../Graphics/Window.h"
-#include "../Timing/Time.h"
+#include "Precompiled.h"
+#include "App/Application.h"
+#include "Graphics/Window.h"
+#include "Timing/Time.h"
 
 namespace App
 {

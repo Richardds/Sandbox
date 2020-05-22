@@ -1,9 +1,8 @@
-#include <vector>
-
-#include "ShaderProgram.h"
-#include "../Core/Debug.h"
-#include "../IO/Console.h"
-#include "../Math/Utils.h"
+#include "Precompiled.h"
+#include "Graphics/ShaderProgram.h"
+#include "Core/Debug.h"
+#include "IO/Console.h"
+#include "Math/Utils.h"
 
 GLuint Graphics::ShaderProgram::_inUseGlShaderProgram = 0;
 

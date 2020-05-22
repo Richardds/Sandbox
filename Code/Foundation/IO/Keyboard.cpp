@@ -1,7 +1,7 @@
-#include "Keyboard.h"
-#include "../Core/Debug.h"
-#include "../Core/Types.h"
-#include "../Graphics/Core.h"
+#include "Precompiled.h"
+#include "IO/Keyboard.h"
+#include "Core/Debug.h"
+#include "Graphics/Core.h"
 
 bool IO::Keyboard::IsKeyPressed(Key key) const
 {

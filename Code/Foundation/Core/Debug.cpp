@@ -1,7 +1,9 @@
 #include <cstdlib>
 
-#include "Debug.h"
-#include "../IO/Console.h"
+#include "Precompiled.h"
+
+#include "Core/Debug.h"
+#include "IO/Console.h"
 
 void Core::Abort(const char* exp, const char* file, const int line)
 {

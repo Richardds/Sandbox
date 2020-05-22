@@ -1,8 +1,9 @@
-#include "Mouse.h"
-#include "../Core/Debug.h"
-#include "../Graphics/Core.h"
-#include "../Math/Utils.h"
-#include "../Core/Types.h"
+#include "Precompiled.h"
+#include "IO/Mouse.h"
+#include "Core/Debug.h"
+#include "Core/Types.h"
+#include "Graphics/Core.h"
+#include "Math/Utils.h"
 
 IO::Mouse::Mouse() :
 	_lastMotion(0, 0),

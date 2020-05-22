@@ -1,7 +1,8 @@
 #pragma once
 
-#include "../../Graphics/Mesh.h"
-#include "../../Graphics/Texture.h"
+#include "Precompiled.h"
+#include "Graphics/Mesh.h"
+#include "Graphics/Texture.h"
 
 namespace Graphics
 {

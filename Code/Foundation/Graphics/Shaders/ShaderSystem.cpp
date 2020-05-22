@@ -1,10 +1,8 @@
-#include "ShaderSystem.h"
-
-#include <utility>
-
-#include "../../Core/Debug.h"
-#include "../../IO/Console.h"
-#include "../../Util/ResourcesLoader.h"
+#include "Precompiled.h"
+#include "Graphics/Shaders/ShaderSystem.h"
+#include "Core/Debug.h"
+#include "IO/Console.h"
+#include "Util/ResourcesLoader.h"
 
 Graphics::ShaderSystem::ShaderSystem(std::string name) :
 	_state(State::Initial),

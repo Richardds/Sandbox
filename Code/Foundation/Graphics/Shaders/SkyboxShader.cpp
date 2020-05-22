@@ -1,9 +1,10 @@
-#include "SkyboxShader.h"
-
-#include "../Texture.h"
-#include "../../Core/Debug.h"
-#include "../../Game/Scene/Camera.h"
-#include "../../Math/Utils.h"
+#include "Precompiled.h"
+#include "Graphics/Shaders/SkyboxShader.h"
+#include "Core/Debug.h"
+#include "Core/Types.h"
+#include "Game/Scene/Camera.h"
+#include "Graphics/Texture.h"
+#include "Math/Utils.h"
 
 Graphics::SkyboxShader::SkyboxShader() :
 	ShaderSystem("Skybox"),

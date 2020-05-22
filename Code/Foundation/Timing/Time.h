@@ -1,8 +1,7 @@
 #pragma once
 
-#include <chrono>
-
-#include "../Core/Types.h"
+#include "Precompiled.h"
+#include "Core/Types.h"
 
 namespace Timing
 {

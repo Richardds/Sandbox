@@ -1,8 +1,9 @@
 #pragma once
 
-#include "ShaderSystem.h"
-#include "../Projection.h"
-#include "../../Game/Scene/Camera.h"
+#include "Precompiled.h"
+#include "Game/Scene/Camera.h"
+#include "Graphics/Projection.h"
+#include "Graphics/Shaders/ShaderSystem.h"
 
 namespace Graphics
 {

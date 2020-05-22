@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Precompiled.h"
+
 #define _Singleton(Type) \
     public: \
     Type(const Type&) = delete; \

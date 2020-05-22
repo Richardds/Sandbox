@@ -1,8 +1,7 @@
 #pragma once
 
-#include <memory>
-
-#include "../../Core/Debug.h"
+#include "Precompiled.h"
+#include "Core/Debug.h"
 
 namespace Graphics
 {

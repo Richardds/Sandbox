@@ -1,12 +1,13 @@
 #pragma once
 
-#include "ShaderSystem.h"
-#include "../Material.h"
-#include "../Projection.h"
-#include "../../Game/Scene/Camera.h"
-#include "../../Game/Scene/DirectionalLight.h"
-#include "../../Game/Scene/PointLight.h"
-#include "../../Math/Matrix.h"
+#include "Precompiled.h"
+#include "Game/Scene/Camera.h"
+#include "Game/Scene/DirectionalLight.h"
+#include "Game/Scene/PointLight.h"
+#include "Graphics/Material.h"
+#include "Graphics/Projection.h"
+#include "Graphics/Shaders/ShaderSystem.h"
+#include "Math/Matrix.h"
 
 namespace Graphics
 {

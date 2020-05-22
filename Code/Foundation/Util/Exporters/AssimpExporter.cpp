@@ -1,10 +1,8 @@
-#include <assimp/postprocess.h>
-
-#include "AssimpExporter.h"
-
-#include "../FourCC.h"
-#include "../ResourcesLoader.h"
-#include "../../Core/Types.h"
+#include "Precompiled.h"
+#include "Util/Exporters/AssimpExporter.h"
+#include "Core/Types.h"
+#include "Util/FourCC.h"
+#include "Util/ResourcesLoader.h"
 
 Util::AssimpExporter::AssimpExporter() :
 	_scene(nullptr)

@@ -1,9 +1,8 @@
 #pragma once
 
-#include <memory>
-
-#include "Buffer.h"
-#include "VertexArray.h"
+#include "Precompiled.h"
+#include "Graphics/Buffer.h"
+#include "Graphics/VertexArray.h"
 
 namespace Graphics
 {

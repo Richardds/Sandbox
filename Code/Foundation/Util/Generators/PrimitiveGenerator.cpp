@@ -1,6 +1,6 @@
-#include <vector>
-
-#include "PrimitiveGenerator.h"
+#include "Precompiled.h"
+#include "Util/Generators/PrimitiveGenerator.h"
+#include "Core/Types.h"
 
 Util::PrimitiveGenerator::PrimitiveGenerator()
 {

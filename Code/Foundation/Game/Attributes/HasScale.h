@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Precompiled.h"
+
 namespace Graphics
 {
 	class HasScale

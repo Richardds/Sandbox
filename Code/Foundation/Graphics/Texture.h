@@ -1,9 +1,8 @@
 #pragma once
 
-#include <unordered_map>
-
-#include "Core.h"
-#include "FrameBuffer.h"
+#include "Precompiled.h"
+#include "Graphics/Core.h"
+#include "Graphics/FrameBuffer.h"
 
 namespace Graphics
 {

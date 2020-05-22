@@ -1,13 +1,6 @@
 #pragma once
 
-#include <string>
-#include <vector>
-#include <fstream>
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-
-#include "../../Graphics/Material.h"
-#include "../../Math/Vector.h"
+#include "Precompiled.h"
 
 namespace Util
 {

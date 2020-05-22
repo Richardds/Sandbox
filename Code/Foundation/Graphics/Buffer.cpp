@@ -1,4 +1,5 @@
-#include "Buffer.h"
+#include "Precompiled.h"
+#include "Graphics/Buffer.h"
 
 std::unordered_map<GLenum, GLuint> Graphics::Buffer::_boundBuffers = {
 	{GL_ARRAY_BUFFER, 0},

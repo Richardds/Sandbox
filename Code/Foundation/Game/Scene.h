@@ -1,17 +1,15 @@
 #pragma once
 
-#include <string>
-#include <unordered_map>
-
-#include "../Graphics/Renderers/SkyboxRenderer.h"
-#include "../Graphics/Renderers/EntityRenderer.h"
-#include "../Graphics/Renderers/WaterRenderer.h"
-#include "Scene/DirectionalLight.h"
-#include "Scene/Entity.h"
-#include "Scene/PointLight.h"
-#include "Scene/Skybox.h"
-#include "Scene/TargetedCamera.h"
-#include "Scene/Water.h"
+#include "Precompiled.h"
+#include "Graphics/Renderers/SkyboxRenderer.h"
+#include "Graphics/Renderers/EntityRenderer.h"
+#include "Graphics/Renderers/WaterRenderer.h"
+#include "Game/Scene/DirectionalLight.h"
+#include "Game/Scene/Entity.h"
+#include "Game/Scene/PointLight.h"
+#include "Game/Scene/Skybox.h"
+#include "Game/Scene/TargetedCamera.h"
+#include "Game/Scene/Water.h"
 
 namespace Graphics
 {

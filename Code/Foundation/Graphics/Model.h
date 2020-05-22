@@ -1,10 +1,8 @@
 #pragma once
 
-#include <unordered_map>
-#include <string>
-
-#include "TexturedMesh.h"
-#include "Shaders/EntityShader.h"
+#include "Precompiled.h"
+#include "Graphics/TexturedMesh.h"
+#include "Graphics/Shaders/EntityShader.h"
 
 namespace Graphics
 {

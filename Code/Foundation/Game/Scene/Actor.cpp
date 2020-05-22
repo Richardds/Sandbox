@@ -1,5 +1,6 @@
-#include "Actor.h"
-#include "../../Math/Utils.h"
+#include "Precompiled.h"
+#include "Game/Scene/Actor.h"
+#include "Math/Utils.h"
 
 Graphics::Actor::Actor() :
 	_movingSpeed(5.0f),

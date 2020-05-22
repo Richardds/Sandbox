@@ -1,4 +1,5 @@
-#include "../Attributes/HasPosition.h"
+#include "Precompiled.h"
+#include "Game/Attributes/HasPosition.h"
 
 Graphics::HasPosition::HasPosition() :
 	_position()

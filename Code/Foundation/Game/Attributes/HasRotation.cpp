@@ -1,4 +1,5 @@
-#include "../Attributes/HasRotation.h"
+#include "Precompiled.h"
+#include "Game/Attributes/HasRotation.h"
 
 Graphics::HasRotation::HasRotation() :
 	HasRotation(0.0f, 0.0f, 0.0f)

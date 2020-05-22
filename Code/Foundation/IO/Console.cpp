@@ -1,7 +1,5 @@
-#include <cstdarg>
-#include <cstdio>
-
-#include "Console.h"
+#include "Precompiled.h"
+#include "IO/Console.h"
 
 void __cdecl IO::Console::Write(FILE* handle, const char* format, ...)
 {

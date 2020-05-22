@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Camera.h"
+#include "Precompiled.h"
+#include "Game/Scene/Camera.h"
 
 namespace Graphics
 {

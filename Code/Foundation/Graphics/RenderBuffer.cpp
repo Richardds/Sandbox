@@ -1,4 +1,5 @@
-#include "RenderBuffer.h"
+#include "Precompiled.h"
+#include "Graphics/RenderBuffer.h"
 
 GLuint Graphics::RenderBuffer::_boundRenderBuffer = 0;
 

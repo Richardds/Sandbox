@@ -16,7 +16,7 @@ namespace GunnerBoi
 			Run
 		};
 
-		static constexpr float SUN_LOWER_LIMIT = 0.075;
+		static constexpr float SUN_LOWER_LIMIT = 0.075f;
 
 		GunnerBoiScene();
 

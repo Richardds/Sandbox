@@ -1,7 +1,8 @@
 #pragma once
 
-#include "../Attributes/HasPosition.h"
-#include "../Attributes/HasRotation.h"
+#include "Precompiled.h"
+#include "Game/Attributes/HasPosition.h"
+#include "Game/Attributes/HasRotation.h"
 
 namespace Graphics
 {

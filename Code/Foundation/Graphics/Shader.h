@@ -1,8 +1,6 @@
 #pragma once
 
-#include <string>
-
-#include "../Core/Types.h"
+#include "Precompiled.h"
 
 namespace Graphics
 {

@@ -1,10 +1,7 @@
-#include <stdexcept>
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
-
-#include "AssimpLoader.h"
-#include "../ResourcesLoader.h"
-#include "../../Core/Types.h"
+#include "Precompiled.h"
+#include "Util/Loaders/AssimpLoader.h"
+#include "Core/Types.h"
+#include "Util/ResourcesLoader.h"
 
 Util::AssimpLoader::AssimpLoader() :
 	_scene(nullptr),

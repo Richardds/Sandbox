@@ -1,10 +1,9 @@
 #pragma once
 
-#include <memory>
-
-#include "Shader.h"
-#include "../Math/Matrix.h"
-#include "../Math/Vector.h"
+#include "Precompiled.h"
+#include "Graphics/Shader.h"
+#include "Math/Matrix.h"
+#include "Math/Vector.h"
 
 namespace Graphics
 {

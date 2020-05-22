@@ -395,5 +395,6 @@
     <ClInclude Include="Graphics\Renderers\Renderer.h">
       <Filter>Graphics\Renderers</Filter>
     </ClInclude>
+    <ClInclude Include="Precompiled.h" />
   </ItemGroup>
 </Project>

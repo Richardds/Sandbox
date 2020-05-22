@@ -1,5 +1,6 @@
-#include "Entity.h"
-#include "../../Math/Utils.h"
+#include "Precompiled.h"
+#include "Game/Scene/Entity.h"
+#include "Math/Utils.h"
 
 Graphics::Entity::Entity()
 {

@@ -1,6 +1,6 @@
-#include "FourCC.h"
-
-#include "../Core/Debug.h"
+#include "Precompiled.h"
+#include "Util/FourCC.h"
+#include "Core/Debug.h"
 
 Util::FourCC::FourCC() :
 	_fourCC(0)

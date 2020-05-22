@@ -1,8 +1,6 @@
-#include <gli/load_dds.hpp>
-#include <gli/gl.hpp>
-
-#include "DirectDrawSurfaceLoader.h"
-#include "../../IO/Console.h"
+#include "Precompiled.h"
+#include "Util/Loaders/DirectDrawSurfaceLoader.h"
+#include "IO/Console.h"
 
 void Util::DirectDrawSurfaceLoader::Load(std::shared_ptr<Graphics::Texture>& texture, std::vector<char>& buffer) const
 {

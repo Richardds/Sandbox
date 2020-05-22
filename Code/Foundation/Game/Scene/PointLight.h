@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Light.h"
-#include "../Attributes/HasPosition.h"
+#include "Precompiled.h"
+#include "Game/Scene/Light.h"
+#include "Game/Attributes/HasPosition.h"
 
 namespace Graphics
 {

@@ -1,8 +1,9 @@
-#include "WaterShader.h"
-#include "../Texture.h"
-#include "../../Core/Debug.h"
-#include "../../Core/Types.h"
-#include "../../Math/Utils.h"
+#include "Precompiled.h"
+#include "Graphics/Shaders/WaterShader.h"
+#include "Core/Debug.h"
+#include "Core/Types.h"
+#include "Graphics/Texture.h"
+#include "Math/Utils.h"
 
 Graphics::WaterShader::WaterShader() :
 	ShaderSystem("Water"),

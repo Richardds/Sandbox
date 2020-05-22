@@ -1,8 +1,7 @@
-#include <vector>
-
-#include "Shader.h"
-#include "../Core/Debug.h"
-#include "../IO/Console.h"
+#include "Precompiled.h"
+#include "Graphics/Shader.h"
+#include "Core/Debug.h"
+#include "IO/Console.h"
 
 Graphics::Shader::Shader(const GLenum type) :
 	_state(State::Initial),

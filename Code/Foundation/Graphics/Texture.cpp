@@ -1,8 +1,6 @@
-#include <gli/gli.hpp>
-
-#include "Texture.h"
-#include "../Core/Types.h"
-#include "../IO/Console.h"
+#include "Precompiled.h"
+#include "Graphics/Texture.h"
+#include "Core/Types.h"
 
 std::unordered_map<GLenum, GLuint> Graphics::Texture::_boundTextures = {
 	{GL_TEXTURE_1D, 0},

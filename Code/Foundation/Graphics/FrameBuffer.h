@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core.h"
-#include "RenderBuffer.h"
+#include "Precompiled.h"
+#include "Graphics/RenderBuffer.h"
 
 namespace Graphics
 {

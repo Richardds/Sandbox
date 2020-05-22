@@ -1,4 +1,5 @@
-#include "../Attributes/HasScale.h"
+#include "Precompiled.h"
+#include "Game/Attributes/HasScale.h"
 
 Graphics::HasScale::HasScale() :
 	_scale(1.0f)

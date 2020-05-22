@@ -1,12 +1,10 @@
 #pragma once
 
-#include <string>
-#include <assimp/scene.h>
-
-#include "../../Graphics/Material.h"
-#include "../../Graphics/Model.h"
-#include "../../Graphics/VertexAttributeConfig.h"
-#include "../../Math/Vector.h"
+#include "Precompiled.h"
+#include "Graphics/Material.h"
+#include "Graphics/Model.h"
+#include "Graphics/VertexAttributeConfig.h"
+#include "Math/Vector.h"
 
 namespace Util
 {

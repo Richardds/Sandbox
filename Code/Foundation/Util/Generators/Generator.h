@@ -1,10 +1,8 @@
 #pragma once
 
-#include <memory>
-
-#include "../../Core/Types.h"
-#include "../../Graphics/Mesh.h"
-#include "../../Graphics/VertexAttributeConfig.h"
+#include "Precompiled.h"
+#include "Graphics/Mesh.h"
+#include "Graphics/VertexAttributeConfig.h"
 
 namespace Util
 {

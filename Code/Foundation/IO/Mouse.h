@@ -1,10 +1,8 @@
 #pragma once
 
-#include <functional>
-
-#include "../Core/Singleton.h"
-#include "../Math/Vector.h"
-#include "../Core/Types.h"
+#include "Precompiled.h"
+#include "Core/Singleton.h"
+#include "Math/Vector.h"
 
 namespace IO
 {

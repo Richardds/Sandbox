@@ -1,6 +1,5 @@
-#include "Mesh.h"
-
-#include <utility>
+#include "Precompiled.h"
+#include "Graphics/Mesh.h"
 
 Graphics::Mesh::Mesh(std::shared_ptr<VertexArray> vertexArrayObject,
                      std::shared_ptr<Buffer> vertexBuffer, std::shared_ptr<Buffer> elementsBuffer,

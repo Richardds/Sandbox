@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../../Math/Vector.h"
+#include "Precompiled.h"
+#include "Math/Vector.h"
 
 namespace Graphics
 {

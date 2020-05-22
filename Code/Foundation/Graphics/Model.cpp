@@ -1,5 +1,6 @@
-#include "Model.h"
-#include "../Core/Debug.h"
+#include "Precompiled.h"
+#include "Graphics/Model.h"
+#include "Core/Debug.h"
 
 Graphics::Model::Model() :
 	_state(State::Initial)

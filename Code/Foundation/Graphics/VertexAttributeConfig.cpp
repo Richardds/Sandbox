@@ -1,4 +1,6 @@
-#include "VertexAttributeConfig.h"
+#include "Precompiled.h"
+#include "Graphics/VertexAttributeConfig.h"
+#include "Core/Debug.h"
 
 Graphics::VertexAttributeConfig::VertexAttributeConfig() :
 	_size(0)

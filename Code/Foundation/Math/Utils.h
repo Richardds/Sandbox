@@ -1,11 +1,8 @@
 #pragma once
 
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include "Matrix.h"
-#include "Quaternion.h"
-#include "Vector.h"
+#include "Precompiled.h"
+#include "Math/Matrix.h"
+#include "Math/Vector.h"
 
 namespace Math
 {
