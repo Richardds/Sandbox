@@ -1,5 +1,3 @@
-#include <Graphics/Core.h>
-
 #include "GunnerBoiApplication.h"
 #include "IO/Keyboard.h"
 
@@ -25,6 +23,18 @@ void GunnerBoi::GunnerBoiApplication::Close()
 
 void GunnerBoi::GunnerBoiApplication::OnProcessInput()
 {
+	// Disable wireframe mode
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::F8))
+	{
+		this->SetWireframeModeEnabled(false);
+	}
+
+	// Enable wireframe mode
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::F9))
+	{
+		this->SetWireframeModeEnabled(true);
+	}
+	
 	// Disable vertical sync
 	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::F10))
 	{

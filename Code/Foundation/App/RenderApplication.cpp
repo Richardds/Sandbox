@@ -10,7 +10,8 @@ App::RenderApplication::RenderApplication() :
 	_frameCount(0),
 	_lastFrameCount(0),
 	_isQuitRequested(false),
-	_vSyncEnabled(true)
+	_vSyncEnabled(true),
+	_wireframeModeEnabled(false)
 {
 }
 
@@ -111,17 +112,25 @@ void App::RenderApplication::OnConfigureContext()
 	this->SetVSyncEnabled(true);
 	
 	glClearColor(0.2f, 0.325f, 0.375f, 1.0f);
-	
+
+	// Enable multi-sampling
 	glEnable(GL_MULTISAMPLE);
 
+	// Enable depth testing
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
+	// Enable culling (counterclockwise)
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
 
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	// Enable transparency
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// Enable wireframe mode
+	this->SetWireframeModeEnabled(false);
 
 	this->_window->Open();
 }
@@ -149,8 +158,26 @@ void App::RenderApplication::PrintDeviceInfo() const
 
 void App::RenderApplication::SetVSyncEnabled(const bool enabled)
 {
-	this->_vSyncEnabled = enabled;
-	glfwSwapInterval(this->_vSyncEnabled ? 1 : 0);
+	if (this->_vSyncEnabled != enabled)
+	{
+		this->_vSyncEnabled = enabled;
+		glfwSwapInterval(this->_vSyncEnabled ? 1 : 0);
+	}
+}
+
+void App::RenderApplication::SetWireframeModeEnabled(const bool enabled)
+{
+	if (this->_wireframeModeEnabled != enabled)
+	{
+		this->_wireframeModeEnabled = enabled;
+		if (this->_wireframeModeEnabled)
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		} else
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+	}
 }
 
 float App::RenderApplication::GetFrameDelta() const

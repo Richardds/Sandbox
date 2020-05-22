@@ -35,7 +35,7 @@ bool Graphics::Window::Create()
 		static_cast<int>(this->_height),
 		this->_title.c_str(),
 		nullptr,
-		NULL
+		nullptr
 	);
 
 	_Assert(nullptr != this->_glfwWindow);

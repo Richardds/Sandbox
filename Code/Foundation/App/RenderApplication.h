@@ -24,6 +24,7 @@ namespace App
 		virtual void OnProcessInput() = 0;
 		void PrintDeviceInfo() const;
 		void SetVSyncEnabled(bool enabled);
+		void SetWireframeModeEnabled(bool enabled);
 		void OnInitializeFrame();
 		virtual void OnUpdateLogic() = 0;
 		virtual void OnUpdateFrame() = 0;
@@ -44,6 +45,7 @@ namespace App
 		unsigned int _lastFrameCount;
 		bool _isQuitRequested;
 		bool _vSyncEnabled;
+		bool _wireframeModeEnabled;
 	};
 
 	inline void RenderApplication::SetQuitRequested(const bool isQuitRequested)
