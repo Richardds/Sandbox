@@ -189,7 +189,7 @@ void GunnerBoi::GunnerBoiScene::Update(const float delta)
 		this->_waterTiles["default"]->SetPositionY(glm::sin(this->_time / 1.75f) / 35.0f);
 
 		// GoForward scene day & night cycle effect
-		const float darkeningFactor = (glm::sin(this->_time / 10.0f) + 1.0f) / 2.1622f + 0.075f; // Interval <0.075-1.000>
+		const float darkeningFactor = (glm::sin(this->_time / 5.0f) + 1.0f) / (2.0f / (1.0f - SUN_LOWER_LIMIT)) + SUN_LOWER_LIMIT; // Interval <SUN_LOWER_LIMIT-1.000>
 		this->_skyboxRenderer->GetShader()->Use();
 		this->_skyboxRenderer->GetShader()->LoadDarkeningFactor(darkeningFactor);
 		this->_sun->SetIntensity(darkeningFactor);
