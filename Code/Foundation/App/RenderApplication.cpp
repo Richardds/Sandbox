@@ -126,10 +126,12 @@ void App::RenderApplication::OnConfigureContext()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
-	// Enable culling (counterclockwise)
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
+	// Enable CCW culling (counterclockwise)
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_BACK);
+	//glFrontFace(GL_CCW);
+	// TODO: Disabled due to Blender sometimes exports vertices in reversed order
+	// TODO: https://cw.felk.cvut.cz/forum/thread-5083.html
 
 	// Enable transparency
 	glEnable(GL_BLEND);

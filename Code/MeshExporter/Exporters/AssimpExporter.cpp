@@ -13,9 +13,10 @@ bool Util::AssimpExporter::Load(const std::vector<char>& buffer)
 {
 	this->_scene = this->_importer.ReadFileFromMemory(buffer.data(), buffer.size(),
 		aiProcess_Triangulate
-		| aiProcess_JoinIdenticalVertices
 		| aiProcess_FlipUVs
 		| aiProcess_CalcTangentSpace
+		| aiProcess_GenNormals
+		| aiProcess_JoinIdenticalVertices
 		| aiProcess_FixInfacingNormals
 		| aiProcess_FindInvalidData
 		| aiProcess_FindDegenerates

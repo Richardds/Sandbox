@@ -71,6 +71,7 @@ void Sandbox::Player::Update(const float delta)
 		this->_countdown = Math::Max(next, 0.0f);
 	}
 
+	// Update player position relative to the current target
 	if (State::Following == this->_state)
 	{
 		if (this->DistanceTo(this->_target) < 0.25f)
