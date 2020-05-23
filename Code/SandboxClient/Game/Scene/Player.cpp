@@ -73,7 +73,7 @@ void Sandbox::Player::Update(const float delta)
 
 	if (State::Following == this->_state)
 	{
-		if (this->DistanceTo(this->_target) < 0.1f)
+		if (this->DistanceTo(this->_target) < 0.25f)
 		{
 			this->_state = State::Idle;
 		}

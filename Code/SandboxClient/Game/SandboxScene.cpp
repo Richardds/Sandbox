@@ -23,7 +23,7 @@ bool Sandbox::SandboxScene::Setup()
 
 	// Load Skybox
 	std::shared_ptr<Graphics::Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadCubeMap("day");
-	this->_skybox = std::make_shared<Graphics::Skybox>(skyboxTexture, 500.0f);
+	this->_skybox = std::make_shared<Graphics::Skybox>(skyboxTexture, 750.0f);
 	
 	// Configure lights
 	std::shared_ptr<Graphics::PointLight> playerLight = this->AddLight("player_light");
@@ -34,10 +34,10 @@ bool Sandbox::SandboxScene::Setup()
 	std::shared_ptr<Graphics::Entity> terrain = this->AddEntity("terrain", "terrain");
 
 	// Load water
-	std::shared_ptr<Graphics::Water> water = this->AddWater("default", 500.0f);
+	std::shared_ptr<Graphics::Water> water = this->AddWater("water_01", 1500.0f);
 
 	// Load player
-	this->_player = this->SetupPlayer("arrow");
+	this->_player = this->SetupPlayer("boat");
 
 	// Load other models	
 	std::shared_ptr<Graphics::Entity> crate1 = this->AddEntity("crate_01", "crate");
@@ -55,6 +55,9 @@ bool Sandbox::SandboxScene::Setup()
 	brickWall->SetPosition(Math::Vector3f(7.5f, 0.0f, -5.0f));
 	brickWall->SetRotationY(-45.0f);
 
+	std::shared_ptr<Graphics::Entity> house1 = this->AddEntity("house_01", "house");
+	house1->SetPosition(Math::Vector3f(-10.0f, 0.0f, -2.0f));
+
 	// Register mouse scrolling
 	IO::Mouse::Instance().RegisterScrolling([this](float x, float y)
 	{
@@ -67,9 +70,69 @@ bool Sandbox::SandboxScene::Setup()
 	return true;
 }
 
+void Sandbox::SandboxScene::ProcessCameraInput()
+{
+	// Detach from camera locked to player
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::D))
+	{
+		this->_lockCameraToPlayer = false;
+	}
+	
+	// Attach from camera locked to player
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::A))
+	{
+		this->_lockCameraToPlayer = true;
+	}
+
+	if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::Right))
+	{
+		// Mouse relative motion to previous state
+		Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
+		
+		// Locked camera
+		if (this->_lockCameraToPlayer)
+		{
+			// Increase viewing rotation relative to the player
+			mouseMotion *= 75.0f; // Make motion more sensitive
+			this->_camera->IncreaseRotation(-mouseMotion.y, mouseMotion.x, 0.0f);
+		}
+		// Free camera
+		else {
+			if (IO::Keyboard::Instance().IsAltPressed())
+			{
+				// Increase viewing position relative to the world
+				mouseMotion *= -25.0f; // Invert and make motion more sensitive
+				this->_camera->IncreasePosition(Math::Vector3f(mouseMotion.x, mouseMotion.y, 0.0f));
+			}
+			else
+			{
+				// Increase viewing rotation relative to the world
+				mouseMotion *= -75.0f; // Invert and make motion more sensitive
+				this->_camera->IncreaseRotation(-mouseMotion.y, mouseMotion.x, 0.0f);
+			}
+		}
+	}
+
+	// Switch POIs
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::One))
+	{
+		this->_lockCameraToPlayer = false;
+		this->_camera->SetPosition(Math::Vector3f(-10.0f, 7.5f, 5.0f));
+		this->_camera->LookAt(Math::Vector3f(0.0f, 0.0f, 0.0f));
+	}
+	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Two))
+	{
+		this->_lockCameraToPlayer = false;
+		this->_camera->SetPosition(Math::Vector3f(15.0f, 7.5f, 10.0f));
+		this->_camera->LookAt(Math::Vector3f(0.0f, 0.0f, 0.0f));
+	}
+}
+
 void Sandbox::SandboxScene::ProcessInput()
 {
 	Scene::ProcessInput();
+
+	this->ProcessCameraInput();
 
 	const Math::Vector3f worldPosition = this->GetScreenWorldPosition(IO::Mouse::Instance().GetCoords());
 	const Math::Vector2f worldPointer = Math::Vector2f(worldPosition.x, worldPosition.z);
@@ -93,20 +156,6 @@ void Sandbox::SandboxScene::ProcessInput()
 			this->_player->Follow();
 		}
 	}
-	// Camera motion
-	else if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::Right))
-	{
-		Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
-		mouseMotion *= 75.0f;
-
-		// Invert camera motion on free camera
-		if (!this->_lockCameraToPlayer)
-		{
-			mouseMotion *= -1;
-		}
-
-		this->_camera->IncreaseRotation(-mouseMotion.y, mouseMotion.x, 0.0f);
-	}
 
 	// Additional skills
 	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::X))
@@ -123,24 +172,6 @@ void Sandbox::SandboxScene::ProcessInput()
 			this->_player->LookAt(worldPointer);
 			this->_player->BeamFire(this->_projectileManager, 4);
 		}
-	}
-
-	// Camera modes
-	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::One))
-	{
-		this->_lockCameraToPlayer = true;
-	}
-	else if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Two))
-	{
-		this->_lockCameraToPlayer = false;
-		this->_camera->SetPosition(Math::Vector3f(-10.0f, 10.0f, 5.0f));
-		this->_camera->LookAt(Math::Vector3f(0.0f, 0.0f, 0.0f));
-	}
-	else if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Three))
-	{
-		this->_lockCameraToPlayer = false;
-		this->_camera->SetPosition(Math::Vector3f(15.0f, 20.0f, 10.0f));
-		this->_camera->LookAt(Math::Vector3f(0.0f, 0.0f, 0.0f));
 	}
 
 	// Enabled fog
@@ -183,17 +214,18 @@ void Sandbox::SandboxScene::Update(const float delta)
 	this->_lights["player_light"]->SetPosition(Math::Vector3f(playerPosition.x, lightPositionY, playerPosition.z));
 
 	// Time based updates
+	float darkeningFactor = 1.0f;
 	if (!this->_paused)
 	{
 		// GoForward water motion
-		this->_waterTiles["default"]->SetPositionY(glm::sin(this->_time / 1.75f) / 35.0f);
+		this->_waterTiles["water_01"]->SetPositionY(glm::sin(this->_time / 1.75f) / 35.0f);
 
 		// GoForward scene day & night cycle effect
-		const float darkeningFactor = (glm::sin(this->_time / 5.0f) + 1.0f) / (2.0f / (1.0f - SUN_LOWER_LIMIT)) + SUN_LOWER_LIMIT; // Interval <SUN_LOWER_LIMIT-1.000>
-		this->_skyboxRenderer->GetShader()->Use();
-		this->_skyboxRenderer->GetShader()->LoadDarkeningFactor(darkeningFactor);
-		this->_sun->SetIntensity(darkeningFactor);
+		darkeningFactor = (glm::sin(this->_time / 5.0f) + 1.0f) / (2.0f / (1.0f - SUN_LOWER_LIMIT)) + SUN_LOWER_LIMIT; // Interval <SUN_LOWER_LIMIT-1.000>
 	}
+	this->_skyboxRenderer->GetShader()->Use();
+	this->_skyboxRenderer->GetShader()->LoadDarkeningFactor(darkeningFactor);
+	this->_sun->SetIntensity(darkeningFactor);
 }
 
 void Sandbox::SandboxScene::Render()

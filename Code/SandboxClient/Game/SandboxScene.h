@@ -22,6 +22,7 @@ namespace Sandbox
 		SandboxScene();
 
 		bool Setup() override;
+		void ProcessCameraInput();
 		void ProcessInput() override;
 		void Update(float delta) override;
 		void Render() override;

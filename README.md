@@ -1,6 +1,6 @@
 # Sandbox
 
-Is semestral project of BI-PGR course on CTU in Prague, FIT.
+Semestral project of BI-PGR course on CTU in Prague, FIT.
 
 ## Development setup
 

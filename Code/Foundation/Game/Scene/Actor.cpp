@@ -3,7 +3,7 @@
 #include "Math/Utils.h"
 
 Graphics::Actor::Actor() :
-	_movingSpeed(5.0f),
+	_movingSpeed(2.0f),
 	_turningSpeed(180.0f)
 {
 }

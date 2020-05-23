@@ -84,6 +84,10 @@ void Util::AssimpExporter::WriteMaterial(std::ofstream& file, aiMaterial* materi
 
 void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
 {
+	// Write name
+	this->WriteString(file, mesh->mName.C_Str());
+
+	// Write vertices count
 	const uint32_t verticesCount = mesh->mNumVertices;
 	this->Write(file, verticesCount);
 
@@ -105,6 +109,7 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
 		vertexData.tangent.y = mesh->mTangents[i].y;
 		vertexData.tangent.z = mesh->mTangents[i].z;
 
+		// Write vertex attributes
 		this->Write(file, vertexData);
 	}
 
@@ -114,13 +119,16 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
 	for (uint32_t i = 0; i < trianglesCount; i++)
 	{
 		const aiFace face = mesh->mFaces[i];
-		for (uint32_t j = 0; j < face.mNumIndices; j++)
+		_Assert(3 == face.mNumIndices);
+		for (uint32_t j = 0; j < 3; j++)
 		{
+			// Write vertex index
 			const uint32_t index = face.mIndices[j];
 			this->Write(file, index);
 		}
 	}
 
+	// Write material
 	aiMaterial* material = this->_scene->mMaterials[mesh->mMaterialIndex];
 	this->WriteMaterial(file, this->_scene->mMaterials[mesh->mMaterialIndex]);
 
@@ -129,22 +137,26 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
 	textureBitfield |= HAS_TEXTURE_NORMALS * (1 == material->GetTextureCount(aiTextureType_NORMALS));
 	textureBitfield |= HAS_TEXTURE_SPECULAR * (1 == material->GetTextureCount(aiTextureType_SPECULAR));
 
+	// Write texture bitfield
 	this->Write(file, textureBitfield);
 	
 	aiString assetPath;
 
+	// Write diffuse texture name
 	if (HAS_TEXTURE_DIFFUSE & textureBitfield)
 	{
 		material->GetTexture(aiTextureType_DIFFUSE, 0, &assetPath);
 		this->WriteString(file, this->ParseAssetName(assetPath));
 	}
 
+	// Write normals mapping name
 	if (HAS_TEXTURE_NORMALS & textureBitfield)
 	{
 		material->GetTexture(aiTextureType_NORMALS, 0, &assetPath);
 		this->WriteString(file, this->ParseAssetName(assetPath));
 	}
 
+	// Write specular mapping name
 	if (HAS_TEXTURE_SPECULAR & textureBitfield)
 	{
 		material->GetTexture(aiTextureType_SPECULAR, 0, &assetPath);

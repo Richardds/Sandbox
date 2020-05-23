@@ -1,6 +1,7 @@
 #include "Precompiled.h"
 #include "Util/Loaders/AssimpLoader.h"
 #include "Core/Types.h"
+#include "IO/Console.h"
 #include "Util/ResourcesLoader.h"
 
 Util::AssimpLoader::AssimpLoader() :
@@ -47,6 +48,7 @@ void Util::AssimpLoader::ProcessNode(aiNode* node)
 	for (uint32_t i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh* mesh = this->_scene->mMeshes[node->mMeshes[i]];
+		IO::Console::Instance().Info("-> Mesh '%s'\n", mesh->mName.C_Str());
 		this->_model->AddMesh(mesh->mName.C_Str(), this->ProcessMesh(mesh));
 	}
 

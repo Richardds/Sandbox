@@ -1,6 +1,7 @@
 #include "Precompiled.h"
 #include "Util/Loaders/ModelLoader.h"
 #include "Core/Types.h"
+#include "IO/Console.h"
 #include "Math/Vector.h"
 #include "Util/FourCC.h"
 #include "Util/ResourcesLoader.h"
@@ -37,7 +38,7 @@ std::string Util::ModelLoader::ReadString(std::ifstream& file) const
 	uint16_t length;
 	this->Read(file, &length);
 	
-	char* stringBuffer = new char[length + 1];
+	char* stringBuffer = new char[static_cast<size_t>(length) + 1];
 	file.read(stringBuffer, length);
 	stringBuffer[length] = '\0';
 
@@ -55,8 +56,9 @@ void Util::ModelLoader::ParseFile(std::ifstream& file) const
 
 	for (uint16_t i = 0; i < meshesCount; i++)
 	{
-		// TODO: Mesh name
-		this->_model->AddMesh("_default", this->ParseMesh(file));
+		const std::string meshName = this->ReadString(file);
+		IO::Console::Instance().Info("-> Mesh '%s'\n", meshName.c_str());
+		this->_model->AddMesh(meshName, this->ParseMesh(file));
 	}
 }
 

@@ -40,7 +40,7 @@ void Graphics::SkyboxShader::LoadCamera(const std::shared_ptr<Camera>& camera) c
 	Math::Matrix4f viewMatrix = Math::ViewMatrix(camera->GetPosition(), camera->GetRotationX(), camera->GetRotationY());
 	viewMatrix[3].x = 0.0f;
 	viewMatrix[3].y = 0.0f;
-	viewMatrix[3].z = 0.0f;
+	//viewMatrix[3].z = 0.0f;
 	
 	this->LoadMatrix4f(this->_viewLocation, viewMatrix);
 }

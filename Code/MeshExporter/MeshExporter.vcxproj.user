@@ -3,11 +3,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>Intermediate/Models/terrain.fbx Resources/Models/terrain.model</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>Intermediate/Models/palm.fbx Resources/Models/palm.model</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>Intermediate/Models/terrain.fbx Resources/Models/terrain.model</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>Intermediate/Models/palm.fbx Resources/Models/palm.model</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>
