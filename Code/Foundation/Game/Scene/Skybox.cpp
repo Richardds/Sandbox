@@ -21,7 +21,7 @@ Graphics::Skybox::Skybox(const std::shared_ptr<Texture>& texture, const float si
 
 void Graphics::Skybox::Render() const
 {
-	this->_texture->Activate(Texture::Bank::Diffuse);
+	this->_texture->Activate(Texture::Bank::Skybox);
 
 	this->_mesh->DrawElements();
 }

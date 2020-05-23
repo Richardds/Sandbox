@@ -27,7 +27,7 @@ void Graphics::SkyboxShader::InitializeUniformVariables()
 	this->InitializeMatrix4fLocation("view", Math::Matrix4f(1.0f), this->_viewLocation);
 
 	// Setup skybox texture
-	this->InitializeIntLocation("texture", EnumToValue(Texture::Bank::Diffuse), this->_textureLocation);
+	this->InitializeIntLocation("skyboxSampler", EnumToValue(Texture::Bank::Skybox), this->_textureLocation);
 
 	// Setup darkening factor
 	this->InitializeFloatLocation("darkeningFactor", 1.0f, this->_darkeningFactorLocation);

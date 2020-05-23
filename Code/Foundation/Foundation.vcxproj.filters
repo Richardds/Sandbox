@@ -28,9 +28,6 @@
     <Filter Include="Util\Loaders">
       <UniqueIdentifier>{1152d737-5257-4915-a731-2fd7994e310a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\UI">
-      <UniqueIdentifier>{fce9a0c9-7c57-4324-b507-cfb036f55e50}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{ffb77d74-2f5d-4db2-a438-37628c10008e}</UniqueIdentifier>
     </Filter>

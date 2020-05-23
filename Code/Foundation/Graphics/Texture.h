@@ -30,7 +30,9 @@ namespace Graphics
 
 			Distortion = 4,
 			Reflection = 5,
-			Refraction = 6
+			Refraction = 6,
+			
+			Skybox = 7
 		};
 
 		explicit Texture();
