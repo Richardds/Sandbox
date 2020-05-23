@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       TargetedCamera.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -5,6 +10,8 @@
 
 namespace Graphics
 {
+	/// 3D scene targeted camera entity
+	/// This camera type usually focus on specified 3D position
 	class TargetedCamera : public Camera
 	{
 	public:

@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Scene.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -13,6 +18,7 @@
 
 namespace Graphics
 {
+	/// 3D scene which describe models, lights, camera and skybox
 	class Scene
 	{
 	public:
@@ -53,7 +59,7 @@ namespace Graphics
 		float _time;
 		bool _renderSkybox;
 		bool _paused;
-		
+
 	private:
 		State _state;
 	};

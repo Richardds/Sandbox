@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       DirectionalLight.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -5,6 +10,7 @@
 
 namespace Graphics
 {
+	/// 3D scene directional light entity
 	class DirectionalLight : public Light
 	{
 	public:

@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       TexturedMesh.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Graphics/TexturedMesh.h"
 

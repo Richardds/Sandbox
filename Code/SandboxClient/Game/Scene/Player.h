@@ -8,6 +8,7 @@
 
 namespace Sandbox
 {
+	/// 3D world actor overrider class used for abstracting a player
 	class Player : public Graphics::Actor
 	{
 	public:
@@ -18,6 +19,7 @@ namespace Sandbox
 			Following
 		};
 
+		/// Projectile spawning speed when unspecified
 		static constexpr float DEFAULT_ATTACK_SPEED = 3.0f;
 
 		Player();

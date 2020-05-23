@@ -1,3 +1,9 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Debug.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \brief      Core debug utilities
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"

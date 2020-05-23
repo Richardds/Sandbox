@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Window.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Graphics/Window.h"
 #include "Graphics/Core.h"
@@ -26,7 +31,7 @@ bool Graphics::Window::Create()
 {
 	_Assert(!this->IsCreated());
 	_Assert(Core::Instance().IsCreated());
-	
+
 	this->_glfwWindow = glfwCreateWindow(
 		static_cast<int>(this->_width),
 		static_cast<int>(this->_height),
@@ -81,14 +86,15 @@ float Graphics::Window::GetAspectRatio() const
 void Graphics::Window::ApplyViewport() const
 {
 	_Assert(this->IsCreated());
-	
+
 	if (this->_fullScreenEnabled)
 	{
 		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-		
+
 		glViewport(0, 0, mode->width, mode->height);
-	} else
+	}
+	else
 	{
 		glViewport(0, 0, this->_width, this->_height);
 	}

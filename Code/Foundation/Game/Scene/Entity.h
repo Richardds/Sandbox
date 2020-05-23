@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Entity.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -9,6 +14,7 @@
 
 namespace Graphics
 {
+	/// 3D scene entity
 	class Entity : public HasPosition, public HasRotation, public HasScale
 	{
 	public:

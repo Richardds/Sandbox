@@ -1,3 +1,9 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Types.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \brief      Core types and macros
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -26,9 +32,9 @@ namespace Timing
 namespace Util
 {
 	// Diffuse texture bitfield
-	static const uint8_t HAS_TEXTURE_DIFFUSE  = 0b001;
+	static const uint8_t HAS_TEXTURE_DIFFUSE = 0b001;
 	// Normals map bitfield
-	static const uint8_t HAS_TEXTURE_NORMALS  = 0b010;
+	static const uint8_t HAS_TEXTURE_NORMALS = 0b010;
 	// Specular map bitfield
 	static const uint8_t HAS_TEXTURE_SPECULAR = 0b100;
 }

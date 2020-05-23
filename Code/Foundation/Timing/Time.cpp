@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Time.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Timing/Time.h"
 
@@ -9,11 +14,6 @@ Timing::Time::Time(const Time& rhs)
 Timing::Time::Time(const TimePoint time) :
 	_time(time)
 {
-}
-
-void Timing::Time::operator=(const Time& rhs)
-{
-	this->_time = rhs._time;
 }
 
 Timing::Duration Timing::Time::Diff(const Time& rhs) const

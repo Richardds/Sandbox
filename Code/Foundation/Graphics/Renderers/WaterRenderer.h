@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       WaterRenderer.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -10,17 +15,19 @@
 
 namespace Graphics
 {
+	/// Renderer which renders water tiles
 	class WaterRenderer : public Renderer<WaterShader>
 	{
 	public:
+		/// Water reflection and refraction frame buffer sizes
 		const unsigned int TEXTURE_SIZE = 2048;
 
 		WaterRenderer() = default;
-		
+
 		bool Setup(const std::shared_ptr<const Projection>& projection);
 		void Begin(const std::shared_ptr<Camera>& camera,
-				   const std::shared_ptr<DirectionalLight>& sun,
-			       const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const;
+		           const std::shared_ptr<DirectionalLight>& sun,
+		           const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const;
 		void RenderToReflectionBuffer(const std::function<void()>& renderFunction) const;
 		void RenderToRefractionBuffer(const std::function<void()>& renderFunction) const;
 		void Render(const std::shared_ptr<Water>& water) const;

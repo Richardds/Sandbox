@@ -8,6 +8,7 @@
 
 namespace Sandbox
 {
+	/// 3D scene overrider of base scene class
 	class SandboxScene : public Graphics::Scene
 	{
 	public:

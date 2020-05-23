@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Light.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -5,6 +10,7 @@
 
 namespace Graphics
 {
+	/// Base light class
 	class Light
 	{
 	public:

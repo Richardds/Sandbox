@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Core.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -8,6 +13,7 @@
 
 namespace Graphics
 {
+	/// Helper singleton class for managing OpenGL low-level stuff
 	class Core
 	{
 	_Singleton(Core)
@@ -29,7 +35,9 @@ namespace Graphics
 		[[nodiscard]] std::string GetDriverVersion() const;
 		[[nodiscard]] std::string GetGlDump() const;
 
+		/// OpenGL major version
 		const int OPENGL_VERSION_MAJOR = 4;
+		/// OpenGL minor version
 		const int OPENGL_VERSION_MINOR = 3;
 
 	private:

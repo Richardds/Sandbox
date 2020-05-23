@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Entity.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Game/Scene/Entity.h"
 #include "Math/Utils.h"

@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Mesh.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -6,6 +11,7 @@
 
 namespace Graphics
 {
+	/// Holds necessary low-level OpenGL attributes for drawing a mesh of triangles
 	class Mesh
 	{
 	public:

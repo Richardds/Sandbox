@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       AssimpLoader.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -8,6 +13,7 @@
 
 namespace Util
 {
+	/// Model loader which uses Assimp library
 	class AssimpLoader
 	{
 	public:

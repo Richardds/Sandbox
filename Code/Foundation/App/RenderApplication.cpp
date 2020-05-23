@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       RenderApplication.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "App/RenderApplication.h"
 #include "Core/Debug.h"
@@ -93,25 +98,25 @@ void App::RenderApplication::UpdateTitleStats() const
 		this->_window->SetTitle(this->_title);
 		return;
 	}
-	
+
 	char titleBuffer[256];
 	const float averageFrameTime = this->_currentSecond / static_cast<float>(this->_frameCount);
 	const float averageFrameTimeMs = averageFrameTime / 1000.0f;
-	
+
 	sprintf_s(titleBuffer, 256, "%s | Frame rate: %3u | Avg. frame time: %3.3f ms | VSync %s",
-		this->_title.c_str(),
-		this->_lastFrameCount,
-		averageFrameTimeMs,
-		this->_vSyncEnabled ? "enabled" : "disabled"
+	          this->_title.c_str(),
+	          this->_lastFrameCount,
+	          averageFrameTimeMs,
+	          this->_vSyncEnabled ? "enabled" : "disabled"
 	);
-	
+
 	this->_window->SetTitle(titleBuffer);
 }
 
 void App::RenderApplication::OnConfigureContext()
 {
 	this->SetVSyncEnabled(true);
-	
+
 	glClearColor(0.2f, 0.325f, 0.375f, 1.0f);
 
 	// Enable multi-sampling
@@ -174,7 +179,8 @@ void App::RenderApplication::SetWireframeModeEnabled(const bool enabled)
 		if (this->_wireframeModeEnabled)
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		} else
+		}
+		else
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}

@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Skybox.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -6,6 +11,7 @@
 
 namespace Graphics
 {
+	/// 3D scene skybox
 	class Skybox
 	{
 	public:
@@ -20,6 +26,7 @@ namespace Graphics
 		void Render() const;
 
 	private:
+		/// Diameter size of skybox when unspecified
 		static constexpr float DEFAULT_SKYBOX_SIZE = 500.0f;
 
 		std::shared_ptr<Mesh> _mesh;
@@ -46,7 +53,7 @@ namespace Graphics
 	{
 		this->_texture = texture;
 	}
-	
+
 	inline float Skybox::GetSize() const
 	{
 		return this->_size;

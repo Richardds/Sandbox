@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Mouse.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "IO/Mouse.h"
 #include "Core/Debug.h"

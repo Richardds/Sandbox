@@ -1,3 +1,9 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Singleton.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \brief      Singleton class macro
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"

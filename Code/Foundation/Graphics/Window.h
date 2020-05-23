@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Window.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -5,6 +10,7 @@
 
 namespace Graphics
 {
+	/// GLFW context (window) class
 	class Window
 	{
 	public:

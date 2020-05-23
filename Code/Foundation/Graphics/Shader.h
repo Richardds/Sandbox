@@ -1,9 +1,15 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Shader.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
 
 namespace Graphics
 {
+	/// Low-level OpenGL generic shader object wrapper
 	class Shader
 	{
 	public:

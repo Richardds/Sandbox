@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Buffer.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -5,6 +10,7 @@
 
 namespace Graphics
 {
+	/// Low-level OpenGL vertex buffer object wrapper
 	class Buffer
 	{
 	public:

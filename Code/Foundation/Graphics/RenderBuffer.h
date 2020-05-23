@@ -1,9 +1,15 @@
+// ----------------------------------------------------------------------------------------
+//  \file       RenderBuffer.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
 
 namespace Graphics
 {
+	/// Low-level OpenGL render buffer object wrapper
 	class RenderBuffer
 	{
 	public:

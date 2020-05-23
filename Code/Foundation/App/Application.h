@@ -1,9 +1,15 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Application.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
 
 namespace App
 {
+	/// Base class of every application
 	class Application
 	{
 	public:

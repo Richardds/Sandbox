@@ -6,6 +6,7 @@
 
 namespace Sandbox
 {
+	/// 3D world actor overrider class used for abstracting a projectile
 	class Projectile : public Graphics::Actor
 	{
 	public:

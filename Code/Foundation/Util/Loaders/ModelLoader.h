@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       ModelLoader.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -7,6 +12,7 @@
 
 namespace Util
 {
+	/// Model loader which uses our custom format
 	class ModelLoader
 	{
 	public:
@@ -14,7 +20,8 @@ namespace Util
 		std::shared_ptr<Graphics::Model> Load(std::ifstream& file);
 
 	private:
-		template<typename T> void Read(std::ifstream& file, T* value) const;
+		template <typename T>
+		void Read(std::ifstream& file, T* value) const;
 		std::string ReadString(std::ifstream& file) const;
 		void ParseFile(std::ifstream& file) const;
 		std::shared_ptr<Graphics::Material> ParseMaterial(std::ifstream& file) const;

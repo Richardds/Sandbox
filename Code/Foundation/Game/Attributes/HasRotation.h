@@ -1,9 +1,15 @@
+// ----------------------------------------------------------------------------------------
+//  \file       HasRotation.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
 
 namespace Graphics
 {
+	/// Provides 3D rotation attributes and operations
 	class HasRotation
 	{
 	public:

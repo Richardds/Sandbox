@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       EntityRenderer.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Graphics/Renderers/EntityRenderer.h"
 #include "IO/Console.h"

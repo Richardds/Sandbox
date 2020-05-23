@@ -7,6 +7,7 @@
 
 namespace Sandbox
 {
+	/// Projectile manager class for managing 3D world projectiles
 	class ProjectileManager
 	{
 	public:

@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Shader.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Graphics/Shader.h"
 #include "Core/Debug.h"

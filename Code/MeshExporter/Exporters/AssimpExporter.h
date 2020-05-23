@@ -4,6 +4,7 @@
 
 namespace Util
 {
+	/// Custom model format exporter which uses Assimp library
 	class AssimpExporter
 	{
 	public:

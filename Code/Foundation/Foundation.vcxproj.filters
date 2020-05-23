@@ -114,9 +114,6 @@
     <ClCompile Include="Util\Loaders\DirectDrawSurfaceLoader.cpp">
       <Filter>Util\Loaders</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\UI\Rectangle.cpp">
-      <Filter>Graphics\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\VertexAttributeConfig.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
@@ -286,9 +283,6 @@
     </ClInclude>
     <ClInclude Include="Util\Loaders\DirectDrawSurfaceLoader.h">
       <Filter>Util\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\UI\Rectangle.h">
-      <Filter>Graphics\UI</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\VertexAttributeConfig.h">
       <Filter>Graphics</Filter>

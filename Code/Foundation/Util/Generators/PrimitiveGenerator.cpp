@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       PrimitiveGenerator.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Util/Generators/PrimitiveGenerator.h"
 #include "Core/Types.h"

@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       AssimpLoader.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Util/Loaders/AssimpLoader.h"
 #include "Core/Types.h"
@@ -66,7 +71,7 @@ std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* 
 	this->_meshCount++;
 
 	data.reserve(mesh->mNumVertices);
-	
+
 	for (uint32_t i = 0; i < mesh->mNumVertices; i++)
 	{
 		VertexData3 vertexData = {};

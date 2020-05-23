@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Texture.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -6,6 +11,7 @@
 
 namespace Graphics
 {
+	/// Low-level OpenGL texture object wrapper
 	class Texture
 	{
 	public:
@@ -92,7 +98,7 @@ namespace Graphics
 	{
 		return this->_width;
 	}
-	
+
 	inline void Texture::SetWidth(const unsigned int width)
 	{
 		_Assert(State::Initial == this->_state);

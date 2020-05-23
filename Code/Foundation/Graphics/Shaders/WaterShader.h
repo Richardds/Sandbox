@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       WaterShader.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -11,6 +16,7 @@
 
 namespace Graphics
 {
+	/// Shader system used for drawing water tiles
 	class WaterShader : public ShaderSystem
 	{
 	public:
@@ -30,8 +36,9 @@ namespace Graphics
 		void LoadDistortionOffset(float offset) const;
 
 	private:
+		/// Maximal count of possible lights used in the scene
 		static const int MAX_LIGHT_COUNT = 10;
-		
+
 		GLint _projectionLocation;
 		GLint _viewLocation;
 		GLint _viewPositionLocation;

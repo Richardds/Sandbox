@@ -1,9 +1,15 @@
+// ----------------------------------------------------------------------------------------
+//  \file       HasScale.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
 
 namespace Graphics
 {
+	/// Provides scale attributes and operations
 	class HasScale
 	{
 	public:

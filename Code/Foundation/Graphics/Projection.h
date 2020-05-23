@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Projection.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -5,6 +10,7 @@
 
 namespace Graphics
 {
+	/// Holds projection information necessary for creating projection matrix
 	class Projection
 	{
 	public:

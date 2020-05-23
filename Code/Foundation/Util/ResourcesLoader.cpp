@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       ResourcesLoader.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Util/ResourcesLoader.h"
 #include "IO/Console.h"
@@ -160,7 +165,7 @@ std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadFBX(const std::strin
 	modelFile.close();
 
 	AssimpLoader loader;
-	
+
 	try
 	{
 		model = loader.Load(buffer);

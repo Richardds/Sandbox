@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       SkyboxShader.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Graphics/Shaders/SkyboxShader.h"
 #include "Core/Debug.h"
@@ -41,7 +46,7 @@ void Graphics::SkyboxShader::LoadCamera(const std::shared_ptr<Camera>& camera) c
 	viewMatrix[3].x = 0.0f;
 	viewMatrix[3].y = 0.0f;
 	//viewMatrix[3].z = 0.0f;
-	
+
 	this->LoadMatrix4f(this->_viewLocation, viewMatrix);
 }
 

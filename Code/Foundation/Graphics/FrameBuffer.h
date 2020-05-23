@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       FrameBuffer.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -5,6 +10,7 @@
 
 namespace Graphics
 {
+	/// Low-level OpenGL frame buffer object wrapper
 	class FrameBuffer
 	{
 	public:

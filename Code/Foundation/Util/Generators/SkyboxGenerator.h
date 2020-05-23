@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       SkyboxGenerator.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -6,6 +11,7 @@
 
 namespace Util
 {
+	/// Generates 3D skybox cube by given size
 	class SkyboxGenerator : public Generator
 	{
 	_Singleton(SkyboxGenerator)

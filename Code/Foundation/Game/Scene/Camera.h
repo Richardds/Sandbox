@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Camera.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -6,6 +11,7 @@
 
 namespace Graphics
 {
+	/// 3D scene camera entity
 	class Camera : public HasPosition, public HasRotation
 	{
 	public:

@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Scene.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Game/Scene.h"
 #include "Core/Debug.h"
@@ -41,7 +46,7 @@ bool Graphics::Scene::Setup()
 		IO::Console::Instance().Error("Failed setup skybox renderer\n");
 		return false;
 	}
-	
+
 	// Setup entity renderer
 	this->_entityRenderer = std::make_shared<EntityRenderer>();
 	if (!this->_entityRenderer->Setup(this->_projection))
@@ -125,7 +130,7 @@ void Graphics::Scene::Render()
 		});
 		this->_camera->IncreasePositionY(distance);
 		this->_camera->InvertRotationX();
-		
+
 		// Render scene to water refraction frame buffer
 		// Cull everything 0.025 units above the water
 		this->_entityRenderer->GetShader()->EnableClippingPlane(
@@ -136,7 +141,7 @@ void Graphics::Scene::Render()
 			this->RenderEntities();
 		});
 		this->_entityRenderer->GetShader()->DisableClippingPlane();
-		
+
 		// Render the water tile to the screen buffer
 		this->_waterRenderer->Begin(this->_camera, this->_sun, this->_lights);
 		this->_waterRenderer->Render(water.second);
@@ -149,7 +154,7 @@ void Graphics::Scene::Render()
 void Graphics::Scene::RenderEntities()
 {
 	this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
-	
+
 	for (auto& entity : this->_entities)
 	{
 		this->_entityRenderer->Render(entity.second);

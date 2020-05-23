@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       HasScale.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Game/Attributes/HasScale.h"
 

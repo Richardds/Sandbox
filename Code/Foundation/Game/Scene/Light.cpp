@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Light.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Game/Scene/Light.h"
 #include "Math/Utils.h"

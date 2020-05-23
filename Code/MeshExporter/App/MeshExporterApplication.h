@@ -5,6 +5,7 @@
 
 namespace Sandbox
 {
+	/// Mesh exporter application overrider class
 	class MeshExporterApplication : public App::Application
 	{
 	public:

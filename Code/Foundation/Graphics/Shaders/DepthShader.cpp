@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       DepthShader.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Graphics/Shaders/DepthShader.h"
 

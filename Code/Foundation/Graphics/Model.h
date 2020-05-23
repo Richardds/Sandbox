@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Model.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -6,6 +11,7 @@
 
 namespace Graphics
 {
+	/// Holds model information of multiple meshes
 	class Model
 	{
 	public:

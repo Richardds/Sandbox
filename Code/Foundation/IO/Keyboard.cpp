@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Keyboard.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "IO/Keyboard.h"
 #include "Core/Debug.h"

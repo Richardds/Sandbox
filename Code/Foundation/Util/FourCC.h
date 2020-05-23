@@ -1,9 +1,15 @@
+// ----------------------------------------------------------------------------------------
+//  \file       FourCC.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
 
 namespace Util
 {
+	/// Magic 4 byte identifier class
 	class FourCC
 	{
 	public:

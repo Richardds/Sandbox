@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       RenderApplication.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -7,6 +12,7 @@
 
 namespace App
 {
+	/// Base class of every application with rendering capabilities
 	class RenderApplication : public Application
 	{
 	public:

@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       FrameBuffer.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Graphics/FrameBuffer.h"
 #include "Graphics/Texture.h"

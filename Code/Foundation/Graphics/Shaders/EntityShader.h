@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       EntityShader.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -11,6 +16,7 @@
 
 namespace Graphics
 {
+	/// Shader system used for drawing entities
 	class EntityShader final : public ShaderSystem
 	{
 	public:
@@ -32,6 +38,7 @@ namespace Graphics
 		void LoadHasSpecularMap(bool hasSpecularMap) const;
 
 	private:
+		/// Maximal count of possible lights used in the scene
 		static const int MAX_LIGHT_COUNT = 10;
 
 		GLint _projectionLocation;

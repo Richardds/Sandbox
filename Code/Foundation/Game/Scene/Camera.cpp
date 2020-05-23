@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Camera.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Game/Scene/Camera.h"
 #include "Math/Utils.h"

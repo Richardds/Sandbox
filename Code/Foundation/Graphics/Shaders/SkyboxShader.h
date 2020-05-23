@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       SkyboxShader.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -7,6 +12,7 @@
 
 namespace Graphics
 {
+	/// Shader system used for drawing skybox
 	class SkyboxShader : public ShaderSystem
 	{
 	public:

@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       WaterRenderer.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Graphics/Renderers/WaterRenderer.h"
 #include "IO/Console.h"
@@ -30,13 +35,13 @@ bool Graphics::WaterRenderer::Setup(const std::shared_ptr<const Projection>& pro
 	// Refraction
 	this->_refractionFrameBuffer = std::make_shared<FrameBuffer>();
 	this->_refractionFrameBuffer->Bind();
-	
+
 	this->_refractionTexture = std::make_shared<Texture>();
 	this->_refractionTexture->SetTarget(GL_TEXTURE_2D);
 	this->_refractionTexture->Bind();
 	this->_refractionTexture->Data(this->_refractionFrameBuffer, TEXTURE_SIZE, TEXTURE_SIZE);
 	this->_refractionTexture->Unbind();
-	
+
 	this->_refractionFrameBuffer->Unbind();
 
 	this->FinishLoading();
@@ -46,7 +51,7 @@ bool Graphics::WaterRenderer::Setup(const std::shared_ptr<const Projection>& pro
 
 void Graphics::WaterRenderer::Begin(const std::shared_ptr<Camera>& camera,
                                     const std::shared_ptr<DirectionalLight>& sun,
-									const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const
+                                    const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const
 {
 	this->_shader->Use();
 	this->_shader->LoadCamera(camera);

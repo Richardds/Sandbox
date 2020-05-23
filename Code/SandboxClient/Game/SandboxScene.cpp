@@ -1,3 +1,8 @@
+// Semestral project of BI-PRG "Computer graphics" course.
+// 
+// Richard Boldiš <boldiric@fit.cvut.cz>
+// Czech Technical University in Prague
+
 #include "Precompiled.h"
 
 #include <IO/Keyboard.h>
@@ -24,7 +29,7 @@ bool Sandbox::SandboxScene::Setup()
 	// Load Skybox
 	std::shared_ptr<Graphics::Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadCubeMap("day");
 	this->_skybox = std::make_shared<Graphics::Skybox>(skyboxTexture, 750.0f);
-	
+
 	// Configure lights
 	std::shared_ptr<Graphics::PointLight> playerLight = this->AddLight("player_light");
 	playerLight->SetPosition(Math::Vector3f(0.0f, 5.0f, 0.0f));
@@ -77,7 +82,7 @@ void Sandbox::SandboxScene::ProcessCameraInput()
 	{
 		this->_lockCameraToPlayer = false;
 	}
-	
+
 	// Attach from camera locked to player
 	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::A))
 	{
@@ -88,7 +93,7 @@ void Sandbox::SandboxScene::ProcessCameraInput()
 	{
 		// Mouse relative motion to previous state
 		Math::Vector2f mouseMotion = IO::Mouse::Instance().GetRelativeGlMotion();
-		
+
 		// Locked camera
 		if (this->_lockCameraToPlayer)
 		{
@@ -96,8 +101,9 @@ void Sandbox::SandboxScene::ProcessCameraInput()
 			mouseMotion *= 75.0f; // Make motion more sensitive
 			this->_camera->IncreaseRotation(-mouseMotion.y, mouseMotion.x, 0.0f);
 		}
-		// Free camera
-		else {
+			// Free camera
+		else
+		{
 			if (IO::Keyboard::Instance().IsAltPressed())
 			{
 				// Increase viewing position relative to the world
@@ -221,7 +227,8 @@ void Sandbox::SandboxScene::Update(const float delta)
 		this->_waterTiles["water_01"]->SetPositionY(glm::sin(this->_time / 1.75f) / 35.0f);
 
 		// GoForward scene day & night cycle effect
-		darkeningFactor = (glm::sin(this->_time / 5.0f) + 1.0f) / (2.0f / (1.0f - SUN_LOWER_LIMIT)) + SUN_LOWER_LIMIT; // Interval <SUN_LOWER_LIMIT-1.000>
+		darkeningFactor = (glm::sin(this->_time / 5.0f) + 1.0f) / (2.0f / (1.0f - SUN_LOWER_LIMIT)) + SUN_LOWER_LIMIT;
+		// Interval <SUN_LOWER_LIMIT-1.000>
 	}
 	this->_skyboxRenderer->GetShader()->Use();
 	this->_skyboxRenderer->GetShader()->LoadDarkeningFactor(darkeningFactor);

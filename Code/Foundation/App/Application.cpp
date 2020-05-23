@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Application.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "App/Application.h"
 #include "Core/Debug.h"

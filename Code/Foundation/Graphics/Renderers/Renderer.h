@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Renderer.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -5,7 +10,10 @@
 
 namespace Graphics
 {
-	template<class T> class Renderer
+	/// Base class of every renderer
+	/// Holds shader class with which draws to buffers
+	template <class T>
+	class Renderer
 	{
 	public:
 		enum class State

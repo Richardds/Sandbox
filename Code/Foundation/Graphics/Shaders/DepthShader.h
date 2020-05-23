@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       DepthShader.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -5,6 +10,8 @@
 
 namespace Graphics
 {
+	/// Shader system usually used for creating scene depth buffer
+	/// (currently unused)
 	class DepthShader : public ShaderSystem
 	{
 	public:

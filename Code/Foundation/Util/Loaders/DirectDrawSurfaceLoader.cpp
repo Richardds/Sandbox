@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       DirectDrawSurfaceLoader.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Util/Loaders/DirectDrawSurfaceLoader.h"
 #include "IO/Console.h"
@@ -7,12 +12,12 @@ void Util::DirectDrawSurfaceLoader::Load(std::shared_ptr<Graphics::Texture>& tex
 	_Assert(texture->IsBound());
 
 	const gli::texture gliTexture = gli::load_dds(buffer.data(), buffer.size());
-	
+
 	_Assert(!gliTexture.empty());
 
 	const gli::gl gl(gli::gl::PROFILE_GL33);
 	const GLenum target = gl.translate(gliTexture.target());
-	
+
 	_Assert(texture->GetTarget() == target);
 
 	const gli::gl::format gliFormat = gl.translate(gliTexture.format(), gliTexture.swizzles());
@@ -21,7 +26,7 @@ void Util::DirectDrawSurfaceLoader::Load(std::shared_ptr<Graphics::Texture>& tex
 	texture->SetWidth(dimensions.x);
 	texture->SetHeight(dimensions.y);
 	texture->SetDepth(dimensions.z);
-	
+
 	glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -32,7 +37,7 @@ void Util::DirectDrawSurfaceLoader::Load(std::shared_ptr<Graphics::Texture>& tex
 	glTexParameteri(target, GL_TEXTURE_SWIZZLE_G, gliFormat.Swizzles[1]);
 	glTexParameteri(target, GL_TEXTURE_SWIZZLE_B, gliFormat.Swizzles[2]);
 	glTexParameteri(target, GL_TEXTURE_SWIZZLE_A, gliFormat.Swizzles[3]);
-	
+
 	switch (gliTexture.target())
 	{
 	case gli::TARGET_1D:
@@ -54,10 +59,12 @@ void Util::DirectDrawSurfaceLoader::Load(std::shared_ptr<Graphics::Texture>& tex
 	texture->FinishLoading();
 }
 
-void Util::DirectDrawSurfaceLoader::Load1dTexture(std::shared_ptr<Graphics::Texture>& texture, const gli::texture& gliTexture, const gli::gl::format& gliFormat) const
+void Util::DirectDrawSurfaceLoader::Load1dTexture(std::shared_ptr<Graphics::Texture>& texture,
+                                                  const gli::texture& gliTexture,
+                                                  const gli::gl::format& gliFormat) const
 {
 	glTexParameteri(texture->GetTarget(), GL_TEXTURE_WRAP_S, GL_REPEAT);
-	
+
 	glTexStorage1D(
 		texture->GetTarget(),
 		static_cast<GLint>(gliTexture.levels()),
@@ -72,7 +79,7 @@ void Util::DirectDrawSurfaceLoader::Load1dTexture(std::shared_ptr<Graphics::Text
 			for (size_t level = 0; level < gliTexture.levels(); ++level)
 			{
 				const glm::tvec3<GLsizei> dimensions(gliTexture.extent(level));
-				
+
 				if (gli::is_compressed(gliTexture.format()))
 				{
 					glCompressedTexSubImage1D(
@@ -102,13 +109,15 @@ void Util::DirectDrawSurfaceLoader::Load1dTexture(std::shared_ptr<Graphics::Text
 	}
 }
 
-void Util::DirectDrawSurfaceLoader::Load2dTexture(std::shared_ptr<Graphics::Texture>& texture, const gli::texture& gliTexture, const gli::gl::format& gliFormat) const
+void Util::DirectDrawSurfaceLoader::Load2dTexture(std::shared_ptr<Graphics::Texture>& texture,
+                                                  const gli::texture& gliTexture,
+                                                  const gli::gl::format& gliFormat) const
 {
 	const GLenum target = texture->GetTarget();
-	
+
 	glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	
+
 	glTexStorage2D(
 		target,
 		static_cast<GLint>(gliTexture.levels()),
@@ -124,7 +133,7 @@ void Util::DirectDrawSurfaceLoader::Load2dTexture(std::shared_ptr<Graphics::Text
 			for (size_t level = 0; level < gliTexture.levels(); ++level)
 			{
 				const glm::tvec3<GLsizei> dimensions(gliTexture.extent(level));
-				
+
 				if (gli::is_compressed(gliTexture.format()))
 				{
 					glCompressedTexSubImage2D(
@@ -158,7 +167,9 @@ void Util::DirectDrawSurfaceLoader::Load2dTexture(std::shared_ptr<Graphics::Text
 	}
 }
 
-void Util::DirectDrawSurfaceLoader::LoadCubeTexture(std::shared_ptr<Graphics::Texture>& texture, const gli::texture& gliTexture, const gli::gl::format& gliFormat) const
+void Util::DirectDrawSurfaceLoader::LoadCubeTexture(std::shared_ptr<Graphics::Texture>& texture,
+                                                    const gli::texture& gliTexture,
+                                                    const gli::gl::format& gliFormat) const
 {
 	GLenum target = texture->GetTarget();
 
@@ -217,14 +228,16 @@ void Util::DirectDrawSurfaceLoader::LoadCubeTexture(std::shared_ptr<Graphics::Te
 	}
 }
 
-void Util::DirectDrawSurfaceLoader::Load3dTexture(std::shared_ptr<Graphics::Texture>& texture, const gli::texture& gliTexture, const gli::gl::format& gliFormat) const
+void Util::DirectDrawSurfaceLoader::Load3dTexture(std::shared_ptr<Graphics::Texture>& texture,
+                                                  const gli::texture& gliTexture,
+                                                  const gli::gl::format& gliFormat) const
 {
 	const GLenum target = texture->GetTarget();
-	
+
 	glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(target, GL_TEXTURE_WRAP_R, GL_REPEAT);
-	
+
 	glTexStorage3D(
 		target,
 		static_cast<GLint>(gliTexture.levels()),
@@ -241,7 +254,7 @@ void Util::DirectDrawSurfaceLoader::Load3dTexture(std::shared_ptr<Graphics::Text
 			for (size_t level = 0; level < gliTexture.levels(); ++level)
 			{
 				const glm::tvec3<GLsizei> dimensions(gliTexture.extent(level));
-				
+
 				if (gli::is_compressed(gliTexture.format()))
 				{
 					glCompressedTexSubImage3D(

@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       ShaderSystem.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -5,6 +10,7 @@
 
 namespace Graphics
 {
+	/// Shader system base class operating over shader program
 	class ShaderSystem : public ShaderProgram
 	{
 	public:

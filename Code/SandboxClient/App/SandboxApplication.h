@@ -7,6 +7,7 @@
 
 namespace Sandbox
 {
+	/// Sandbox application overrider class
 	class SandboxApplication : public App::RenderApplication
 	{
 	public:

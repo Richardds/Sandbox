@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       VertexAttributeConfig.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Graphics/VertexAttributeConfig.h"
 #include "Core/Debug.h"

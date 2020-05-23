@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Core.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Graphics/Core.h"
 #include "Core/Debug.h"

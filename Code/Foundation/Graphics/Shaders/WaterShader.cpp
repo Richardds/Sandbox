@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       WaterShader.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Graphics/Shaders/WaterShader.h"
 #include "Core/Debug.h"
@@ -63,17 +68,17 @@ void Graphics::WaterShader::InitializeUniformVariables()
 	for (int index = 0; index < MAX_LIGHT_COUNT; index++)
 	{
 		this->InitializeVector3fLocation("light[" + std::to_string(index) + "].position", Math::Vector3f(0.0f),
-			this->_lightLocations[index].position);
+		                                 this->_lightLocations[index].position);
 		this->InitializeVector3fLocation("light[" + std::to_string(index) + "].ambient", Math::Vector3f(1.0f),
-			this->_lightLocations[index].ambient);
+		                                 this->_lightLocations[index].ambient);
 		this->InitializeVector3fLocation("light[" + std::to_string(index) + "].diffuse", Math::Vector3f(1.0f),
-			this->_lightLocations[index].diffuse);
+		                                 this->_lightLocations[index].diffuse);
 		this->InitializeFloatLocation("light[" + std::to_string(index) + "].specular", 1.0f,
-			this->_lightLocations[index].specular);
+		                              this->_lightLocations[index].specular);
 		this->InitializeVector3fLocation("light[" + std::to_string(index) + "].attenuation",
-			Math::Vector3f(1.0f, 0.0f, 0.0f), this->_lightLocations[index].attenuation);
+		                                 Math::Vector3f(1.0f, 0.0f, 0.0f), this->_lightLocations[index].attenuation);
 	}
-	
+
 	// Setup fog
 	this->InitializeBoolLocation("fog.enabled", this->_fogEnabled, this->_fogEnabledLocation);
 	this->InitializeVector3fLocation("fog.color", Math::Vector3f(0.2f, 0.325f, 0.375f), this->_fogColorLocation);
@@ -90,7 +95,8 @@ void Graphics::WaterShader::LoadCamera(const std::shared_ptr<Camera>& camera) co
 {
 	_Assert(camera);
 
-	const Math::Matrix4f viewMatrix = Math::ViewMatrix(camera->GetPosition(), camera->GetRotationX(), camera->GetRotationY());
+	const Math::Matrix4f viewMatrix = Math::ViewMatrix(camera->GetPosition(), camera->GetRotationX(),
+	                                                   camera->GetRotationY());
 	this->LoadMatrix4f(this->_viewLocation, viewMatrix);
 	this->LoadVector3f(this->_viewPositionLocation, camera->GetPosition());
 }

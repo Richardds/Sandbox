@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       ModelLoader.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Util/Loaders/ModelLoader.h"
 #include "Core/Types.h"
@@ -23,7 +28,7 @@ std::shared_ptr<Graphics::Model> Util::ModelLoader::Load(std::ifstream& file)
 	{
 		throw std::runtime_error("Model file signature mismatch");
 	}
-	
+
 	this->_model = std::make_shared<Graphics::Model>();
 
 	this->ParseFile(file);
@@ -37,7 +42,7 @@ std::string Util::ModelLoader::ReadString(std::ifstream& file) const
 {
 	uint16_t length;
 	this->Read(file, &length);
-	
+
 	char* stringBuffer = new char[static_cast<size_t>(length) + 1];
 	file.read(stringBuffer, length);
 	stringBuffer[length] = '\0';
@@ -45,7 +50,7 @@ std::string Util::ModelLoader::ReadString(std::ifstream& file) const
 	std::string string(stringBuffer, length);
 
 	delete[] stringBuffer;
-	
+
 	return string;
 }
 
@@ -80,10 +85,10 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ParseMesh(std::ifstre
 {
 	std::vector<VertexData3> data;
 	std::vector<Math::Vector3ui32> elements;
-	
+
 	uint32_t verticesCount;
 	this->Read(file, &verticesCount);
-	
+
 	data.reserve(verticesCount);
 
 	for (uint32_t i = 0; i < verticesCount; i++)
@@ -97,7 +102,7 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ParseMesh(std::ifstre
 	this->Read(file, &trianglesCount);
 
 	elements.reserve(3 * static_cast<size_t>(trianglesCount));
-	
+
 	for (uint32_t i = 0; i < trianglesCount; i++)
 	{
 		Math::Vector3ui32 triangleIndexes;
@@ -134,7 +139,7 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ParseMesh(std::ifstre
 	this->Read(file, &textureBitfield);
 
 	std::string textureName;
-	
+
 	if (HAS_TEXTURE_DIFFUSE & textureBitfield)
 	{
 		textureName = this->ReadString(file);

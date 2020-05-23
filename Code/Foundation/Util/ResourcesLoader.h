@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       ResourcesLoader.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -8,6 +13,8 @@
 
 namespace Util
 {
+	/// Global resource loader for loading models and textures
+	/// Handles caching and reusing of already loaded models
 	class ResourcesLoader
 	{
 	_Singleton(ResourcesLoader)

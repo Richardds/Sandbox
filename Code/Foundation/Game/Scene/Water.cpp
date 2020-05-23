@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Water.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Game/Scene/Water.h"
 #include "Math/Utils.h"

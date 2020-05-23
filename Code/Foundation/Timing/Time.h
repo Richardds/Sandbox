@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Time.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -5,13 +10,13 @@
 
 namespace Timing
 {
+	/// Simple std::chrono time wrapper
 	class Time
 	{
 	public:
 		Time() = default;
 		Time(const Time& rhs);
 		explicit Time(TimePoint time);
-		void operator=(const Time& rhs);
 		[[nodiscard]] Duration Diff(const Time& rhs) const;
 		template <typename T>
 		[[nodiscard]] T Get() const;

@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Generator.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -6,16 +11,16 @@
 
 namespace Util
 {
+	/// Base class for every mesh generator
 	class Generator
 	{
-
 	public:
 		Generator() = default;
 
 	protected:
 		template <typename T>
 		std::shared_ptr<Graphics::Mesh> Store(const std::vector<T>& vertexData,
-											  const std::vector<uint32_t>& elements,
+		                                      const std::vector<uint32_t>& elements,
 		                                      const Graphics::VertexAttributeConfig& config);
 	};
 

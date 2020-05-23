@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Mouse.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -6,6 +11,7 @@
 
 namespace IO
 {
+	/// Helper class for reading input from a mouse
 	class Mouse
 	{
 	_Singleton(Mouse)

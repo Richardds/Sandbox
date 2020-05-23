@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       SkyboxRenderer.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Graphics/Renderers/SkyboxRenderer.h"
 #include "IO/Console.h"

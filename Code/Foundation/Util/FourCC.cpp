@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       FourCC.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Util/FourCC.h"
 #include "Core/Debug.h"

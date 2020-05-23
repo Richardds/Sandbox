@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Water.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -7,6 +12,7 @@
 
 namespace Graphics
 {
+	/// Water entity
 	class Water : public HasPosition
 	{
 	public:
@@ -22,7 +28,9 @@ namespace Graphics
 		void Render(const std::shared_ptr<WaterShader>& shader) const;
 
 	private:
+		/// Speed of distortion texture offset motion when unspecified
 		static constexpr float DEFAULT_DISTORTION_SPEED = 0.025f;
+		/// Distortion texture tiling when unspecified
 		static constexpr float DEFAULT_TILING = 1.0f;
 
 		std::shared_ptr<TexturedMesh> _mesh;

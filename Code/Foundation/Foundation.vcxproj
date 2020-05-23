@@ -47,7 +47,6 @@
     <ClCompile Include="Graphics\Shaders\WaterShader.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\TexturedMesh.cpp" />
-    <ClCompile Include="Graphics\UI\Rectangle.cpp" />
     <ClCompile Include="Graphics\VertexArray.cpp" />
     <ClCompile Include="Graphics\VertexAttributeConfig.cpp" />
     <ClCompile Include="Graphics\Window.cpp" />
@@ -104,7 +103,6 @@
     <ClInclude Include="Graphics\Shaders\WaterShader.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Graphics\TexturedMesh.h" />
-    <ClInclude Include="Graphics\UI\Rectangle.h" />
     <ClInclude Include="Graphics\VertexArray.h" />
     <ClInclude Include="Graphics\VertexAttributeConfig.h" />
     <ClInclude Include="Graphics\Window.h" />

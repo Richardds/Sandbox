@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       TargetedCamera.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Game/Scene/TargetedCamera.h"
 #include "Math/Utils.h"

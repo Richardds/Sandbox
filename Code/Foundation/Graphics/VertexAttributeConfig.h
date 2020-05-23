@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       VertexAttributeConfig.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -5,6 +10,7 @@
 
 namespace Graphics
 {
+	/// Helper class for initializing vertex attributes of a vertex array object
 	class VertexAttributeConfig
 	{
 	public:

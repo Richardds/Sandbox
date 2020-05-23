@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       HasPosition.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Precompiled.h"
@@ -5,6 +10,7 @@
 
 namespace Graphics
 {
+	/// Provides 3D position attributes and operations
 	class HasPosition
 	{
 	public:

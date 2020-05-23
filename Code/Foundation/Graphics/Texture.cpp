@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Texture.cpp
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #include "Precompiled.h"
 #include "Graphics/Texture.h"
 #include "Core/Types.h"
@@ -114,7 +119,7 @@ void Graphics::Texture::DepthData(const std::shared_ptr<FrameBuffer>& frameBuffe
 void Graphics::Texture::FinishLoading()
 {
 	_Assert(State::Initial == this->_state);
-	
+
 	this->_state = State::Loaded;
 }
 
