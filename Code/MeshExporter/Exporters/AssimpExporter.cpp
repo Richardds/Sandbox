@@ -4,6 +4,8 @@
 #include <Util/FourCC.h>
 #include <Util/ResourcesLoader.h>
 
+#include "IO/Console.h"
+
 Util::AssimpExporter::AssimpExporter() :
 	_scene(nullptr)
 {
@@ -110,6 +112,15 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
 		vertexData.tangent.y = mesh->mTangents[i].y;
 		vertexData.tangent.z = mesh->mTangents[i].z;
 
+		// Print vertex data
+		//IO::Console::Instance().Info(
+		//	"{%f,%f, %f, %f, %f, %f, %f, %f, %f, %f, %f},\n",
+		//	vertexData.vertex.x, vertexData.vertex.y, vertexData.vertex.z,
+		//	vertexData.normal.x, vertexData.normal.y, vertexData.normal.z,
+		//	vertexData.texture.x, vertexData.texture.y,
+		//	vertexData.tangent.x, vertexData.tangent.y, vertexData.tangent.z
+		//);
+		
 		// Write vertex attributes
 		this->Write(file, vertexData);
 	}
@@ -127,6 +138,9 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
 			const uint32_t index = face.mIndices[j];
 			this->Write(file, index);
 		}
+
+		// Print indices
+		//IO::Console::Instance().Info("%u, %u, %u,\n", face.mIndices[0], face.mIndices[1], face.mIndices[2]);
 	}
 
 	// Write material

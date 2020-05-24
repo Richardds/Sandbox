@@ -25,6 +25,7 @@ namespace Graphics
 		void Render(const std::shared_ptr<EntityShader>& shader);
 		[[nodiscard]] State GetState() const;
 		void AddMesh(const std::string& name, const std::shared_ptr<TexturedMesh>& mesh);
+		void AddMesh(const std::string& name, const std::shared_ptr<Mesh>& mesh);
 		[[nodiscard]] std::shared_ptr<TexturedMesh> GetMesh(const std::string& name) const;
 		[[nodiscard]] std::unordered_map<std::string, std::shared_ptr<TexturedMesh>> GetMeshes() const;
 		void FinishLoading();

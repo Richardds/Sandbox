@@ -26,6 +26,11 @@ void Graphics::Model::AddMesh(const std::string& name, const std::shared_ptr<Tex
 	this->_meshes[name] = mesh;
 }
 
+void Graphics::Model::AddMesh(const std::string& name, const std::shared_ptr<Mesh>& mesh)
+{
+	this->AddMesh(name, std::make_shared<TexturedMesh>(mesh));
+}
+
 std::shared_ptr<Graphics::TexturedMesh> Graphics::Model::GetMesh(const std::string& name) const
 {
 	const auto mesh = this->_meshes.find(name);

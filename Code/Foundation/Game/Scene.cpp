@@ -218,10 +218,16 @@ std::shared_ptr<Graphics::PointLight> Graphics::Scene::AddLight(const std::strin
 
 std::shared_ptr<Graphics::Entity> Graphics::Scene::AddEntity(const std::string& name, const std::string& resourceName)
 {
-	const auto it = this->_entities.find(name);
-	_Assert(it == this->_entities.end());
 	std::shared_ptr<Entity> entity = std::make_shared<Entity>();
 	entity->SetModel(Util::ResourcesLoader::Instance().LoadModel(resourceName));
+	return this->AddEntity(name, entity);
+}
+
+std::shared_ptr<Graphics::Entity> Graphics::Scene::AddEntity(const std::string& name,
+                                                             const std::shared_ptr<Entity>& entity)
+{
+	const auto it = this->_entities.find(name);
+	_Assert(it == this->_entities.end());
 	this->_entities.emplace_hint(it, name, entity);
 	return entity;
 }

@@ -18,7 +18,8 @@ namespace Util
 
 	public:
 		SkyboxGenerator();
-		std::shared_ptr<Graphics::Mesh> Generate(float size);
+		
+		[[nodiscard]] std::shared_ptr<Graphics::Mesh> Generate(float size);
 
 	private:
 		Graphics::VertexAttributeConfig _skyboxAttributesTemplate;

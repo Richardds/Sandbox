@@ -99,6 +99,7 @@
     <ClCompile Include="App\SandboxApplication.cpp" />
     <ClCompile Include="Game\SandboxScene.cpp" />
     <ClCompile Include="Game\Managers\ProjectileManager.cpp" />
+    <ClCompile Include="Game\Scene\Hardcoded.cpp" />
     <ClCompile Include="Game\Scene\Player.cpp" />
     <ClCompile Include="Game\Scene\Projectile.cpp" />
     <ClCompile Include="SandboxClient.cpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="App\SandboxApplication.h" />
     <ClInclude Include="Game\SandboxScene.h" />
     <ClInclude Include="Game\Managers\ProjectileManager.h" />
+    <ClInclude Include="Game\Scene\Hardcoded.h" />
     <ClInclude Include="Game\Scene\Player.h" />
     <ClInclude Include="Game\Scene\Projectile.h" />
   </ItemGroup>

@@ -23,10 +23,10 @@ std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate2dQuad(const f
 	const float radius = size / 2.0f;
 
 	const std::vector<VertexData2> vertexData({
-		{Math::Vector3f(-radius, -radius, 0.0f), Math::Vector2f(0.0f, 0.0f)},
-		{Math::Vector3f(radius, -radius, 0.0f), Math::Vector2f(1.0f, 0.0f)},
-		{Math::Vector3f(radius, radius, 0.0f), Math::Vector2f(1.0f, 1.0f)},
-		{Math::Vector3f(-radius, radius, 0.0f), Math::Vector2f(0.0f, 1.0f)}
+		{-radius, -radius, 0.0f, 0.0f, 0.0f},
+		{radius, -radius, 0.0f, 1.0f, 0.0f},
+		{radius, radius, 0.0f, 1.0f, 1.0f},
+		{-radius, radius, 0.0f, 0.0f, 1.0f}
 	});
 
 	const std::vector<uint32_t> elements({
@@ -42,22 +42,10 @@ std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate3dQuad(const f
 	const float radius = size / 2.0f;
 
 	const std::vector<VertexData3> vertexData({
-		{
-			Math::Vector3f(-radius, 0.0f, radius), Math::Vector3f(0.0f, 1.0f, 0.0f), Math::Vector2f(0.0f, 1.0f),
-			Math::Vector3f(-1.0f, 0.0f, 0.0f)
-		},
-		{
-			Math::Vector3f(radius, 0.0f, radius), Math::Vector3f(0.0f, 1.0f, 0.0f), Math::Vector2f(1.0f, 1.0f),
-			Math::Vector3f(-1.0f, 0.0f, 0.0f)
-		},
-		{
-			Math::Vector3f(radius, 0.0f, -radius), Math::Vector3f(0.0f, 1.0f, 0.0f), Math::Vector2f(1.0f, 0.0f),
-			Math::Vector3f(-1.0f, 0.0f, 0.0f)
-		},
-		{
-			Math::Vector3f(-radius, 0.0f, -radius), Math::Vector3f(0.0f, 1.0f, 0.0f), Math::Vector2f(0.0f, 0.0f),
-			Math::Vector3f(-1.0f, 0.0f, 0.0f)
-		}
+		{-radius, 0.0f, radius, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f},
+		{radius, 0.0f, radius, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f},
+		{radius, 0.0f, -radius, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f},
+		{-radius, 0.0f, -radius, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f}
 	});
 
 	const std::vector<uint32_t> elements({

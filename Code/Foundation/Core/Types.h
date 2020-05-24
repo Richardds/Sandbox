@@ -41,12 +41,32 @@ namespace Util
 
 struct VertexData2
 {
+	VertexData2() = default;
+	VertexData2(const float vx, const float vy, const float vz,
+				const float tu, const float tv) :
+		vertex(vx, vy, vz),
+		texture(tu, tv)
+	{
+	}
+	
 	Math::Vector3f vertex;
 	Math::Vector2f texture;
 };
 
 struct VertexData3
 {
+	VertexData3() = default;
+	VertexData3(const float vx, const float vy, const float vz,
+				const float nx, const float ny, const float nz,
+				const float tu, const float tv,
+				const float tx, const float ty, const float tz) :
+		vertex(vx, vy, vz),
+		normal(nx, ny, nz),
+		texture(tu, tv),
+		tangent(tx, ty, tz)
+	{
+	}
+	
 	Math::Vector3f vertex;
 	Math::Vector3f normal;
 	Math::Vector2f texture;

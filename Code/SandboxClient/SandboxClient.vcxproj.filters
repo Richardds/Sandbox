@@ -17,6 +17,9 @@
     <ClCompile Include="Game\Scene\Player.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scene\Hardcoded.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="App">
@@ -46,6 +49,9 @@
       <Filter>Game\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scene\Player.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Hardcoded.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>

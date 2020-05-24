@@ -93,9 +93,9 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ParseMesh(std::ifstre
 
 	for (uint32_t i = 0; i < verticesCount; i++)
 	{
-		VertexData3 vertexData = {};
+		VertexData3 vertexData;
 		this->Read(file, &vertexData);
-		data.push_back(vertexData);
+		data.emplace_back(vertexData);
 	}
 
 	uint32_t trianglesCount;

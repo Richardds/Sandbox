@@ -44,6 +44,7 @@ namespace Graphics
 		std::shared_ptr<Water> AddWater(const std::string& name, float size);
 		std::shared_ptr<PointLight> AddLight(const std::string& name);
 		std::shared_ptr<Entity> AddEntity(const std::string& name, const std::string& resourceName);
+		std::shared_ptr<Entity> AddEntity(const std::string& name, const std::shared_ptr<Entity>& entity);
 
 		std::shared_ptr<Projection> _projection;
 		std::shared_ptr<TargetedCamera> _camera;

@@ -11,6 +11,8 @@
 
 #include "SandboxScene.h"
 
+#include "Scene/Hardcoded.h"
+
 Sandbox::SandboxScene::SandboxScene() :
 	_lockCameraToPlayer(true)
 {
@@ -62,6 +64,15 @@ bool Sandbox::SandboxScene::Setup()
 
 	std::shared_ptr<Graphics::Entity> house1 = this->AddEntity("house_01", "house");
 	house1->SetPosition(Math::Vector3f(-10.0f, 0.0f, -2.0f));
+
+	// Add hardcoded mesh to the scene
+	std::shared_ptr<Graphics::Entity> hardcoded = std::make_shared<Graphics::Entity>();
+	std::shared_ptr<Graphics::Model> hardcodedModel = std::make_shared<Graphics::Model>();
+	hardcodedModel->AddMesh("hardcoded", Hardcoded::Instance().Generate());
+	hardcodedModel->FinishLoading();
+	hardcoded->SetModel(hardcodedModel);
+	hardcoded->SetPositionY(2.5f);
+	this->AddEntity("hardcoded", hardcoded);
 
 	// Register mouse scrolling
 	IO::Mouse::Instance().RegisterScrolling([this](float x, float y)

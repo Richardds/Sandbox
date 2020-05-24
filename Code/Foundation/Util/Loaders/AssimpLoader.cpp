@@ -66,7 +66,7 @@ void Util::AssimpLoader::ProcessNode(aiNode* node)
 std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* mesh)
 {
 	std::vector<VertexData3> data;
-	std::vector<uint32_t> elements;
+	std::vector<Math::Vector3ui32> elements;
 
 	this->_meshCount++;
 
@@ -74,35 +74,21 @@ std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* 
 
 	for (uint32_t i = 0; i < mesh->mNumVertices; i++)
 	{
-		VertexData3 vertexData = {};
-		vertexData.vertex.x = mesh->mVertices[i].x;
-		vertexData.vertex.y = mesh->mVertices[i].y;
-		vertexData.vertex.z = mesh->mVertices[i].z;
-
-		vertexData.normal.x = mesh->mNormals[i].x;
-		vertexData.normal.y = mesh->mNormals[i].y;
-		vertexData.normal.z = mesh->mNormals[i].z;
-
-		vertexData.texture.x = mesh->mTextureCoords[0][i].x;
-		vertexData.texture.y = mesh->mTextureCoords[0][i].y;
-
-		vertexData.tangent.x = mesh->mTangents[i].x;
-		vertexData.tangent.y = mesh->mTangents[i].y;
-		vertexData.tangent.z = mesh->mTangents[i].z;
-
-		data.push_back(vertexData);
+		data.emplace_back(
+			mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z,
+			mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z,
+			mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y,
+			mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z
+		);
 	}
 
 	elements.reserve(mesh->mNumFaces);
 
 	for (uint32_t i = 0; i < mesh->mNumFaces; i++)
 	{
-		aiFace face = mesh->mFaces[i];
+		const aiFace face = mesh->mFaces[i];
 		_Assert(3 == face.mNumIndices);
-		for (uint32_t j = 0; j < 3; j++)
-		{
-			elements.push_back(face.mIndices[j]);
-		}
+		elements.emplace_back(face.mIndices[0], face.mIndices[1], face.mIndices[2]);
 	}
 
 	std::shared_ptr<Graphics::VertexArray> vao = std::make_shared<Graphics::VertexArray>();
@@ -131,25 +117,19 @@ std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* 
 	if (1 == material->GetTextureCount(aiTextureType_DIFFUSE))
 	{
 		material->GetTexture(aiTextureType_DIFFUSE, 0, &assetPath);
-		std::shared_ptr<Graphics::Texture> texture = ResourcesLoader::Instance().LoadTexture(
-			this->ParseAssetName(assetPath));
-		texturedMesh->SetDiffuseMap(texture);
+		texturedMesh->SetDiffuseMap(ResourcesLoader::Instance().LoadTexture(this->ParseAssetName(assetPath)));
 	}
 
 	if (1 == material->GetTextureCount(aiTextureType_NORMALS))
 	{
 		material->GetTexture(aiTextureType_NORMALS, 0, &assetPath);
-		std::shared_ptr<Graphics::Texture> texture = ResourcesLoader::Instance().LoadTexture(
-			this->ParseAssetName(assetPath));
-		texturedMesh->SetNormalMap(texture);
+		texturedMesh->SetNormalMap(ResourcesLoader::Instance().LoadTexture(this->ParseAssetName(assetPath)));
 	}
 
 	if (1 == material->GetTextureCount(aiTextureType_SPECULAR))
 	{
 		material->GetTexture(aiTextureType_SPECULAR, 0, &assetPath);
-		std::shared_ptr<Graphics::Texture> texture = ResourcesLoader::Instance().LoadTexture(
-			this->ParseAssetName(assetPath));
-		texturedMesh->SetSpecularMap(texture);
+		texturedMesh->SetSpecularMap(ResourcesLoader::Instance().LoadTexture(this->ParseAssetName(assetPath)));
 	}
 
 	texturedMesh->SetMaterial(this->ParseMaterial(material));

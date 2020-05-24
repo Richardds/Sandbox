@@ -18,8 +18,8 @@ namespace Util
 
 	public:
 		PrimitiveGenerator();
-		std::shared_ptr<Graphics::Mesh> Generate2dQuad(float size);
-		std::shared_ptr<Graphics::Mesh> Generate3dQuad(float size);
+		[[nodiscard]] std::shared_ptr<Graphics::Mesh> Generate2dQuad(float size);
+		[[nodiscard]] std::shared_ptr<Graphics::Mesh> Generate3dQuad(float size);
 
 	private:
 		Graphics::VertexAttributeConfig _2dQuadAttributesTemplate;
