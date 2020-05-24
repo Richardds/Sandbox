@@ -114,7 +114,7 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
 
 		// Print vertex data
 		//IO::Console::Instance().Info(
-		//	"{%f,%f, %f, %f, %f, %f, %f, %f, %f, %f, %f},\n",
+		//	"{%ff,%ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff},\n",
 		//	vertexData.vertex.x, vertexData.vertex.y, vertexData.vertex.z,
 		//	vertexData.normal.x, vertexData.normal.y, vertexData.normal.z,
 		//	vertexData.texture.x, vertexData.texture.y,
