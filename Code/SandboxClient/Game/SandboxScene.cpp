@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       SandboxScene.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
@@ -165,7 +165,23 @@ void Sandbox::SandboxScene::ProcessCameraInput()
             {
                 // Increase viewing position relative to the world
                 mouseMotion *= -25.0f; // Invert and make motion more sensitive
-                this->_camera->IncreasePosition(Math::Vector3f(mouseMotion.x, mouseMotion.y, 0.0f));
+                const float rotationRadians = glm::radians(this->_camera->GetRotationY());
+                this->_camera->IncreasePosition(Math::Vector3f(
+                    mouseMotion.x * glm::cos(rotationRadians),
+                    mouseMotion.y,
+                    mouseMotion.x * glm::sin(rotationRadians)
+                ));
+            }
+            else if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Space))
+            {
+                // Increase viewing position relative to the world
+                mouseMotion *= -25.0f; // Invert and make motion more sensitive
+                const float rotationRadians = glm::radians(this->_camera->GetRotationY());
+                this->_camera->IncreasePosition(Math::Vector3f(
+                    mouseMotion.x * glm::cos(rotationRadians) + mouseMotion.y * glm::sin(rotationRadians),
+                    0.0f,
+                    mouseMotion.x * glm::sin(rotationRadians) - mouseMotion.y * glm::cos(rotationRadians)
+                ));
             }
             else
             {
@@ -257,6 +273,7 @@ void Sandbox::SandboxScene::ProcessInput()
         this->_entityRenderer->GetShader(true)->LoadFogEnabled(false);
     }
 
+    // Toggle entities deformation
     if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::T))
     {
         // Enabled deformation based on time

@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       Camera.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
@@ -17,7 +17,7 @@ Graphics::Camera::Camera(const float fieldOfView) :
 {
 }
 
-void Graphics::Camera::LookAt(Math::Vector3f target)
+void Graphics::Camera::LookAt(const Math::Vector3f& target)
 {
     // TODO
 }

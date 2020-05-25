@@ -21,7 +21,7 @@ namespace Graphics
         explicit Camera(float fieldOfView);
         [[nodiscard]] float GetFieldOfView() const;
         void SetFieldOfView(float fieldOfView);
-        void LookAt(Math::Vector3f target);
+        void LookAt(const Math::Vector3f& target);
 
     private:
         float _fieldOfView;
