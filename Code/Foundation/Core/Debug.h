@@ -1,7 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       Debug.h
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
-//  \brief      Core debug utilities
 // ----------------------------------------------------------------------------------------
 
 #pragma once
@@ -10,8 +9,8 @@
 
 namespace Core
 {
-	void Abort(const char*, const char*, int);
-	void AbortMessage(const char*, const char*, const char*, int);
+    void Abort(const char*, const char*, int);
+    void AbortMessage(const char*, const char*, const char*, int);
 }
 
 #define _Assert(exp) { if (!(exp)) ::Core::Abort(#exp,__FILE__,__LINE__); }

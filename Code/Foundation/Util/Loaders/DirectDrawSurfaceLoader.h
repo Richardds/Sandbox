@@ -11,28 +11,28 @@
 
 namespace Util
 {
-	/// Direct draw surface texture loader which uses GLI library
-	class DirectDrawSurfaceLoader
-	{
-	_Singleton(DirectDrawSurfaceLoader)
+    /// Direct draw surface texture loader which uses GLI library
+    class DirectDrawSurfaceLoader
+    {
+    _Singleton(DirectDrawSurfaceLoader)
 
-	public:
-		struct TextureInfo
-		{
-			GLenum target;
-		};
+    public:
+        struct TextureInfo
+        {
+            GLenum target;
+        };
 
-		DirectDrawSurfaceLoader() = default;
-		void Load(std::shared_ptr<Graphics::Texture>& texture, std::vector<char>& buffer) const;
+        DirectDrawSurfaceLoader() = default;
+        void Load(std::shared_ptr<Graphics::Texture>& texture, std::vector<char>& buffer) const;
 
-	private:
-		void Load1dTexture(std::shared_ptr<Graphics::Texture>& texture, const gli::texture& gliTexture,
-		                   const gli::gl::format& gliFormat) const;
-		void Load2dTexture(std::shared_ptr<Graphics::Texture>& texture, const gli::texture& gliTexture,
-		                   const gli::gl::format& gliFormat) const;
-		void LoadCubeTexture(std::shared_ptr<Graphics::Texture>& texture, const gli::texture& gliTexture,
-		                     const gli::gl::format& gliFormat) const;
-		void Load3dTexture(std::shared_ptr<Graphics::Texture>& texture, const gli::texture& gliTexture,
-		                   const gli::gl::format& gliFormat) const;
-	};
+    private:
+        void Load1dTexture(std::shared_ptr<Graphics::Texture>& texture, const gli::texture& gliTexture,
+                           const gli::gl::format& gliFormat) const;
+        void Load2dTexture(std::shared_ptr<Graphics::Texture>& texture, const gli::texture& gliTexture,
+                           const gli::gl::format& gliFormat) const;
+        void LoadCubeTexture(std::shared_ptr<Graphics::Texture>& texture, const gli::texture& gliTexture,
+                             const gli::gl::format& gliFormat) const;
+        void Load3dTexture(std::shared_ptr<Graphics::Texture>& texture, const gli::texture& gliTexture,
+                           const gli::gl::format& gliFormat) const;
+    };
 }

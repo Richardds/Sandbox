@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       Hardcoded.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include <Core/Singleton.h>
@@ -5,17 +10,17 @@
 
 namespace Sandbox
 {
-	/// Hardcoded mesh required by assignment
-	class Hardcoded : public Util::Generator
-	{
-		_Singleton(Hardcoded)
-		
-	public:
-		Hardcoded();
+    /// Hardcoded mesh required by assignment
+    class Hardcoded : public Util::Generator
+    {
+    _Singleton(Hardcoded)
 
-		[[nodiscard]] std::shared_ptr<Graphics::Mesh> Generate();
-		
-	private:
-		Graphics::VertexAttributeConfig _hardcodedAttributesTemplate;
-	};
+    public:
+        Hardcoded();
+
+        [[nodiscard]] std::shared_ptr<Graphics::Mesh> Generate();
+
+    private:
+        Graphics::VertexAttributeConfig _hardcodedAttributesTemplate;
+    };
 }

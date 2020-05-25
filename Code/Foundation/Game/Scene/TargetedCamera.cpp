@@ -8,22 +8,22 @@
 #include "Math/Utils.h"
 
 Graphics::TargetedCamera::TargetedCamera() :
-	_distance(DEFAULT_DISTANCE)
+    _distance(DEFAULT_DISTANCE)
 {
-	this->SetRotationX(30.0f);
-	this->Spectate(Math::Vector3f(0.0f, 0.0f, 0.0f));
+    this->SetRotationX(30.0f);
+    this->Spectate(Math::Vector3f(0.0f, 0.0f, 0.0f));
 }
 
 void Graphics::TargetedCamera::Spectate(const Math::Vector3f& target)
 {
-	const float radiansX = glm::radians(this->_rotationX);
-	const float radiansY = glm::radians(this->_rotationY);
+    const float radiansX = glm::radians(this->_rotationX);
+    const float radiansY = glm::radians(this->_rotationY);
 
-	const float offsetX = glm::sin(radiansY) * this->_distance;
-	const float offsetY = glm::sin(radiansX) * this->_distance;
-	const float offsetZ = glm::cos(radiansX) * this->_distance;
+    const float offsetX = glm::sin(radiansY) * this->_distance;
+    const float offsetY = glm::sin(radiansX) * this->_distance;
+    const float offsetZ = glm::cos(radiansX) * this->_distance;
 
-	this->_position.x = target.x - offsetX;
-	this->_position.y = target.y + offsetY;
-	this->_position.z = target.z + offsetZ;
+    this->_position.x = target.x - offsetX;
+    this->_position.y = target.y + offsetY;
+    this->_position.z = target.z + offsetZ;
 }

@@ -9,6 +9,6 @@
 
 namespace Math
 {
-	/// float quaternion
-	typedef glm::quat Quaternion;
+    /// float quaternion
+    typedef glm::quat Quaternion;
 }

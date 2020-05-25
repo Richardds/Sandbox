@@ -7,7 +7,7 @@
 #include "Game/Scene/Light.h"
 
 Graphics::Light::Light() :
-	_intensity(0.8f),
-	_color(1.0f, 1.0f, 1.0f)
+    _intensity(0.8f),
+    _color(1.0f, 1.0f, 1.0f)
 {
 }

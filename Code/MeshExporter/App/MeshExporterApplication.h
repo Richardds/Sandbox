@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       MeshExporterApplication.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include <Precompiled.h>
@@ -5,32 +10,32 @@
 
 namespace Sandbox
 {
-	/// Mesh exporter application overrider class
-	class MeshExporterApplication : public App::Application
-	{
-	public:
-		MeshExporterApplication() = default;
+    /// Mesh exporter application overrider class
+    class MeshExporterApplication : public App::Application
+    {
+    public:
+        MeshExporterApplication() = default;
 
-		bool Open() override;
-		void SetInputFilePath(const std::string& path);
-		void SetOutputFilePath(const std::string& path);
-		void Run() override;
-		void Close() override;
+        bool Open() override;
+        void SetInputFilePath(const std::string& path);
+        void SetOutputFilePath(const std::string& path);
+        void Run() override;
+        void Close() override;
 
-	private:
-		std::string _fbxFilePath;
-		std::string _modelFilePath;
-		std::vector<char> _fbxDataBuffer;
-		std::ofstream _modelFile;
-	};
+    private:
+        std::string _fbxFilePath;
+        std::string _modelFilePath;
+        std::vector<char> _fbxDataBuffer;
+        std::ofstream _modelFile;
+    };
 
-	inline void MeshExporterApplication::SetInputFilePath(const std::string& path)
-	{
-		this->_fbxFilePath = path;
-	}
+    inline void MeshExporterApplication::SetInputFilePath(const std::string& path)
+    {
+        this->_fbxFilePath = path;
+    }
 
-	inline void MeshExporterApplication::SetOutputFilePath(const std::string& path)
-	{
-		this->_modelFilePath = path;
-	}
+    inline void MeshExporterApplication::SetOutputFilePath(const std::string& path)
+    {
+        this->_modelFilePath = path;
+    }
 }

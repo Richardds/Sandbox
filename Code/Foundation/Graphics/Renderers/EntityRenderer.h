@@ -16,17 +16,17 @@
 
 namespace Graphics
 {
-	/// Renderer which renders basic models
-	class EntityRenderer : public Renderer<EntityShader>
-	{
-	public:
-		EntityRenderer() = default;
+    /// Renderer which renders basic models
+    class EntityRenderer : public Renderer<EntityShader>
+    {
+    public:
+        EntityRenderer() = default;
 
-		bool Setup(const std::shared_ptr<const Projection>& projection);
-		void Begin(const std::shared_ptr<Camera>& camera,
-		           const std::shared_ptr<DirectionalLight>& sun,
-					const std::shared_ptr<Skybox>& skybox,
-		           const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const;
-		void Render(const std::shared_ptr<Entity>& entity) const;
-	};
+        bool Setup(const std::shared_ptr<const Projection>& projection);
+        void Begin(const std::shared_ptr<Camera>& camera,
+                   const std::shared_ptr<DirectionalLight>& sun,
+                   const std::shared_ptr<Skybox>& skybox,
+                   const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const;
+        void Render(const std::shared_ptr<Entity>& entity) const;
+    };
 }

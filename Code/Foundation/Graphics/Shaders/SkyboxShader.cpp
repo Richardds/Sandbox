@@ -12,45 +12,45 @@
 #include "Math/Utils.h"
 
 Graphics::SkyboxShader::SkyboxShader() :
-	ShaderSystem("Skybox"),
-	_projectionLocation(-1),
-	_viewLocation(-1),
-	_textureLocation(-1),
-	_darkeningFactorLocation(-1)
+    ShaderSystem("Skybox"),
+    _projectionLocation(-1),
+    _viewLocation(-1),
+    _textureLocation(-1),
+    _darkeningFactorLocation(-1)
 {
 }
 
 void Graphics::SkyboxShader::InitializeUniformVariables()
 {
-	// Setup transformations
-	this->InitializeMatrix4fLocation("projection", Math::Matrix4f(1.0f), this->_projectionLocation);
-	this->InitializeMatrix4fLocation("view", Math::Matrix4f(1.0f), this->_viewLocation);
+    // Setup transformations
+    this->InitializeMatrix4fLocation("projection", Math::Matrix4f(1.0f), this->_projectionLocation);
+    this->InitializeMatrix4fLocation("view", Math::Matrix4f(1.0f), this->_viewLocation);
 
-	// Setup skybox texture
-	this->InitializeIntLocation("skyboxSampler", EnumToValue(Texture::Bank::Skybox), this->_textureLocation);
+    // Setup skybox texture
+    this->InitializeIntLocation("skyboxSampler", EnumToValue(Texture::Bank::Skybox), this->_textureLocation);
 
-	// Setup darkening factor
-	this->InitializeFloatLocation("darkeningFactor", 1.0f, this->_darkeningFactorLocation);
+    // Setup darkening factor
+    this->InitializeFloatLocation("darkeningFactor", 1.0f, this->_darkeningFactorLocation);
 }
 
 void Graphics::SkyboxShader::LoadProjection(const std::shared_ptr<const Projection>& projection) const
 {
-	this->LoadMatrix4f(this->_projectionLocation, projection->GetMatrix());
+    this->LoadMatrix4f(this->_projectionLocation, projection->GetMatrix());
 }
 
 void Graphics::SkyboxShader::LoadCamera(const std::shared_ptr<Camera>& camera) const
 {
-	_Assert(camera);
+    _Assert(camera);
 
-	Math::Matrix4f viewMatrix = Math::ViewMatrix(camera->GetPosition(), camera->GetRotationX(), camera->GetRotationY());
-	viewMatrix[3].x = 0.0f;
-	viewMatrix[3].y = 0.0f;
-	//viewMatrix[3].z = 0.0f;
+    Math::Matrix4f viewMatrix = Math::ViewMatrix(camera->GetPosition(), camera->GetRotationX(), camera->GetRotationY());
+    viewMatrix[3].x = 0.0f;
+    viewMatrix[3].y = 0.0f;
+    //viewMatrix[3].z = 0.0f;
 
-	this->LoadMatrix4f(this->_viewLocation, viewMatrix);
+    this->LoadMatrix4f(this->_viewLocation, viewMatrix);
 }
 
 void Graphics::SkyboxShader::LoadDarkeningFactor(const float darkeningFactor) const
 {
-	this->LoadFloat(this->_darkeningFactorLocation, darkeningFactor);
+    this->LoadFloat(this->_darkeningFactorLocation, darkeningFactor);
 }

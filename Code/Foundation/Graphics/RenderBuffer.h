@@ -10,76 +10,76 @@
 
 namespace Graphics
 {
-	/// Low-level OpenGL render buffer object wrapper
-	class RenderBuffer
-	{
-	public:
-		enum class State
-		{
-			Initial,
-			Ready
-		};
-		
-		RenderBuffer();
-		~RenderBuffer();
-		
-		[[nodiscard]] State GetState() const;
-		void Storage(GLenum format, unsigned int width, unsigned int height);
-		[[nodiscard]] GLenum GetFormat() const;
-		[[nodiscard]] unsigned int GetWidth() const;
-		[[nodiscard]] unsigned int GetHeight() const;
-		void Bind() const;
-		[[nodiscard]] bool IsBound() const;
-		void Unbind() const;
-		[[nodiscard]] GLuint GetGlRenderBuffer() const;
+    /// Low-level OpenGL render buffer object wrapper
+    class RenderBuffer
+    {
+    public:
+        enum class State
+        {
+            Initial,
+            Ready
+        };
 
-		static GLuint GetBound();
+        RenderBuffer();
+        ~RenderBuffer();
 
-	private:
-		State _state;
-		GLuint _glRenderBuffer;
-		GLenum _format;
-		unsigned int _width;
-		unsigned int _height;
+        [[nodiscard]] State GetState() const;
+        void Storage(GLenum format, unsigned int width, unsigned int height);
+        [[nodiscard]] GLenum GetFormat() const;
+        [[nodiscard]] unsigned int GetWidth() const;
+        [[nodiscard]] unsigned int GetHeight() const;
+        void Bind() const;
+        [[nodiscard]] bool IsBound() const;
+        void Unbind() const;
+        [[nodiscard]] GLuint GetGlRenderBuffer() const;
 
-		static GLuint _boundRenderBuffer;
-	};
+        static GLuint GetBound();
 
-	inline RenderBuffer::State RenderBuffer::GetState() const
-	{
-		return this->_state;
-	}
+    private:
+        State _state;
+        GLuint _glRenderBuffer;
+        GLenum _format;
+        unsigned int _width;
+        unsigned int _height;
 
-	inline GLenum RenderBuffer::GetFormat() const
-	{
-		_Assert(State::Initial != this->_state);
-		return this->_format;
-	}
+        static GLuint _boundRenderBuffer;
+    };
 
-	inline unsigned int RenderBuffer::GetWidth() const
-	{
-		_Assert(State::Initial != this->_state);
-		return this->_width;
-	}
+    inline RenderBuffer::State RenderBuffer::GetState() const
+    {
+        return this->_state;
+    }
 
-	inline unsigned int RenderBuffer::GetHeight() const
-	{
-		_Assert(State::Initial != this->_state);
-		return this->_height;
-	}
+    inline GLenum RenderBuffer::GetFormat() const
+    {
+        _Assert(State::Initial != this->_state);
+        return this->_format;
+    }
 
-	inline bool RenderBuffer::IsBound() const
-	{
-		return _boundRenderBuffer == this->_glRenderBuffer;
-	}
+    inline unsigned int RenderBuffer::GetWidth() const
+    {
+        _Assert(State::Initial != this->_state);
+        return this->_width;
+    }
 
-	inline GLuint RenderBuffer::GetGlRenderBuffer() const
-	{
-		return this->_glRenderBuffer;
-	}
+    inline unsigned int RenderBuffer::GetHeight() const
+    {
+        _Assert(State::Initial != this->_state);
+        return this->_height;
+    }
 
-	inline GLuint RenderBuffer::GetBound()
-	{
-		return _boundRenderBuffer;
-	}
+    inline bool RenderBuffer::IsBound() const
+    {
+        return _boundRenderBuffer == this->_glRenderBuffer;
+    }
+
+    inline GLuint RenderBuffer::GetGlRenderBuffer() const
+    {
+        return this->_glRenderBuffer;
+    }
+
+    inline GLuint RenderBuffer::GetBound()
+    {
+        return _boundRenderBuffer;
+    }
 }

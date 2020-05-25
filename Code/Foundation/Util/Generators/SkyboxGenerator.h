@@ -11,17 +11,17 @@
 
 namespace Util
 {
-	/// Generates 3D skybox cube by given size
-	class SkyboxGenerator : public Generator
-	{
-	_Singleton(SkyboxGenerator)
+    /// Generates 3D skybox cube by given size
+    class SkyboxGenerator : public Generator
+    {
+    _Singleton(SkyboxGenerator)
 
-	public:
-		SkyboxGenerator();
-		
-		[[nodiscard]] std::shared_ptr<Graphics::Mesh> Generate(float size);
+    public:
+        SkyboxGenerator();
 
-	private:
-		Graphics::VertexAttributeConfig _skyboxAttributesTemplate;
-	};
+        [[nodiscard]] std::shared_ptr<Graphics::Mesh> Generate(float size);
+
+    private:
+        Graphics::VertexAttributeConfig _skyboxAttributesTemplate;
+    };
 }

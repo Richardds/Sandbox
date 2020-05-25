@@ -7,17 +7,17 @@
 #include "Graphics/Shaders/DepthShader.h"
 
 Graphics::DepthShader::DepthShader() :
-	ShaderSystem("Depth"),
-	_projectionPosition(-1)
+    ShaderSystem("Depth"),
+    _projectionPosition(-1)
 {
 }
 
 void Graphics::DepthShader::InitializeUniformVariables()
 {
-	this->InitializeMatrix4fLocation("transformation", Math::Matrix4f(1.0f), this->_projectionPosition);
+    this->InitializeMatrix4fLocation("transformation", Math::Matrix4f(1.0f), this->_projectionPosition);
 }
 
 void Graphics::DepthShader::LoadProjection(const Math::Matrix4f& transformation) const
 {
-	this->LoadMatrix4f(this->_projectionPosition, transformation);
+    this->LoadMatrix4f(this->_projectionPosition, transformation);
 }

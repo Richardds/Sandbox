@@ -10,124 +10,124 @@
 
 namespace Graphics
 {
-	/// Low-level OpenGL texture object wrapper
-	class Texture
-	{
-	public:
-		enum class State
-		{
-			Initial,
-			Loaded
-		};
+    /// Low-level OpenGL texture object wrapper
+    class Texture
+    {
+    public:
+        enum class State
+        {
+            Initial,
+            Loaded
+        };
 
-		enum class Bank
-		{
-			Diffuse = 0,
-			Normal = 1,
-			Specular = 2,
-			Depth = 3,
+        enum class Bank
+        {
+            Diffuse = 0,
+            Normal = 1,
+            Specular = 2,
+            Depth = 3,
 
-			Distortion = 4,
-			Reflection = 5,
-			Refraction = 6,
-			
-			Skybox = 7
-		};
+            Distortion = 4,
+            Reflection = 5,
+            Refraction = 6,
 
-		explicit Texture();
-		virtual ~Texture();
-		[[nodiscard]] State GetState() const;
-		void Bind() const;
-		void Activate(Bank bank) const;
-		[[nodiscard]] bool IsBound() const;
-		void Unbind() const;
-		void Data(const void* pixels, unsigned int width, unsigned int height);
-		void FinishLoading();
-		[[nodiscard]] GLenum GetTarget() const;
-		void SetTarget(GLenum target);
-		[[nodiscard]] GLuint GetGlTexture() const;
-		[[nodiscard]] unsigned int GetWidth() const;
-		void SetWidth(unsigned int width);
-		[[nodiscard]] unsigned int GetHeight() const;
-		void SetHeight(unsigned int height);
-		[[nodiscard]] unsigned int GetDepth() const;
-		void SetDepth(unsigned int depth);
+            Skybox = 7
+        };
 
-		static GLuint GetBound(GLenum target);
-		static void UnbindBound(GLenum target);
+        explicit Texture();
+        virtual ~Texture();
+        [[nodiscard]] State GetState() const;
+        void Bind() const;
+        void Activate(Bank bank) const;
+        [[nodiscard]] bool IsBound() const;
+        void Unbind() const;
+        void Data(const void* pixels, unsigned int width, unsigned int height);
+        void FinishLoading();
+        [[nodiscard]] GLenum GetTarget() const;
+        void SetTarget(GLenum target);
+        [[nodiscard]] GLuint GetGlTexture() const;
+        [[nodiscard]] unsigned int GetWidth() const;
+        void SetWidth(unsigned int width);
+        [[nodiscard]] unsigned int GetHeight() const;
+        void SetHeight(unsigned int height);
+        [[nodiscard]] unsigned int GetDepth() const;
+        void SetDepth(unsigned int depth);
 
-	private:
-		State _state;
-		GLenum _target;
-		GLuint _glTexture;
-		GLsizei _width;
-		GLsizei _height;
-		GLsizei _depth;
+        static GLuint GetBound(GLenum target);
+        static void UnbindBound(GLenum target);
 
-		static std::unordered_map<GLenum, GLuint> _boundTextures;
-	};
+    private:
+        State _state;
+        GLenum _target;
+        GLuint _glTexture;
+        GLsizei _width;
+        GLsizei _height;
+        GLsizei _depth;
 
-	inline Texture::State Texture::GetState() const
-	{
-		return this->_state;
-	}
+        static std::unordered_map<GLenum, GLuint> _boundTextures;
+    };
 
-	inline bool Texture::IsBound() const
-	{
-		return _boundTextures[this->_target] == this->_glTexture;
-	}
+    inline Texture::State Texture::GetState() const
+    {
+        return this->_state;
+    }
 
-	inline GLenum Texture::GetTarget() const
-	{
-		return this->_target;
-	}
+    inline bool Texture::IsBound() const
+    {
+        return _boundTextures[this->_target] == this->_glTexture;
+    }
 
-	inline GLuint Texture::GetGlTexture() const
-	{
-		return this->_glTexture;
-	}
+    inline GLenum Texture::GetTarget() const
+    {
+        return this->_target;
+    }
 
-	inline void Texture::SetTarget(const GLenum target)
-	{
-		_Assert(State::Initial == this->_state);
-		this->_target = target;
-	}
+    inline GLuint Texture::GetGlTexture() const
+    {
+        return this->_glTexture;
+    }
 
-	inline unsigned int Texture::GetWidth() const
-	{
-		return this->_width;
-	}
+    inline void Texture::SetTarget(const GLenum target)
+    {
+        _Assert(State::Initial == this->_state);
+        this->_target = target;
+    }
 
-	inline void Texture::SetWidth(const unsigned int width)
-	{
-		_Assert(State::Initial == this->_state);
-		this->_width = width;
-	}
+    inline unsigned int Texture::GetWidth() const
+    {
+        return this->_width;
+    }
 
-	inline unsigned int Texture::GetHeight() const
-	{
-		return this->_height;
-	}
+    inline void Texture::SetWidth(const unsigned int width)
+    {
+        _Assert(State::Initial == this->_state);
+        this->_width = width;
+    }
 
-	inline void Texture::SetHeight(const unsigned int height)
-	{
-		_Assert(State::Initial == this->_state);
-		this->_height = height;
-	}
+    inline unsigned int Texture::GetHeight() const
+    {
+        return this->_height;
+    }
 
-	inline unsigned int Texture::GetDepth() const
-	{
-		return this->_depth;
-	}
+    inline void Texture::SetHeight(const unsigned int height)
+    {
+        _Assert(State::Initial == this->_state);
+        this->_height = height;
+    }
 
-	inline void Texture::SetDepth(const unsigned int depth)
-	{
-		_Assert(State::Initial == this->_state);
-		this->_depth = depth;
-	}
+    inline unsigned int Texture::GetDepth() const
+    {
+        return this->_depth;
+    }
 
-	inline GLuint Texture::GetBound(const GLenum target)
-	{
-		return _boundTextures[target];
-	}
+    inline void Texture::SetDepth(const unsigned int depth)
+    {
+        _Assert(State::Initial == this->_state);
+        this->_depth = depth;
+    }
+
+    inline GLuint Texture::GetBound(const GLenum target)
+    {
+        return _boundTextures[target];
+    }
 }

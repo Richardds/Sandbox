@@ -1,3 +1,8 @@
+// ----------------------------------------------------------------------------------------
+//  \file       SandboxApplication.h
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+// ----------------------------------------------------------------------------------------
+
 #pragma once
 
 #include <Precompiled.h>
@@ -7,21 +12,21 @@
 
 namespace Sandbox
 {
-	/// Sandbox application overrider class
-	class SandboxApplication : public App::RenderApplication
-	{
-	public:
-		SandboxApplication() = default;
+    /// Sandbox application overrider class
+    class SandboxApplication : public App::RenderApplication
+    {
+    public:
+        SandboxApplication() = default;
 
-		bool Open() override;
-		void Close() override;
+        bool Open() override;
+        void Close() override;
 
-	protected:
-		void OnProcessInput() override;
-		void OnUpdateLogic() override;
-		void OnUpdateFrame() override;
+    protected:
+        void OnProcessInput() override;
+        void OnUpdateLogic() override;
+        void OnUpdateFrame() override;
 
-	private:
-		std::shared_ptr<SandboxScene> _scene;
-	};
+    private:
+        std::shared_ptr<SandboxScene> _scene;
+    };
 }

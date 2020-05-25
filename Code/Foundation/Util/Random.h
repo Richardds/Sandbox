@@ -10,33 +10,35 @@
 
 namespace Util
 {
-	/// STD random wrapper
-	class Random
-	{
-		_Singleton(Random)
-		
-	public:
-		Random();
+    /// STD random wrapper
+    class Random
+    {
+    _Singleton(Random)
 
-		template<typename T> T GetInt(T min, T max);
-		template<typename T> T GetReal(T min, T max);
-		float GetAngle();
+    public:
+        Random();
 
-	private:
-		std::mt19937 _random;
-	};
+        template <typename T>
+        T GetInt(T min, T max);
+        template <typename T>
+        T GetReal(T min, T max);
+        float GetAngle();
 
-	template <typename T>
-	T Random::GetInt(const T min, const T max)
-	{
-		const std::uniform_int_distribution<T> distribution(min, max);
-		return distribution(this->_random);
-	}
+    private:
+        std::mt19937 _random;
+    };
 
-	template <typename T>
-	T Random::GetReal(const T min, const T max)
-	{
-		const std::uniform_real_distribution<T> distribution(min, max);
-		return distribution(this->_random);
-	}
+    template <typename T>
+    T Random::GetInt(const T min, const T max)
+    {
+        const std::uniform_int_distribution<T> distribution(min, max);
+        return distribution(this->_random);
+    }
+
+    template <typename T>
+    T Random::GetReal(const T min, const T max)
+    {
+        const std::uniform_real_distribution<T> distribution(min, max);
+        return distribution(this->_random);
+    }
 }

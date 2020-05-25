@@ -10,25 +10,25 @@
 
 bool IO::Keyboard::IsKeyPressed(Key key) const
 {
-	_Assert(Graphics::Core::Instance().IsCreated());
+    _Assert(Graphics::Core::Instance().IsCreated());
 
-	return glfwGetKey(
-		Graphics::Core::Instance().GetRenderingContext()->GetGlfwWindow(),
-		static_cast<std::underlying_type<Key>::type>(key)
-	);
+    return glfwGetKey(
+        Graphics::Core::Instance().GetRenderingContext()->GetGlfwWindow(),
+        static_cast<std::underlying_type<Key>::type>(key)
+    );
 }
 
 bool IO::Keyboard::IsControlPressed() const
 {
-	return this->IsKeyPressed(Key::LeftControl);
+    return this->IsKeyPressed(Key::LeftControl);
 }
 
 bool IO::Keyboard::IsAltPressed() const
 {
-	return this->IsKeyPressed(Key::LeftAlt);
+    return this->IsKeyPressed(Key::LeftAlt);
 }
 
 bool IO::Keyboard::IsShiftPressed() const
 {
-	return this->IsKeyPressed(Key::LeftShift);
+    return this->IsKeyPressed(Key::LeftShift);
 }
