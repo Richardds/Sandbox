@@ -72,13 +72,16 @@ std::shared_ptr<Graphics::Material> Util::ModelLoader::ParseMaterial(std::ifstre
 	Math::Vector3f color;
 	this->Read(file, &color);
 
+	float reflectivity;
+	this->Read(file, &reflectivity);
+	
 	float specular;
 	this->Read(file, &specular);
 
 	float shininess;
 	this->Read(file, &shininess);
 
-	return std::make_shared<Graphics::Material>(color, specular, shininess);
+	return std::make_shared<Graphics::Material>(color, reflectivity, specular, shininess);
 }
 
 std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ParseMesh(std::ifstream& file) const

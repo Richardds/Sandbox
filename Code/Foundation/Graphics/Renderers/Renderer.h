@@ -7,6 +7,7 @@
 
 #include "Precompiled.h"
 #include "Core/Debug.h"
+#include "Graphics/Shaders/ShaderSystem.h"
 
 namespace Graphics
 {
@@ -25,7 +26,7 @@ namespace Graphics
 		Renderer();
 
 		[[nodiscard]] State GetState() const;
-		[[nodiscard]] std::shared_ptr<T> GetShader() const;
+		[[nodiscard]] std::shared_ptr<T> GetShader(bool use = false) const;
 		void FinishLoading();
 
 	protected:
@@ -39,6 +40,7 @@ namespace Graphics
 	Renderer<T>::Renderer() :
 		_state(State::Initial)
 	{
+		static_assert(std::is_base_of<ShaderSystem, T>::value, "T must derive from Graphics::ShaderSystem");
 	}
 
 	template <class T>
@@ -48,8 +50,13 @@ namespace Graphics
 	}
 
 	template <class T>
-	std::shared_ptr<T> Renderer<T>::GetShader() const
+	std::shared_ptr<T> Renderer<T>::GetShader(const bool use) const
 	{
+		ShaderSystem* shader = dynamic_cast<ShaderSystem*>(this->_shader.get());
+		if (use && !shader->IsInUse())
+		{
+			shader->Use();
+		}
 		return this->_shader;
 	}
 

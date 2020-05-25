@@ -15,7 +15,6 @@ struct Sun {
 struct PointLight {
     vec3 position;
     vec3 attenuation;
-    vec3 ambient;
     vec3 diffuse;
     float specular;
 };
@@ -29,6 +28,8 @@ struct Fog {
 
 struct Material {
     vec3 color;
+    float reflectivity;
+    float refractiveIndex;
     float specular;
     float shininess;
 };
@@ -53,7 +54,9 @@ uniform PointLight light[10];
 uniform Fog fog;
 uniform Material material;
 
-const float minDiffuseFactor = 0.075f;
+uniform samplerCube skyboxSampler;
+
+const float minDiffuseFactor = 0.125f;
 
 float diffuseFactor(vec3 lightDirection, vec3 normal)
 {
@@ -62,7 +65,7 @@ float diffuseFactor(vec3 lightDirection, vec3 normal)
 
 float specularFactor(float shininess, vec3 viewDirection, vec3 lightDirection, vec3 normal)
 {
-    vec3 reflectedLightDirection = reflect(lightDirection, normal);
+    vec3 reflectedLightDirection = reflect(-lightDirection, normal);
     return pow(max(dot(viewDirection, reflectedLightDirection), 0.0f), shininess);
 }
 
@@ -79,9 +82,9 @@ void main()
     if (diffuseSampler.enabled) {
         materialDiffuse = texture(diffuseSampler.texture, textureCoords).rgb;
         // Discard fragment when mapped to invisible
-        if (materialDiffuse.r == 1.0f && materialDiffuse.b == 1.0f) {
-            discard;
-        }
+        //if (materialDiffuse.r == 1.0f && materialDiffuse.b == 1.0f) {
+        //    discard;
+        //}
     }
 
     // Map normal vector
@@ -101,7 +104,7 @@ void main()
     
     vec3 ambient = sun.ambient * materialDiffuse;
     vec3 diffuse = sun.diffuse * materialDiffuse * diffuseFactor(sunDirection, normalMapping);
-    float specular = sun.specular * material.specular * specularFactor(material.shininess, viewDirection, sunDirection, normalMapping);
+    float specular = sun.specular * materialSpecular * specularFactor(material.shininess, viewDirection, sunDirection, normalMapping);
 
     for (int index = 0; index < lightsCount; index++) {
         vec3 lightDirection = normalize(light[index].position - fragmentPosition.xyz);
@@ -109,12 +112,19 @@ void main()
         float attenuation = light[index].attenuation.x + (light[index].attenuation.y * lightDistance) + (light[index].attenuation.z * lightDistance * lightDistance);
 
         diffuse += (light[index].diffuse * materialDiffuse * diffuseFactor(lightDirection, normalMapping)) / attenuation;
-        specular += (light[index].specular * material.specular * specularFactor(material.shininess, viewDirection, lightDirection, normalMapping)) / attenuation;
+        specular += (light[index].specular * materialSpecular * specularFactor(material.shininess, viewDirection, lightDirection, normalMapping)) / attenuation;
     }
 
     vec3 phongModelColor = ambient + diffuse + specular;
 
     fragmentColor = vec4(phongModelColor, 1.0f); // Phong lighting
+
+    // Apply skybox reflectivity effect
+    if (material.reflectivity > 0.0f) {
+        vec3 reflectedCoordinate = reflect(-viewDirection, unitNormal);
+        vec3 reflectedColor = texture(skyboxSampler, reflectedCoordinate).rgb;
+        fragmentColor = mix(fragmentColor, vec4(reflectedColor * sun.diffuse, 1.0f), material.reflectivity);
+    }
 
     // Apply fog effect if enabled
     if (fog.enabled) {

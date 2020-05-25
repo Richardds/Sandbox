@@ -10,11 +10,12 @@
 #include <Util/ResourcesLoader.h>
 
 #include "SandboxScene.h"
-
 #include "Scene/Hardcoded.h"
+#include "Util/Random.h"
 
 Sandbox::SandboxScene::SandboxScene() :
-	_lockCameraToPlayer(true)
+	_lockCameraToPlayer(true),
+	_deformationFactor(0.0f)
 {
 }
 
@@ -26,52 +27,97 @@ bool Sandbox::SandboxScene::Setup()
 	this->_projectileManager = std::make_shared<ProjectileManager>();
 
 	// Configure camera
-	this->_camera->SetDistance(10.0f);
+	this->_camera->SetDistance(12.5f);
+	this->_camera->SetRotationX(20.0f);
 
 	// Load Skybox
 	std::shared_ptr<Graphics::Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadCubeMap("day");
 	this->_skybox = std::make_shared<Graphics::Skybox>(skyboxTexture, 750.0f);
 
 	// Configure lights
-	std::shared_ptr<Graphics::PointLight> playerLight = this->AddLight("player_light");
-	playerLight->SetPosition(Math::Vector3f(0.0f, 5.0f, 0.0f));
-	playerLight->SetAttenuation(Math::Vector3f(1.0f, 0.045f, 0.0095f));
+	//std::shared_ptr<Graphics::PointLight> playerLight = this->AddLight("player_light");
+	//playerLight->SetPosition(Math::Vector3f(0.0f, 5.0f, 0.0f));
+	//playerLight->SetAttenuation(Math::Vector3f(1.0f, 0.045f, 0.0095f));
+	std::shared_ptr<Graphics::PointLight> light1 = this->AddLight("light_1");
+	light1->SetColor(Math::Vector3f(1.0f, 0.8f, 0.6f));
+	light1->SetPosition(Math::Vector3f(5.0f, 5.0f, 5.0f));
+	light1->SetAttenuation(Math::Vector3f(1.0f, 0.1f, 0.025f));
 
-	// Load terrain
-	std::shared_ptr<Graphics::Entity> terrain = this->AddEntity("terrain", "terrain");
+	// TODO: Lights
 
 	// Load water
-	std::shared_ptr<Graphics::Water> water = this->AddWater("water_01", 1500.0f);
+	std::shared_ptr<Graphics::Water> water = this->AddWater("water", 1500.0f);
 
 	// Load player
 	this->_player = this->SetupPlayer("boat");
 
-	// Load other models	
-	std::shared_ptr<Graphics::Entity> crate1 = this->AddEntity("crate_01", "crate");
-	crate1->SetPosition(Math::Vector3f(-1.5f, 0.0f, -3.0f));
-	std::shared_ptr<Graphics::Entity> crate2 = this->AddEntity("crate_02", "crate");
-	crate2->SetPosition(Math::Vector3f(1.5f, 0.0f, -3.0f));
-	std::shared_ptr<Graphics::Entity> crate3 = this->AddEntity("crate_03", "crate");
-	crate3->SetPosition(Math::Vector3f(0.0f, 1.5f, -3.0f));
-	crate3->SetRotationY(45.0f);
-	std::shared_ptr<Graphics::Entity> crate4 = this->AddEntity("crate_04", "crate");
-	crate4->SetPosition(Math::Vector3f(3.25f, 0.0f, -1.75f));
-	std::shared_ptr<Graphics::Entity> rock1 = this->AddEntity("rock_01", "rock");
-	rock1->SetPosition(Math::Vector3f(-3.25f, 0.0f, -1.65f));
-	std::shared_ptr<Graphics::Entity> brickWall = this->AddEntity("brick_wall_01", "brick_wall");
-	brickWall->SetPosition(Math::Vector3f(7.5f, 0.0f, -5.0f));
-	brickWall->SetRotationY(-45.0f);
+	// Add house entities
+	for (int i = 0; i < 5; i++)
+	{
+		std::string entityName = "house_" + std::to_string(i);
+		const float offsetX = -15.0f;
+		const float offsetZ = -10.0f;
+		std::shared_ptr<Graphics::Entity> entity = this->AddEntity(entityName, "house");
+		entity->SetPosition(Math::Vector3f(
+			offsetX + 3.0f * static_cast<float>(i),
+			0.0f,
+			offsetZ - 7.5f * static_cast<float>(i)
+		));
+	}
 
-	std::shared_ptr<Graphics::Entity> house1 = this->AddEntity("house_01", "house");
-	house1->SetPosition(Math::Vector3f(-10.0f, 0.0f, -2.0f));
+	// Add pier entities
+	for (int i = 0; i < 10; i++)
+	{
+		std::string entityName = "pier_" + std::to_string(i);
+		const float offsetX = 5.0f;
+		const float offsetZ = 2.5f;
+		std::shared_ptr<Graphics::Entity> entity = this->AddEntity(entityName, "pier_modular");
+		entity->SetPosition(Math::Vector3f(
+			offsetX,
+			0.0f,
+			offsetZ - 1.55f * static_cast<float>(i)
+		));
+	}
+
+	std::shared_ptr<Graphics::Entity> drum1 = this->AddEntity("drum_1", "drum_shell");
+	drum1->SetPosition(Math::Vector3f(5.5f, 0.65f, 2.75f));
+	drum1->SetRotationY(45.0f);
+
+	std::shared_ptr<Graphics::Entity> drum2 = this->AddEntity("drum_2", "drum_radioactive");
+	drum2->SetPosition(Math::Vector3f(5.5f, 0.65f, 2.15f));
+	drum2->SetRotationY(45.0f);
+
+	// Add crate entities
+	for (int i = 0; i < 5; i++)
+	{
+		std::string entityName = "crate_" + std::to_string(i);
+		const float offsetX = -7.5f;
+		const float offsetZ = 3.0f;
+		std::shared_ptr<Graphics::Entity> entity = this->AddEntity(entityName, "water_crate");
+		entity->SetRotationX(Util::Random::Instance().GetAngle());
+		entity->SetRotationY(Util::Random::Instance().GetAngle());
+		entity->SetRotationZ(Util::Random::Instance().GetAngle());
+		entity->SetPosition(Math::Vector3f(
+			offsetX + Util::Random::Instance().GetReal(-1.0f, 1.0f),
+			Util::Random::Instance().GetReal(-0.75f, 0.25f),
+			offsetZ - 3.0f * static_cast<float>(i)
+		));
+	}
+
+	std::shared_ptr<Graphics::Entity> brickWall = this->AddEntity("brick_wall_1", "brick_wall");
+	brickWall->SetPosition(Math::Vector3f(15.0f, 2.0f, -15.0f));
+	brickWall->SetRotationX(-30.0f);
+	brickWall->SetRotationY(-30.0f);
 
 	// Add hardcoded mesh to the scene
 	std::shared_ptr<Graphics::Entity> hardcoded = std::make_shared<Graphics::Entity>();
 	std::shared_ptr<Graphics::Model> hardcodedModel = std::make_shared<Graphics::Model>();
-	hardcodedModel->AddMesh("hardcoded", Hardcoded::Instance().Generate());
+	std::shared_ptr<Graphics::TexturedMesh> hardcodedMesh = std::make_shared<Graphics::TexturedMesh>(Hardcoded::Instance().Generate());
+	hardcodedMesh->SetMaterial(Graphics::Material(Math::Vector3f(1.0f), 1.0f, 0.25f, 25.0f));
+	hardcodedModel->AddMesh("hardcoded", hardcodedMesh);
 	hardcodedModel->FinishLoading();
 	hardcoded->SetModel(hardcodedModel);
-	hardcoded->SetPositionY(2.5f);
+	hardcoded->SetPosition(Math::Vector3f(5.0f, 2.5f, -25.0f));
 	this->AddEntity("hardcoded", hardcoded);
 
 	// Register mouse scrolling
@@ -134,31 +180,21 @@ void Sandbox::SandboxScene::ProcessCameraInput()
 	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::One))
 	{
 		this->_lockCameraToPlayer = false;
-		this->_camera->SetPosition(Math::Vector3f(-10.0f, 7.5f, 5.0f));
-		this->_camera->LookAt(Math::Vector3f(0.0f, 0.0f, 0.0f));
-	}
-	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Two))
-	{
-		this->_lockCameraToPlayer = false;
-		this->_camera->SetPosition(Math::Vector3f(15.0f, 7.5f, 10.0f));
-		this->_camera->LookAt(Math::Vector3f(0.0f, 0.0f, 0.0f));
+		this->_camera->SetPosition(Math::Vector3f(15.0f, 5.0f, -12.0f));
+		this->_camera->LookAt(Math::Vector3f(15.0f, 2.0f, -15.0f));
 	}
 }
 
-void Sandbox::SandboxScene::ProcessInput()
+void Sandbox::SandboxScene::ProcessPlayerInput()
 {
-	Scene::ProcessInput();
-
-	this->ProcessCameraInput();
-
 	const Math::Vector3f worldPosition = this->GetScreenWorldPosition(IO::Mouse::Instance().GetCoords());
 	const Math::Vector2f worldPointer = Math::Vector2f(worldPosition.x, worldPosition.z);
-
+	
 	// Player navigation and interaction
 	if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::Left))
 	{
 		this->_player->LookAt(worldPointer);
-		if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::LeftShift))
+		if (IO::Keyboard::Instance().IsShiftPressed())
 		{
 			this->_player->Idle();
 
@@ -167,6 +203,11 @@ void Sandbox::SandboxScene::ProcessInput()
 				this->_player->SingleFire(this->_projectileManager);
 			}
 		}
+		else if (IO::Keyboard::Instance().IsControlPressed())
+		{
+			this->_player->Idle();
+			this->_player->SetPosition(worldPosition);
+		}
 		else
 		{
 			this->_player->SetTarget(worldPointer);
@@ -174,7 +215,7 @@ void Sandbox::SandboxScene::ProcessInput()
 		}
 	}
 
-	// Additional skills
+	// Additional "skills"
 	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::X))
 	{
 		if (this->_player->IsReadyToFire())
@@ -190,25 +231,30 @@ void Sandbox::SandboxScene::ProcessInput()
 			this->_player->BeamFire(this->_projectileManager, 4);
 		}
 	}
+}
+
+void Sandbox::SandboxScene::ProcessInput()
+{
+	Scene::ProcessInput();
+
+	this->ProcessCameraInput();
+	
+	this->ProcessPlayerInput();
 
 	// Enabled fog
 	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::F))
 	{
 		this->_renderSkybox = false;
-		this->_waterRenderer->GetShader()->Use();
-		this->_waterRenderer->GetShader()->LoadFogEnabled(true);
-		this->_entityRenderer->GetShader()->Use();
-		this->_entityRenderer->GetShader()->LoadFogEnabled(true);
+		this->_waterRenderer->GetShader(true)->LoadFogEnabled(true);
+		this->_entityRenderer->GetShader(true)->LoadFogEnabled(true);
 	}
 
 	// Disable fog
 	if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::G))
 	{
 		this->_renderSkybox = true;
-		this->_waterRenderer->GetShader()->Use();
-		this->_waterRenderer->GetShader()->LoadFogEnabled(false);
-		this->_entityRenderer->GetShader()->Use();
-		this->_entityRenderer->GetShader()->LoadFogEnabled(false);
+		this->_waterRenderer->GetShader(true)->LoadFogEnabled(false);
+		this->_entityRenderer->GetShader(true)->LoadFogEnabled(false);
 	}
 }
 
@@ -226,28 +272,32 @@ void Sandbox::SandboxScene::Update(const float delta)
 	}
 
 	// Update player light position
-	const Math::Vector3f playerPosition = this->_player->GetPosition();
-	const float lightPositionY = this->_lights["player_light"]->GetPositionY();
-	this->_lights["player_light"]->SetPosition(Math::Vector3f(playerPosition.x, lightPositionY, playerPosition.z));
+	//const Math::Vector3f playerPosition = this->_player->GetPosition();
+	//const float lightPositionY = this->_lights["player_light"]->GetPositionY();
+	//this->_lights["player_light"]->SetPosition(Math::Vector3f(playerPosition.x, lightPositionY, playerPosition.z));
 
 	// Time based updates
-	float darkeningFactor = 1.0f;
 	if (!this->_paused)
 	{
 		// GoForward water motion
-		this->_waterTiles["water_01"]->SetPositionY(glm::sin(this->_time / 1.75f) / 35.0f);
+		this->_waterTiles["water"]->SetPositionY(glm::sin(this->_time / 1.75f) / 35.0f);
 
 		// GoForward scene day & night cycle effect
-		darkeningFactor = (glm::sin(this->_time / 5.0f) + 1.0f) / (2.0f / (1.0f - SUN_LOWER_LIMIT)) + SUN_LOWER_LIMIT;
-		// Interval <SUN_LOWER_LIMIT-1.000>
+		// Intensity interval <SUN_LOWER_LIMIT-1.000>
+		//const float darkeningFactor = (glm::sin(this->_time / 5.0f) + 1.0f) / (2.0f / (1.0f - SUN_LOWER_LIMIT)) + SUN_LOWER_LIMIT;
+		//this->_skyboxRenderer->GetShader(true)->LoadDarkeningFactor(darkeningFactor);
+		//this->_sun->SetIntensity(darkeningFactor);
+		//IO::Console::Instance().Info("Sun: %f\n", darkeningFactor);
+		
+		// Update hardcoded mesh rotation
+		this->_entities["hardcoded"]->IncreaseRotationY(45.0f * delta);
+		this->_entities["hardcoded"]->SetRotationX(glm::sin(this->_time) * 15.0f);
 	}
-	this->_skyboxRenderer->GetShader()->Use();
-	this->_skyboxRenderer->GetShader()->LoadDarkeningFactor(darkeningFactor);
-	this->_sun->SetIntensity(darkeningFactor);
 }
 
 void Sandbox::SandboxScene::Render()
 {
+	this->_entityRenderer->GetShader(true)->LoadDeformationFactor(this->_deformationFactor);
 	Scene::Render();
 }
 

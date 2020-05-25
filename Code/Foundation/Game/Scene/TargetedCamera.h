@@ -15,7 +15,10 @@ namespace Graphics
 	class TargetedCamera : public Camera
 	{
 	public:
-		explicit TargetedCamera(float distance);
+		/// Camera distance from target when unspecified
+		static constexpr float DEFAULT_DISTANCE = 15.0f;
+		
+		TargetedCamera();
 
 		[[nodiscard]] float GetDistance() const;
 		void SetDistance(float distance);

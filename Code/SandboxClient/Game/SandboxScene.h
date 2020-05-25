@@ -18,12 +18,13 @@ namespace Sandbox
 			Run
 		};
 
-		static constexpr float SUN_LOWER_LIMIT = 0.075f;
+		static constexpr float SUN_LOWER_LIMIT = 0.125f;
 
 		SandboxScene();
 
 		bool Setup() override;
 		void ProcessCameraInput();
+		void ProcessPlayerInput();
 		void ProcessInput() override;
 		void Update(float delta) override;
 		void Render() override;
@@ -37,5 +38,6 @@ namespace Sandbox
 		std::shared_ptr<ProjectileManager> _projectileManager;
 
 		bool _lockCameraToPlayer;
+		float _deformationFactor;
 	};
 }

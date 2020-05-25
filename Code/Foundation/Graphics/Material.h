@@ -15,18 +15,24 @@ namespace Graphics
 	class Material
 	{
 	public:
-		Material(const Math::Vector3f& color, float specular, float reflectivity);
+		Material(const Math::Vector3f& color,
+			     float reflectivity,
+			     float specular,
+			     float shininess);
 		[[nodiscard]] Math::Vector3f GetColor() const;
 		void SetColor(const Math::Vector3f& color);
-		[[nodiscard]] float GetSpecular() const;
-		void SetSpecular(float specular);
 		[[nodiscard]] float GetReflectivity() const;
 		void SetReflectivity(float reflectivity);
+		[[nodiscard]] float GetSpecular() const;
+		void SetSpecular(float specular);
+		[[nodiscard]] float GetShininess() const;
+		void SetShininess(float shininess);
 
 	private:
 		Math::Vector3f _color;
-		float _specular;
 		float _reflectivity;
+		float _specular;
+		float _shininess;
 	};
 
 	inline Math::Vector3f Material::GetColor() const
@@ -39,6 +45,16 @@ namespace Graphics
 		this->_color = color;
 	}
 
+	inline float Material::GetReflectivity() const
+	{
+		return this->_reflectivity;
+	}
+
+	inline void Material::SetReflectivity(const float reflectivity)
+	{
+		this->_reflectivity = reflectivity;
+	}
+
 	inline float Material::GetSpecular() const
 	{
 		return this->_specular;
@@ -49,13 +65,13 @@ namespace Graphics
 		this->_specular = specular;
 	}
 
-	inline float Material::GetReflectivity() const
+	inline float Material::GetShininess() const
 	{
-		return this->_reflectivity;
+		return this->_shininess;
 	}
 
-	inline void Material::SetReflectivity(const float reflectivity)
+	inline void Material::SetShininess(const float shininess)
 	{
-		this->_reflectivity = reflectivity;
+		this->_shininess = shininess;
 	}
 }

@@ -61,6 +61,7 @@
     <ClCompile Include="Util\Loaders\DirectDrawSurfaceLoader.cpp" />
     <ClCompile Include="Util\Loaders\AssimpLoader.cpp" />
     <ClCompile Include="Util\Loaders\ModelLoader.cpp" />
+    <ClCompile Include="Util\Random.cpp" />
     <ClCompile Include="Util\ResourcesLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +124,7 @@
     <ClInclude Include="Util\Loaders\DirectDrawSurfaceLoader.h" />
     <ClInclude Include="Util\Loaders\AssimpLoader.h" />
     <ClInclude Include="Util\Loaders\ModelLoader.h" />
+    <ClInclude Include="Util\Random.h" />
     <ClInclude Include="Util\ResourcesLoader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

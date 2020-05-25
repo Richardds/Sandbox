@@ -45,11 +45,10 @@ namespace Graphics
 		GLint _worldTransformationLocation;
 		GLint _normalTransformationLocation;
 
-		GLint _textureTilingLocation;
 		TextureSamplerLocation _normalSamplerLocation;
 		TextureSamplerLocation _distortionSamplerLocation;
+		GLint _textureTilingLocation;
 		GLint _distortionOffsetLocation;
-
 		GLint _reflectionSamplerLocation;
 		GLint _refractionSamplerLocation;
 

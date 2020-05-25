@@ -15,7 +15,6 @@ struct Sun {
 struct PointLight {
     vec3 position;
     vec3 attenuation;
-    vec3 ambient;
     vec3 diffuse;
     float specular;
 };
@@ -31,8 +30,8 @@ in vec4 fragmentPosition;
 in vec2 textureCoords;
 in vec3 normal;
 in vec4 relativeToCameraPosition;
-in mat3 fromTangentSpace;
 in vec4 position;
+in mat3 fromTangentSpace;
 
 out vec4 fragmentColor;
 
@@ -55,16 +54,9 @@ const float waterTransparency = 0.95f;
 const float waterSpecular = 0.125f;
 const float waterShininess = 50.5f;
 
-const float minDiffuseFactor = 0.075f;
-
-float diffuseFactor(vec3 lightDirection, vec3 normal)
-{
-    return max(dot(lightDirection, normal), minDiffuseFactor);
-}
-
 float specularFactor(float shininess, vec3 viewDirection, vec3 lightDirection, vec3 normal)
 {
-    vec3 reflectedLightDirection = reflect(lightDirection, normal);
+    vec3 reflectedLightDirection = reflect(-lightDirection, normal);
     return pow(max(dot(viewDirection, reflectedLightDirection), 0.0f), shininess);
 }
 
@@ -91,8 +83,7 @@ void main()
 
     vec3 normalMapping = unitNormal;
     if (normalSampler.enabled) {
-        normalMapping = texture(normalSampler.texture, distortedTextureCoords).rgb;
-        normalMapping = normalize(fromTangentSpace * vec3(normalMapping.x * 2.0f - 1.0f, normalMapping.y, normalMapping.z * 2.0f - 1.0f));
+        normalMapping = normalize(fromTangentSpace * (texture(normalSampler.texture, distortedTextureCoords).rgb * 2.0f - 1.0f));
     }
 
     vec2 reflectionTextureCoords = vec2(ndc.x, -ndc.y);
@@ -117,8 +108,9 @@ void main()
     // Apply slight bluish color
     waterDiffuse = mix(waterDiffuse, vec3(0.0f, 0.1f, 0.2f), 0.1f);
 
+    // Calculate fragment color using Phong lighting model
     vec3 sunDirection = normalize(sun.direction);
-    vec3 diffuse = sun.diffuse * waterDiffuse * diffuseFactor(sunDirection, normalMapping);
+    vec3 diffuse = waterDiffuse;
     float specular = sun.specular * waterSpecular * specularFactor(waterShininess, viewDirection, sunDirection, normalMapping);
 
     for (int index = 0; index < lightsCount; index++) {
@@ -126,11 +118,10 @@ void main()
         float lightDistance = length(light[index].position - fragmentPosition.xyz);
         float attenuation = light[index].attenuation.x + (light[index].attenuation.y * lightDistance) + (light[index].attenuation.z * lightDistance * lightDistance);
 
-        diffuse += (light[index].diffuse * waterDiffuse * diffuseFactor(lightDirection, normalMapping)) / attenuation;
         specular += (light[index].specular * waterSpecular * specularFactor(waterShininess, viewDirection, lightDirection, normalMapping)) / attenuation;
     }
 
-    fragmentColor = vec4(waterDiffuse + specular, 1.0f); // Water + highlights
+    fragmentColor = vec4(diffuse + specular, 1.0f); // Water + highlights
 
     // Apply fog effect if enabled
     if (fog.enabled) {

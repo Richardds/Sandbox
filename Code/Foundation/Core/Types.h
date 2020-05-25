@@ -42,14 +42,14 @@ namespace Util
 struct VertexData2
 {
 	VertexData2() = default;
-	VertexData2(const float vx, const float vy, const float vz,
+	VertexData2(const float vx, const float vy,
 				const float tu, const float tv) :
-		vertex(vx, vy, vz),
+		vertex(vx, vy),
 		texture(tu, tv)
 	{
 	}
 	
-	Math::Vector3f vertex;
+	Math::Vector2f vertex;
 	Math::Vector2f texture;
 };
 

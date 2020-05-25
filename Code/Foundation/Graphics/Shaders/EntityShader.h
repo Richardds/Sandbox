@@ -36,6 +36,7 @@ namespace Graphics
 		void LoadHasDiffuseMap(bool hasDiffuseMap) const;
 		void LoadHasNormalMap(bool hasNormalMap) const;
 		void LoadHasSpecularMap(bool hasSpecularMap) const;
+		void LoadDeformationFactor(float deformationFactor) const;
 
 	private:
 		/// Maximal count of possible lights used in the scene
@@ -63,8 +64,13 @@ namespace Graphics
 		GLint _fogColorLocation;
 
 		GLint _materialColorLocation;
+		GLint _materialReflectivityLocation;
 		GLint _materialSpecularLocation;
 		GLint _materialShininessLocation;
+
+		GLint _skyboxSamplerLocation;
+		
+		GLint _deformationFactorLocation;
 
 		bool _fogEnabled;
 	};

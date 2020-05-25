@@ -29,12 +29,14 @@ bool Graphics::EntityRenderer::Setup(const std::shared_ptr<const Projection>& pr
 
 void Graphics::EntityRenderer::Begin(const std::shared_ptr<Camera>& camera,
                                      const std::shared_ptr<DirectionalLight>& sun,
+                                     const std::shared_ptr<Skybox>& skybox,
                                      const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const
 {
 	this->_shader->Use();
 	this->_shader->LoadCamera(camera);
 	this->_shader->LoadSun(sun);
 	this->_shader->LoadLights(lights);
+	skybox->GetTexture()->Activate(Texture::Bank::Skybox);
 }
 
 void Graphics::EntityRenderer::Render(const std::shared_ptr<Entity>& entity) const

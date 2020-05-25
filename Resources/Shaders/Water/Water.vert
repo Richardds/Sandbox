@@ -15,8 +15,8 @@ out vec4 fragmentPosition;
 out vec2 textureCoords;
 out vec3 normal;
 out vec4 relativeToCameraPosition;
-out mat3 fromTangentSpace;
 out vec4 position;
+out mat3 fromTangentSpace;
 
 uniform mat4 projection;
 uniform mat4 view;

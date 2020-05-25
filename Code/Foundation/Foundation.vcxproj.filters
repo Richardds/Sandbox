@@ -198,6 +198,9 @@
     <ClCompile Include="Util\Loaders\ModelLoader.cpp">
       <Filter>Util\Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="Util\Random.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Debug.h">
@@ -378,5 +381,8 @@
       <Filter>Graphics\Renderers</Filter>
     </ClInclude>
     <ClInclude Include="Precompiled.h" />
+    <ClInclude Include="Util\Random.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

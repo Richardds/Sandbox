@@ -33,8 +33,7 @@ bool Graphics::Scene::Setup()
 	_Assert(State::Initial == this->_state);
 
 	// Setup camera
-	this->_camera = std::make_shared<TargetedCamera>(15.0f);
-	this->_camera->SetRotationX(40.0f);
+	this->_camera = std::make_shared<TargetedCamera>();
 
 	// Setup global projection
 	this->_projection = Core::Instance().MakeProjection(this->_camera->GetFieldOfView());
@@ -65,7 +64,8 @@ bool Graphics::Scene::Setup()
 
 	// Setup sun
 	this->_sun = std::make_shared<DirectionalLight>();
-	this->_sun->SetDirection(Math::Vector3f(1.0f, -1.0f, 0.0f));
+	this->_sun->SetColor(Math::Vector3f(1.0f, 0.95f, 0.85f));
+	this->_sun->SetDirection(Math::Vector3f(-1.0f, 1.0f, -1.0f));
 	this->_sun->SetIntensity(0.6f);
 
 	this->_state = State::Run;
@@ -153,7 +153,7 @@ void Graphics::Scene::Render()
 
 void Graphics::Scene::RenderEntities()
 {
-	this->_entityRenderer->Begin(this->_camera, this->_sun, this->_lights);
+	this->_entityRenderer->Begin(this->_camera, this->_sun, this->_skybox, this->_lights);
 
 	for (auto& entity : this->_entities)
 	{

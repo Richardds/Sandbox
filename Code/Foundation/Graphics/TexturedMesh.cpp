@@ -11,7 +11,7 @@ Graphics::TexturedMesh::TexturedMesh(std::shared_ptr<VertexArray> vertexArrayObj
                                      std::shared_ptr<Buffer> elementsBuffer,
                                      const uint32_t elementsCount) :
 	Mesh(std::move(vertexArrayObject), std::move(vertexBuffer), std::move(elementsBuffer), elementsCount),
-	_material(Math::Vector3f(0.85f), 0.5f, 25.0f)
+	_material(Math::Vector3f(0.85f), 0.0f, 0.5f, 25.0f)
 {
 }
 

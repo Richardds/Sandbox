@@ -53,13 +53,12 @@ namespace Graphics
 
 		struct PointLightLocation
 		{
-			PointLightLocation() : position(-1), attenuation(-1), ambient(-1), diffuse(-1), specular(-1)
+			PointLightLocation() : position(-1), attenuation(-1), diffuse(-1), specular(-1)
 			{
 			}
 
 			GLint position;
 			GLint attenuation;
-			GLint ambient;
 			GLint diffuse;
 			GLint specular;
 		};

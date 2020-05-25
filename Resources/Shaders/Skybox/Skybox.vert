@@ -2,7 +2,7 @@
 
 layout (location = 0) in vec3 a_Position;
 
-out vec3 textureCoords;
+out vec3 position;
 
 uniform mat4 projection;
 uniform mat4 view;
@@ -10,7 +10,7 @@ uniform mat4 view;
 void main()
 {
     // Pass interpolated position coordinates as texture coordinates
-    textureCoords = a_Position;
+    position = a_Position;
 
     gl_Position = projection * view * vec4(a_Position, 1.0f);
 }

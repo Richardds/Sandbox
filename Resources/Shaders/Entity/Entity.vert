@@ -28,11 +28,32 @@ uniform mat4 viewInverse;
 uniform mat4 worldTransformation;
 uniform mat3 normalTransformation;
 uniform ClippingPlane clippingPlane;
+uniform float deformationFactor;
+
+// TODO
+vec3 twist(vec3 position, float factor)
+{
+	float sFactor = sin(factor);
+	float cFactor = cos(factor);
+
+	vec3 twistedPosition = position;
+	twistedPosition.x = position.x * cFactor - position.z * sFactor;
+	twistedPosition.z = position.x * sFactor + position.z * cFactor;
+
+	return twistedPosition;
+}
 
 void main()
 {
+    vec3 vertexPosition = a_Position;
+
+    // Apply twist deformation
+    if (deformationFactor != 0.0f) {
+        vertexPosition = twist(a_Position, deformationFactor);
+    }
+
     // Calculate vertex world position
-    fragmentPosition = worldTransformation * vec4(a_Position, 1.0f);
+    fragmentPosition = worldTransformation * vec4(vertexPosition, 1.0f);
 
     // Apply culling if enabled
     if (clippingPlane.enabled) {

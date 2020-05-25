@@ -17,8 +17,10 @@ bool Util::AssimpExporter::Load(const std::vector<char>& buffer)
 		aiProcess_Triangulate
 		| aiProcess_FlipUVs
 		| aiProcess_CalcTangentSpace
-		| aiProcess_GenNormals
+		| aiProcess_GenSmoothNormals
+		| aiProcess_GenUVCoords
 		| aiProcess_JoinIdenticalVertices
+		| aiProcess_SplitLargeMeshes
 		| aiProcess_FixInfacingNormals
 		| aiProcess_FindInvalidData
 		| aiProcess_FindDegenerates
@@ -26,7 +28,9 @@ bool Util::AssimpExporter::Load(const std::vector<char>& buffer)
 		| aiProcess_ImproveCacheLocality
 		| aiProcess_OptimizeMeshes
 		| aiProcess_OptimizeGraph
+		| aiProcess_FindInstances
 		| aiProcess_ValidateDataStructure
+		| aiProcessPreset_TargetRealtime_MaxQuality
 	);
 
 	if (!this->_scene || this->_scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !this->_scene->mRootNode)
@@ -62,6 +66,8 @@ void Util::AssimpExporter::WriteNode(std::ofstream& file, aiNode* node) const
 			aiMesh* mesh = this->_scene->mMeshes[node->mMeshes[i]];
 			this->WriteMesh(file, mesh);
 		}
+		
+		return;
 	}
 	
 	for (uint32_t i = 0; i < node->mNumChildren; i++)
@@ -76,6 +82,10 @@ void Util::AssimpExporter::WriteMaterial(std::ofstream& file, aiMaterial* materi
 	material->Get(AI_MATKEY_COLOR_DIFFUSE, assimpColor);
 	this->Write(file, Math::Vector3f(assimpColor.r, assimpColor.g, assimpColor.b));
 
+	float reflectivity;
+	material->Get(AI_MATKEY_REFLECTIVITY, reflectivity);
+	this->Write(file, reflectivity);
+	
 	float specular;
 	material->Get(AI_MATKEY_SHININESS_STRENGTH, specular);
 	this->Write(file, specular);
@@ -83,69 +93,6 @@ void Util::AssimpExporter::WriteMaterial(std::ofstream& file, aiMaterial* materi
 	float shininess;
 	material->Get(AI_MATKEY_SHININESS, shininess);
 	this->Write(file, shininess);
-}
-
-void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
-{
-	// Write name
-	this->WriteString(file, mesh->mName.C_Str());
-
-	// Write vertices count
-	const uint32_t verticesCount = mesh->mNumVertices;
-	this->Write(file, verticesCount);
-
-	for (uint32_t i = 0; i < verticesCount; i++)
-	{
-		VertexData3 vertexData = {};
-		vertexData.vertex.x = mesh->mVertices[i].x;
-		vertexData.vertex.y = mesh->mVertices[i].y;
-		vertexData.vertex.z = mesh->mVertices[i].z;
-
-		vertexData.normal.x = mesh->mNormals[i].x;
-		vertexData.normal.y = mesh->mNormals[i].y;
-		vertexData.normal.z = mesh->mNormals[i].z;
-
-		vertexData.texture.x = mesh->mTextureCoords[0][i].x;
-		vertexData.texture.y = mesh->mTextureCoords[0][i].y;
-
-		vertexData.tangent.x = mesh->mTangents[i].x;
-		vertexData.tangent.y = mesh->mTangents[i].y;
-		vertexData.tangent.z = mesh->mTangents[i].z;
-
-		// Print vertex data
-		//IO::Console::Instance().Info(
-		//	"{%ff,%ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff},\n",
-		//	vertexData.vertex.x, vertexData.vertex.y, vertexData.vertex.z,
-		//	vertexData.normal.x, vertexData.normal.y, vertexData.normal.z,
-		//	vertexData.texture.x, vertexData.texture.y,
-		//	vertexData.tangent.x, vertexData.tangent.y, vertexData.tangent.z
-		//);
-		
-		// Write vertex attributes
-		this->Write(file, vertexData);
-	}
-
-	const uint32_t trianglesCount = mesh->mNumFaces;
-	this->Write(file, trianglesCount);
-	
-	for (uint32_t i = 0; i < trianglesCount; i++)
-	{
-		const aiFace face = mesh->mFaces[i];
-		_Assert(3 == face.mNumIndices);
-		for (uint32_t j = 0; j < 3; j++)
-		{
-			// Write vertex index
-			const uint32_t index = face.mIndices[j];
-			this->Write(file, index);
-		}
-
-		// Print indices
-		//IO::Console::Instance().Info("%u, %u, %u,\n", face.mIndices[0], face.mIndices[1], face.mIndices[2]);
-	}
-
-	// Write material
-	aiMaterial* material = this->_scene->mMaterials[mesh->mMaterialIndex];
-	this->WriteMaterial(file, this->_scene->mMaterials[mesh->mMaterialIndex]);
 
 	uint8_t textureBitfield = 0;
 	textureBitfield |= HAS_TEXTURE_DIFFUSE * (1 == material->GetTextureCount(aiTextureType_DIFFUSE));
@@ -154,7 +101,7 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
 
 	// Write texture bitfield
 	this->Write(file, textureBitfield);
-	
+
 	aiString assetPath;
 
 	// Write diffuse texture name
@@ -177,6 +124,55 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
 		material->GetTexture(aiTextureType_SPECULAR, 0, &assetPath);
 		this->WriteString(file, this->ParseAssetName(assetPath));
 	}
+}
+
+void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
+{
+	// Write name
+	this->WriteString(file, mesh->mName.C_Str());
+
+	// Write vertices count
+	const uint32_t verticesCount = mesh->mNumVertices;
+	this->Write(file, verticesCount);
+
+	for (uint32_t i = 0; i < verticesCount; i++)
+	{
+		const VertexData3 vertexData(
+			mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z,
+			mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z,
+			mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y,
+			mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z
+		);
+		
+		// Write vertex attributes
+		this->Write(file, vertexData);
+
+		// Print vertex data
+		//IO::Console::Instance().Info(
+		//	"{%ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff},\n",
+		//	vertexData.vertex.x, vertexData.vertex.y, vertexData.vertex.z,
+		//	vertexData.normal.x, vertexData.normal.y, vertexData.normal.z,
+		//	vertexData.texture.x, vertexData.texture.y,
+		//	vertexData.tangent.x, vertexData.tangent.y, vertexData.tangent.z
+		//);
+	}
+
+	const uint32_t trianglesCount = mesh->mNumFaces;
+	this->Write(file, trianglesCount);
+	
+	for (uint32_t i = 0; i < trianglesCount; i++)
+	{
+		const aiFace face = mesh->mFaces[i];
+		_Assert(3 == face.mNumIndices);
+		this->Write(file, Math::Vector3ui32(face.mIndices[0], face.mIndices[1], face.mIndices[2]));
+
+		// Print indices
+		//IO::Console::Instance().Info("%u, %u, %u,\n", face.mIndices[0], face.mIndices[1], face.mIndices[2]);
+	}
+
+	// Write material
+	aiMaterial* material = this->_scene->mMaterials[mesh->mMaterialIndex];
+	this->WriteMaterial(file, material);
 }
 
 std::string Util::AssimpExporter::ParseAssetName(const aiString& assetPath) const

@@ -18,12 +18,12 @@ Graphics::WaterShader::WaterShader() :
 	_worldTransformationLocation(-1),
 	_normalTransformationLocation(-1),
 
-	_lightsCountLocation(-1),
-
 	_textureTilingLocation(-1),
 	_distortionOffsetLocation(-1),
 	_reflectionSamplerLocation(-1),
 	_refractionSamplerLocation(-1),
+
+	_lightsCountLocation(-1),
 
 	_fogEnabledLocation(-1),
 	_fogColorLocation(-1),
@@ -58,7 +58,7 @@ void Graphics::WaterShader::InitializeUniformVariables()
 	                            this->_refractionSamplerLocation);
 
 	// Setup sun
-	this->InitializeVector3fLocation("sun.direction", Math::Vector3f(-1.0f, -1.0f, 0.0f), this->_sunLocation.direction);
+	this->InitializeVector3fLocation("sun.direction", Math::Vector3f(0.0f, -1.0f, 0.0f), this->_sunLocation.direction);
 	this->InitializeVector3fLocation("sun.ambient", Math::Vector3f(0.2f), this->_sunLocation.ambient);
 	this->InitializeVector3fLocation("sun.diffuse", Math::Vector3f(0.5f), this->_sunLocation.diffuse);
 	this->InitializeFloatLocation("sun.specular", 1.0f, this->_sunLocation.specular);
@@ -69,14 +69,12 @@ void Graphics::WaterShader::InitializeUniformVariables()
 	{
 		this->InitializeVector3fLocation("light[" + std::to_string(index) + "].position", Math::Vector3f(0.0f),
 		                                 this->_lightLocations[index].position);
-		this->InitializeVector3fLocation("light[" + std::to_string(index) + "].ambient", Math::Vector3f(1.0f),
-		                                 this->_lightLocations[index].ambient);
+		this->InitializeVector3fLocation("light[" + std::to_string(index) + "].attenuation",
+			Math::Vector3f(1.0f, 0.0f, 0.0f), this->_lightLocations[index].attenuation);
 		this->InitializeVector3fLocation("light[" + std::to_string(index) + "].diffuse", Math::Vector3f(1.0f),
 		                                 this->_lightLocations[index].diffuse);
 		this->InitializeFloatLocation("light[" + std::to_string(index) + "].specular", 1.0f,
 		                              this->_lightLocations[index].specular);
-		this->InitializeVector3fLocation("light[" + std::to_string(index) + "].attenuation",
-		                                 Math::Vector3f(1.0f, 0.0f, 0.0f), this->_lightLocations[index].attenuation);
 	}
 
 	// Setup fog
@@ -104,7 +102,7 @@ void Graphics::WaterShader::LoadCamera(const std::shared_ptr<Camera>& camera) co
 void Graphics::WaterShader::LoadSun(const std::shared_ptr<DirectionalLight>& sun) const
 {
 	const Math::Vector3f diffuseColor = sun->GetIntensity() * sun->GetColor();
-	const Math::Vector3f ambientColor = diffuseColor / 5.0f;
+	const Math::Vector3f ambientColor = 0.2f * sun->GetColor();
 
 	this->LoadVector3f(this->_sunLocation.direction, sun->GetDirection());
 	this->LoadVector3f(this->_sunLocation.ambient, ambientColor);
@@ -130,9 +128,7 @@ void Graphics::WaterShader::LoadLight(const int index, const std::shared_ptr<Poi
 {
 	_Assert(WaterShader::MAX_LIGHT_COUNT > index);
 	const Math::Vector3f diffuseColor = light->GetIntensity() * light->GetColor();
-	const Math::Vector3f ambientColor = diffuseColor / 5.0f;
 	this->LoadVector3f(this->_lightLocations[index].position, light->GetPosition());
-	this->LoadVector3f(this->_lightLocations[index].ambient, ambientColor);
 	this->LoadVector3f(this->_lightLocations[index].diffuse, diffuseColor);
 	this->LoadFloat(this->_lightLocations[index].specular, 1.0f);
 	this->LoadVector3f(this->_lightLocations[index].attenuation, light->GetAttenuation());

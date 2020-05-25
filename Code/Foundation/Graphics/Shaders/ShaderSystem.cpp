@@ -80,6 +80,7 @@ void Graphics::ShaderSystem::InitializeBoolLocation(const std::string& name, con
 	if (location == -1)
 	{
 		IO::Console::Instance().Warning("Failed to initialize bool '%s' uniform location!\n", name.c_str());
+		return;
 	}
 	this->LoadBool(location, enabled);
 }
@@ -90,6 +91,7 @@ void Graphics::ShaderSystem::InitializeIntLocation(const std::string& name, cons
 	if (location == -1)
 	{
 		IO::Console::Instance().Warning("Failed to initialize int '%s' uniform location!\n", name.c_str());
+		return;
 	}
 	this->LoadInt(location, value);
 }
@@ -100,6 +102,7 @@ void Graphics::ShaderSystem::InitializeFloatLocation(const std::string& name, co
 	if (location == -1)
 	{
 		IO::Console::Instance().Warning("Failed to initialize float '%s' uniform location!\n", name.c_str());
+		return;
 	}
 	this->LoadFloat(location, value);
 }
@@ -111,6 +114,7 @@ void Graphics::ShaderSystem::InitializeMatrix3fLocation(const std::string& name,
 	if (location == -1)
 	{
 		IO::Console::Instance().Warning("Failed to initialize Matrix3f '%s' uniform location!\n", name.c_str());
+		return;
 	}
 	this->LoadMatrix3f(location, matrix);
 }
@@ -122,6 +126,7 @@ void Graphics::ShaderSystem::InitializeMatrix4fLocation(const std::string& name,
 	if (location == -1)
 	{
 		IO::Console::Instance().Warning("Failed to initialize Matrix4f '%s' uniform location!\n", name.c_str());
+		return;
 	}
 	this->LoadMatrix4f(location, matrix);
 }
@@ -133,6 +138,7 @@ void Graphics::ShaderSystem::InitializeVector2fLocation(const std::string& name,
 	if (location == -1)
 	{
 		IO::Console::Instance().Warning("Failed to initialize Vector2f '%s' uniform location!\n", name.c_str());
+		return;
 	}
 	this->LoadVector2f(location, vector);
 }
@@ -144,6 +150,7 @@ void Graphics::ShaderSystem::InitializeVector3fLocation(const std::string& name,
 	if (location == -1)
 	{
 		IO::Console::Instance().Warning("Failed to initialize Vector3f '%s' uniform location!\n", name.c_str());
+		return;
 	}
 	this->LoadVector3f(location, vector);
 }
@@ -155,6 +162,7 @@ void Graphics::ShaderSystem::InitializeVector4fLocation(const std::string& name,
 	if (location == -1)
 	{
 		IO::Console::Instance().Warning("Failed to initialize Vector4f '%s' uniform location!\n", name.c_str());
+		return;
 	}
 	this->LoadVector4f(location, vector);
 }

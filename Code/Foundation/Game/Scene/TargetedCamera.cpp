@@ -7,10 +7,10 @@
 #include "Game/Scene/TargetedCamera.h"
 #include "Math/Utils.h"
 
-Graphics::TargetedCamera::TargetedCamera(const float distance) :
-	_distance(distance)
+Graphics::TargetedCamera::TargetedCamera() :
+	_distance(DEFAULT_DISTANCE)
 {
-	this->SetRotationX(45.0f);
+	this->SetRotationX(30.0f);
 	this->Spectate(Math::Vector3f(0.0f, 0.0f, 0.0f));
 }
 

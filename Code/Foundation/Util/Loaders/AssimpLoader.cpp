@@ -155,11 +155,14 @@ Graphics::Material Util::AssimpLoader::ParseMaterial(const aiMaterial* assimpMat
 	assimpMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, assimpColor);
 	const Math::Vector3f color = this->ParseColor(assimpColor);
 
+	float reflectivity;
+	assimpMaterial->Get(AI_MATKEY_REFLECTIVITY, reflectivity);
+	
 	float specular;
 	assimpMaterial->Get(AI_MATKEY_SHININESS_STRENGTH, specular);
 
 	float shininess;
 	assimpMaterial->Get(AI_MATKEY_SHININESS, shininess);
 
-	return Graphics::Material(color, specular, shininess);
+	return Graphics::Material(color, reflectivity, specular, shininess);
 }

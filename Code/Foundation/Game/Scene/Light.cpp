@@ -5,7 +5,6 @@
 
 #include "Precompiled.h"
 #include "Game/Scene/Light.h"
-#include "Math/Utils.h"
 
 Graphics::Light::Light() :
 	_intensity(0.8f),

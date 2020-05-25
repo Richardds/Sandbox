@@ -22,6 +22,7 @@ namespace Graphics
 		             std::shared_ptr<Buffer> elementsBuffer,
 		             uint32_t elementsCount);
 		explicit TexturedMesh(const std::shared_ptr<Mesh>& mesh);
+		
 		void Render(const std::shared_ptr<EntityShader>& shader) const;
 		[[nodiscard]] Material GetMaterial() const;
 		void SetMaterial(const Material& material);

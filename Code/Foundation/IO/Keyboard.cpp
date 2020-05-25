@@ -18,12 +18,17 @@ bool IO::Keyboard::IsKeyPressed(Key key) const
 	);
 }
 
+bool IO::Keyboard::IsControlPressed() const
+{
+	return this->IsKeyPressed(Key::LeftControl);
+}
+
 bool IO::Keyboard::IsAltPressed() const
 {
 	return this->IsKeyPressed(Key::LeftAlt);
 }
 
-bool IO::Keyboard::IsControlPressed() const
+bool IO::Keyboard::IsShiftPressed() const
 {
-	return this->IsKeyPressed(Key::LeftControl);
+	return this->IsKeyPressed(Key::LeftShift);
 }
