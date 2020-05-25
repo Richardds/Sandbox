@@ -14,8 +14,7 @@
 #include "Util/Random.h"
 
 Sandbox::SandboxScene::SandboxScene() :
-    _lockCameraToPlayer(true),
-    _deformationFactor(0.0f)
+    _lockCameraToPlayer(true)
 {
 }
 
@@ -257,6 +256,17 @@ void Sandbox::SandboxScene::ProcessInput()
         this->_waterRenderer->GetShader(true)->LoadFogEnabled(false);
         this->_entityRenderer->GetShader(true)->LoadFogEnabled(false);
     }
+
+    if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::T))
+    {
+        // Enabled deformation based on time
+        this->_entityRenderer->GetShader(true)->LoadDeformationFactor(this->_time / 3.0f);
+    }
+    else
+    {
+        // Disable deformation
+        this->_entityRenderer->GetShader(true)->LoadDeformationFactor(0.0f);
+    }
 }
 
 void Sandbox::SandboxScene::Update(const float delta)
@@ -298,7 +308,6 @@ void Sandbox::SandboxScene::Update(const float delta)
 
 void Sandbox::SandboxScene::Render()
 {
-    this->_entityRenderer->GetShader(true)->LoadDeformationFactor(this->_deformationFactor);
     Scene::Render();
 }
 

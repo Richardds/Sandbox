@@ -43,6 +43,5 @@ namespace Sandbox
         std::shared_ptr<ProjectileManager> _projectileManager;
 
         bool _lockCameraToPlayer;
-        float _deformationFactor;
     };
 }

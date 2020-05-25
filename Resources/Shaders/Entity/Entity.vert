@@ -30,15 +30,14 @@ uniform mat3 normalTransformation;
 uniform ClippingPlane clippingPlane;
 uniform float deformationFactor;
 
-// TODO
-vec3 twist(vec3 position, float factor)
+vec3 twist(vec3 position, float theta)
 {
-	float sFactor = sin(factor);
-	float cFactor = cos(factor);
+	float sinTheta = sin(theta);
+	float cosTheta = cos(theta);
 
 	vec3 twistedPosition = position;
-	twistedPosition.x = position.x * cFactor - position.z * sFactor;
-	twistedPosition.z = position.x * sFactor + position.z * cFactor;
+	twistedPosition.x = position.x * cosTheta - position.z * sinTheta;
+	twistedPosition.z = position.x * sinTheta + position.z * cosTheta;
 
 	return twistedPosition;
 }
@@ -49,7 +48,7 @@ void main()
 
     // Apply twist deformation
     if (deformationFactor != 0.0f) {
-        vertexPosition = twist(a_Position, deformationFactor);
+        vertexPosition = twist(vertexPosition, vertexPosition.y * deformationFactor);
     }
 
     // Calculate vertex world position
