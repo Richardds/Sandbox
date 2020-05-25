@@ -7,7 +7,6 @@
 
 #include "Precompiled.h"
 #include "Graphics/Core.h"
-#include "Graphics/FrameBuffer.h"
 
 namespace Graphics
 {
@@ -43,8 +42,6 @@ namespace Graphics
 		[[nodiscard]] bool IsBound() const;
 		void Unbind() const;
 		void Data(const void* pixels, unsigned int width, unsigned int height);
-		void Data(const std::shared_ptr<FrameBuffer>& frameBuffer, unsigned int width, unsigned int height);
-		void DepthData(const std::shared_ptr<FrameBuffer>& frameBuffer, unsigned int width, unsigned int height);
 		void FinishLoading();
 		[[nodiscard]] GLenum GetTarget() const;
 		void SetTarget(GLenum target);

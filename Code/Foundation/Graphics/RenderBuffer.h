@@ -6,6 +6,7 @@
 #pragma once
 
 #include "Precompiled.h"
+#include "Core/Debug.h"
 
 namespace Graphics
 {
@@ -13,8 +14,17 @@ namespace Graphics
 	class RenderBuffer
 	{
 	public:
-		RenderBuffer(GLenum format, unsigned int width, unsigned int height);
+		enum class State
+		{
+			Initial,
+			Ready
+		};
+		
+		RenderBuffer();
 		~RenderBuffer();
+		
+		[[nodiscard]] State GetState() const;
+		void Storage(GLenum format, unsigned int width, unsigned int height);
 		[[nodiscard]] GLenum GetFormat() const;
 		[[nodiscard]] unsigned int GetWidth() const;
 		[[nodiscard]] unsigned int GetHeight() const;
@@ -26,6 +36,7 @@ namespace Graphics
 		static GLuint GetBound();
 
 	private:
+		State _state;
 		GLuint _glRenderBuffer;
 		GLenum _format;
 		unsigned int _width;
@@ -34,18 +45,26 @@ namespace Graphics
 		static GLuint _boundRenderBuffer;
 	};
 
+	inline RenderBuffer::State RenderBuffer::GetState() const
+	{
+		return this->_state;
+	}
+
 	inline GLenum RenderBuffer::GetFormat() const
 	{
+		_Assert(State::Initial != this->_state);
 		return this->_format;
 	}
 
 	inline unsigned int RenderBuffer::GetWidth() const
 	{
+		_Assert(State::Initial != this->_state);
 		return this->_width;
 	}
 
 	inline unsigned int RenderBuffer::GetHeight() const
 	{
+		_Assert(State::Initial != this->_state);
 		return this->_height;
 	}
 

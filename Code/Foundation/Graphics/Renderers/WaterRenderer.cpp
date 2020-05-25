@@ -23,26 +23,34 @@ bool Graphics::WaterRenderer::Setup(const std::shared_ptr<const Projection>& pro
 	this->_shader->LoadProjection(projection);
 
 	// Reflection
-	this->_reflectionFrameBuffer = std::make_shared<FrameBuffer>();
-	this->_reflectionFrameBuffer->Bind();
 	this->_reflectionTexture = std::make_shared<Texture>();
 	this->_reflectionTexture->SetTarget(GL_TEXTURE_2D);
 	this->_reflectionTexture->Bind();
-	this->_reflectionTexture->Data(this->_reflectionFrameBuffer, TEXTURE_SIZE, TEXTURE_SIZE);
-	this->_reflectionTexture->Unbind();
+	this->_reflectionDepthBuffer = std::make_shared<RenderBuffer>();
+	this->_reflectionDepthBuffer->Bind();
+	this->_reflectionDepthBuffer->Storage(GL_DEPTH_COMPONENT, TEXTURE_SIZE, TEXTURE_SIZE);
+	this->_reflectionFrameBuffer = std::make_shared<FrameBuffer>();
+	this->_reflectionFrameBuffer->Bind();
+	this->_reflectionFrameBuffer->AttachTexture(this->_reflectionTexture, TEXTURE_SIZE, TEXTURE_SIZE);
+	this->_reflectionFrameBuffer->AttachDepthBuffer(this->_reflectionDepthBuffer);
 	this->_reflectionFrameBuffer->Unbind();
+	this->_reflectionTexture->Unbind();
+	this->_reflectionDepthBuffer->Unbind();
 
 	// Refraction
-	this->_refractionFrameBuffer = std::make_shared<FrameBuffer>();
-	this->_refractionFrameBuffer->Bind();
-
 	this->_refractionTexture = std::make_shared<Texture>();
 	this->_refractionTexture->SetTarget(GL_TEXTURE_2D);
 	this->_refractionTexture->Bind();
-	this->_refractionTexture->Data(this->_refractionFrameBuffer, TEXTURE_SIZE, TEXTURE_SIZE);
-	this->_refractionTexture->Unbind();
-
+	this->_refractionDepthBuffer = std::make_shared<RenderBuffer>();
+	this->_refractionDepthBuffer->Bind();
+	this->_refractionDepthBuffer->Storage(GL_DEPTH_COMPONENT, TEXTURE_SIZE, TEXTURE_SIZE);
+	this->_refractionFrameBuffer = std::make_shared<FrameBuffer>();
+	this->_refractionFrameBuffer->Bind();
+	this->_refractionFrameBuffer->AttachTexture(this->_refractionTexture, TEXTURE_SIZE, TEXTURE_SIZE);
+	this->_refractionFrameBuffer->AttachDepthBuffer(this->_refractionDepthBuffer);
 	this->_refractionFrameBuffer->Unbind();
+	this->_refractionTexture->Unbind();
+	this->_refractionDepthBuffer->Unbind();
 
 	this->FinishLoading();
 

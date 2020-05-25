@@ -80,42 +80,6 @@ void Graphics::Texture::Data(const void* pixels, const unsigned int width, const
 	this->FinishLoading();
 }
 
-void Graphics::Texture::Data(const std::shared_ptr<FrameBuffer>& frameBuffer, const unsigned int width,
-                             const unsigned int height)
-{
-	_Assert(GL_TEXTURE_2D == this->_target);
-	_Assert(State::Initial == this->_state);
-	_Assert(this->IsBound());
-	_Assert(frameBuffer->IsBound());
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
-
-	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, this->_glTexture, 0);
-
-	this->FinishLoading();
-}
-
-void Graphics::Texture::DepthData(const std::shared_ptr<FrameBuffer>& frameBuffer, const unsigned int width,
-                                  const unsigned int height)
-{
-	_Assert(GL_TEXTURE_2D == this->_target);
-	_Assert(State::Initial == this->_state);
-	_Assert(this->IsBound());
-	_Assert(frameBuffer->IsBound());
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
-
-	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, this->_glTexture, 0);
-
-	this->FinishLoading();
-}
-
 void Graphics::Texture::FinishLoading()
 {
 	_Assert(State::Initial == this->_state);

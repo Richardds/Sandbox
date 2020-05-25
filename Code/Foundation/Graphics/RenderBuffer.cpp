@@ -8,22 +8,31 @@
 
 GLuint Graphics::RenderBuffer::_boundRenderBuffer = 0;
 
-Graphics::RenderBuffer::RenderBuffer(const GLenum format, const unsigned int width, const unsigned int height) :
+Graphics::RenderBuffer::RenderBuffer() :
+	_state(State::Initial),
 	_glRenderBuffer(0),
-	_format(format),
-	_width(width),
-	_height(height)
+	_format(GL_DEPTH_COMPONENT),
+	_width(1024),
+	_height(1024)
 {
 	glGenRenderbuffers(1, &this->_glRenderBuffer);
-	this->Bind();
-	glRenderbufferStorage(GL_RENDERBUFFER, this->_format, this->_width, this->_height);
-	this->Unbind();
 }
 
 Graphics::RenderBuffer::~RenderBuffer()
 {
 	this->Unbind();
 	glDeleteRenderbuffers(1, &this->_glRenderBuffer);
+}
+
+void Graphics::RenderBuffer::Storage(const GLenum format, const unsigned width, const unsigned height)
+{
+	_Assert(State::Initial == this->_state);
+	_Assert(this->IsBound());
+	this->_format = format;
+	this->_width = width;
+	this->_height = height;
+	glRenderbufferStorage(GL_RENDERBUFFER, this->_format, this->_width, this->_height);
+	this->_state = State::Ready;
 }
 
 void Graphics::RenderBuffer::Bind() const

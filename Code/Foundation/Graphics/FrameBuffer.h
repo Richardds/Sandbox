@@ -6,6 +6,8 @@
 #pragma once
 
 #include "Precompiled.h"
+
+#include "Texture.h"
 #include "Graphics/RenderBuffer.h"
 
 namespace Graphics
@@ -20,7 +22,9 @@ namespace Graphics
 		void Activate(unsigned int width, unsigned int height) const;
 		void Clear() const;
 		void Deactivate() const;
-		void Attach(const std::shared_ptr<RenderBuffer>& renderBuffer, GLenum attachment) const;
+		void AttachTexture(const std::shared_ptr<Texture>& texture, unsigned int width, unsigned int height) const;
+		void AttachDepthTexture(const std::shared_ptr<Texture>& texture, unsigned int width, unsigned int height) const;
+		void AttachDepthBuffer(const std::shared_ptr<RenderBuffer>& renderBuffer) const;
 		[[nodiscard]] bool IsBound() const;
 		void Unbind() const;
 		[[nodiscard]] GLuint GetGlFrameBuffer() const;
