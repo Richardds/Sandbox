@@ -20,17 +20,14 @@ namespace Graphics
     class EntityRenderer : public Renderer<EntityShader>
     {
     public:
-        EntityRenderer();
+        EntityRenderer() = default;
 
         bool Setup(const std::shared_ptr<const Projection>& projection);
         void Begin(const std::shared_ptr<Camera>& camera,
                    const std::shared_ptr<DirectionalLight>& sun,
                    const std::shared_ptr<Skybox>& skybox,
-                   const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const;
+                   const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights,
+                   const std::shared_ptr<SpotLight>& flashLight) const;
         void Render(const std::shared_ptr<Entity>& entity) const;
-
-    private:
-        std::shared_ptr<SpotLight> _flashLight;
-        bool _flashLightEnabled;
     };
 }

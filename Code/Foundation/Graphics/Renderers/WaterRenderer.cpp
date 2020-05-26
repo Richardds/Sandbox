@@ -59,12 +59,17 @@ bool Graphics::WaterRenderer::Setup(const std::shared_ptr<const Projection>& pro
 
 void Graphics::WaterRenderer::Begin(const std::shared_ptr<Camera>& camera,
                                     const std::shared_ptr<DirectionalLight>& sun,
-                                    const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const
+                                    const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights,
+                                    const std::shared_ptr<SpotLight>& flashLight) const
 {
     this->_shader->Use();
     this->_shader->LoadCamera(camera);
     this->_shader->LoadSun(sun);
     this->_shader->LoadLights(lights);
+
+    flashLight->SetPosition(camera->GetPosition());
+    flashLight->SetDirection(camera->GetDirection());
+    this->_shader->LoadFlashLight(flashLight);
 
     this->_reflectionTexture->Activate(Texture::Bank::Reflection);
     this->_refractionTexture->Activate(Texture::Bank::Refraction);

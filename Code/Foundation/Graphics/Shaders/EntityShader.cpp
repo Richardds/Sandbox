@@ -175,15 +175,19 @@ void Graphics::EntityShader::LoadLight(const int index, const std::shared_ptr<Po
     this->LoadVector3f(this->_lightLocations[index].attenuation, light->GetAttenuation());
 }
 
-void Graphics::EntityShader::LoadFlashLight(const std::shared_ptr<SpotLight>& light, const bool enabled) const
+void Graphics::EntityShader::LoadFlashLight(const std::shared_ptr<SpotLight>& light) const
 {
-    this->LoadBool(this->_flashLightEnabledLocation, enabled);
     this->LoadVector3f(this->_flashLightLocation.position, light->GetPosition());
     this->LoadVector3f(this->_flashLightLocation.direction, light->GetDirection());
     this->LoadFloat(this->_flashLightLocation.cutOff, light->GetCosineCutOffAngle());
     this->LoadFloat(this->_flashLightLocation.outerCutOff, light->GetCosineOuterCutOffAngle());
     this->LoadVector3f(this->_flashLightLocation.diffuse, light->GetColor());
     this->LoadFloat(this->_flashLightLocation.specular, 1.0f);
+}
+
+void Graphics::EntityShader::LoadFlashLightEnabled(const bool enabled) const
+{
+    this->LoadBool(this->_flashLightEnabledLocation, enabled);
 }
 
 void Graphics::EntityShader::LoadFog(const Math::Vector3f& color, const float density, const float gradient) const

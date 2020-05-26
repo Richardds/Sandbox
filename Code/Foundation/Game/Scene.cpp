@@ -69,6 +69,8 @@ bool Graphics::Scene::Setup()
     this->_sun->SetDirection(Math::Vector3f(-1.0f, 1.0f, -1.0f));
     this->_sun->SetIntensity(0.6f);
 
+    this->_flashLight = std::make_shared<SpotLight>();
+
     this->_state = State::Run;
 
     return true;
@@ -152,7 +154,7 @@ void Graphics::Scene::Render()
         this->_entityRenderer->GetShader()->DisableClippingPlane();
 
         // Render the water tile to the screen buffer
-        this->_waterRenderer->Begin(this->_camera, this->_sun, this->_lights);
+        this->_waterRenderer->Begin(this->_camera, this->_sun, this->_lights, this->_flashLight);
         this->_waterRenderer->Render(water.second);
     }
 
@@ -162,7 +164,7 @@ void Graphics::Scene::Render()
 
 void Graphics::Scene::RenderEntities()
 {
-    this->_entityRenderer->Begin(this->_camera, this->_sun, this->_skybox, this->_lights);
+    this->_entityRenderer->Begin(this->_camera, this->_sun, this->_skybox, this->_lights, this->_flashLight);
 
     for (auto& entity : this->_entities)
     {

@@ -7,11 +7,6 @@
 #include "Graphics/Renderers/EntityRenderer.h"
 #include "IO/Console.h"
 
-Graphics::EntityRenderer::EntityRenderer() :
-    _flashLightEnabled(false)
-{
-}
-
 bool Graphics::EntityRenderer::Setup(const std::shared_ptr<const Projection>& projection)
 {
     _Assert(State::Initial == this->GetState());
@@ -24,12 +19,6 @@ bool Graphics::EntityRenderer::Setup(const std::shared_ptr<const Projection>& pr
         return false;
     }
 
-    // Setup flash light
-    this->_flashLight = std::make_shared<SpotLight>();
-    this->_flashLight->SetCutOffAngle(7.0f);
-    this->_flashLight->SetOuterCutOffAngleOffset(3.0f);
-    this->_flashLight->SetIntensity(0.6f);
-
     this->_shader->Use();
     this->_shader->LoadProjection(projection);
 
@@ -41,16 +30,17 @@ bool Graphics::EntityRenderer::Setup(const std::shared_ptr<const Projection>& pr
 void Graphics::EntityRenderer::Begin(const std::shared_ptr<Camera>& camera,
                                      const std::shared_ptr<DirectionalLight>& sun,
                                      const std::shared_ptr<Skybox>& skybox,
-                                     const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const
+                                     const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights,
+                                     const std::shared_ptr<SpotLight>& flashLight) const
 {
     this->_shader->Use();
     this->_shader->LoadCamera(camera);
     this->_shader->LoadSun(sun);
     this->_shader->LoadLights(lights);
 
-    this->_flashLight->SetPosition(camera->GetPosition());
-    this->_flashLight->SetDirection(camera->GetDirection());
-    this->_shader->LoadFlashLight(this->_flashLight, true);
+    flashLight->SetPosition(camera->GetPosition());
+    flashLight->SetDirection(camera->GetDirection());
+    this->_shader->LoadFlashLight(flashLight);
 
     skybox->GetTexture()->Activate(Texture::Bank::Skybox);
 }

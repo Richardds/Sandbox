@@ -66,11 +66,9 @@ uniform Material material;
 
 uniform samplerCube skyboxSampler;
 
-const float minDiffuseFactor = 0.15f;
-
 float diffuseFactor(vec3 lightDirection, vec3 normal)
 {
-    return max(dot(lightDirection, normal), minDiffuseFactor);
+    return max(dot(lightDirection, normal), 0.0f);
 }
 
 float specularFactor(float shininess, vec3 viewDirection, vec3 lightDirection, vec3 normal)

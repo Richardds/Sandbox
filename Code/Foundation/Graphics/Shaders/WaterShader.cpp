@@ -24,6 +24,7 @@ Graphics::WaterShader::WaterShader() :
     _refractionSamplerLocation(-1),
 
     _lightsCountLocation(-1),
+    _flashLightEnabledLocation(-1),
 
     _fogEnabledLocation(-1),
     _fogColorLocation(-1),
@@ -76,6 +77,15 @@ void Graphics::WaterShader::InitializeUniformVariables()
         this->InitializeFloatLocation("light[" + std::to_string(index) + "].specular", 1.0f,
                                       this->_lightLocations[index].specular);
     }
+
+    // Setup flash light
+    this->InitializeBoolLocation("flashLightEnabled", false, this->_flashLightEnabledLocation);
+    this->InitializeVector3fLocation("flashLight.position", Math::Vector3f(0.0f), this->_flashLightLocation.position);
+    this->InitializeVector3fLocation("flashLight.direction", Math::Vector3f(0.0f, -1.0f, 0.0f), this->_flashLightLocation.direction);
+    this->InitializeFloatLocation("flashLight.cutOff", 0.965926f, this->_flashLightLocation.cutOff); // cosine 15 degrees
+    this->InitializeFloatLocation("flashLight.outerCutOff", 0.951056f, this->_flashLightLocation.outerCutOff); // cosine 18 degrees
+    this->InitializeVector3fLocation("flashLight.diffuse", Math::Vector3f(1.0f), this->_flashLightLocation.diffuse);
+    this->InitializeFloatLocation("flashLight.specular", 1.0f, this->_flashLightLocation.specular);
 
     // Setup fog
     this->InitializeBoolLocation("fog.enabled", this->_fogEnabled, this->_fogEnabledLocation);
@@ -132,6 +142,21 @@ void Graphics::WaterShader::LoadLight(const int index, const std::shared_ptr<Poi
     this->LoadVector3f(this->_lightLocations[index].diffuse, diffuseColor);
     this->LoadFloat(this->_lightLocations[index].specular, 1.0f);
     this->LoadVector3f(this->_lightLocations[index].attenuation, light->GetAttenuation());
+}
+
+void Graphics::WaterShader::LoadFlashLight(const std::shared_ptr<SpotLight>& light) const
+{
+    this->LoadVector3f(this->_flashLightLocation.position, light->GetPosition());
+    this->LoadVector3f(this->_flashLightLocation.direction, light->GetDirection());
+    this->LoadFloat(this->_flashLightLocation.cutOff, light->GetCosineCutOffAngle());
+    this->LoadFloat(this->_flashLightLocation.outerCutOff, light->GetCosineOuterCutOffAngle());
+    this->LoadVector3f(this->_flashLightLocation.diffuse, light->GetColor());
+    this->LoadFloat(this->_flashLightLocation.specular, 1.0f);
+}
+
+void Graphics::WaterShader::LoadFlashLightEnabled(const bool enabled) const
+{
+    this->LoadBool(this->_flashLightEnabledLocation, enabled);
 }
 
 void Graphics::WaterShader::LoadFog(const Math::Vector3f& color, const float density, const float gradient) const

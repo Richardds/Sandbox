@@ -5,15 +5,14 @@
 
 #include "Precompiled.h"
 
+#include <IO/Console.h>
 #include <IO/Keyboard.h>
 #include <IO/Mouse.h>
+#include <Util/Random.h>
 #include <Util/ResourcesLoader.h>
 
 #include "SandboxScene.h"
-
-#include "IO/Console.h"
 #include "Scene/Hardcoded.h"
-#include "Util/Random.h"
 
 Sandbox::SandboxScene::SandboxScene() :
     _lockCameraToPlayer(true)
@@ -44,7 +43,10 @@ bool Sandbox::SandboxScene::Setup()
     light1->SetPosition(Math::Vector3f(4.5f, 1.5f, 2.75f));
     light1->SetAttenuation(Math::Vector3f(1.0f, 0.1f, 0.025f));
 
-    // TODO: Lights
+    // Setup flash light
+    this->_flashLight->SetCutOffAngle(7.5f);
+    this->_flashLight->SetOuterCutOffAngleOffset(7.5f);
+    this->_flashLight->SetIntensity(0.6f);
 
     // Load water
     std::shared_ptr<Graphics::Water> water = this->AddWater("water", 1500.0f);
@@ -102,6 +104,22 @@ bool Sandbox::SandboxScene::Setup()
             offsetX + Util::Random::Instance().GetReal(-1.0f, 1.0f),
             Util::Random::Instance().GetReal(-0.75f, 0.25f),
             offsetZ - 3.0f * static_cast<float>(i)
+        ));
+    }
+
+    // Add duck entities
+    for (int i = 0; i < 20; i++)
+    {
+        std::string entityName = "birb_" + std::to_string(i);
+        const float offsetX = 7.5f;
+        const float offsetZ = 5.0f;
+        std::shared_ptr<Graphics::Entity> entity = this->AddEntity(entityName, "duck");
+        //entity->SetRotationY(Util::Random::Instance().GetAngle());
+        entity->SetScale(Util::Random::Instance().GetReal(2.0f, 30.0f));
+        entity->SetPosition(Math::Vector3f(
+            offsetX + Util::Random::Instance().GetReal(0.0f, 20.0f),
+            0.0f,
+            offsetZ - Util::Random::Instance().GetReal(0.0f, 20.0f)
         ));
     }
 
@@ -262,6 +280,23 @@ void Sandbox::SandboxScene::ProcessPlayerInput()
     }
 }
 
+void Sandbox::SandboxScene::ProcessFlashLight() const
+{
+    // Turn on flash light
+    if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Right))
+    {
+        this->_entityRenderer->GetShader(true)->LoadFlashLightEnabled(true);
+        this->_waterRenderer->GetShader(true)->LoadFlashLightEnabled(true);
+    }
+
+    // Turn off flash light
+    if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Left))
+    {
+        this->_entityRenderer->GetShader(true)->LoadFlashLightEnabled(false);
+        this->_waterRenderer->GetShader(true)->LoadFlashLightEnabled(false);
+    }
+}
+
 void Sandbox::SandboxScene::ProcessInput()
 {
     Scene::ProcessInput();
@@ -269,6 +304,8 @@ void Sandbox::SandboxScene::ProcessInput()
     this->ProcessCameraInput();
 
     this->ProcessPlayerInput();
+
+    this->ProcessFlashLight();
 
     // Enabled fog
     if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::F))

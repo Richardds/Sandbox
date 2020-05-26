@@ -54,6 +54,7 @@ namespace Graphics
         std::shared_ptr<DirectionalLight> _sun;
         std::shared_ptr<Skybox> _skybox;
         std::unordered_map<std::string, std::shared_ptr<PointLight>> _lights;
+        std::shared_ptr<SpotLight> _flashLight;
         std::unordered_map<std::string, std::shared_ptr<Entity>> _entities;
         std::unordered_map<std::string, std::shared_ptr<Water>> _waterTiles;
 

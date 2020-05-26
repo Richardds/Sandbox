@@ -19,6 +19,15 @@ struct PointLight {
     float specular;
 };
 
+struct SpotLight {
+    vec3 position;
+    vec3 direction;
+    float cutOff;
+    float outerCutOff;
+    vec3 diffuse;
+    float specular;
+};
+
 struct Fog {
     bool enabled;
     float density;
@@ -46,6 +55,8 @@ uniform sampler2D refractionSampler;
 uniform Sun sun;
 uniform int lightsCount;
 uniform PointLight light[10];
+uniform SpotLight flashLight;
+uniform bool flashLightEnabled;
 uniform Fog fog;
 
 const float distortionStrength = 0.01f;
@@ -53,6 +64,11 @@ const float distortionStrength = 0.01f;
 const float waterTransparency = 0.95f;
 const float waterSpecular = 0.125f;
 const float waterShininess = 50.5f;
+
+float diffuseFactor(vec3 lightDirection, vec3 normal)
+{
+    return max(dot(lightDirection, normal), 0.0f);
+}
 
 float specularFactor(float shininess, vec3 viewDirection, vec3 lightDirection, vec3 normal)
 {
@@ -118,7 +134,21 @@ void main()
         float lightDistance = length(light[index].position - fragmentPosition.xyz);
         float attenuation = light[index].attenuation.x + (light[index].attenuation.y * lightDistance) + (light[index].attenuation.z * lightDistance * lightDistance);
 
+        diffuse += (light[index].diffuse * waterDiffuse * diffuseFactor(lightDirection, normalMapping)) / attenuation;
         specular += (light[index].specular * waterSpecular * specularFactor(waterShininess, viewDirection, lightDirection, normalMapping)) / attenuation;
+    }
+
+    // Apply spot light if enabled
+    if (flashLightEnabled) {
+        vec3 lightDirection = normalize(flashLight.position - fragmentPosition.xyz);
+        float spot = dot(lightDirection, normalize(-flashLight.direction));
+        float transition = flashLight.cutOff - flashLight.outerCutOff;
+        float intensity = clamp((spot - flashLight.outerCutOff) / transition, 0.0f, 1.0f);
+        // Increase light in spot area
+        if (spot > flashLight.outerCutOff) {
+            diffuse += 0.5f * intensity * flashLight.diffuse * waterDiffuse * diffuseFactor(lightDirection, normalMapping);
+            specular += intensity * flashLight.specular * specularFactor(waterShininess, viewDirection, lightDirection, normalMapping);
+        }
     }
 
     fragmentColor = vec4(diffuse + specular, 1.0f); // Water + highlights

@@ -30,6 +30,7 @@ namespace Sandbox
         bool Setup() override;
         void ProcessCameraInput();
         void ProcessPlayerInput();
+        void ProcessFlashLight() const;
         void ProcessInput() override;
         void Update(float delta) override;
         void Render() override;

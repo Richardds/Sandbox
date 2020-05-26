@@ -30,7 +30,8 @@ namespace Graphics
         void LoadSun(const std::shared_ptr<DirectionalLight>& sun) const;
         void LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const;
         void LoadLight(int index, const std::shared_ptr<PointLight>& light) const;
-        void LoadFlashLight(const std::shared_ptr<SpotLight>& light, bool enabled) const;
+        void LoadFlashLight(const std::shared_ptr<SpotLight>& light) const;
+        void LoadFlashLightEnabled(bool enabled) const;
         void LoadFog(const Math::Vector3f& color, float density, float gradient) const;
         void LoadFogEnabled(bool enabled);
         void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix) const;
