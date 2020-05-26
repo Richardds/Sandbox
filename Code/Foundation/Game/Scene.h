@@ -57,6 +57,7 @@ namespace Graphics
         std::unordered_map<std::string, std::shared_ptr<Entity>> _entities;
         std::unordered_map<std::string, std::shared_ptr<Water>> _waterTiles;
 
+        Math::Vector3f _cursorPosition;
         float _time;
         bool _renderSkybox;
         bool _paused;

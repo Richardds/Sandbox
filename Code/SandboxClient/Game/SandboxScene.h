@@ -23,7 +23,7 @@ namespace Sandbox
             Run
         };
 
-        static constexpr float SUN_LOWER_LIMIT = 0.125f;
+        static constexpr float SUN_LOWER_LIMIT = 0.15f;
 
         SandboxScene();
 

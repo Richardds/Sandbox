@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       SandboxScene.cpp
-//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
@@ -10,6 +10,8 @@
 #include <Util/ResourcesLoader.h>
 
 #include "SandboxScene.h"
+
+#include "IO/Console.h"
 #include "Scene/Hardcoded.h"
 #include "Util/Random.h"
 
@@ -39,7 +41,7 @@ bool Sandbox::SandboxScene::Setup()
     //playerLight->SetAttenuation(Math::Vector3f(1.0f, 0.045f, 0.0095f));
     std::shared_ptr<Graphics::PointLight> light1 = this->AddLight("light_1");
     light1->SetColor(Math::Vector3f(1.0f, 0.8f, 0.6f));
-    light1->SetPosition(Math::Vector3f(5.0f, 5.0f, 5.0f));
+    light1->SetPosition(Math::Vector3f(4.5f, 1.5f, 2.75f));
     light1->SetAttenuation(Math::Vector3f(1.0f, 0.1f, 0.025f));
 
     // TODO: Lights
@@ -117,7 +119,7 @@ bool Sandbox::SandboxScene::Setup()
     hardcodedModel->AddMesh("hardcoded", hardcodedMesh);
     hardcodedModel->FinishLoading();
     hardcoded->SetModel(hardcodedModel);
-    hardcoded->SetPosition(Math::Vector3f(5.0f, 2.5f, -25.0f));
+    hardcoded->SetPosition(Math::Vector3f(5.0f, 2.5f, -15.0f));
     this->AddEntity("hardcoded", hardcoded);
 
     // Register mouse scrolling
@@ -143,6 +145,7 @@ void Sandbox::SandboxScene::ProcessCameraInput()
     // Attach from camera locked to player
     if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::A))
     {
+        this->_camera->LookAt(this->_player->GetPosition());
         this->_lockCameraToPlayer = true;
     }
 
@@ -196,6 +199,13 @@ void Sandbox::SandboxScene::ProcessCameraInput()
     if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::One))
     {
         this->_lockCameraToPlayer = false;
+        // TODO
+        //this->_camera->SetPosition(Math::Vector3f(-15.0f, 10.0f, 0.0f));
+        this->_camera->LookAt(Math::Vector3f(0.0f, 0.0f, 5.0f));
+    }
+    else if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Two))
+    {
+        this->_lockCameraToPlayer = false;
         this->_camera->SetPosition(Math::Vector3f(15.0f, 5.0f, -12.0f));
         this->_camera->LookAt(Math::Vector3f(15.0f, 2.0f, -15.0f));
     }
@@ -203,13 +213,12 @@ void Sandbox::SandboxScene::ProcessCameraInput()
 
 void Sandbox::SandboxScene::ProcessPlayerInput()
 {
-    const Math::Vector3f worldPosition = this->GetScreenWorldPosition(IO::Mouse::Instance().GetCoords());
-    const Math::Vector2f worldPointer = Math::Vector2f(worldPosition.x, worldPosition.z);
+    const Math::Vector2f cursorPosition2d = Math::Vector2f(this->_cursorPosition.x, this->_cursorPosition.z);
 
     // Player navigation and interaction
     if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::Left))
     {
-        this->_player->LookAt(worldPointer);
+        this->_player->LookAt(cursorPosition2d);
         if (IO::Keyboard::Instance().IsShiftPressed())
         {
             this->_player->Idle();
@@ -222,11 +231,15 @@ void Sandbox::SandboxScene::ProcessPlayerInput()
         else if (IO::Keyboard::Instance().IsControlPressed())
         {
             this->_player->Idle();
-            this->_player->SetPosition(worldPosition);
+            this->_player->SetPosition(Math::Vector3f(
+                this->_cursorPosition.x,
+                0.0f,
+                this->_cursorPosition.z
+            ));
         }
         else
         {
-            this->_player->SetTarget(worldPointer);
+            this->_player->SetTarget(cursorPosition2d);
             this->_player->Follow();
         }
     }
@@ -243,7 +256,7 @@ void Sandbox::SandboxScene::ProcessPlayerInput()
     {
         if (this->_player->IsReadyToFire())
         {
-            this->_player->LookAt(worldPointer);
+            this->_player->LookAt(cursorPosition2d);
             this->_player->BeamFire(this->_projectileManager, 4);
         }
     }
@@ -312,14 +325,16 @@ void Sandbox::SandboxScene::Update(const float delta)
 
         // GoForward scene day & night cycle effect
         // Intensity interval <SUN_LOWER_LIMIT-1.000>
-        //const float darkeningFactor = (glm::sin(this->_time / 5.0f) + 1.0f) / (2.0f / (1.0f - SUN_LOWER_LIMIT)) + SUN_LOWER_LIMIT;
-        //this->_skyboxRenderer->GetShader(true)->LoadDarkeningFactor(darkeningFactor);
-        //this->_sun->SetIntensity(darkeningFactor);
-        //IO::Console::Instance().Info("Sun: %f\n", darkeningFactor);
+        const float darkeningFactor = (glm::sin(this->_time / 5.0f) + 1.0f) / (2.0f / (1.0f - SUN_LOWER_LIMIT)) + SUN_LOWER_LIMIT;
+        this->_skyboxRenderer->GetShader(true)->LoadDarkeningFactor(darkeningFactor);
+        this->_sun->SetIntensity(darkeningFactor);
+        this->_sun->SetIntensity(0.15f);
+        IO::Console::Instance().Info("Sun: %f\n", darkeningFactor);
 
-        // Update hardcoded mesh rotation
+        // Update hardcoded mesh motion
         this->_entities["hardcoded"]->IncreaseRotationY(45.0f * delta);
         this->_entities["hardcoded"]->SetRotationX(glm::sin(this->_time) * 15.0f);
+        this->_entities["hardcoded"]->SetPositionY(2.5f + glm::sin(this->_time) * 0.5f);
     }
 }
 

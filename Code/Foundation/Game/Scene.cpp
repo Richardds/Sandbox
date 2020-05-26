@@ -16,6 +16,7 @@
 #include "Util/Generators/PrimitiveGenerator.h"
 
 Graphics::Scene::Scene() :
+    _cursorPosition(0.0f, 0.0f, 0.0f),
     _time(0.0f),
     _renderSkybox(true),
     _paused(false),
@@ -76,6 +77,14 @@ bool Graphics::Scene::Setup()
 void Graphics::Scene::ProcessInput()
 {
     _Assert(State::Run == this->_state);
+
+    this->_cursorPosition = this->GetScreenWorldPosition(IO::Mouse::Instance().GetCoords());
+
+    if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::Middle))
+    {
+        IO::Console::Instance().Info("World coordinates: %f %f %f\n",
+                                     this->_cursorPosition.x, this->_cursorPosition.y, this->_cursorPosition.z);
+    }
 
     // Pause scene
     if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::P))

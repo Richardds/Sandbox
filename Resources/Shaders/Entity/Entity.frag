@@ -56,7 +56,7 @@ uniform Material material;
 
 uniform samplerCube skyboxSampler;
 
-const float minDiffuseFactor = 0.125f;
+const float minDiffuseFactor = 0.15f;
 
 float diffuseFactor(vec3 lightDirection, vec3 normal)
 {

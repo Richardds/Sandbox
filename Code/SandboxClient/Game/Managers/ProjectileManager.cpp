@@ -4,7 +4,6 @@
 // ----------------------------------------------------------------------------------------
 
 #include <Precompiled.h>
-#include <IO/Console.h>
 #include <Util/ResourcesLoader.h>
 
 #include "ProjectileManager.h"
@@ -47,7 +46,4 @@ void Sandbox::ProjectileManager::Manage(const std::shared_ptr<Projectile>& proje
 {
     projectile->SetModel(this->_projectileModel);
     this->_projectiles.emplace_back(projectile);
-
-    IO::Console::Instance().Info("Projectile fired: [ %f %f ] >> %f\n",
-                                 projectile->GetPositionX(), projectile->GetPositionZ(), projectile->GetRotationY());
 }
