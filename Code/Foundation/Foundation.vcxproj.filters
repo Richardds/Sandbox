@@ -201,6 +201,9 @@
     <ClCompile Include="Util\Random.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scene\SpotLight.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Debug.h">
@@ -383,6 +386,9 @@
     <ClInclude Include="Precompiled.h" />
     <ClInclude Include="Util\Random.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\SpotLight.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

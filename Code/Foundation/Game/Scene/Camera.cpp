@@ -17,6 +17,15 @@ Graphics::Camera::Camera(const float fieldOfView) :
 {
 }
 
+Math::Vector3f Graphics::Camera::GetDirection() const
+{
+    return Math::Vector3f(
+        sin(glm::radians(this->_rotationY)) * cos(glm::radians(this->_rotationX)),
+        -sin(glm::radians(this->_rotationX)),
+        -cos(glm::radians(this->_rotationY)) * cos(glm::radians(this->_rotationX))
+    );
+}
+
 void Graphics::Camera::LookAt(const Math::Vector3f& target)
 {
     // TODO

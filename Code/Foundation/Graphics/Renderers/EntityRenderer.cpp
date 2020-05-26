@@ -7,6 +7,11 @@
 #include "Graphics/Renderers/EntityRenderer.h"
 #include "IO/Console.h"
 
+Graphics::EntityRenderer::EntityRenderer() :
+    _flashLightEnabled(false)
+{
+}
+
 bool Graphics::EntityRenderer::Setup(const std::shared_ptr<const Projection>& projection)
 {
     _Assert(State::Initial == this->GetState());
@@ -18,6 +23,12 @@ bool Graphics::EntityRenderer::Setup(const std::shared_ptr<const Projection>& pr
         IO::Console::Instance().Error("Failed to load entity shader\n");
         return false;
     }
+
+    // Setup flash light
+    this->_flashLight = std::make_shared<SpotLight>();
+    this->_flashLight->SetCutOffAngle(7.0f);
+    this->_flashLight->SetOuterCutOffAngleOffset(3.0f);
+    this->_flashLight->SetIntensity(0.6f);
 
     this->_shader->Use();
     this->_shader->LoadProjection(projection);
@@ -36,6 +47,11 @@ void Graphics::EntityRenderer::Begin(const std::shared_ptr<Camera>& camera,
     this->_shader->LoadCamera(camera);
     this->_shader->LoadSun(sun);
     this->_shader->LoadLights(lights);
+
+    this->_flashLight->SetPosition(camera->GetPosition());
+    this->_flashLight->SetDirection(camera->GetDirection());
+    this->_shader->LoadFlashLight(this->_flashLight, true);
+
     skybox->GetTexture()->Activate(Texture::Bank::Skybox);
 }
 

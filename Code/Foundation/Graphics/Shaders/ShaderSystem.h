@@ -63,6 +63,20 @@ namespace Graphics
             GLint specular;
         };
 
+        struct SpotLightLocation
+        {
+            SpotLightLocation() : position(-1), direction(-1), cutOff(-1), outerCutOff(-1), diffuse(-1), specular(-1)
+            {
+            }
+
+            GLint position;
+            GLint direction;
+            GLint cutOff;
+            GLint outerCutOff;
+            GLint diffuse;
+            GLint specular;
+        };
+
         struct TextureSamplerLocation
         {
             TextureSamplerLocation() : texture(-1), enabled(-1)

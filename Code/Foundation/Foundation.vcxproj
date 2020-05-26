@@ -25,6 +25,7 @@
     <ClCompile Include="Game\Scene\Light.cpp" />
     <ClCompile Include="Game\Scene\PointLight.cpp" />
     <ClCompile Include="Game\Scene\Skybox.cpp" />
+    <ClCompile Include="Game\Scene\SpotLight.cpp" />
     <ClCompile Include="Game\Scene\TargetedCamera.cpp" />
     <ClCompile Include="Game\Scene\Water.cpp" />
     <ClCompile Include="Graphics\Buffer.cpp" />
@@ -81,6 +82,7 @@
     <ClInclude Include="Game\Scene\Light.h" />
     <ClInclude Include="Game\Scene\PointLight.h" />
     <ClInclude Include="Game\Scene\Skybox.h" />
+    <ClInclude Include="Game\Scene\SpotLight.h" />
     <ClInclude Include="Game\Scene\TargetedCamera.h" />
     <ClInclude Include="Game\Scene\Water.h" />
     <ClInclude Include="Graphics\Buffer.h" />

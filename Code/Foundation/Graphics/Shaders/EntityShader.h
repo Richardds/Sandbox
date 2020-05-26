@@ -9,6 +9,7 @@
 #include "Game/Scene/Camera.h"
 #include "Game/Scene/DirectionalLight.h"
 #include "Game/Scene/PointLight.h"
+#include "Game/Scene/SpotLight.h"
 #include "Graphics/Material.h"
 #include "Graphics/Projection.h"
 #include "Graphics/Shaders/ShaderSystem.h"
@@ -29,6 +30,7 @@ namespace Graphics
         void LoadSun(const std::shared_ptr<DirectionalLight>& sun) const;
         void LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const;
         void LoadLight(int index, const std::shared_ptr<PointLight>& light) const;
+        void LoadFlashLight(const std::shared_ptr<SpotLight>& light, bool enabled) const;
         void LoadFog(const Math::Vector3f& color, float density, float gradient) const;
         void LoadFogEnabled(bool enabled);
         void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix) const;
@@ -53,6 +55,8 @@ namespace Graphics
         SunLocation _sunLocation;
         PointLightLocation _lightLocations[MAX_LIGHT_COUNT];
         GLint _lightsCountLocation;
+        SpotLightLocation _flashLightLocation;
+        GLint _flashLightEnabledLocation;
 
         TextureSamplerLocation _diffuseSamplerLocation;
         TextureSamplerLocation _normalSamplerLocation;

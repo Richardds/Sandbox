@@ -19,6 +19,15 @@ struct PointLight {
     float specular;
 };
 
+struct SpotLight {
+    vec3 position;
+    vec3 direction;
+    float cutOff;
+    float outerCutOff;
+    vec3 diffuse;
+    float specular;
+};
+
 struct Fog {
     bool enabled;
     float density;
@@ -29,7 +38,6 @@ struct Fog {
 struct Material {
     vec3 color;
     float reflectivity;
-    float refractiveIndex;
     float specular;
     float shininess;
 };
@@ -51,6 +59,8 @@ uniform TextureSampler specularSampler;
 uniform Sun sun;
 uniform int lightsCount;
 uniform PointLight light[10];
+uniform SpotLight flashLight;
+uniform bool flashLightEnabled;
 uniform Fog fog;
 uniform Material material;
 
@@ -113,6 +123,19 @@ void main()
 
         diffuse += (light[index].diffuse * materialDiffuse * diffuseFactor(lightDirection, normalMapping)) / attenuation;
         specular += (light[index].specular * materialSpecular * specularFactor(material.shininess, viewDirection, lightDirection, normalMapping)) / attenuation;
+    }
+
+    // Apply spot light if enabled
+    if (flashLightEnabled) {
+        vec3 lightDirection = normalize(flashLight.position - fragmentPosition.xyz);
+        float spot = dot(lightDirection, normalize(-flashLight.direction));
+        float transition = flashLight.cutOff - flashLight.outerCutOff;
+        float intensity = clamp((spot - flashLight.outerCutOff) / transition, 0.0f, 1.0f);
+        // Increase light in spot area
+        if (spot > flashLight.outerCutOff) {
+            diffuse += intensity * flashLight.diffuse * materialDiffuse * diffuseFactor(lightDirection, normalMapping);
+            specular += intensity * flashLight.specular * materialSpecular * specularFactor(material.shininess, viewDirection, lightDirection, normalMapping);
+        }
     }
 
     vec3 phongModelColor = ambient + diffuse + specular;

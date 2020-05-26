@@ -19,6 +19,7 @@ Graphics::EntityShader::EntityShader() :
     _normalTransformationLocation(-1),
 
     _lightsCountLocation(-1),
+    _flashLightEnabledLocation(-1),
 
     _fogEnabledLocation(-1),
     _fogDensityLocation(-1),
@@ -71,6 +72,15 @@ void Graphics::EntityShader::InitializeUniformVariables()
         this->InitializeFloatLocation("light[" + std::to_string(index) + "].specular", 1.0f,
                                       this->_lightLocations[index].specular);
     }
+
+    // Setup flash light
+    this->InitializeBoolLocation("flashLightEnabled", false, this->_flashLightEnabledLocation);
+    this->InitializeVector3fLocation("flashLight.position", Math::Vector3f(0.0f), this->_flashLightLocation.position);
+    this->InitializeVector3fLocation("flashLight.direction", Math::Vector3f(0.0f, -1.0f, 0.0f), this->_flashLightLocation.direction);
+    this->InitializeFloatLocation("flashLight.cutOff", 0.965926f, this->_flashLightLocation.cutOff); // cosine 15 degrees
+    this->InitializeFloatLocation("flashLight.outerCutOff", 0.951056f, this->_flashLightLocation.outerCutOff); // cosine 18 degrees
+    this->InitializeVector3fLocation("flashLight.diffuse", Math::Vector3f(1.0f), this->_flashLightLocation.diffuse);
+    this->InitializeFloatLocation("flashLight.specular", 1.0f, this->_flashLightLocation.specular);
 
     // Setup fog
     this->InitializeBoolLocation("fog.enabled", this->_fogEnabled, this->_fogEnabledLocation);
@@ -163,6 +173,17 @@ void Graphics::EntityShader::LoadLight(const int index, const std::shared_ptr<Po
     this->LoadVector3f(this->_lightLocations[index].diffuse, diffuseColor);
     this->LoadFloat(this->_lightLocations[index].specular, 1.0f);
     this->LoadVector3f(this->_lightLocations[index].attenuation, light->GetAttenuation());
+}
+
+void Graphics::EntityShader::LoadFlashLight(const std::shared_ptr<SpotLight>& light, const bool enabled) const
+{
+    this->LoadBool(this->_flashLightEnabledLocation, enabled);
+    this->LoadVector3f(this->_flashLightLocation.position, light->GetPosition());
+    this->LoadVector3f(this->_flashLightLocation.direction, light->GetDirection());
+    this->LoadFloat(this->_flashLightLocation.cutOff, light->GetCosineCutOffAngle());
+    this->LoadFloat(this->_flashLightLocation.outerCutOff, light->GetCosineOuterCutOffAngle());
+    this->LoadVector3f(this->_flashLightLocation.diffuse, light->GetColor());
+    this->LoadFloat(this->_flashLightLocation.specular, 1.0f);
 }
 
 void Graphics::EntityShader::LoadFog(const Math::Vector3f& color, const float density, const float gradient) const
