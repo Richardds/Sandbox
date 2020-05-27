@@ -19,4 +19,12 @@ This project requires following external libraries to be available in `DEV_HOME`
 
 # Assessment
 
-![Assessment](assessment.png)
+![Assessment](Images/assessment.png)
+
+![Assessment](Images/screenshot1.png)
+
+![Assessment](Images/screenshot2.png)
+
+![Assessment](Images/screenshot3.png)
+
+![Assessment](Images/screenshot4.png)
