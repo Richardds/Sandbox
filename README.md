@@ -15,3 +15,8 @@ This project requires following external libraries to be available in `DEV_HOME`
 - glfw [3.3.2](https://github.com/glfw/glfw/releases/tag/3.3.2)
 - gli [559cbe1ec38878e182507d331e0780fbae5baf15](https://github.com/g-truc/gli/tree/559cbe1ec38878e182507d331e0780fbae5baf15) Last release of this library was on November 12th 2016 and is broken.
 - glm [0.9.9.8](https://github.com/g-truc/glm/releases/tag/0.9.9.8)
+
+
+# Assessment
+
+![Assessment](assessment.png)
