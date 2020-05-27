@@ -88,11 +88,12 @@ void main()
     // Map diffuse color
     vec3 materialDiffuse = material.color;
     if (diffuseSampler.enabled) {
-        materialDiffuse = texture(diffuseSampler.texture, textureCoords).rgb;
+        vec4 textureDiffuseSample = texture(diffuseSampler.texture, textureCoords);
         // Discard fragment when mapped to invisible
-        //if (materialDiffuse.r == 1.0f && materialDiffuse.b == 1.0f) {
-        //    discard;
-        //}
+        if (textureDiffuseSample.a < 0.8f) {
+            discard;
+        }
+        materialDiffuse = textureDiffuseSample.rgb;
     }
 
     // Map normal vector
@@ -144,7 +145,7 @@ void main()
     if (material.reflectivity > 0.0f) {
         vec3 reflectedCoordinate = reflect(-viewDirection, unitNormal);
         vec3 reflectedColor = texture(skyboxSampler, reflectedCoordinate).rgb;
-        fragmentColor = mix(fragmentColor, vec4(reflectedColor * sun.diffuse, 1.0f), material.reflectivity);
+        fragmentColor = mix(fragmentColor, vec4(reflectedColor, 1.0f), material.reflectivity);
     }
 
     // Apply fog effect if enabled

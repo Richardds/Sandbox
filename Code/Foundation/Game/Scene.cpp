@@ -84,8 +84,12 @@ void Graphics::Scene::ProcessInput()
 
     if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::Middle))
     {
-        IO::Console::Instance().Info("World coordinates: %f %f %f\n",
-                                     this->_cursorPosition.x, this->_cursorPosition.y, this->_cursorPosition.z);
+        IO::Console::Instance().Info("Click: %ff, %ff, %ff\n",
+            this->_cursorPosition.x, this->_cursorPosition.y, this->_cursorPosition.z);
+        IO::Console::Instance().Info("Position: %ff, %ff, %ff\n",
+            this->_camera->GetPositionX(), this->_camera->GetPositionY(), this->_camera->GetPositionZ());
+        IO::Console::Instance().Info("View: %ff, %ff, %ff\n",
+            this->_camera->GetRotationX(), this->_camera->GetRotationY(), this->_camera->GetRotationZ());
     }
 
     // Pause scene
@@ -104,6 +108,16 @@ void Graphics::Scene::ProcessInput()
 void Graphics::Scene::Update(const float delta)
 {
     _Assert(State::Run == this->_state);
+
+    // Check camera angle threshold
+    if (this->_camera->GetRotationX() < 0.5f)
+    {
+        this->_camera->SetRotationX(0.5f);
+    }
+    if (this->_camera->GetRotationX() > 179.5f)
+    {
+        this->_camera->SetRotationX(179.5f);
+    }
 
     if (!this->_paused)
     {

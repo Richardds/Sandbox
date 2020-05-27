@@ -15,6 +15,7 @@ namespace Graphics
     class Material
     {
     public:
+        explicit Material(float reflectivity);
         Material(const Math::Vector3f& color,
                  float reflectivity,
                  float specular,

@@ -5,7 +5,6 @@
 
 #include "Precompiled.h"
 
-#include <IO/Console.h>
 #include <IO/Keyboard.h>
 #include <IO/Mouse.h>
 #include <Util/Random.h>
@@ -35,9 +34,6 @@ bool Sandbox::SandboxScene::Setup()
     this->_skybox = std::make_shared<Graphics::Skybox>(skyboxTexture, 750.0f);
 
     // Configure lights
-    //std::shared_ptr<Graphics::PointLight> playerLight = this->AddLight("player_light");
-    //playerLight->SetPosition(Math::Vector3f(0.0f, 5.0f, 0.0f));
-    //playerLight->SetAttenuation(Math::Vector3f(1.0f, 0.045f, 0.0095f));
     std::shared_ptr<Graphics::PointLight> light1 = this->AddLight("light_1");
     light1->SetColor(Math::Vector3f(1.0f, 0.8f, 0.6f));
     light1->SetPosition(Math::Vector3f(4.5f, 1.5f, 2.75f));
@@ -108,13 +104,13 @@ bool Sandbox::SandboxScene::Setup()
     }
 
     // Add duck entities
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 30; i++)
     {
         std::string entityName = "birb_" + std::to_string(i);
         const float offsetX = 7.5f;
         const float offsetZ = 5.0f;
         std::shared_ptr<Graphics::Entity> entity = this->AddEntity(entityName, "duck");
-        //entity->SetRotationY(Util::Random::Instance().GetAngle());
+        entity->SetRotationY(Util::Random::Instance().GetAngle());
         entity->SetScale(Util::Random::Instance().GetReal(2.0f, 30.0f));
         entity->SetPosition(Math::Vector3f(
             offsetX + Util::Random::Instance().GetReal(0.0f, 20.0f),
@@ -122,11 +118,29 @@ bool Sandbox::SandboxScene::Setup()
             offsetZ - Util::Random::Instance().GetReal(0.0f, 20.0f)
         ));
     }
+    // Light up birbs
+    std::shared_ptr<Graphics::PointLight> light = this->AddLight("light_birbs");
+    light->SetColor(Math::Vector3f(1.0f, 1.0f, 1.0f));
+    light->SetPosition(Math::Vector3f(15.0f, 7.5f, 12.5f));
+    light->SetAttenuation(Math::Vector3f(1.0f, 0.005f, 0.0075f));
 
-    std::shared_ptr<Graphics::Entity> brickWall = this->AddEntity("brick_wall_1", "brick_wall");
-    brickWall->SetPosition(Math::Vector3f(15.0f, 2.0f, -15.0f));
-    brickWall->SetRotationX(-30.0f);
-    brickWall->SetRotationY(-30.0f);
+    // Material examples
+    // Alpha
+    std::vector<std::string> materials = {"alpha", "tiles", "sponge", "metal"};
+    float positionX = 12.5f;
+    for (const auto& material : materials)
+    {
+        std::shared_ptr<Graphics::Entity> entity = this->AddEntity("material_" + material, "mat_" + material);
+        entity->SetPosition(Math::Vector3f(positionX, 2.0f, -20.0f));
+        entity->SetRotationX(15.0f);
+        entity->SetRotationZ(15.0f);
+        positionX += 7.5f;
+
+        std::shared_ptr<Graphics::PointLight> light = this->AddLight("light_" + material);
+        light->SetColor(Math::Vector3f(1.0f, 1.0f, 1.0f));
+        light->SetPosition(Math::Vector3f(entity->GetPositionX(), entity->GetPositionY() + 3.0f, entity->GetPositionZ()));
+        light->SetAttenuation(Math::Vector3f(1.0f, 0.1f, 0.025f));
+    }
 
     // Add hardcoded mesh to the scene
     std::shared_ptr<Graphics::Entity> hardcoded = std::make_shared<Graphics::Entity>();
@@ -217,15 +231,23 @@ void Sandbox::SandboxScene::ProcessCameraInput()
     if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::One))
     {
         this->_lockCameraToPlayer = false;
-        // TODO
-        //this->_camera->SetPosition(Math::Vector3f(-15.0f, 10.0f, 0.0f));
-        this->_camera->LookAt(Math::Vector3f(0.0f, 0.0f, 5.0f));
+        this->_camera->SetPosition(Math::Vector3f(-10.142110f, 7.907108f, -23.678909f));
+        this->_camera->SetRotationX(26.458340f);
+        this->_camera->SetRotationY(133.125061f);
     }
     else if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Two))
     {
         this->_lockCameraToPlayer = false;
-        this->_camera->SetPosition(Math::Vector3f(15.0f, 5.0f, -12.0f));
-        this->_camera->LookAt(Math::Vector3f(15.0f, 2.0f, -15.0f));
+        this->_camera->SetPosition(Math::Vector3f(4.106152f, 1.032108f, 5.452480f));
+        this->_camera->SetRotationX(14.374990f);
+        this->_camera->SetRotationY(1.289135f);
+    }
+    else if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Three))
+    {
+        this->_lockCameraToPlayer = false;
+        this->_camera->SetPosition(Math::Vector3f(26.611273f, 6.448774f, 11.242806f));
+        this->_camera->SetRotationX(25.416643f);
+        this->_camera->SetRotationY(-27.304625f);
     }
 }
 
@@ -349,11 +371,6 @@ void Sandbox::SandboxScene::Update(const float delta)
         this->_camera->Spectate(this->_player->GetPosition());
     }
 
-    // Update player light position
-    //const Math::Vector3f playerPosition = this->_player->GetPosition();
-    //const float lightPositionY = this->_lights["player_light"]->GetPositionY();
-    //this->_lights["player_light"]->SetPosition(Math::Vector3f(playerPosition.x, lightPositionY, playerPosition.z));
-
     // Time based updates
     if (!this->_paused)
     {
@@ -366,7 +383,7 @@ void Sandbox::SandboxScene::Update(const float delta)
         this->_skyboxRenderer->GetShader(true)->LoadDarkeningFactor(darkeningFactor);
         this->_sun->SetIntensity(darkeningFactor);
         this->_sun->SetIntensity(0.15f);
-        IO::Console::Instance().Info("Sun: %f\n", darkeningFactor);
+        //IO::Console::Instance().Info("Sun: %f\n", darkeningFactor);
 
         // Update hardcoded mesh motion
         this->_entities["hardcoded"]->IncreaseRotationY(45.0f * delta);
