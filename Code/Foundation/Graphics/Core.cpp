@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       Core.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
@@ -27,13 +27,13 @@ bool Graphics::Core::Setup()
 {
     _Assert(!this->IsCreated());
 
+    glfwSetErrorCallback(GlfwErrorCallback);
+
     if (glfwInit() != GLFW_TRUE)
     {
         IO::Console::Instance().Error("Failed to initialize GLFW\n");
         return false;
     }
-
-    glfwSetErrorCallback(GlfwErrorCallback);
 
     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_VERSION_MAJOR);
@@ -154,7 +154,7 @@ std::string Graphics::Core::GetGlDump() const
 {
     char stateBuffer[2048];
 
-    sprintf_s(stateBuffer, 2048,
+    snprintf(stateBuffer, 2048,
               "- Shader program:                 %u\n"
               "- VertexArray:                    %u\n"
               "- Buffers:\n"
