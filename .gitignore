@@ -1,4 +1,6 @@
 .vs
+.idea
+cmake-build-*
 Bin/Debug
 Bin/Release
 Bin/Intermediate

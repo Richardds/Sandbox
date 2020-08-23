@@ -103,7 +103,7 @@ void App::RenderApplication::UpdateTitleStats() const
     const float averageFrameTime = this->_currentSecond / static_cast<float>(this->_frameCount);
     const float averageFrameTimeMs = averageFrameTime / 1000.0f;
 
-    sprintf_s(titleBuffer, 256, "%s | Frame rate: %3u | Avg. frame time: %3.3f ms | VSync %s",
+    snprintf(titleBuffer, 256, "%s | Frame rate: %3u | Avg. frame time: %3.3f ms | VSync %s",
               this->_title.c_str(),
               this->_lastFrameCount,
               averageFrameTimeMs,

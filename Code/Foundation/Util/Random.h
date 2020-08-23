@@ -32,13 +32,15 @@ namespace Util
     T Random::GetInt(const T min, const T max)
     {
         const std::uniform_int_distribution<T> distribution(min, max);
-        return distribution(this->_random);
+        auto dice = std::bind(distribution, this->_random);
+        return dice();
     }
 
     template <typename T>
     T Random::GetReal(const T min, const T max)
     {
         const std::uniform_real_distribution<T> distribution(min, max);
-        return distribution(this->_random);
+        auto dice = std::bind(distribution, this->_random);
+        return dice();
     }
 }
