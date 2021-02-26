@@ -1,8 +1,4 @@
-.vs
-.idea
-cmake-build-*
-Bin/Debug
-Bin/Release
-Bin/Intermediate
-Work/Models/*.blend[1-9]
+.vs/
+.idea/
+cmake-build-*/
 Export/
