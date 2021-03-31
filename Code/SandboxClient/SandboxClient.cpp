@@ -13,7 +13,7 @@ int main()
 {
     SandboxApplication app;
     app.SetTitle("Sandbox");
-    app.SetVersion("0.0.1 dev");
+    app.SetVersion("0.0.2 dev");
 
     if (app.Open())
     {
