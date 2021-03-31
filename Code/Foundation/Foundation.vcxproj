@@ -166,14 +166,14 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(ProjectDir);$(DEV_HOME)Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(DEV_HOME)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(ProjectDir);$(DEV_HOME)Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(DEV_HOME)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

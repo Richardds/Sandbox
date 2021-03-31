@@ -56,15 +56,15 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(ProjectDir);$(SolutionDir)Code\Foundation;$(DEV_HOME)Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DEV_HOME)Library;$(SolutionDir)Bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)Code\Foundation;$(DEV_HOME)\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DEV_HOME)\Lib;$(SolutionDir)Bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(ProjectDir);$(SolutionDir)Code\Foundation;$(DEV_HOME)Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DEV_HOME)Library;$(SolutionDir)Bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)Code\Foundation;$(DEV_HOME)\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DEV_HOME)\Lib;$(SolutionDir)Bin\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
