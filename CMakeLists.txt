@@ -1,6 +1,16 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 
-project(Sandbox)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED YES)
+set(CMAKE_CXX_EXTENSIONS YES)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY Bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY Bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY Bin)
+
+project(Sandbox VERSION 0.0.2
+                DESCRIPTION "OpenGL rendering engine"
+                LANGUAGES CXX)
 
 find_package(glfw3 REQUIRED)
 find_package(GLEW REQUIRED)
@@ -29,9 +39,6 @@ file(GLOB FOUNDATION_SOURCE
 )
 
 add_library(Foundation SHARED ${FOUNDATION_SOURCE})
-set_target_properties(Foundation PROPERTIES CXX_STANDARD 17)
-set_target_properties(Foundation PROPERTIES CXX_STANDARD_REQUIRED YES)
-set_target_properties(Foundation PROPERTIES CXX_EXTENSIONS NO)
 target_include_directories(Foundation PUBLIC Code/Foundation)
 
 ### MeshExporter ###
@@ -43,9 +50,6 @@ file(GLOB MESH_EXPORTER_SOURCE
 )
 
 add_executable(MeshExporter ${MESH_EXPORTER_SOURCE})
-set_target_properties(MeshExporter PROPERTIES CXX_STANDARD 17)
-set_target_properties(MeshExporter PROPERTIES CXX_STANDARD_REQUIRED YES)
-set_target_properties(MeshExporter PROPERTIES CXX_EXTENSIONS YES)
 target_include_directories(MeshExporter PRIVATE Code/MeshExporter)
 target_link_libraries(MeshExporter Foundation assimp glfw GLEW::GLEW OpenGL::GL)
 
@@ -59,10 +63,6 @@ file(GLOB SANDBOX_CLIENT_SOURCE
     "Code/SandboxClient/SandboxClient.cpp"
 )
 
-message(STATUS ${SANDBOX_CLIENT_SOURCE})
 add_executable(SandboxClient ${SANDBOX_CLIENT_SOURCE})
-set_target_properties(SandboxClient PROPERTIES CXX_STANDARD 17)
-set_target_properties(SandboxClient PROPERTIES CXX_STANDARD_REQUIRED YES)
-set_target_properties(SandboxClient PROPERTIES CXX_EXTENSIONS YES)
 target_include_directories(SandboxClient PRIVATE Code/SandboxClient)
 target_link_libraries(SandboxClient Foundation assimp glfw GLEW::GLEW OpenGL::GL)
