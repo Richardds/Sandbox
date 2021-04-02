@@ -39,6 +39,7 @@ namespace Graphics
         void LoadHasDiffuseMap(bool hasDiffuseMap) const;
         void LoadHasNormalMap(bool hasNormalMap) const;
         void LoadHasSpecularMap(bool hasSpecularMap) const;
+        void LoadHasSkyboxMap(bool hasSkyboxMap) const;
         void LoadDeformationFactor(float deformationFactor) const;
 
     private:
@@ -63,6 +64,8 @@ namespace Graphics
         TextureSamplerLocation _normalSamplerLocation;
         TextureSamplerLocation _specularSamplerLocation;
 
+        TextureSamplerLocation _skyboxSamplerLocation;
+
         GLint _fogEnabledLocation;
         GLint _fogDensityLocation;
         GLint _fogGradientLocation;
@@ -72,8 +75,6 @@ namespace Graphics
         GLint _materialReflectivityLocation;
         GLint _materialSpecularLocation;
         GLint _materialShininessLocation;
-
-        GLint _skyboxSamplerLocation;
 
         GLint _deformationFactorLocation;
 

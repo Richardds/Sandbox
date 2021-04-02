@@ -42,7 +42,14 @@ void Graphics::EntityRenderer::Begin(const std::shared_ptr<Camera>& camera,
     flashLight->SetDirection(camera->GetDirection());
     this->_shader->LoadFlashLight(flashLight);
 
-    skybox->GetTexture()->Activate(Texture::Bank::Skybox);
+    if (skybox == nullptr)
+    {
+        this->_shader->LoadHasSkyboxMap(false);
+    } else
+    {
+        this->_shader->LoadHasSkyboxMap(true);
+        skybox->GetTexture()->Activate(Texture::Bank::Skybox);
+    }
 }
 
 void Graphics::EntityRenderer::Render(const std::shared_ptr<Entity>& entity) const

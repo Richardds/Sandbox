@@ -5,6 +5,11 @@ struct TextureSampler {
     bool enabled;
 };
 
+struct TextureCubeSampler {
+    samplerCube texture;
+    bool enabled;
+};
+
 struct Sun {
     vec3 direction;
     vec3 ambient;
@@ -56,6 +61,8 @@ uniform TextureSampler diffuseSampler;
 uniform TextureSampler normalSampler;
 uniform TextureSampler specularSampler;
 
+uniform TextureCubeSampler skyboxSampler;
+
 uniform Sun sun;
 uniform int lightsCount;
 uniform PointLight light[10];
@@ -63,8 +70,6 @@ uniform SpotLight flashLight;
 uniform bool flashLightEnabled;
 uniform Fog fog;
 uniform Material material;
-
-uniform samplerCube skyboxSampler;
 
 float diffuseFactor(vec3 lightDirection, vec3 normal)
 {
@@ -142,9 +147,9 @@ void main()
     fragmentColor = vec4(phongModelColor, 1.0f); // Phong lighting
 
     // Apply skybox reflectivity effect
-    if (material.reflectivity > 0.0f) {
+    if (skyboxSampler.enabled && material.reflectivity > 0.0f) {
         vec3 reflectedCoordinate = reflect(-viewDirection, unitNormal);
-        vec3 reflectedColor = texture(skyboxSampler, reflectedCoordinate).rgb;
+        vec3 reflectedColor = texture(skyboxSampler.texture, reflectedCoordinate).rgb;
         fragmentColor = mix(fragmentColor, vec4(reflectedColor, 1.0f), material.reflectivity);
     }
 

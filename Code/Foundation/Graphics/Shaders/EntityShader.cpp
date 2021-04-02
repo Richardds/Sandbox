@@ -31,8 +31,6 @@ Graphics::EntityShader::EntityShader() :
     _materialSpecularLocation(-1),
     _materialShininessLocation(-1),
 
-    _skyboxSamplerLocation(-1),
-
     _deformationFactorLocation(-1),
 
     _fogEnabled(false)
@@ -98,6 +96,7 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeBoolLocation("diffuseSampler.enabled", false, this->_diffuseSamplerLocation.enabled);
     this->InitializeBoolLocation("normalSampler.enabled", false, this->_normalSamplerLocation.enabled);
     this->InitializeBoolLocation("specularSampler.enabled", false, this->_specularSamplerLocation.enabled);
+    this->InitializeBoolLocation("skyboxSampler.enabled", false, this->_skyboxSamplerLocation.enabled);
 
     this->InitializeIntLocation("diffuseSampler.texture", EnumToValue(Texture::Bank::Diffuse),
                                 this->_diffuseSamplerLocation.texture);
@@ -106,7 +105,8 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeIntLocation("specularSampler.texture", EnumToValue(Texture::Bank::Specular),
                                 this->_specularSamplerLocation.texture);
 
-    this->InitializeIntLocation("skyboxSampler", EnumToValue(Texture::Bank::Skybox), this->_skyboxSamplerLocation);
+    this->InitializeIntLocation("skyboxSampler.texture", EnumToValue(Texture::Bank::Skybox),
+                                this->_skyboxSamplerLocation.texture);
 
     this->InitializeFloatLocation("deformationFactor", 0.0f, this->_deformationFactorLocation);
 }
@@ -234,6 +234,11 @@ void Graphics::EntityShader::LoadHasNormalMap(const bool hasNormalMap) const
 void Graphics::EntityShader::LoadHasSpecularMap(const bool hasSpecularMap) const
 {
     this->LoadBool(this->_specularSamplerLocation.enabled, hasSpecularMap);
+}
+
+void Graphics::EntityShader::LoadHasSkyboxMap(bool hasSkyboxMap) const
+{
+    this->LoadBool(this->_skyboxSamplerLocation.enabled, hasSkyboxMap);
 }
 
 void Graphics::EntityShader::LoadDeformationFactor(const float deformationFactor) const

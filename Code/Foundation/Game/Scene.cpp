@@ -188,7 +188,7 @@ void Graphics::Scene::RenderEntities()
 
 void Graphics::Scene::RenderSkybox() const
 {
-    if (this->_renderSkybox)
+    if (this->_skybox != nullptr && this->_renderSkybox)
     {
         this->_skyboxRenderer->Begin(this->_camera);
         this->_skyboxRenderer->Render(this->_skybox);
