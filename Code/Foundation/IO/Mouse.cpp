@@ -82,7 +82,8 @@ void IO::Mouse::RegisterScrolling(const std::function<void(float, float)>& callb
 
 void IO::Mouse::DoScroll(const float x, const float y) const
 {
-    _Assert(this->_scrollCallback);
-
-    this->_scrollCallback(x, y);
+    if (this->_scrollCallback != nullptr)
+    {
+        this->_scrollCallback(x, y);
+    }
 }
