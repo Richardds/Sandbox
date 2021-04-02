@@ -27,8 +27,5 @@ namespace Sandbox
         void ProcessInput() override;
         void Update(float delta) override;
         void Render() override;
-
-    protected:
-        void RenderEntities() override;
     };
 }

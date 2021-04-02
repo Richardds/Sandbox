@@ -9,7 +9,6 @@
 #include <IO/Mouse.h>
 
 #include "TestScene.h"
-#include "Util/ResourcesLoader.h"
 
 
 bool Sandbox::TestScene::Setup()
@@ -20,11 +19,7 @@ bool Sandbox::TestScene::Setup()
     this->_camera->SetDistance(12.5f);
     this->_camera->SetRotationX(20.0f);
 
-    // Load Skybox
-    std::shared_ptr<Graphics::Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadCubeMap("day");
-    this->_skybox = std::make_shared<Graphics::Skybox>(skyboxTexture, 750.0f);
-
-    // Add crate entities
+    // Add crate entity
     std::shared_ptr<Graphics::Entity> entity = this->AddEntity("crate", "crate");
     entity->SetPosition(Math::Vector3f(-5.0f, 0.0f, 0.0f));
 
@@ -88,9 +83,4 @@ void Sandbox::TestScene::Render()
     this->_glyphRenderer->Begin();
 
     this->_glyphRenderer->Render('X', 100, 100);
-}
-
-void Sandbox::TestScene::RenderEntities()
-{
-    Scene::RenderEntities();
 }
