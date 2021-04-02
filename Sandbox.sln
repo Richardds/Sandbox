@@ -15,6 +15,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MeshExporter", "Code\MeshEx
 		{CEC8D571-AB20-4255-969C-EDF732551FF1} = {CEC8D571-AB20-4255-969C-EDF732551FF1}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Code\Test\Test.vcxproj", "{4129E376-C980-4015-B107-8CC54BEB7169}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CEC8D571-AB20-4255-969C-EDF732551FF1} = {CEC8D571-AB20-4255-969C-EDF732551FF1}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -33,6 +38,10 @@ Global
 		{BCACCF77-2F6B-4164-B337-F33EC134AE04}.Debug|x64.Build.0 = Debug|x64
 		{BCACCF77-2F6B-4164-B337-F33EC134AE04}.Release|x64.ActiveCfg = Release|x64
 		{BCACCF77-2F6B-4164-B337-F33EC134AE04}.Release|x64.Build.0 = Release|x64
+		{4129E376-C980-4015-B107-8CC54BEB7169}.Debug|x64.ActiveCfg = Debug|x64
+		{4129E376-C980-4015-B107-8CC54BEB7169}.Debug|x64.Build.0 = Debug|x64
+		{4129E376-C980-4015-B107-8CC54BEB7169}.Release|x64.ActiveCfg = Release|x64
+		{4129E376-C980-4015-B107-8CC54BEB7169}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
