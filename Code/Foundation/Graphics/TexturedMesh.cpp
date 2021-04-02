@@ -45,5 +45,5 @@ void Graphics::TexturedMesh::Render(const std::shared_ptr<EntityShader>& shader)
         this->_specularMap->Activate(Texture::Bank::Specular);
     }
 
-    DrawElements();
+    this->DrawElements();
 }
