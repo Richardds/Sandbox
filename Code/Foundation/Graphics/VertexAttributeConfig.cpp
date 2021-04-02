@@ -19,7 +19,7 @@ void Graphics::VertexAttributeConfig::Append(const GLenum type, const uint16_t c
     switch (type)
     {
     case GL_FLOAT:
-        elementSize = sizeof(float);
+        elementSize = sizeof(GLfloat);
         break;
     case GL_UNSIGNED_INT:
         elementSize = sizeof(GLuint);

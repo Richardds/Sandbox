@@ -23,6 +23,7 @@ bool Graphics::SkyboxRenderer::Setup(const std::shared_ptr<const Projection>& pr
     this->_shader->Use();
     this->_shader->LoadProjection(projection);
 
+    // Generate skybox mesh
     this->_skyboxMesh = Util::SkyboxGenerator::Instance().Generate(250);
 
     this->FinishLoading();
