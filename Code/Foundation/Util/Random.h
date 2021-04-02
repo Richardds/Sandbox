@@ -10,14 +10,13 @@
 
 namespace Util
 {
-    /// STD random wrapper
+    /// std::random wrapper
     class Random
     {
     _Singleton(Random)
 
     public:
-        Random();
-
+        Random() = default;
         template <typename T>
         T GetInt(T min, T max);
         template <typename T>
@@ -25,22 +24,20 @@ namespace Util
         float GetAngle();
 
     private:
-        std::mt19937 _random;
+        std::random_device _random;
     };
 
     template <typename T>
     T Random::GetInt(const T min, const T max)
     {
         const std::uniform_int_distribution<T> distribution(min, max);
-        auto dice = std::bind(distribution, this->_random);
-        return dice();
+        return distribution(this->_random);
     }
 
     template <typename T>
     T Random::GetReal(const T min, const T max)
     {
         const std::uniform_real_distribution<T> distribution(min, max);
-        auto dice = std::bind(distribution, this->_random);
-        return dice();
+        return distribution(this->_random);
     }
 }
