@@ -33,7 +33,7 @@ bool App::RenderApplication::Open()
             return false;
         }
 
-        this->_window = std::make_shared<Graphics::Window>(1280, 720, this->_title.c_str());
+        this->_window = std::make_shared<Graphics::Window>(1280, 720, this->_title);
         this->_window->Create();
 
         if (!Graphics::Core::Instance().SetRenderingContext(this->_window))

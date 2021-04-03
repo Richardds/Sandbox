@@ -22,7 +22,7 @@ namespace Util
         [[nodiscard]] std::shared_ptr<Graphics::Mesh> Generate3dQuad(float size);
 
     private:
-        Graphics::VertexAttributeConfig _2dQuadAttributesTemplate;
-        Graphics::VertexAttributeConfig _3dQuadAttributesTemplate;
+        Graphics::VertexAttributeConfig _2dAttributesTemplate;
+        Graphics::VertexAttributeConfig _3dAttributesTemplate;
     };
 }

@@ -9,24 +9,22 @@
 
 Util::PrimitiveGenerator::PrimitiveGenerator()
 {
-    this->_2dQuadAttributesTemplate.Append(GL_FLOAT, 3);
-    this->_2dQuadAttributesTemplate.Append(GL_FLOAT, 2);
+    this->_2dAttributesTemplate.Append(GL_FLOAT, 2);
+    this->_2dAttributesTemplate.Append(GL_FLOAT, 2);
 
-    this->_3dQuadAttributesTemplate.Append(GL_FLOAT, 3);
-    this->_3dQuadAttributesTemplate.Append(GL_FLOAT, 3);
-    this->_3dQuadAttributesTemplate.Append(GL_FLOAT, 2);
-    this->_3dQuadAttributesTemplate.Append(GL_FLOAT, 3);
+    this->_3dAttributesTemplate.Append(GL_FLOAT, 3);
+    this->_3dAttributesTemplate.Append(GL_FLOAT, 3);
+    this->_3dAttributesTemplate.Append(GL_FLOAT, 2);
+    this->_3dAttributesTemplate.Append(GL_FLOAT, 3);
 }
 
 std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate2dQuad(const float size)
 {
-    const float radius = size / 2.0f;
-
     const std::vector<VertexData2> vertexData({
-        {-radius, -radius, 0.0f, 0.0f},
-        {radius, -radius, 1.0f, 0.0f},
-        {radius, radius, 1.0f, 1.0f},
-        {-radius, radius, 0.0f, 1.0f}
+        {-size, -size, 0.0f, 0.0f},
+        {size, -size, 1.0f, 0.0f},
+        {size, size, 1.0f, 1.0f},
+        {-size, size, 0.0f, 1.0f}
     });
 
     const std::vector<uint32_t> elements({
@@ -34,29 +32,35 @@ std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate2dQuad(const f
         1, 2, 3
     });
 
-    return this->Store(vertexData, elements, this->_2dQuadAttributesTemplate);
+    return this->Store(vertexData, elements, this->_2dAttributesTemplate);
 }
 
 std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate3dQuad(const float size)
 {
-    const float radius = size / 2.0f;
-
     const std::vector<VertexData3> vertexData({
         {
-            -radius, 0.000000f, radius, 0.000000f, 1.000000f, -0.000000f, 0.000000f, 1.000000f, 1.000000f, 0.000000f,
-            0.000000f
+            -size, 0.0f, size,
+             0.0f, 1.0f, 0.0f,
+             0.0f, 1.0f,
+             1.0f, 0.0f, 0.0f
         },
         {
-            radius, 0.000000f, radius, 0.000000f, 1.000000f, -0.000000f, 1.000000f, 1.000000f, 1.000000f, 0.000000f,
-            0.000000f
+            size, 0.0f, size,
+            0.0f, 1.0f, 0.0f,
+            1.0f, 1.0f,
+            1.0f, 0.0f, 0.0f
         },
         {
-            radius, -0.000000f, -radius, 0.000000f, 1.000000f, -0.000000f, 1.000000f, 0.000000f, 1.000000f, 0.000000f,
-            0.000000f
+            size, -0.0f, -size,
+            0.0f,  1.0f,  0.0f,
+            1.0f,  0.0f,
+            1.0f,  0.0f,  0.0f
         },
         {
-            -radius, -0.000000f, -radius, 0.000000f, 1.000000f, -0.000000f, 0.000000f, 0.000000f, 1.000000f, 0.000000f,
-            0.000000f
+            -size, -0.0f, -size,
+             0.0f,  1.0f,  0.0f,
+             0.0f,  0.0f,
+             1.0f,  0.0f,  0.0f
         }
     });
 
@@ -65,5 +69,5 @@ std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate3dQuad(const f
         0, 2, 3
     });
 
-    return this->Store(vertexData, elements, this->_3dQuadAttributesTemplate);
+    return this->Store(vertexData, elements, this->_3dAttributesTemplate);
 }

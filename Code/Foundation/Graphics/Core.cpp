@@ -11,7 +11,6 @@
 #include "Graphics/Texture.h"
 #include "Graphics/VertexArray.h"
 #include "IO/Console.h"
-#include "Math/Utils.h"
 
 Graphics::Core::Core() :
     _isCreated(false)
@@ -43,13 +42,15 @@ bool Graphics::Core::Setup()
 
 #ifdef _DEBUG
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+#else
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_FALSE);
 #endif
 
     glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
     glfwWindowHint(GLFW_SAMPLES, 8);
 
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
     this->_isCreated = true;
 
@@ -128,6 +129,13 @@ Math::Vector4ui Graphics::Core::GetViewport() const
         static_cast<unsigned int>(viewport.z),
         static_cast<unsigned int>(viewport.w)
     );
+}
+
+Math::Vector2ui Graphics::Core::GetResolution() const
+{
+    const Math::Vector4f viewport = this->GetViewport();
+
+    return Math::Vector2ui(viewport.z, viewport.w);
 }
 
 std::shared_ptr<Graphics::Projection> Graphics::Core::MakeProjection(float fieldOfView) const
