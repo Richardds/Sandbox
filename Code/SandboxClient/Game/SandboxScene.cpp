@@ -33,7 +33,7 @@ bool Sandbox::SandboxScene::Setup()
     this->_camera->SetRotationX(20.0f);
 
     // Load Skybox
-    std::shared_ptr<Graphics::Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadCubeMap("day");
+    std::shared_ptr<Graphics::Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadCubeMap("Skybox/day");
     this->_skybox = std::make_shared<Graphics::Skybox>(skyboxTexture, 750.0f);
 
     // Configure lights
