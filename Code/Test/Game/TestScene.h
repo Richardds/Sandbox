@@ -23,7 +23,7 @@ namespace Sandbox
         TestScene() = default;
 
         bool Setup() override;
-        void ProcessCameraInput();
+        void ProcessCameraInput() const;
         void ProcessInput() override;
         void Update(float delta) override;
         void Render() override;
