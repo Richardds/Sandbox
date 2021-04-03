@@ -63,6 +63,14 @@ bool Graphics::Scene::Setup()
         return false;
     }
 
+    // Setup glyph renderer
+    this->_glyphRenderer = std::make_shared<GlyphRenderer>();
+    if (!this->_glyphRenderer->Setup())
+    {
+        IO::Console::Instance().Error("Failed setup glyph renderer\n");
+        return false;
+    }
+
     // Setup sun
     this->_sun = std::make_shared<DirectionalLight>();
     this->_sun->SetColor(Math::Vector3f(1.0f, 0.95f, 0.85f));

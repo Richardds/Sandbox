@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       Scene.h
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #pragma once
@@ -9,12 +9,7 @@
 #include "Graphics/Renderers/SkyboxRenderer.h"
 #include "Graphics/Renderers/EntityRenderer.h"
 #include "Graphics/Renderers/WaterRenderer.h"
-#include "Game/Scene/DirectionalLight.h"
-#include "Game/Scene/Entity.h"
-#include "Game/Scene/PointLight.h"
-#include "Game/Scene/Skybox.h"
-#include "Game/Scene/TargetedCamera.h"
-#include "Game/Scene/Water.h"
+#include "Graphics/Renderers/GlyphRenderer.h"
 
 namespace Graphics
 {
@@ -51,6 +46,7 @@ namespace Graphics
         std::shared_ptr<SkyboxRenderer> _skyboxRenderer;
         std::shared_ptr<EntityRenderer> _entityRenderer;
         std::shared_ptr<WaterRenderer> _waterRenderer;
+        std::shared_ptr<GlyphRenderer> _glyphRenderer;
         std::shared_ptr<DirectionalLight> _sun;
         std::shared_ptr<Skybox> _skybox;
         std::unordered_map<std::string, std::shared_ptr<PointLight>> _lights;

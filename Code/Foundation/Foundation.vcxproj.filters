@@ -201,7 +201,15 @@
     <ClCompile Include="Util\Random.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scene\SpotLight.cpp">
+    <ClCompile Include="Graphics\Renderers\GlyphRenderer.cpp">
+      <Filter>Graphics\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Shaders\GlyphShader.cpp">
+      <Filter>Graphics\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\FontType.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
       <Filter>Game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -387,7 +395,15 @@
     <ClInclude Include="Util\Random.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scene\SpotLight.h">
+    <ClInclude Include="Graphics\Renderers\GlyphRenderer.h">
+      <Filter>Graphics\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Shaders\GlyphShader.h">
+      <Filter>Graphics\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\FontType.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
       <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>

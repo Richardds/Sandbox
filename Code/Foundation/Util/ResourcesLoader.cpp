@@ -53,7 +53,7 @@ std::shared_ptr<Graphics::Shader> Util::ResourcesLoader::LoadShader(const std::s
     return shader;
 }
 
-std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadTexture(const std::string& name)
+std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadTexture(const std::string& name, const GLenum target)
 {
     const auto it = this->_textures.find(name);
     if (it != this->_textures.end())
@@ -64,7 +64,7 @@ std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadTexture(const std:
     IO::Console::Instance().Info("Loading '%s' texture\n", name.c_str());
 
     std::shared_ptr<Graphics::Texture> texture = std::make_shared<Graphics::Texture>();
-    texture->SetTarget(GL_TEXTURE_2D);
+    texture->SetTarget(target);
 
     const std::string path = this->_root + "/Textures/" + name + ".dds";
 
@@ -78,7 +78,8 @@ std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadTexture(const std:
     const std::streamsize textureFileSize = textureFile.tellg();
     if (textureFileSize == 0)
     {
-        IO::Console::Instance().Error("Failed to load texture '%s'\n", name.c_str());
+        IO::Console::Instance().Error("Invalid texture '%s'\n", name.c_str());
+        textureFile.close();
         return texture;
     }
     textureFile.seekg(0, std::ios::beg);
@@ -96,39 +97,17 @@ std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadTexture(const std:
     return texture;
 }
 
-std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadCubeMap(const std::string& name) const
+std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadCubeMap(const std::string& name)
 {
-    IO::Console::Instance().Info("Loading '%s' cube map\n", name.c_str());
+    return this->LoadTexture(name, GL_TEXTURE_CUBE_MAP);
+}
 
-    std::shared_ptr<Graphics::Texture> cubeMap = std::make_shared<Graphics::Texture>();
-    cubeMap->SetTarget(GL_TEXTURE_CUBE_MAP);
+std::shared_ptr<Graphics::FontType> Util::ResourcesLoader::LoadFont(const std::string& name)
+{
+    std::shared_ptr<Graphics::FontType> fontType = std::make_shared<Graphics::FontType>();
+    fontType->SetGlyphsMap(this->LoadTexture("Fonts/" + name));
 
-    const std::string path = this->_root + "/Textures/" + name + "_c.dds";
-
-    std::ifstream cubeMapFile(path, std::ios::binary | std::ios::ate);
-    if (!cubeMapFile.is_open())
-    {
-        IO::Console::Instance().Error("Failed to open '%s' cube map\n", name.c_str());
-        return cubeMap;
-    }
-
-    const std::streamsize cubeMapPartFileSize = cubeMapFile.tellg();
-    if (cubeMapPartFileSize == 0)
-    {
-        IO::Console::Instance().Error("Invalid file size of '%s' cube map\n", name.c_str());
-        return cubeMap;
-    }
-    cubeMapFile.seekg(0, std::ios::beg);
-
-    std::vector<char> buffer(cubeMapPartFileSize);
-    cubeMapFile.read(buffer.data(), cubeMapPartFileSize);
-    cubeMapFile.close();
-
-    cubeMap->Bind();
-    DirectDrawSurfaceLoader::Instance().Load(cubeMap, buffer);
-    cubeMap->Unbind();
-
-    return cubeMap;
+    return fontType;
 }
 
 std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadFBX(const std::string& name)

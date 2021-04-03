@@ -3,7 +3,8 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
+#include <Precompiled.h>
+#include <Util/ResourcesLoader.h>
 
 #include <IO/Keyboard.h>
 #include <IO/Mouse.h>
@@ -15,9 +16,8 @@ bool Sandbox::TestScene::Setup()
 {
     _Assert(Graphics::Scene::Setup());
 
-    // Configure camera
-    this->_camera->SetDistance(12.5f);
-    this->_camera->SetRotationX(20.0f);
+    // Setup font type
+    this->_glyphRenderer->SetFontType(Util::ResourcesLoader::Instance().LoadFont("tahoma"));
 
     // Add crate entity
     std::shared_ptr<Graphics::Entity> entity = this->AddEntity("crate", "crate");
