@@ -117,16 +117,6 @@ void Graphics::Scene::Update(const float delta)
 {
     _Assert(State::Run == this->_state);
 
-    // Check camera angle threshold
-    if (this->_camera->GetRotationX() < 0.5f)
-    {
-        this->_camera->SetRotationX(0.5f);
-    }
-    if (this->_camera->GetRotationX() > 179.5f)
-    {
-        this->_camera->SetRotationX(179.5f);
-    }
-
     if (!this->_paused)
     {
         this->_time += delta;

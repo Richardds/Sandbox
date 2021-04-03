@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       SandboxScene.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
@@ -361,6 +361,18 @@ void Sandbox::SandboxScene::ProcessInput()
 void Sandbox::SandboxScene::Update(const float delta)
 {
     Scene::Update(delta);
+
+    // Check camera angle lower threshold
+    if (this->_camera->GetRotationX() < 0.5f)
+    {
+        this->_camera->SetRotationX(0.5f);
+    }
+
+    // Check camera angle upper threshold
+    if (this->_camera->GetRotationX() > 90.0f)
+    {
+        this->_camera->SetRotationX(90.0f);
+    }
 
     this->_projectileManager->Update(delta);
 
