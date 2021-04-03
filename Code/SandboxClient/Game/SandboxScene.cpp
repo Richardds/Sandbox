@@ -20,7 +20,10 @@ Sandbox::SandboxScene::SandboxScene() :
 
 bool Sandbox::SandboxScene::Setup()
 {
-    _Assert(Graphics::Scene::Setup());
+    if (!Scene::Setup())
+    {
+        return false;
+    }
 
     // Create projectile manager
     this->_projectileManager = std::make_shared<ProjectileManager>();

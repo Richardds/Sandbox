@@ -14,7 +14,10 @@
 
 bool Sandbox::TestScene::Setup()
 {
-    _Assert(Graphics::Scene::Setup());
+    if (!Scene::Setup())
+    {
+        return false;
+    }
 
     // Setup font type
     this->_glyphRenderer->SetFontType(Util::ResourcesLoader::Instance().LoadFont("tahoma"));
