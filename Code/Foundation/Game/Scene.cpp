@@ -90,16 +90,6 @@ void Graphics::Scene::ProcessInput()
 
     this->_cursorPosition = this->GetScreenWorldPosition(IO::Mouse::Instance().GetCoords());
 
-    if (IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::Middle))
-    {
-        IO::Console::Instance().Info("Click: %ff, %ff, %ff\n",
-            this->_cursorPosition.x, this->_cursorPosition.y, this->_cursorPosition.z);
-        IO::Console::Instance().Info("Position: %ff, %ff, %ff\n",
-            this->_camera->GetPositionX(), this->_camera->GetPositionY(), this->_camera->GetPositionZ());
-        IO::Console::Instance().Info("View: %ff, %ff, %ff\n",
-            this->_camera->GetRotationX(), this->_camera->GetRotationY(), this->_camera->GetRotationZ());
-    }
-
     // Pause scene
     if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::P))
     {
