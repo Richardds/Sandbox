@@ -4,7 +4,7 @@
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
-#include "Game/Scene/SpotLight.h"
+#include "Game/Scene/Light/SpotLight.h"
 
 Graphics::SpotLight::SpotLight() :
     _cutOffAngle(DEFAULT_CUT_OFF_ANGLE),

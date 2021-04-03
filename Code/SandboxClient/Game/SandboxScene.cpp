@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       SandboxScene.cpp
-//  \author     Richard Boldi� <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
@@ -11,7 +11,7 @@
 #include <Util/ResourcesLoader.h>
 
 #include "SandboxScene.h"
-#include "Scene/Hardcoded.h"
+#include "Scene/Object/Hardcoded.h"
 
 Sandbox::SandboxScene::SandboxScene() :
     _lockCameraToPlayer(true)
@@ -196,7 +196,7 @@ void Sandbox::SandboxScene::ProcessCameraInput()
             mouseMotion *= 75.0f; // Make motion more sensitive
             this->_camera->IncreaseRotation(-mouseMotion.y, mouseMotion.x, 0.0f);
         }
-            // Free camera
+        // Free camera
         else
         {
             if (IO::Keyboard::Instance().IsAltPressed())
@@ -398,7 +398,6 @@ void Sandbox::SandboxScene::Update(const float delta)
         this->_skyboxRenderer->GetShader(true)->LoadDarkeningFactor(darkeningFactor);
         this->_sun->SetIntensity(darkeningFactor);
         this->_sun->SetIntensity(0.15f);
-        //IO::Console::Instance().Info("Sun: %f\n", darkeningFactor);
 
         // Update hardcoded mesh motion
         this->_entities["hardcoded"]->IncreaseRotationY(45.0f * delta);

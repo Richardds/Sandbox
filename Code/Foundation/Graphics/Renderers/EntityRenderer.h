@@ -6,10 +6,10 @@
 #pragma once
 
 #include "Precompiled.h"
-#include "Game/Scene/DirectionalLight.h"
-#include "Game/Scene/Entity.h"
-#include "Game/Scene/PointLight.h"
-#include "Game/Scene/Skybox.h"
+#include "Game/Scene/Light/DirectionalLight.h"
+#include "Game/Scene/Object/Entity.h"
+#include "Game/Scene/Light/PointLight.h"
+#include "Game/Scene/Object/Skybox.h"
 #include "Graphics/Projection.h"
 #include "Graphics/Renderers/Renderer.h"
 #include "Graphics/Shaders/EntityShader.h"

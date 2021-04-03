@@ -31,7 +31,8 @@ namespace Graphics
             Reflection = 5,
             Refraction = 6,
 
-            Skybox = 7
+            Skybox = 7,
+            Glyphs = 8
         };
 
         explicit Texture();

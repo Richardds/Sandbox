@@ -5,7 +5,7 @@
 
 #include <Precompiled.h>
 
-#include "Game/Scene/Hardcoded.h"
+#include "Game/Scene/Object/Hardcoded.h"
 #include "Core/Types.h"
 
 Sandbox::Hardcoded::Hardcoded()

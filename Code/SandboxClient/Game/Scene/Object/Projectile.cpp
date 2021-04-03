@@ -5,7 +5,7 @@
 
 #include <Precompiled.h>
 
-#include "Game/Scene/Projectile.h"
+#include "Game/Scene/Object/Projectile.h"
 
 Sandbox::Projectile::Projectile(const std::shared_ptr<Actor>& actor) :
     Projectile(actor->GetPosition(), actor->GetRotationY())

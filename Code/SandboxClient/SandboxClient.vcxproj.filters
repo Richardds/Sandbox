@@ -8,17 +8,17 @@
     <ClCompile Include="Game\SandboxScene.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scene\Projectile.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Managers\ProjectileManager.cpp">
       <Filter>Game\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scene\Player.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scene\Hardcoded.cpp">
-      <Filter>Game\Scene</Filter>
+    <ClCompile Include="Game\Scene\Object\Projectile.cpp">
+      <Filter>Game\Scene\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Object\Hardcoded.cpp">
+      <Filter>Game\Scene\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +34,9 @@
     <Filter Include="Game\Managers">
       <UniqueIdentifier>{908d375d-7127-422b-8e85-3c764a86225a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Scene\Object">
+      <UniqueIdentifier>{7ef034f8-3d4e-4a4d-a2d1-a7c008297287}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\SandboxApplication.h">
@@ -42,17 +45,17 @@
     <ClInclude Include="Game\SandboxScene.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scene\Projectile.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Managers\ProjectileManager.h">
       <Filter>Game\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scene\Player.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scene\Hardcoded.h">
-      <Filter>Game\Scene</Filter>
+    <ClInclude Include="Game\Scene\Object\Projectile.h">
+      <Filter>Game\Scene\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Object\Hardcoded.h">
+      <Filter>Game\Scene\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

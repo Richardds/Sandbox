@@ -6,7 +6,7 @@
 #pragma once
 
 #include "Precompiled.h"
-#include "Game/Scene/Entity.h"
+#include "Game/Scene/Object/Entity.h"
 
 namespace Graphics
 {

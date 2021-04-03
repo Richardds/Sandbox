@@ -8,7 +8,7 @@
 #include <Precompiled.h>
 #include <Graphics/Renderers/EntityRenderer.h>
 
-#include "Game/Scene/Projectile.h"
+#include "Game/Scene/Object/Projectile.h"
 
 namespace Sandbox
 {

@@ -7,9 +7,9 @@
 
 #include "Precompiled.h"
 #include "Game/Scene/Camera.h"
-#include "Game/Scene/DirectionalLight.h"
-#include "Game/Scene/PointLight.h"
-#include "Game/Scene/SpotLight.h"
+#include "Game/Scene/Light/DirectionalLight.h"
+#include "Game/Scene/Light/PointLight.h"
+#include "Game/Scene/Light/SpotLight.h"
 #include "Graphics/Material.h"
 #include "Graphics/Projection.h"
 #include "Graphics/Shaders/ShaderSystem.h"

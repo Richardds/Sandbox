@@ -4,7 +4,7 @@
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
-#include "Game/Scene/Actor.h"
+#include "Game/Scene/Object/Actor.h"
 #include "Math/Utils.h"
 
 Graphics::Actor::Actor() :

@@ -10,6 +10,12 @@
 #include "Graphics/Renderers/EntityRenderer.h"
 #include "Graphics/Renderers/WaterRenderer.h"
 #include "Graphics/Renderers/GlyphRenderer.h"
+#include "Game/Scene/Light/DirectionalLight.h"
+#include "Game/Scene/Object/Entity.h"
+#include "Game/Scene/Light/PointLight.h"
+#include "Game/Scene/Object/Skybox.h"
+#include "Game/Scene/Camera/TargetedCamera.h"
+#include "Game/Scene/Object/Water.h"
 
 namespace Graphics
 {

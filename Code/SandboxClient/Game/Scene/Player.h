@@ -6,7 +6,7 @@
 #pragma once
 
 #include <Precompiled.h>
-#include <Game/Scene/Actor.h>
+#include <Game/Scene/Object/Actor.h>
 #include <Math/Vector.h>
 
 #include "Game/Managers/ProjectileManager.h"

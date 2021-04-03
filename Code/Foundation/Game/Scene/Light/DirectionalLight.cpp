@@ -4,7 +4,7 @@
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
-#include "Game/Scene/DirectionalLight.h"
+#include "Game/Scene/Light/DirectionalLight.h"
 
 Graphics::DirectionalLight::DirectionalLight() :
     _direction(0.0f, -1.0f, 0.0f)

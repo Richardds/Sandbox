@@ -7,8 +7,8 @@
 
 #include "Precompiled.h"
 #include "Graphics/Renderers/Renderer.h"
-#include "Game/Scene/Skybox.h"
-#include "Game/Scene/Water.h"
+#include "Game/Scene/Object/Skybox.h"
+#include "Game/Scene/Object/Water.h"
 #include "Graphics/Shaders/SkyboxShader.h"
 
 namespace Graphics

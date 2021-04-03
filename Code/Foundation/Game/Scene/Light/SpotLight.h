@@ -6,7 +6,7 @@
 #pragma once
 
 #include "Precompiled.h"
-#include "Game/Scene/DirectionalLight.h"
+#include "Game/Scene/Light/DirectionalLight.h"
 #include "Game/Attributes/HasPosition.h"
 
 namespace Graphics

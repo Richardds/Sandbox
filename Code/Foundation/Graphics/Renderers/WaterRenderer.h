@@ -6,8 +6,8 @@
 #pragma once
 
 #include "Precompiled.h"
-#include "Game/Scene/DirectionalLight.h"
-#include "Game/Scene/Water.h"
+#include "Game/Scene/Light/DirectionalLight.h"
+#include "Game/Scene/Object/Water.h"
 #include "Graphics/FrameBuffer.h"
 #include "Graphics/Texture.h"
 #include "Graphics/Renderers/Renderer.h"

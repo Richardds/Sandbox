@@ -43,6 +43,15 @@
     <Filter Include="Util\Generators">
       <UniqueIdentifier>{786b1ac6-4dda-47d8-aba7-8b27edde85b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Scene\Object">
+      <UniqueIdentifier>{3f67dc48-0346-4d75-84f0-1176a07b07fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Camera">
+      <UniqueIdentifier>{fa82068d-fc3c-4d72-b1ba-f919c5485751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Light">
+      <UniqueIdentifier>{c1dc9c3f-81d7-4077-a362-2e2f6b4eefb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Debug.cpp">
@@ -141,29 +150,11 @@
     <ClCompile Include="Game\Scene.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scene\Camera.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scene\Entity.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scene\Light.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scene\TargetedCamera.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scene\Actor.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\RenderBuffer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Renderers\WaterRenderer.cpp">
       <Filter>Graphics\Renderers</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scene\Water.cpp">
-      <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Shaders\WaterShader.cpp">
       <Filter>Graphics\Shaders</Filter>
@@ -173,12 +164,6 @@
     </ClCompile>
     <ClCompile Include="Graphics\Renderers\EntityRenderer.cpp">
       <Filter>Graphics\Renderers</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scene\DirectionalLight.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scene\PointLight.cpp">
-      <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Util\Generators\PrimitiveGenerator.cpp">
       <Filter>Util\Generators</Filter>
@@ -191,9 +176,6 @@
     </ClCompile>
     <ClCompile Include="Util\Generators\SkyboxGenerator.cpp">
       <Filter>Util\Generators</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scene\Skybox.cpp">
-      <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Util\Loaders\ModelLoader.cpp">
       <Filter>Util\Loaders</Filter>
@@ -210,6 +192,34 @@
     <ClCompile Include="Graphics\FontType.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scene\Camera\TargetedCamera.cpp">
+      <Filter>Game\Scene\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Light\SpotLight.cpp">
+      <Filter>Game\Scene\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Light\PointLight.cpp">
+      <Filter>Game\Scene\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Object\Entity.cpp">
+      <Filter>Game\Scene\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Object\Skybox.cpp">
+      <Filter>Game\Scene\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Object\Water.cpp">
+      <Filter>Game\Scene\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Object\Actor.cpp">
+      <Filter>Game\Scene\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Light\DirectionalLight.cpp">
+      <Filter>Game\Scene\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Light.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Camera.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -328,29 +338,11 @@
     <ClInclude Include="Game\Scene.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scene\Camera.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\Entity.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\Light.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\TargetedCamera.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\Actor.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\RenderBuffer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Renderers\WaterRenderer.h">
       <Filter>Graphics\Renderers</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\Water.h">
-      <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Shaders\WaterShader.h">
       <Filter>Graphics\Shaders</Filter>
@@ -360,12 +352,6 @@
     </ClInclude>
     <ClInclude Include="Graphics\Renderers\EntityRenderer.h">
       <Filter>Graphics\Renderers</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\DirectionalLight.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\PointLight.h">
-      <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Util\Generators\PrimitiveGenerator.h">
       <Filter>Util\Generators</Filter>
@@ -381,9 +367,6 @@
     </ClInclude>
     <ClInclude Include="Util\Generators\SkyboxGenerator.h">
       <Filter>Util\Generators</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\Skybox.h">
-      <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Util\Loaders\ModelLoader.h">
       <Filter>Util\Loaders</Filter>
@@ -404,6 +387,34 @@
     <ClInclude Include="Graphics\FontType.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Scene\Camera\TargetedCamera.h">
+      <Filter>Game\Scene\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Light\PointLight.h">
+      <Filter>Game\Scene\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Light\SpotLight.h">
+      <Filter>Game\Scene\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Object\Entity.h">
+      <Filter>Game\Scene\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Object\Skybox.h">
+      <Filter>Game\Scene\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Object\Water.h">
+      <Filter>Game\Scene\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Object\Actor.h">
+      <Filter>Game\Scene\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Light\DirectionalLight.h">
+      <Filter>Game\Scene\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Camera.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Light.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
