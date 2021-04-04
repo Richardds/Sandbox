@@ -6,11 +6,11 @@
 #include "Precompiled.h"
 #include "Graphics/TexturedMesh.h"
 
-Graphics::TexturedMesh::TexturedMesh(std::shared_ptr<VertexArray> vertexArrayObject,
-                                     std::shared_ptr<Buffer> vertexBuffer,
-                                     std::shared_ptr<Buffer> elementsBuffer,
+Graphics::TexturedMesh::TexturedMesh(const std::shared_ptr<VertexArray>& vertexArrayObject,
+                                     const std::shared_ptr<Buffer>& vertexBuffer,
+                                     const std::shared_ptr<Buffer>& elementsBuffer,
                                      const uint32_t elementsCount) :
-    Mesh(std::move(vertexArrayObject), std::move(vertexBuffer), std::move(elementsBuffer), elementsCount),
+    Mesh(vertexArrayObject, vertexBuffer, elementsBuffer, elementsCount),
     _material(Math::Vector3f(0.85f), 0.0f, 0.5f, 25.0f)
 {
 }

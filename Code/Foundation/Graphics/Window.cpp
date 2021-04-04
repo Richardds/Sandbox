@@ -12,12 +12,12 @@ Graphics::Window::Window() :
 {
 }
 
-Graphics::Window::Window(const unsigned int width, const unsigned int height, std::string title) :
+Graphics::Window::Window(const unsigned int width, const unsigned int height, const std::string& title) :
     _isCreated(false),
     _fullScreenEnabled(false),
     _width(width),
     _height(height),
-    _title(std::move(title)),
+    _title(title),
     _glfwWindow(nullptr)
 {
 }

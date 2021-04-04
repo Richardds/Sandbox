@@ -6,12 +6,13 @@
 #include "Precompiled.h"
 #include "Graphics/Mesh.h"
 
-Graphics::Mesh::Mesh(std::shared_ptr<VertexArray> vertexArrayObject,
-                     std::shared_ptr<Buffer> vertexBuffer, std::shared_ptr<Buffer> elementsBuffer,
+Graphics::Mesh::Mesh(const std::shared_ptr<VertexArray>& vertexArrayObject,
+                     const std::shared_ptr<Buffer>& vertexBuffer,
+                     const std::shared_ptr<Buffer>& elementsBuffer,
                      const uint32_t elementsCount) :
-    _vao(std::move(vertexArrayObject)),
-    _vbo(std::move(vertexBuffer)),
-    _ebo(std::move(elementsBuffer)),
+    _vao(vertexArrayObject),
+    _vbo(vertexBuffer),
+    _ebo(elementsBuffer),
     _elementsCount(elementsCount)
 {
 }

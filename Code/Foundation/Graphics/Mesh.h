@@ -15,8 +15,10 @@ namespace Graphics
     class Mesh
     {
     public:
-        Mesh(std::shared_ptr<VertexArray> vertexArrayObject, std::shared_ptr<Buffer> vertexBuffer,
-             std::shared_ptr<Buffer> elementsBuffer, uint32_t elementsCount);
+        Mesh(const std::shared_ptr<VertexArray>& vertexArrayObject,
+             const std::shared_ptr<Buffer>& vertexBuffer,
+             const std::shared_ptr<Buffer>& elementsBuffer,
+             uint32_t elementsCount);
         virtual ~Mesh() = default;
 
         void DrawElements() const;

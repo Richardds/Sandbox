@@ -32,11 +32,12 @@ namespace Graphics
             Refraction = 6,
 
             Skybox = 7,
-            Glyphs = 8
+            Font = 8
         };
 
-        explicit Texture();
+        Texture();
         virtual ~Texture();
+
         [[nodiscard]] State GetState() const;
         void Bind() const;
         void Activate(Bank bank) const;

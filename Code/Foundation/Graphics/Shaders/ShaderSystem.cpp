@@ -9,9 +9,9 @@
 #include "IO/Console.h"
 #include "Util/ResourcesLoader.h"
 
-Graphics::ShaderSystem::ShaderSystem(std::string name) :
+Graphics::ShaderSystem::ShaderSystem(const std::string& name) :
     _state(State::Initial),
-    _name(std::move(name))
+    _name(name)
 {
 }
 

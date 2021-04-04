@@ -17,9 +17,9 @@ namespace Graphics
     class TexturedMesh : public Mesh
     {
     public:
-        TexturedMesh(std::shared_ptr<VertexArray> vertexArrayObject,
-                     std::shared_ptr<Buffer> vertexBuffer,
-                     std::shared_ptr<Buffer> elementsBuffer,
+        TexturedMesh(const std::shared_ptr<VertexArray>& vertexArrayObject,
+                     const std::shared_ptr<Buffer>& vertexBuffer,
+                     const std::shared_ptr<Buffer>& elementsBuffer,
                      uint32_t elementsCount);
         explicit TexturedMesh(const std::shared_ptr<Mesh>& mesh);
 

@@ -21,7 +21,7 @@ namespace Graphics
             Ready
         };
 
-        explicit ShaderSystem(std::string name);
+        explicit ShaderSystem(const std::string& name);
         virtual ~ShaderSystem() = default;
 
         virtual void InitializeUniformVariables() = 0;
