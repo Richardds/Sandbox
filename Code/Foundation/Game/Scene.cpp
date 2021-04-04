@@ -11,7 +11,7 @@
 #include "IO/Console.h"
 #include "IO/Keyboard.h"
 #include "IO/Mouse.h"
-#include "Math/Utils.h"
+#include "Math/MathUtils.h"
 #include "Util/ResourcesLoader.h"
 #include "Util/Generators/PrimitiveGenerator.h"
 

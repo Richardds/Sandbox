@@ -8,7 +8,7 @@
 #include "Core/Debug.h"
 #include "Core/Types.h"
 #include "Graphics/Texture.h"
-#include "Math/Utils.h"
+#include "Math/MathUtils.h"
 
 Graphics::WaterShader::WaterShader() :
     ShaderSystem("Water"),

@@ -5,7 +5,7 @@
 
 #include "Precompiled.h"
 #include "Graphics/Projection.h"
-#include "Math/Utils.h"
+#include "Math/MathUtils.h"
 
 Graphics::Projection::Projection(const float aspectRatio, const float fieldOfView, const float nearPlane,
                                  const float farPlane) :

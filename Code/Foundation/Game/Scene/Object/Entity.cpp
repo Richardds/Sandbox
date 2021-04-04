@@ -4,8 +4,8 @@
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
-#include "Game/Scene/Entity.h"
-#include "Math/Utils.h"
+#include "Game/Scene/Object/Entity.h"
+#include "Math/MathUtils.h"
 
 Graphics::Entity::Entity()
 {

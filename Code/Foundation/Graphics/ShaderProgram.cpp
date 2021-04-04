@@ -7,7 +7,7 @@
 #include "Graphics/ShaderProgram.h"
 #include "Core/Debug.h"
 #include "IO/Console.h"
-#include "Math/Utils.h"
+#include "Math/MathUtils.h"
 
 GLuint Graphics::ShaderProgram::_inUseGlShaderProgram = 0;
 

@@ -4,7 +4,7 @@
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
-#include "Game/Scene/Skybox.h"
+#include "Game/Scene/Object/Skybox.h"
 #include "Util/Generators/SkyboxGenerator.h"
 
 Graphics::Skybox::Skybox(const std::shared_ptr<Texture>& texture) :

@@ -8,7 +8,7 @@
 #include "Core/Debug.h"
 #include "Core/Types.h"
 #include "Graphics/Core.h"
-#include "Math/Utils.h"
+#include "Math/MathUtils.h"
 
 IO::Mouse::Mouse() :
     _lastMotion(0, 0),

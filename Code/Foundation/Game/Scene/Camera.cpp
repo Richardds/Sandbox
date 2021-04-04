@@ -5,7 +5,7 @@
 
 #include "Precompiled.h"
 #include "Game/Scene/Camera.h"
-#include "Math/Utils.h"
+#include "Math/MathUtils.h"
 #include "Math/Quaternion.h"
 
 Graphics::Camera::Camera() :

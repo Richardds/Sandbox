@@ -9,7 +9,7 @@
 #include "Core/Types.h"
 #include "Game/Scene/Camera.h"
 #include "Graphics/Texture.h"
-#include "Math/Utils.h"
+#include "Math/MathUtils.h"
 
 Graphics::SkyboxShader::SkyboxShader() :
     ShaderSystem("Skybox"),

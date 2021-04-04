@@ -4,8 +4,8 @@
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
-#include "Game/Scene/TargetedCamera.h"
-#include "Math/Utils.h"
+#include "Game/Scene/Camera/TargetedCamera.h"
+#include "Math/MathUtils.h"
 
 Graphics::TargetedCamera::TargetedCamera() :
     _distance(DEFAULT_DISTANCE)

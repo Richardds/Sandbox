@@ -1,10 +1,10 @@
 // ----------------------------------------------------------------------------------------
-//  \file       Utils.cpp
+//  \file       MathUtils.cpp
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
-#include "Math/Utils.h"
+#include "Math/MathUtils.h"
 
 Math::Matrix4f Math::ProjectionMatrix(const float aspectRatio, const float fieldOfView, const float nearPlane,
                                       const float farPlane)

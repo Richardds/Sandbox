@@ -108,9 +108,6 @@
     <ClCompile Include="Graphics\Shaders\EntityShader.cpp">
       <Filter>Graphics\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="Math\Utils.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
     <ClCompile Include="IO\Mouse.cpp">
       <Filter>IO</Filter>
     </ClCompile>
@@ -222,6 +219,12 @@
     <ClCompile Include="Game\Scene\Camera.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\GraphicsUtils.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MathUtils.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Debug.h">
@@ -288,9 +291,6 @@
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Constants.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Utils.h">
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Quaternion.h">
@@ -416,6 +416,12 @@
     </ClInclude>
     <ClInclude Include="Game\Scene\Light.h">
       <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\GraphicsUtils.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathUtils.h">
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
