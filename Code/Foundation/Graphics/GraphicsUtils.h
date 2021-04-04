@@ -11,9 +11,27 @@
 
 namespace Graphics
 {
+    /**
+     * Converts top-left absolute pixel coordinates to bottom-left relative screen coordinates
+     */
+    inline Math::Vector2f PixelToNDCScale(const Math::Vector2f& coordinates, const Math::Vector2f& screenResolution)
+    {
+        return 2.0f * (coordinates / screenResolution);
+    }
+
+    /**
+     * Converts top-left absolute pixel coordinates to bottom-left relative screen coordinates
+     */
     inline Math::Vector2f PixelToNDCScale(const Math::Vector2f& coordinates)
     {
-        const Math::Vector2f screenResolution = Core::Instance().GetResolution();
-        return 2.0f * (coordinates / screenResolution);
+        return PixelToNDCScale(coordinates, Core::Instance().GetResolution());
+    }
+
+    /**
+     * Converts top-left absolute pixel coordinates to bottom-left relative texture coordinates
+     */
+    inline Math::Vector2f PixelToTextureScale(const Math::Vector2f& coordinates, float textureSize)
+    {
+        return coordinates / textureSize;
     }
 }

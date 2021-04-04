@@ -180,13 +180,7 @@
     <ClCompile Include="Util\Random.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Renderers\GlyphRenderer.cpp">
-      <Filter>Graphics\Renderers</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Shaders\GlyphShader.cpp">
-      <Filter>Graphics\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\FontType.cpp">
+    <ClCompile Include="Graphics\TextType.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scene\Camera\TargetedCamera.cpp">
@@ -225,8 +219,17 @@
     <ClCompile Include="Math\MathUtils.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="Util\Generators\GlyphMeshGenerator.cpp">
+    <ClCompile Include="Util\Generators\TextMeshGenerator.cpp">
       <Filter>Util\Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Text.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Renderers\TextRenderer.cpp">
+      <Filter>Graphics\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Shaders\TextShader.cpp">
+      <Filter>Graphics\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -381,13 +384,7 @@
     <ClInclude Include="Util\Random.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Renderers\GlyphRenderer.h">
-      <Filter>Graphics\Renderers</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Shaders\GlyphShader.h">
-      <Filter>Graphics\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\FontType.h">
+    <ClInclude Include="Graphics\TextType.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scene\Camera\TargetedCamera.h">
@@ -426,8 +423,17 @@
     <ClInclude Include="Math\MathUtils.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Util\Generators\GlyphMeshGenerator.h">
+    <ClInclude Include="Util\Generators\TextMeshGenerator.h">
       <Filter>Util\Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Text.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Renderers\TextRenderer.h">
+      <Filter>Graphics\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Shaders\TextShader.h">
+      <Filter>Graphics\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

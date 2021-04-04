@@ -8,7 +8,7 @@ uniform sampler2D glyphsMapSampler;
 
 void main()
 {
-    vec4 glyphColor = texture(glyphsMapSampler, textureCoords);
-
-    fragmentColor = glyphColor;
+    vec4 characterColor = texture(glyphsMapSampler, textureCoords);
+    
+    fragmentColor = characterColor;
 }

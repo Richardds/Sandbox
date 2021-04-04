@@ -19,26 +19,26 @@ namespace Util
 
     protected:
         template <typename T>
-        [[nodiscard]] std::shared_ptr<Graphics::Mesh> Store(const std::vector<T>& vertexData,
-                                                            const std::vector<uint32_t>& elements,
-                                                            const Graphics::VertexAttributeConfig& config);
+        [[nodiscard]] std::shared_ptr<Graphics::Mesh> Store(const std::vector<T>& vertices,
+                                                            const std::vector<uint32_t>& indices,
+                                                            const Graphics::VertexAttributeConfig& config) const;
     };
 
     template <typename T>
-    std::shared_ptr<Graphics::Mesh> Generator::Store(const std::vector<T>& vertexData,
-                                                     const std::vector<uint32_t>& elements,
-                                                     const Graphics::VertexAttributeConfig& config)
+    std::shared_ptr<Graphics::Mesh> Generator::Store(const std::vector<T>& vertices,
+                                                     const std::vector<uint32_t>& indices,
+                                                     const Graphics::VertexAttributeConfig& config) const
     {
         std::shared_ptr<Graphics::VertexArray> vao = std::make_shared<Graphics::VertexArray>();
         vao->Bind();
 
         std::shared_ptr<Graphics::Buffer> ebo = std::make_shared<Graphics::Buffer>(GL_ELEMENT_ARRAY_BUFFER);
         ebo->Bind();
-        ebo->Data(elements);
+        ebo->Data(indices);
 
         std::shared_ptr<Graphics::Buffer> vbo = std::make_shared<Graphics::Buffer>(GL_ARRAY_BUFFER);
         vbo->Bind();
-        vbo->Data(vertexData);
+        vbo->Data(vertices);
 
         config.Apply(vao);
 
@@ -46,6 +46,6 @@ namespace Util
         ebo->Unbind();
         vbo->Unbind();
 
-        return std::make_shared<Graphics::Mesh>(vao, vbo, ebo, static_cast<uint32_t>(elements.size()));
+        return std::make_shared<Graphics::Mesh>(vao, vbo, ebo, static_cast<uint32_t>(indices.size()));
     }
 }

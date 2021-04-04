@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------------------
-//  \file       GlyphShader.h
+//  \file       TextShader.h
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
@@ -11,10 +11,10 @@
 namespace Graphics
 {
     /// Shader system used for drawing glyphs
-    class GlyphShader : public ShaderSystem
+    class TextShader : public ShaderSystem
     {
     public:
-        GlyphShader();
+        TextShader();
 
         void InitializeUniformVariables() override;
         void LoadScreenResolution(const Math::Vector2f& resolution) const;

@@ -64,7 +64,7 @@ bool Graphics::Scene::Setup()
     }
 
     // Setup glyph renderer
-    this->_glyphRenderer = std::make_shared<GlyphRenderer>();
+    this->_glyphRenderer = std::make_shared<TextRenderer>();
     if (!this->_glyphRenderer->Setup())
     {
         IO::Console::Instance().Error("Failed setup glyph renderer\n");

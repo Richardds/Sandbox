@@ -5,6 +5,7 @@
 
 #include <Precompiled.h>
 #include <Util/ResourcesLoader.h>
+#include <Util/Generators/TextMeshGenerator.h>
 #include <IO/Mouse.h>
 
 #include "TestScene.h"
@@ -20,8 +21,9 @@ bool Sandbox::TestScene::Setup()
     this->_camera->SetDistance(5.0f);
     this->_camera->SetRotationX(20.0f);
 
-    // Setup font type
-    this->_glyphRenderer->SetFontType(Util::ResourcesLoader::Instance().LoadFont("tahoma"));
+    // Setup text
+    std::shared_ptr<Graphics::TextType> font = Util::ResourcesLoader::Instance().LoadFont("tahoma");
+    this->_testText = Util::TextMeshGenerator::Instance().Generate("AAA", font, 32.0f);
 
     // Add crate entity
     std::shared_ptr<Graphics::Entity> entity = this->AddEntity("object", "crate");
@@ -65,5 +67,5 @@ void Sandbox::TestScene::Render()
     Scene::Render();
 
     this->_glyphRenderer->Begin();
-    this->_glyphRenderer->Render('X', 100, 100);
+    this->_glyphRenderer->Render(this->_testText);
 }

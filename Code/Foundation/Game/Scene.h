@@ -9,7 +9,7 @@
 #include "Graphics/Renderers/SkyboxRenderer.h"
 #include "Graphics/Renderers/EntityRenderer.h"
 #include "Graphics/Renderers/WaterRenderer.h"
-#include "Graphics/Renderers/GlyphRenderer.h"
+#include "Graphics/Renderers/TextRenderer.h"
 #include "Game/Scene/Light/DirectionalLight.h"
 #include "Game/Scene/Object/Entity.h"
 #include "Game/Scene/Light/PointLight.h"
@@ -52,7 +52,7 @@ namespace Graphics
         std::shared_ptr<SkyboxRenderer> _skyboxRenderer;
         std::shared_ptr<EntityRenderer> _entityRenderer;
         std::shared_ptr<WaterRenderer> _waterRenderer;
-        std::shared_ptr<GlyphRenderer> _glyphRenderer;
+        std::shared_ptr<TextRenderer> _glyphRenderer;
         std::shared_ptr<DirectionalLight> _sun;
         std::shared_ptr<Skybox> _skybox;
         std::unordered_map<std::string, std::shared_ptr<PointLight>> _lights;
