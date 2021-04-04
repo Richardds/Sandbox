@@ -29,7 +29,7 @@ namespace Graphics
         void Debug(const std::string& message);
         [[nodiscard]] std::string GetGlString(GLenum name) const;
         [[nodiscard]] Math::Vector4ui GetViewport() const;
-        [[nodiscard]] Math::Vector2ui GetResolution() const;
+        [[nodiscard]] Math::Vector2f GetResolution() const;
         [[nodiscard]] std::shared_ptr<Projection> MakeProjection(float fieldOfView) const;
         [[nodiscard]] std::string GetDeviceVendor() const;
         [[nodiscard]] std::string GetDeviceName() const;

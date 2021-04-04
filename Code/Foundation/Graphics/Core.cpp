@@ -131,11 +131,11 @@ Math::Vector4ui Graphics::Core::GetViewport() const
     );
 }
 
-Math::Vector2ui Graphics::Core::GetResolution() const
+Math::Vector2f Graphics::Core::GetResolution() const
 {
     const Math::Vector4f viewport = this->GetViewport();
 
-    return Math::Vector2ui(viewport.z, viewport.w);
+    return Math::Vector2f(viewport.z, viewport.w);
 }
 
 std::shared_ptr<Graphics::Projection> Graphics::Core::MakeProjection(float fieldOfView) const
