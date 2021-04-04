@@ -15,7 +15,7 @@ std::shared_ptr<Graphics::Mesh> Util::SkyboxGenerator::Generate(const float size
 {
     const float radius = size / 2.0f;
 
-    const std::vector<Math::Vector3f> vertexData({
+    const std::vector<Math::Vector3f> vertices({
         Math::Vector3f(-radius, radius, -radius),
         Math::Vector3f(-radius, -radius, -radius),
         Math::Vector3f(radius, -radius, -radius),
@@ -27,7 +27,7 @@ std::shared_ptr<Graphics::Mesh> Util::SkyboxGenerator::Generate(const float size
         Math::Vector3f(radius, radius, radius)
     });
 
-    const std::vector<uint32_t> elements({
+    const std::vector<uint32_t> indices({
         0, 1, 3,
         3, 1, 2,
 
@@ -47,5 +47,5 @@ std::shared_ptr<Graphics::Mesh> Util::SkyboxGenerator::Generate(const float size
         0, 5, 1
     });
 
-    return this->Store(vertexData, elements, this->_skyboxAttributesTemplate);
+    return this->Store(vertices, indices, this->_skyboxAttributesTemplate);
 }

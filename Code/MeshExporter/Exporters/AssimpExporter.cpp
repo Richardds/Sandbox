@@ -141,7 +141,7 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
 
     for (uint32_t i = 0; i < verticesCount; i++)
     {
-        const VertexData3 vertexData(
+        const VertexData3 vertices(
             mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z,
             mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z,
             mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y,
@@ -149,15 +149,15 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
         );
 
         // Write vertex attributes
-        this->Write(file, vertexData);
+        this->Write(file, vertices);
 
         // Print vertex data
         //IO::Console::Instance().Info(
         //	"{%ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff},\n",
-        //	vertexData.vertex.x, vertexData.vertex.y, vertexData.vertex.z,
-        //	vertexData.normal.x, vertexData.normal.y, vertexData.normal.z,
-        //	vertexData.texture.x, vertexData.texture.y,
-        //	vertexData.tangent.x, vertexData.tangent.y, vertexData.tangent.z
+        //	vertices.vertex.x, vertices.vertex.y, vertices.vertex.z,
+        //	vertices.normal.x, vertices.normal.y, vertices.normal.z,
+        //	vertices.texture.x, vertices.texture.y,
+        //	vertices.tangent.x, vertices.tangent.y, vertices.tangent.z
         //);
     }
 

@@ -18,7 +18,7 @@ Sandbox::Hardcoded::Hardcoded()
 
 std::shared_ptr<Graphics::Mesh> Sandbox::Hardcoded::Generate()
 {
-    const std::vector<VertexData3> vertexData({
+    const std::vector<VertexData3> vertices({
         {
             0.000000f, 0.750000f, -0.000000f, 0.192450f, 0.962250f, -0.192450f, 0.750000f, 0.375000f, -0.955778f,
             0.228246f, 0.185450f
@@ -405,7 +405,7 @@ std::shared_ptr<Graphics::Mesh> Sandbox::Hardcoded::Generate()
         }
     });
 
-    const std::vector<uint32_t> elements({
+    const std::vector<uint32_t> indices({
         0, 1, 2,
         0, 2, 3,
         4, 5, 6,
@@ -456,5 +456,5 @@ std::shared_ptr<Graphics::Mesh> Sandbox::Hardcoded::Generate()
         92, 94, 95
     });
 
-    return this->Store(vertexData, elements, this->_hardcodedAttributesTemplate);
+    return this->Store(vertices, indices, this->_hardcodedAttributesTemplate);
 }

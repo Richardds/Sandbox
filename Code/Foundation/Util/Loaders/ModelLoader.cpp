@@ -87,7 +87,7 @@ std::shared_ptr<Graphics::Material> Util::ModelLoader::ParseMaterial(std::ifstre
 std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ParseMesh(std::ifstream& file) const
 {
     std::vector<VertexData3> data;
-    std::vector<Math::Vector3ui32> elements;
+    std::vector<Math::Vector3ui32> indices;
 
     uint32_t verticesCount;
     this->Read(file, &verticesCount);
@@ -96,21 +96,21 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ParseMesh(std::ifstre
 
     for (uint32_t i = 0; i < verticesCount; i++)
     {
-        VertexData3 vertexData;
-        this->Read(file, &vertexData);
-        data.emplace_back(vertexData);
+        VertexData3 vertices;
+        this->Read(file, &vertices);
+        data.emplace_back(vertices);
     }
 
     uint32_t trianglesCount;
     this->Read(file, &trianglesCount);
 
-    elements.reserve(3 * static_cast<size_t>(trianglesCount));
+    indices.reserve(3 * static_cast<size_t>(trianglesCount));
 
     for (uint32_t i = 0; i < trianglesCount; i++)
     {
         Math::Vector3ui32 triangleIndexes;
         this->Read(file, &triangleIndexes);
-        elements.emplace_back(triangleIndexes);
+        indices.emplace_back(triangleIndexes);
     }
 
     std::shared_ptr<Graphics::VertexArray> vao = std::make_shared<Graphics::VertexArray>();
@@ -118,7 +118,7 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ParseMesh(std::ifstre
 
     std::shared_ptr<Graphics::Buffer> ebo = std::make_shared<Graphics::Buffer>(GL_ELEMENT_ARRAY_BUFFER);
     ebo->Bind();
-    ebo->Data(elements);
+    ebo->Data(indices);
 
     std::shared_ptr<Graphics::Buffer> vbo = std::make_shared<Graphics::Buffer>(GL_ARRAY_BUFFER);
     vbo->Bind();
@@ -131,7 +131,7 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ParseMesh(std::ifstre
     vbo->Unbind();
 
     std::shared_ptr<Graphics::TexturedMesh> texturedMesh = std::make_shared<Graphics::TexturedMesh>(
-        vao, vbo, ebo, static_cast<uint32_t>(3 * elements.size()));
+        vao, vbo, ebo, static_cast<uint32_t>(3 * indices.size()));
 
     // Load model material
     std::shared_ptr<Graphics::Material> material = this->ParseMaterial(file);

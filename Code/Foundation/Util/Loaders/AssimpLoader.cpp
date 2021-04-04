@@ -66,7 +66,7 @@ void Util::AssimpLoader::ProcessNode(aiNode* node)
 std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* mesh)
 {
     std::vector<VertexData3> data;
-    std::vector<Math::Vector3ui32> elements;
+    std::vector<Math::Vector3ui32> indices;
 
     this->_meshCount++;
 
@@ -82,13 +82,13 @@ std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* 
         );
     }
 
-    elements.reserve(mesh->mNumFaces);
+    indices.reserve(mesh->mNumFaces);
 
     for (uint32_t i = 0; i < mesh->mNumFaces; i++)
     {
         const aiFace face = mesh->mFaces[i];
         _Assert(3 == face.mNumIndices);
-        elements.emplace_back(face.mIndices[0], face.mIndices[1], face.mIndices[2]);
+        indices.emplace_back(face.mIndices[0], face.mIndices[1], face.mIndices[2]);
     }
 
     std::shared_ptr<Graphics::VertexArray> vao = std::make_shared<Graphics::VertexArray>();
@@ -96,7 +96,7 @@ std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* 
 
     std::shared_ptr<Graphics::Buffer> ebo = std::make_shared<Graphics::Buffer>(GL_ELEMENT_ARRAY_BUFFER);
     ebo->Bind();
-    ebo->Data(elements);
+    ebo->Data(indices);
 
     std::shared_ptr<Graphics::Buffer> vbo = std::make_shared<Graphics::Buffer>(GL_ARRAY_BUFFER);
     vbo->Bind();
@@ -109,7 +109,7 @@ std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* 
     vbo->Unbind();
 
     std::shared_ptr<Graphics::TexturedMesh> texturedMesh = std::make_shared<Graphics::TexturedMesh>(
-        vao, vbo, ebo, static_cast<uint32_t>(elements.size()));
+        vao, vbo, ebo, static_cast<uint32_t>(indices.size()));
 
     aiMaterial* material = this->_scene->mMaterials[mesh->mMaterialIndex];
     aiString assetPath;
