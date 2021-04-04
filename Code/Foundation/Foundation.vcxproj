@@ -61,6 +61,7 @@
     <ClCompile Include="Math\MathUtils.cpp" />
     <ClCompile Include="Timing\Time.cpp" />
     <ClCompile Include="Util\FourCC.cpp" />
+    <ClCompile Include="Util\Generators\GlyphMeshGenerator.cpp" />
     <ClCompile Include="Util\Generators\PrimitiveGenerator.cpp" />
     <ClCompile Include="Util\Generators\SkyboxGenerator.cpp" />
     <ClCompile Include="Util\Loaders\DirectDrawSurfaceLoader.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="Timing\Time.h" />
     <ClInclude Include="Util\FourCC.h" />
     <ClInclude Include="Util\Generators\Generator.h" />
+    <ClInclude Include="Util\Generators\GlyphMeshGenerator.h" />
     <ClInclude Include="Util\Generators\PrimitiveGenerator.h" />
     <ClInclude Include="Util\Generators\SkyboxGenerator.h" />
     <ClInclude Include="Util\Loaders\DirectDrawSurfaceLoader.h" />

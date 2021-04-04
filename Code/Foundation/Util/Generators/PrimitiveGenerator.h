@@ -11,15 +11,15 @@
 
 namespace Util
 {
-    /// Generates 2D and 3D quads by given size
+    /// Generates 2D and 3D primitives
     class PrimitiveGenerator : public Generator
     {
     _Singleton(PrimitiveGenerator)
 
     public:
         PrimitiveGenerator();
-        [[nodiscard]] std::shared_ptr<Graphics::Mesh> Generate2dQuad(float size);
-        [[nodiscard]] std::shared_ptr<Graphics::Mesh> Generate3dQuad(float size);
+        [[nodiscard]] std::shared_ptr<Graphics::Mesh> Generate2dQuad(float diameter);
+        [[nodiscard]] std::shared_ptr<Graphics::Mesh> Generate3dQuad(float diameter);
 
     private:
         Graphics::VertexAttributeConfig _2dAttributesTemplate;

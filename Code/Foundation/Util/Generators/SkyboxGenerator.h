@@ -11,7 +11,7 @@
 
 namespace Util
 {
-    /// Generates 3D skybox cube by given size
+    /// Generates 3D skybox cube
     class SkyboxGenerator : public Generator
     {
     _Singleton(SkyboxGenerator)

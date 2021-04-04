@@ -8,7 +8,7 @@ uniform sampler2D glyphsMapSampler;
 
 void main()
 {
-    vec4 glyphColor = texture(glyphsMapSampler, textureCoords * vec2(1.0f, -1.0f)); // TODO: Why is this flipped on y-axis?
+    vec4 glyphColor = texture(glyphsMapSampler, textureCoords);
 
     fragmentColor = glyphColor;
 }

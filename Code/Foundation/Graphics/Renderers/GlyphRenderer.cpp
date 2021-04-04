@@ -1,13 +1,14 @@
 // ----------------------------------------------------------------------------------------
 //  \file       GlyphRenderer.cpp
-//  \author     Richard Boldiö <boldiric@fit.cvut.cz>
+//  \author     Richard Boldi≈° <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
 #include "Graphics/Renderers/GlyphRenderer.h"
+#include "Graphics/GraphicsUtils.h"
 #include "IO/Console.h"
 #include "Util/ResourcesLoader.h"
-#include "Util/Generators/PrimitiveGenerator.h"
+#include "Util/Generators/GlyphMeshGenerator.h"
 
 bool Graphics::GlyphRenderer::Setup()
 {
@@ -22,7 +23,7 @@ bool Graphics::GlyphRenderer::Setup()
     }
 
     // Generate glyph mesh
-    this->_glyphMesh = Util::PrimitiveGenerator::Instance().Generate2dQuad(0.5f);
+    this->_glyphMesh = Util::GlyphMeshGenerator::Instance().Generate(128.0f, 128.0f, Math::Vector2f(0.0f));
 
     this->_shader->Use();
     this->_shader->LoadScreenResolution(Core::Instance().GetResolution());
