@@ -63,11 +63,11 @@ bool Graphics::Scene::Setup()
         return false;
     }
 
-    // Setup glyph renderer
-    this->_glyphRenderer = std::make_shared<TextRenderer>();
-    if (!this->_glyphRenderer->Setup())
+    // Setup text renderer
+    this->_textRenderer = std::make_shared<TextRenderer>();
+    if (!this->_textRenderer->Setup())
     {
-        IO::Console::Instance().Error("Failed setup glyph renderer\n");
+        IO::Console::Instance().Error("Failed setup text renderer\n");
         return false;
     }
 

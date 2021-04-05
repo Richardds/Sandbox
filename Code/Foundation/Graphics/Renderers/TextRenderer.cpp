@@ -7,18 +7,17 @@
 #include "Graphics/Renderers/TextRenderer.h"
 #include "Graphics/GraphicsUtils.h"
 #include "IO/Console.h"
-#include "Util/ResourcesLoader.h"
 #include "Util/Generators/TextMeshGenerator.h"
 
 bool Graphics::TextRenderer::Setup()
 {
     _Assert(State::Initial == this->GetState());
 
-    // Setup glyph shader
+    // Setup text shader
     this->_shader = std::make_shared<TextShader>();
     if (!this->_shader->Setup())
     {
-        IO::Console::Instance().Error("Failed to load glyph shader\n");
+        IO::Console::Instance().Error("Failed to load text shader\n");
         return false;
     }
     

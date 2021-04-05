@@ -52,7 +52,7 @@ namespace Graphics
         std::shared_ptr<SkyboxRenderer> _skyboxRenderer;
         std::shared_ptr<EntityRenderer> _entityRenderer;
         std::shared_ptr<WaterRenderer> _waterRenderer;
-        std::shared_ptr<TextRenderer> _glyphRenderer;
+        std::shared_ptr<TextRenderer> _textRenderer;
         std::shared_ptr<DirectionalLight> _sun;
         std::shared_ptr<Skybox> _skybox;
         std::unordered_map<std::string, std::shared_ptr<PointLight>> _lights;
