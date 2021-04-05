@@ -17,22 +17,22 @@ namespace Util
     {
     public:
         ModelLoader();
-        std::shared_ptr<Graphics::Model> Load(std::ifstream& file);
+        virtual ~ModelLoader() = default;
+
+        void Load(std::shared_ptr<Graphics::Model>& model, std::ifstream& file);
 
     private:
         template <typename T>
-        void Read(std::ifstream& file, T* value) const;
+        void Read(T* value, std::ifstream& file) const;
         std::string ReadString(std::ifstream& file) const;
-        void ParseFile(std::ifstream& file) const;
-        std::shared_ptr<Graphics::Material> ParseMaterial(std::ifstream& file) const;
-        std::shared_ptr<Graphics::TexturedMesh> ParseMesh(std::ifstream& file) const;
+        std::shared_ptr<Graphics::Material> ReadMaterial(std::ifstream& file) const;
+        std::shared_ptr<Graphics::TexturedMesh> ReadMesh(std::ifstream& file) const;
 
         Graphics::VertexAttributeConfig _attributesTemplate;
-        std::shared_ptr<Graphics::Model> _model;
     };
 
     template <typename T>
-    void ModelLoader::Read(std::ifstream& file, T* value) const
+    void ModelLoader::Read(T* value, std::ifstream& file) const
     {
         file.read(reinterpret_cast<char*>(value), sizeof(T));
     }

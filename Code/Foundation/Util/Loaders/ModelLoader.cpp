@@ -19,97 +19,87 @@ Util::ModelLoader::ModelLoader()
     this->_attributesTemplate.Append(GL_FLOAT, 3);
 }
 
-std::shared_ptr<Graphics::Model> Util::ModelLoader::Load(std::ifstream& file)
+void Util::ModelLoader::Load(std::shared_ptr<Graphics::Model>& model, std::ifstream& file)
 {
     FourCC magic;
-    this->Read(file, &magic);
+    this->Read(&magic, file);
 
     if (magic != FourCC("MODL"))
     {
-        throw std::runtime_error("Model file signature mismatch");
+        IO::Console::Instance().Error("File header mismatch\n");
+        return;
     }
 
-    this->_model = std::make_shared<Graphics::Model>();
-
-    this->ParseFile(file);
-
-    this->_model->FinishLoading();
-
-    return _model;
-}
-
-std::string Util::ModelLoader::ReadString(std::ifstream& file) const
-{
-    uint16_t length;
-    this->Read(file, &length);
-
-    char* stringBuffer = new char[static_cast<size_t>(length) + 1];
-    file.read(stringBuffer, length);
-    stringBuffer[length] = '\0';
-
-    std::string string(stringBuffer, length);
-
-    delete[] stringBuffer;
-
-    return string;
-}
-
-void Util::ModelLoader::ParseFile(std::ifstream& file) const
-{
     uint16_t meshesCount;
-    this->Read(file, &meshesCount);
+    this->Read(&meshesCount, file);
 
     for (uint16_t i = 0; i < meshesCount; i++)
     {
         const std::string meshName = this->ReadString(file);
         IO::Console::Instance().Info("-> Mesh '%s'\n", meshName.c_str());
-        this->_model->AddMesh(meshName, this->ParseMesh(file));
+        model->AddMesh(meshName, this->ReadMesh(file));
     }
 }
 
-std::shared_ptr<Graphics::Material> Util::ModelLoader::ParseMaterial(std::ifstream& file) const
+std::string Util::ModelLoader::ReadString(std::ifstream& file) const
+{
+    uint16_t length;
+    this->Read(&length, file);
+
+    char* stringBuffer = new char[static_cast<size_t>(length) + 1];
+    file.read(stringBuffer, length);
+    stringBuffer[length] = '\0';
+
+    std::string str(stringBuffer, length);
+
+    delete[] stringBuffer;
+
+    return str;
+}
+
+std::shared_ptr<Graphics::Material> Util::ModelLoader::ReadMaterial(std::ifstream& file) const
 {
     Math::Vector3f color;
-    this->Read(file, &color);
+    this->Read(&color, file);
 
     float reflectivity;
-    this->Read(file, &reflectivity);
+    this->Read(&reflectivity, file);
 
     float specular;
-    this->Read(file, &specular);
+    this->Read(&specular, file);
 
     float shininess;
-    this->Read(file, &shininess);
+    this->Read(&shininess, file);
 
     return std::make_shared<Graphics::Material>(color, reflectivity, specular, shininess);
 }
 
-std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ParseMesh(std::ifstream& file) const
+std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ReadMesh(std::ifstream& file) const
 {
     std::vector<Graphics::VertexData3> data;
     std::vector<Math::Vector3ui32> indices;
 
     uint32_t verticesCount;
-    this->Read(file, &verticesCount);
+    this->Read(&verticesCount, file);
 
     data.reserve(verticesCount);
 
     for (uint32_t i = 0; i < verticesCount; i++)
     {
         Graphics::VertexData3 vertex;
-        this->Read(file, &vertex);
+        this->Read(&vertex, file);
         data.emplace_back(vertex);
     }
 
     uint32_t trianglesCount;
-    this->Read(file, &trianglesCount);
+    this->Read(&trianglesCount, file);
 
     indices.reserve(3 * static_cast<size_t>(trianglesCount));
 
     for (uint32_t i = 0; i < trianglesCount; i++)
     {
         Math::Vector3ui32 triangleIndexes;
-        this->Read(file, &triangleIndexes);
+        this->Read(&triangleIndexes, file);
         indices.emplace_back(triangleIndexes);
     }
 
@@ -131,15 +121,16 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ParseMesh(std::ifstre
     vbo->Unbind();
 
     std::shared_ptr<Graphics::TexturedMesh> texturedMesh = std::make_shared<Graphics::TexturedMesh>(
-        vao, vbo, ebo, static_cast<uint32_t>(3 * indices.size()));
+        vao, vbo, ebo, static_cast<uint32_t>(3 * indices.size())
+    );
 
     // Load model material
-    std::shared_ptr<Graphics::Material> material = this->ParseMaterial(file);
+    std::shared_ptr<Graphics::Material> material = this->ReadMaterial(file);
     texturedMesh->SetMaterial(*material);
 
     // Load model textures
     uint8_t textureBitfield;
-    this->Read(file, &textureBitfield);
+    this->Read(&textureBitfield, file);
 
     std::string textureName;
 

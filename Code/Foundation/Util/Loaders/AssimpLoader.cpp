@@ -36,14 +36,15 @@ std::shared_ptr<Graphics::Model> Util::AssimpLoader::Load(const std::vector<char
 
     if (!this->_scene || this->_scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !this->_scene->mRootNode)
     {
-        throw std::runtime_error("Failed to parse model");
+        IO::Console::Instance().Error("Failed to parse model\n");
+        return this->_model;
     }
 
     this->ProcessNode(this->_scene->mRootNode);
 
     this->_model->FinishLoading();
 
-    return _model;
+    return this->_model;
 }
 
 void Util::AssimpLoader::ProcessNode(aiNode* node)

@@ -191,8 +191,11 @@ std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadModel(const std::str
     }
 
     ModelLoader loader;
-    model = loader.Load(modelFile);
+    loader.Load(model, modelFile);
+
     modelFile.close();
+
+    model->FinishLoading();
 
     this->_models.emplace(name, model);
 

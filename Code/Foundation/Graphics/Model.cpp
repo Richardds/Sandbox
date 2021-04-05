@@ -39,15 +39,3 @@ std::shared_ptr<Graphics::TexturedMesh> Graphics::Model::GetMesh(const std::stri
 
     return mesh->second;
 }
-
-std::unordered_map<std::string, std::shared_ptr<Graphics::TexturedMesh>> Graphics::Model::GetMeshes() const
-{
-    return this->_meshes;
-}
-
-void Graphics::Model::FinishLoading()
-{
-    _Assert(State::Initial == this->_state);
-
-    this->_state = State::Loaded;
-}
