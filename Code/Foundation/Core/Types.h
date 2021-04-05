@@ -31,48 +31,51 @@ namespace Timing
 namespace Util
 {
     // Diffuse texture bitfield
-    static const uint8_t HAS_TEXTURE_DIFFUSE = 0b001;
+    static const uint8_t HAS_TEXTURE_DIFFUSE  = 0b001;
     // Normals map bitfield
-    static const uint8_t HAS_TEXTURE_NORMALS = 0b010;
+    static const uint8_t HAS_TEXTURE_NORMALS  = 0b010;
     // Specular map bitfield
     static const uint8_t HAS_TEXTURE_SPECULAR = 0b100;
 }
 
-struct VertexData2
+namespace Graphics
 {
-    VertexData2() = default;
-
-    VertexData2(const float vx, const float vy,
-                const float tu, const float tv) :
-        vertex(vx, vy),
-        texture(tu, tv)
+    struct VertexData2
     {
-    }
+        VertexData2() = default;
 
-    Math::Vector2f vertex;
-    Math::Vector2f texture;
-};
+        VertexData2(const float vx, const float vy,
+                    const float tu, const float tv) :
+            vertex(vx, vy),
+            texture(tu, tv)
+        {
+        }
 
-struct VertexData3
-{
-    VertexData3() = default;
+        Math::Vector2f vertex;
+        Math::Vector2f texture;
+    };
 
-    VertexData3(const float vx, const float vy, const float vz,
-                const float nx, const float ny, const float nz,
-                const float tu, const float tv,
-                const float tx, const float ty, const float tz) :
-        vertex(vx, vy, vz),
-        normal(nx, ny, nz),
-        texture(tu, tv),
-        tangent(tx, ty, tz)
+    struct VertexData3
     {
-    }
+        VertexData3() = default;
 
-    Math::Vector3f vertex;
-    Math::Vector3f normal;
-    Math::Vector2f texture;
-    Math::Vector3f tangent;
-};
+        VertexData3(const float vx, const float vy, const float vz,
+                    const float nx, const float ny, const float nz,
+                    const float tu, const float tv,
+                    const float tx, const float ty, const float tz) :
+            vertex(vx, vy, vz),
+            normal(nx, ny, nz),
+            texture(tu, tv),
+            tangent(tx, ty, tz)
+        {
+        }
+
+        Math::Vector3f vertex;
+        Math::Vector3f normal;
+        Math::Vector2f texture;
+        Math::Vector3f tangent;
+    };
+}
 
 template <typename T>
 auto EnumToValue(T const value)

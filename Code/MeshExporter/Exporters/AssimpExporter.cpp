@@ -9,8 +9,6 @@
 #include <Util/FourCC.h>
 #include <Util/ResourcesLoader.h>
 
-#include "IO/Console.h"
-
 Util::AssimpExporter::AssimpExporter() :
     _scene(nullptr)
 {
@@ -141,7 +139,7 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
 
     for (uint32_t i = 0; i < verticesCount; i++)
     {
-        const VertexData3 vertices(
+        const Graphics::VertexData3 vertex(
             mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z,
             mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z,
             mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y,
@@ -149,7 +147,7 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
         );
 
         // Write vertex attributes
-        this->Write(file, vertices);
+        this->Write(file, vertex);
 
         // Print vertex data
         //IO::Console::Instance().Info(

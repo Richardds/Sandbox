@@ -22,7 +22,7 @@ std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate2dQuad(const f
 {
     const float radius = diameter / 2.0f;
 
-    const std::vector<VertexData2> vertices({
+    const std::vector<Graphics::VertexData2> vertices({
         {-radius, -radius, 0.0f, 1.0f},
         { radius, -radius, 1.0f, 1.0f},
         { radius,  radius, 1.0f, 0.0f},
@@ -41,7 +41,7 @@ std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate3dQuad(const f
 {
     const float radius = diameter / 2.0f;
 
-    const std::vector<VertexData3> vertices({
+    const std::vector<Graphics::VertexData3> vertices({
         {
             -radius, 0.0f, radius,
              0.0f, 1.0f, 0.0f,

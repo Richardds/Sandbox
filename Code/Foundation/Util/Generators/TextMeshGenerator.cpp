@@ -21,7 +21,7 @@ std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::str
     const float textureSize = static_cast<float>(fontMap->GetWidth());
 
     Math::Vector2f offset(0.0f);
-    std::vector<VertexData2> vertices;
+    std::vector<Graphics::VertexData2> vertices;
     std::vector<uint32_t> indices;
 
     // Reserve known count of vertices and indices
@@ -49,7 +49,7 @@ std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::str
         const Math::Vector2f texOffset = Graphics::PixelToTextureScale(mapping.offset, textureSize);
 
         // Append character vertex data
-        const std::vector<VertexData2> characterVertexData({
+        const std::vector<Graphics::VertexData2> characterVertexData({
             {ndcOffset.x,              ndcOffset.y - ndcScale.y, texOffset.x,              texOffset.y + texScale.y},
             {ndcOffset.x + ndcScale.x, ndcOffset.y - ndcScale.y, texOffset.x + texScale.x, texOffset.y + texScale.y},
             {ndcOffset.x + ndcScale.x, ndcOffset.y,              texOffset.x + texScale.x, texOffset.y},

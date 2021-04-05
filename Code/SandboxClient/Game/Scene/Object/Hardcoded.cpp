@@ -18,7 +18,7 @@ Sandbox::Hardcoded::Hardcoded()
 
 std::shared_ptr<Graphics::Mesh> Sandbox::Hardcoded::Generate()
 {
-    const std::vector<VertexData3> vertices({
+    const std::vector<Graphics::VertexData3> vertices({
         {
             0.000000f, 0.750000f, -0.000000f, 0.192450f, 0.962250f, -0.192450f, 0.750000f, 0.375000f, -0.955778f,
             0.228246f, 0.185450f

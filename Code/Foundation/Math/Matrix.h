@@ -10,9 +10,9 @@
 namespace Math
 {
     /// 2x2 float matrix
-    typedef glm::mat2x2 Matrix2f;
+    using Matrix2f = glm::mat2x2;
     /// 3x3 float matrix
-    typedef glm::mat3x3 Matrix3f;
+    using Matrix3f = glm::mat3x3;
     /// 4x4 float matrix
-    typedef glm::mat4x4 Matrix4f;
+    using Matrix4f = glm::mat4x4;
 }

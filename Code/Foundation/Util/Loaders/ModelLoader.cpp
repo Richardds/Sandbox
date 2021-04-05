@@ -86,7 +86,7 @@ std::shared_ptr<Graphics::Material> Util::ModelLoader::ParseMaterial(std::ifstre
 
 std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ParseMesh(std::ifstream& file) const
 {
-    std::vector<VertexData3> data;
+    std::vector<Graphics::VertexData3> data;
     std::vector<Math::Vector3ui32> indices;
 
     uint32_t verticesCount;
@@ -96,9 +96,9 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ParseMesh(std::ifstre
 
     for (uint32_t i = 0; i < verticesCount; i++)
     {
-        VertexData3 vertices;
-        this->Read(file, &vertices);
-        data.emplace_back(vertices);
+        Graphics::VertexData3 vertex;
+        this->Read(file, &vertex);
+        data.emplace_back(vertex);
     }
 
     uint32_t trianglesCount;
