@@ -112,9 +112,9 @@ void Graphics::Scene::Update(const float delta)
         this->_time += delta;
 
         // GoForward water distortion offset motion
-        for (auto& water : this->_waterTiles)
+        for (auto& [name, waterTile] : this->_waterTiles)
         {
-            water.second->Update(delta);
+            waterTile->Update(delta);
         }
     }
 }
@@ -127,13 +127,13 @@ void Graphics::Scene::Render()
     this->RenderEntities();
 
     // Render the water tiles using multi-pass technique
-    for (auto& water : this->_waterTiles)
+    for (auto& [name, waterTile] : this->_waterTiles)
     {
         // Render scene to water reflection frame buffer
         // Cull everything under the water
         this->_entityRenderer->GetShader()->EnableClippingPlane(
-            Math::Vector4f(0.0f, 1.0f, 0.0f, -water.second->GetPositionY()));
-        const float distance = 2.0f * (this->_camera->GetPositionY() - water.second->GetPositionY());
+            Math::Vector4f(0.0f, 1.0f, 0.0f, -waterTile->GetPositionY()));
+        const float distance = 2.0f * (this->_camera->GetPositionY() - waterTile->GetPositionY());
         this->_camera->IncreasePositionY(-distance);
         this->_camera->InvertRotationX();
         this->_waterRenderer->RenderToReflectionBuffer([this]()
@@ -147,7 +147,7 @@ void Graphics::Scene::Render()
         // Render scene to water refraction frame buffer
         // Cull everything 0.025 units above the water
         this->_entityRenderer->GetShader()->EnableClippingPlane(
-            Math::Vector4f(0.0f, -1.0f, 0.0f, water.second->GetPositionY() + 0.025f));
+            Math::Vector4f(0.0f, -1.0f, 0.0f, waterTile->GetPositionY() + 0.025f));
         this->_waterRenderer->RenderToRefractionBuffer([this]()
         {
             this->RenderSkybox();
@@ -157,7 +157,7 @@ void Graphics::Scene::Render()
 
         // Render the water tile to the screen buffer
         this->_waterRenderer->Begin(this->_camera, this->_sun, this->_lights, this->_flashLight);
-        this->_waterRenderer->Render(water.second);
+        this->_waterRenderer->Render(waterTile);
     }
 
     // Render the skybox to the screen buffer
@@ -168,9 +168,9 @@ void Graphics::Scene::RenderEntities()
 {
     this->_entityRenderer->Begin(this->_camera, this->_sun, this->_skybox, this->_lights, this->_flashLight);
 
-    for (auto& entity : this->_entities)
+    for (const auto& [name, entity] : this->_entities)
     {
-        this->_entityRenderer->Render(entity.second);
+        this->_entityRenderer->Render(entity);
     }
 }
 

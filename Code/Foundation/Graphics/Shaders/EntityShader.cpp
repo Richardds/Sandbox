@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       EntityShader.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
@@ -47,9 +47,8 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeMatrix3fLocation("normalTransformation", Math::Matrix4f(1.0f), this->_normalTransformationLocation);
 
     // Setup clipping plane
-    this->InitializeVector4fLocation("clippingPlane.plane", Math::Vector4f(0.0f, -1.0f, 0.0f, 0.5f),
-                                     this->_clippingPlaneLocation.plane);
     this->InitializeBoolLocation("clippingPlane.enabled", true, this->_clippingPlaneLocation.enabled);
+    this->InitializeVector4fLocation("clippingPlane.plane", Math::Vector4f(0.0f, -1.0f, 0.0f, 0.5f), this->_clippingPlaneLocation.plane);
 
     // Setup sun
     this->InitializeVector3fLocation("sun.direction", Math::Vector3f(0.0f, -1.0f, 0.0f), this->_sunLocation.direction);
@@ -61,13 +60,17 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeIntLocation("lightsCount", 0, this->_lightsCountLocation);
     for (int index = 0; index < MAX_LIGHT_COUNT; index++)
     {
-        this->InitializeVector3fLocation("light[" + std::to_string(index) + "].position", Math::Vector3f(0.0f),
+        this->InitializeVector3fLocation("light[" + std::to_string(index) + "].position",
+                                         Math::Vector3f(0.0f),
                                          this->_lightLocations[index].position);
         this->InitializeVector3fLocation("light[" + std::to_string(index) + "].attenuation",
-                                         Math::Vector3f(1.0f, 0.0f, 0.0f), this->_lightLocations[index].attenuation);
-        this->InitializeVector3fLocation("light[" + std::to_string(index) + "].diffuse", Math::Vector3f(1.0f),
+                                         Math::Vector3f(1.0f, 0.0f, 0.0f),
+                                         this->_lightLocations[index].attenuation);
+        this->InitializeVector3fLocation("light[" + std::to_string(index) + "].diffuse",
+                                         Math::Vector3f(1.0f),
                                          this->_lightLocations[index].diffuse);
-        this->InitializeFloatLocation("light[" + std::to_string(index) + "].specular", 1.0f,
+        this->InitializeFloatLocation("light[" + std::to_string(index) + "].specular",
+                                      1.0f,
                                       this->_lightLocations[index].specular);
     }
 
@@ -75,7 +78,7 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeBoolLocation("flashLightEnabled", false, this->_flashLightEnabledLocation);
     this->InitializeVector3fLocation("flashLight.position", Math::Vector3f(0.0f), this->_flashLightLocation.position);
     this->InitializeVector3fLocation("flashLight.direction", Math::Vector3f(0.0f, -1.0f, 0.0f), this->_flashLightLocation.direction);
-    this->InitializeFloatLocation("flashLight.cutOff", 0.965926f, this->_flashLightLocation.cutOff); // cosine 15 degrees
+    this->InitializeFloatLocation("flashLight.cutOff", 0.965926f, this->_flashLightLocation.cutOff);           // cosine 15 degrees
     this->InitializeFloatLocation("flashLight.outerCutOff", 0.951056f, this->_flashLightLocation.outerCutOff); // cosine 18 degrees
     this->InitializeVector3fLocation("flashLight.diffuse", Math::Vector3f(1.0f), this->_flashLightLocation.diffuse);
     this->InitializeFloatLocation("flashLight.specular", 1.0f, this->_flashLightLocation.specular);
@@ -98,16 +101,12 @@ void Graphics::EntityShader::InitializeUniformVariables()
     this->InitializeBoolLocation("specularSampler.enabled", false, this->_specularSamplerLocation.enabled);
     this->InitializeBoolLocation("skyboxSampler.enabled", false, this->_skyboxSamplerLocation.enabled);
 
-    this->InitializeIntLocation("diffuseSampler.texture", EnumToValue(Texture::Bank::Diffuse),
-                                this->_diffuseSamplerLocation.texture);
-    this->InitializeIntLocation("normalSampler.texture", EnumToValue(Texture::Bank::Normal),
-                                this->_normalSamplerLocation.texture);
-    this->InitializeIntLocation("specularSampler.texture", EnumToValue(Texture::Bank::Specular),
-                                this->_specularSamplerLocation.texture);
+    this->InitializeIntLocation("diffuseSampler.texture", EnumToValue(Texture::Bank::Diffuse), this->_diffuseSamplerLocation.texture);
+    this->InitializeIntLocation("normalSampler.texture", EnumToValue(Texture::Bank::Normal), this->_normalSamplerLocation.texture);
+    this->InitializeIntLocation("specularSampler.texture", EnumToValue(Texture::Bank::Specular), this->_specularSamplerLocation.texture);
+    this->InitializeIntLocation("skyboxSampler.texture", EnumToValue(Texture::Bank::Skybox), this->_skyboxSamplerLocation.texture);
 
-    this->InitializeIntLocation("skyboxSampler.texture", EnumToValue(Texture::Bank::Skybox),
-                                this->_skyboxSamplerLocation.texture);
-
+    // Setup deformation factor
     this->InitializeFloatLocation("deformationFactor", 0.0f, this->_deformationFactorLocation);
 }
 
@@ -150,24 +149,23 @@ void Graphics::EntityShader::LoadSun(const std::shared_ptr<DirectionalLight>& su
     this->LoadFloat(this->_sunLocation.specular, 1.0f);
 }
 
-void Graphics::EntityShader::LoadLights(
-    const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const
+void Graphics::EntityShader::LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const
 {
     const int lightsCount = static_cast<int>(lights.size());
-    _Assert(EntityShader::MAX_LIGHT_COUNT > lightsCount - 1);
+    _Assert(lightsCount - 1 < EntityShader::MAX_LIGHT_COUNT);
     this->LoadInt(this->_lightsCountLocation, lightsCount);
 
     int index = 0;
-    for (const auto& light : lights)
+    for (const auto& [name, light] : lights)
     {
-        this->LoadLight(index, light.second);
+        this->LoadLight(index, light);
         index++;
     }
 }
 
 void Graphics::EntityShader::LoadLight(const int index, const std::shared_ptr<PointLight>& light) const
 {
-    _Assert(EntityShader::MAX_LIGHT_COUNT > index);
+    _Assert(index < EntityShader::MAX_LIGHT_COUNT);
     const Math::Vector3f diffuseColor = light->GetIntensity() * light->GetColor();
     this->LoadVector3f(this->_lightLocations[index].position, light->GetPosition());
     this->LoadVector3f(this->_lightLocations[index].diffuse, diffuseColor);
@@ -209,8 +207,7 @@ void Graphics::EntityShader::LoadFogEnabled(const bool enabled)
 void Graphics::EntityShader::LoadWorldTransformation(const Math::Matrix4f& transformationMatrix) const
 {
     this->LoadMatrix4f(this->_worldTransformationLocation, transformationMatrix);
-    this->LoadMatrix3f(this->_normalTransformationLocation,
-                       transpose(inverse(transformationMatrix)));
+    this->LoadMatrix3f(this->_normalTransformationLocation, transpose(inverse(transformationMatrix)));
 }
 
 void Graphics::EntityShader::LoadMaterial(const Material& material) const
@@ -236,7 +233,7 @@ void Graphics::EntityShader::LoadHasSpecularMap(const bool hasSpecularMap) const
     this->LoadBool(this->_specularSamplerLocation.enabled, hasSpecularMap);
 }
 
-void Graphics::EntityShader::LoadHasSkyboxMap(bool hasSkyboxMap) const
+void Graphics::EntityShader::LoadHasSkyboxMap(const bool hasSkyboxMap) const
 {
     this->LoadBool(this->_skyboxSamplerLocation.enabled, hasSkyboxMap);
 }

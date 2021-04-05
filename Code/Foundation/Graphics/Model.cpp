@@ -14,9 +14,9 @@ Graphics::Model::Model() :
 
 void Graphics::Model::Render(const std::shared_ptr<EntityShader>& shader)
 {
-    for (auto& mesh : this->_meshes)
+    for (const auto& [name, mesh] : this->_meshes)
     {
-        mesh.second->Render(shader);
+        mesh->Render(shader);
     }
 }
 

@@ -127,9 +127,9 @@ void Graphics::WaterShader::LoadLights(const std::unordered_map<std::string, std
     this->LoadInt(this->_lightsCountLocation, lightsCount);
 
     int index = 0;
-    for (const auto& light : lights)
+    for (const auto& [name, light] : lights)
     {
-        this->LoadLight(index, light.second);
+        this->LoadLight(index, light);
         index++;
     }
 }
