@@ -12,21 +12,30 @@
 
 Graphics::TextShader::TextShader() :
     ShaderSystem("Glyph"),
-    _screenResolutionLocation(-1),
-    _glyphsMapSamplerLocation(-1)
+    _transformationLocation(-1),
+    _fontMapSamplerLocation(-1),
+    _colorLocation(-1)
 {
 }
 
 void Graphics::TextShader::InitializeUniformVariables()
 {
     // Setup transformations
-    this->InitializeVector2fLocation("screenResolution", Math::Vector2f(1280.0f, 720.0f), this->_screenResolutionLocation);
+    this->InitializeMatrix3fLocation("transformation", Math::Matrix3f(1.0f), this->_transformationLocation);
 
-    // Setup glyphs texture mapper
-    this->InitializeIntLocation("glyphsMapSampler", EnumToValue(Texture::Bank::Font), this->_glyphsMapSamplerLocation);
+    // Setup font mask mapper
+    this->InitializeIntLocation("fontMapSampler", EnumToValue(Texture::Bank::Font), this->_fontMapSamplerLocation);
+
+    // Color
+    this->InitializeVector4fLocation("color", Math::Vector4f(1.0f), this->_colorLocation);
 }
 
-void Graphics::TextShader::LoadScreenResolution(const Math::Vector2f& resolution) const
+void Graphics::TextShader::LoadTransformation(const Math::Matrix3f& transformation) const
 {
-    this->LoadVector2f(this->_screenResolutionLocation, resolution);
+    this->LoadMatrix3f(this->_transformationLocation, transformation);
+}
+
+void Graphics::TextShader::LoadColor(const Math::Vector4f& color) const
+{
+    this->LoadVector4f(this->_colorLocation, color);
 }

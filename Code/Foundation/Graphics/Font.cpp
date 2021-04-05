@@ -1,12 +1,12 @@
 // ----------------------------------------------------------------------------------------
-//  \file       TextType.cpp
+//  \file       Font.cpp
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
-#include "Graphics/TextType.h"
+#include "Graphics/Font.h"
 
-Graphics::TextType::TextType(const std::shared_ptr<Texture>& fontMap,
+Graphics::Font::Font(const std::shared_ptr<Texture>& fontMap,
                              const std::unordered_map<char, CharacterMapping>& charactersMapping) :
     _fontMap(fontMap),
     _charactersMapping(charactersMapping)
@@ -19,7 +19,7 @@ Graphics::TextType::TextType(const std::shared_ptr<Texture>& fontMap,
     _Assert(!charactersMapping.empty());
 }
 
-const Graphics::TextType::CharacterMapping& Graphics::TextType::GetCharacterMapping(const char character)
+Graphics::Font::CharacterMapping Graphics::Font::GetCharacterMapping(const char character) const
 {
     const auto it = this->_charactersMapping.find(character);
     if (it != this->_charactersMapping.end())

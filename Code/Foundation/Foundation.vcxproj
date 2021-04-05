@@ -30,7 +30,7 @@
     <ClCompile Include="Game\Scene\Object\Water.cpp" />
     <ClCompile Include="Graphics\Buffer.cpp" />
     <ClCompile Include="Graphics\Core.cpp" />
-    <ClCompile Include="Graphics\TextType.cpp" />
+    <ClCompile Include="Graphics\Font.cpp" />
     <ClCompile Include="Graphics\FrameBuffer.cpp" />
     <ClCompile Include="Graphics\GraphicsUtils.cpp" />
     <ClCompile Include="Graphics\Material.cpp" />
@@ -60,6 +60,8 @@
     <ClCompile Include="IO\Keyboard.cpp" />
     <ClCompile Include="IO\Mouse.cpp" />
     <ClCompile Include="Math\MathUtils.cpp" />
+    <ClCompile Include="Math\MathUtils2D.cpp" />
+    <ClCompile Include="Math\MathUtils3D.cpp" />
     <ClCompile Include="Timing\Time.cpp" />
     <ClCompile Include="Util\FourCC.cpp" />
     <ClCompile Include="Util\Generators\TextMeshGenerator.cpp" />
@@ -93,7 +95,7 @@
     <ClInclude Include="Game\Scene\Object\Water.h" />
     <ClInclude Include="Graphics\Buffer.h" />
     <ClInclude Include="Graphics\Core.h" />
-    <ClInclude Include="Graphics\TextType.h" />
+    <ClInclude Include="Graphics\Font.h" />
     <ClInclude Include="Graphics\FrameBuffer.h" />
     <ClInclude Include="Graphics\GraphicsUtils.h" />
     <ClInclude Include="Graphics\Material.h" />
@@ -125,6 +127,8 @@
     <ClInclude Include="IO\Mouse.h" />
     <ClInclude Include="Math\Constants.h" />
     <ClInclude Include="Math\MathUtils.h" />
+    <ClInclude Include="Math\MathUtils2D.h" />
+    <ClInclude Include="Math\MathUtils3D.h" />
     <ClInclude Include="Math\Matrix.h" />
     <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Math\Vector.h" />

@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------------------
-//  \file       TextType.h
+//  \file       Font.h
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
@@ -10,7 +10,7 @@
 
 namespace Graphics
 {
-    class TextType
+    class Font
     {
     public:
         struct CharacterMapping
@@ -20,11 +20,11 @@ namespace Graphics
             Math::Vector2f offset;
         };
 
-        TextType(const std::shared_ptr<Texture>& fontMap,
+        Font(const std::shared_ptr<Texture>& fontMap,
                  const std::unordered_map<char, CharacterMapping>& charactersMapping);
-        virtual ~TextType() = default;
+        virtual ~Font() = default;
 
-        const CharacterMapping& GetCharacterMapping(char character);
+        [[nodiscard]] CharacterMapping GetCharacterMapping(char character) const;
         [[nodiscard]] std::shared_ptr<Texture> GetFontMap() const;
         void SetFontMap(const std::shared_ptr<Texture>& texture);
 
@@ -33,12 +33,12 @@ namespace Graphics
         std::unordered_map<char, CharacterMapping> _charactersMapping;
     };
 
-    inline std::shared_ptr<Texture> TextType::GetFontMap() const
+    inline std::shared_ptr<Texture> Font::GetFontMap() const
     {
         return this->_fontMap;
     }
 
-    inline void TextType::SetFontMap(const std::shared_ptr<Texture>& texture)
+    inline void Font::SetFontMap(const std::shared_ptr<Texture>& texture)
     {
         this->_fontMap = texture;
     }

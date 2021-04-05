@@ -102,19 +102,16 @@ std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadCubeMap(const std:
     return this->LoadTexture(name, GL_TEXTURE_CUBE_MAP);
 }
 
-std::shared_ptr<Graphics::TextType> Util::ResourcesLoader::LoadFont(const std::string& name)
+std::shared_ptr<Graphics::Font> Util::ResourcesLoader::LoadFont(const std::string& name)
 {
     std::shared_ptr<Graphics::Texture> fontMap = this->LoadTexture("Fonts/" + name);
-    std::unordered_map<char, Graphics::TextType::CharacterMapping> charactersMapping;
+    std::unordered_map<char, Graphics::Font::CharacterMapping> charactersMapping;
+    
+    charactersMapping['A'] = {52.0f, 62.0f, Math::Vector2f(56.0f, 211.0f)};
+    charactersMapping['B'] = {43.0f, 62.0f, Math::Vector2f(108.0f, 211.0f)};
+    charactersMapping['C'] = {48.0f, 64.0f, Math::Vector2f(279.0f, 81.0f)};
 
-    Graphics::TextType::CharacterMapping testMapping = {};
-    testMapping.width = 52.0f;
-    testMapping.height = 62.0f;
-    testMapping.offset = Math::Vector2f(56.0f, 211.0f);
-
-    charactersMapping['A'] = testMapping;
-
-    return std::make_shared<Graphics::TextType>(fontMap, charactersMapping);
+    return std::make_shared<Graphics::Font>(fontMap, charactersMapping);
 }
 
 std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadFBX(const std::string& name)

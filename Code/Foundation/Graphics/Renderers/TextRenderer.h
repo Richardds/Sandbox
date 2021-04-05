@@ -12,7 +12,7 @@
 
 namespace Graphics
 {
-    /// Renderer which renders glyphs
+    /// Renderer which renders text
     class TextRenderer : public Renderer<TextShader>
     {
     public:

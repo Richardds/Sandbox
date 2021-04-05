@@ -10,17 +10,19 @@
 
 namespace Graphics
 {
-    /// Shader system used for drawing glyphs
+    /// Shader system used for drawing text
     class TextShader : public ShaderSystem
     {
     public:
         TextShader();
 
         void InitializeUniformVariables() override;
-        void LoadScreenResolution(const Math::Vector2f& resolution) const;
+        void LoadTransformation(const Math::Matrix3f& transformation) const;
+        void LoadColor(const Math::Vector4f& color) const;
 
     private:
-        GLint _screenResolutionLocation;
-        GLint _glyphsMapSamplerLocation;
+        GLint _transformationLocation;
+        GLint _fontMapSamplerLocation;
+        GLint _colorLocation;
     };
 }

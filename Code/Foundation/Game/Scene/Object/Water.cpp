@@ -27,7 +27,7 @@ void Graphics::Water::Render(const std::shared_ptr<WaterShader>& shader) const
         return;
     }
 
-    shader->LoadWorldTransformation(Math::TranslationMatrix(this->_position));
+    shader->LoadWorldTransformation(Math::TranslationMatrix3D(this->_position));
     shader->LoadDistortionOffset(this->_distortionOffset);
     shader->LoadTextureTiling(this->_tiling);
 

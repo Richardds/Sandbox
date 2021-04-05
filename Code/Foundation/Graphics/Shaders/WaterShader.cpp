@@ -103,7 +103,7 @@ void Graphics::WaterShader::LoadCamera(const std::shared_ptr<Camera>& camera) co
 {
     _Assert(camera);
 
-    const Math::Matrix4f viewMatrix = Math::ViewMatrix(camera->GetPosition(), camera->GetRotationX(),
+    const Math::Matrix4f viewMatrix = Math::ViewMatrix3D(camera->GetPosition(), camera->GetRotationX(),
                                                        camera->GetRotationY());
     this->LoadMatrix4f(this->_viewLocation, viewMatrix);
     this->LoadVector3f(this->_viewPositionLocation, camera->GetPosition());

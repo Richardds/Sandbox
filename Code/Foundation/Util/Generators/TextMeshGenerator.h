@@ -7,13 +7,13 @@
 
 #include "Precompiled.h"
 #include "Core/Singleton.h"
-#include "Graphics/TextType.h"
+#include "Graphics/Font.h"
 #include "Graphics/Text.h"
 #include "Util/Generators/Generator.h"
 
 namespace Util
 {
-    /// Generates 2D glyph mesh
+    /// Generates 2D text mesh
     class TextMeshGenerator : public Generator
     {
     _Singleton(TextMeshGenerator)
@@ -22,8 +22,7 @@ namespace Util
         TextMeshGenerator();
 
         [[nodiscard]] std::shared_ptr<Graphics::Text> Generate(const std::string& text,
-                                                               const std::shared_ptr<Graphics::TextType>& textType,
-                                                               float size) const;
+                                                               const std::shared_ptr<Graphics::Font>& textType) const;
 
     private:
         Graphics::VertexAttributeConfig _characterAttributesTemplate;

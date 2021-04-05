@@ -25,7 +25,7 @@ void Graphics::Entity::Render(const std::shared_ptr<EntityShader>& shader) const
     }
 
     shader->LoadWorldTransformation(
-        Math::TransformationMatrix(
+        Math::TransformationMatrix3D(
             this->_position,
             this->_rotationX, this->_rotationY, this->_rotationZ,
             this->_scale

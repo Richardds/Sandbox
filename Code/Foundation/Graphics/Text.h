@@ -25,9 +25,15 @@ namespace Graphics
         void Render(const std::shared_ptr<TextShader>& shader) const;
         [[nodiscard]] std::shared_ptr<Texture> GetFontMap() const;
         void SetFontMap(const std::shared_ptr<Texture>& texture);
+        [[nodiscard]] float GetSize() const;
+        void SetSize(float size);
+        [[nodiscard]] Math::Vector4f GetColor() const;
+        void SetColor(const Math::Vector4f& color);
 
     private:
         std::shared_ptr<Texture> _fontMap;
+        float _size;
+        Math::Vector4f _color;
     };
     
     inline std::shared_ptr<Texture> Text::GetFontMap() const
@@ -40,5 +46,27 @@ namespace Graphics
         _Assert(texture);
         _Assert(Texture::State::Loaded == texture->GetState());
         this->_fontMap = texture;
+    }
+
+    inline float Text::GetSize() const
+    {
+        return this->_size;
+    }
+
+    inline void Text::SetSize(const float size)
+    {
+        _Assert(size > 0);
+        this->_size = size;
+    }
+
+    inline Math::Vector4f Text::GetColor() const
+    {
+        return this->_color;
+    }
+
+    inline void Text::SetColor(const Math::Vector4f& color)
+    {
+        _Assert(color.a > 0.0f);
+        this->_color = color;
     }
 }

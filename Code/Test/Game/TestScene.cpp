@@ -22,8 +22,10 @@ bool Sandbox::TestScene::Setup()
     this->_camera->SetRotationX(20.0f);
 
     // Setup text
-    std::shared_ptr<Graphics::TextType> font = Util::ResourcesLoader::Instance().LoadFont("tahoma");
-    this->_testText = Util::TextMeshGenerator::Instance().Generate("AAA", font, 32.0f);
+    const std::shared_ptr<Graphics::Font> font = Util::ResourcesLoader::Instance().LoadFont("tahoma");
+    this->_testText = Util::TextMeshGenerator::Instance().Generate("ABC", font);
+    this->_testText->SetSize(32.0f);
+    this->_testText->SetColor(Math::Vector4f(1.0f, 1.0f, 0.0f, 1.0f));
 
     // Add crate entity
     std::shared_ptr<Graphics::Entity> entity = this->AddEntity("object", "crate");
@@ -66,6 +68,6 @@ void Sandbox::TestScene::Render()
 {
     Scene::Render();
 
-    this->_glyphRenderer->Begin();
-    this->_glyphRenderer->Render(this->_testText);
+    this->_textRenderer->Begin();
+    this->_textRenderer->Render(this->_testText);
 }

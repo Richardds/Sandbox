@@ -7,7 +7,7 @@
 
 #include "Precompiled.h"
 #include "Core/Singleton.h"
-#include "Graphics/TextType.h"
+#include "Graphics/Font.h"
 #include "Graphics/Model.h"
 #include "Graphics/Shader.h"
 #include "Graphics/Texture.h"
@@ -27,7 +27,7 @@ namespace Util
         [[nodiscard]] std::shared_ptr<Graphics::Shader> LoadShader(const std::string& name, GLenum type) const;
         [[nodiscard]] std::shared_ptr<Graphics::Texture> LoadTexture(const std::string& name, GLenum target = GL_TEXTURE_2D);
         [[nodiscard]] std::shared_ptr<Graphics::Texture> LoadCubeMap(const std::string& name);
-        [[nodiscard]] std::shared_ptr<Graphics::TextType> LoadFont(const std::string& name);
+        [[nodiscard]] std::shared_ptr<Graphics::Font> LoadFont(const std::string& name);
         [[nodiscard]] std::shared_ptr<Graphics::Model> LoadFBX(const std::string& name);
         [[nodiscard]] std::shared_ptr<Graphics::Model> LoadModel(const std::string& name);
 

@@ -18,5 +18,5 @@ Graphics::Projection::Projection(const float aspectRatio, const float fieldOfVie
 
 Math::Matrix4f Graphics::Projection::GetMatrix() const
 {
-    return Math::ProjectionMatrix(this->_aspectRatio, this->_fieldOfView, this->_nearPlane, this->_farPlane);
+    return Math::ProjectionMatrix3D(this->_aspectRatio, this->_fieldOfView, this->_nearPlane, this->_farPlane);
 }

@@ -5,12 +5,17 @@ layout (location = 1) in vec2 a_Texture;
 
 out vec2 textureCoords;
 
-uniform vec2 screenResolution;
+uniform mat3 transformation;
 
 void main()
 {
+    vec2 vertexPosition = a_Position;
+
+    // Calculate transformed position
+    vec3 transformedPosition = transformation * vec3(vertexPosition, 1.0f);
+
     // Pass interpolated texture coordinates
     textureCoords = a_Texture;
 
-    gl_Position = vec4(a_Position, 0.0f, 1.0f);
+    gl_Position = vec4(transformedPosition.xy, 0.0f, 1.0f);
 }

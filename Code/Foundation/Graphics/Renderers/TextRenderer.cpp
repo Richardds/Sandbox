@@ -20,9 +20,6 @@ bool Graphics::TextRenderer::Setup()
         IO::Console::Instance().Error("Failed to load text shader\n");
         return false;
     }
-    
-    this->_shader->Use();
-    this->_shader->LoadScreenResolution(Core::Instance().GetResolution());
 
     this->FinishLoading();
 

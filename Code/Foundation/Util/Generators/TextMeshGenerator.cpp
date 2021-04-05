@@ -15,8 +15,7 @@ Util::TextMeshGenerator::TextMeshGenerator()
 }
 
 std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::string& text,
-                                                                  const std::shared_ptr<Graphics::TextType>& textType,
-                                                                  float size) const
+                                                                  const std::shared_ptr<Graphics::Font>& textType) const
 {
     const std::shared_ptr<Graphics::Texture>& fontMap = textType->GetFontMap();
     const float textureSize = static_cast<float>(fontMap->GetWidth());
@@ -36,7 +35,7 @@ std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::str
     for (const char character : text)
     {
         // Retrieve mapping from text type
-        const Graphics::TextType::CharacterMapping& mapping = textType->GetCharacterMapping(character);
+        const Graphics::Font::CharacterMapping& mapping = textType->GetCharacterMapping(character);
 
         // NDC
         const Math::Vector2f ndcScale = Graphics::PixelToNDCScale(Math::Vector2f(mapping.width, mapping.height));

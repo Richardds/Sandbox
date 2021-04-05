@@ -197,7 +197,7 @@ Math::Vector3f Graphics::Scene::GetScreenWorldPosition(const Math::Vector2ui& sc
 
     const Math::Vector3f worldPosition = unProject(
         Math::Vector3f(screenPosition.x, viewport.w - screenPosition.y, depth),
-        Math::ViewMatrix(this->_camera->GetPosition(), this->_camera->GetRotationX(), this->_camera->GetRotationY()),
+        Math::ViewMatrix3D(this->_camera->GetPosition(), this->_camera->GetRotationX(), this->_camera->GetRotationY()),
         Core::Instance().MakeProjection(this->_camera->GetFieldOfView())->GetMatrix(),
         viewport
     );
