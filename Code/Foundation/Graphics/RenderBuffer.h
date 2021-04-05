@@ -21,7 +21,7 @@ namespace Graphics
         };
 
         RenderBuffer();
-        ~RenderBuffer();
+        virtual ~RenderBuffer();
 
         [[nodiscard]] State GetState() const;
         void Storage(GLenum format, unsigned int width, unsigned int height);

@@ -18,7 +18,7 @@ namespace Util
 
     public:
         DirectDrawSurfaceLoader() = default;
-        ~DirectDrawSurfaceLoader() = default;
+        virtual ~DirectDrawSurfaceLoader() = default;
 
         void Load(std::shared_ptr<Graphics::Texture>& texture, std::vector<char>& buffer) const;
 

@@ -15,6 +15,7 @@ namespace Graphics
     public:
         VertexArray();
         virtual ~VertexArray();
+
         void Bind() const;
         [[nodiscard]] bool IsBound() const;
         void Unbind() const;

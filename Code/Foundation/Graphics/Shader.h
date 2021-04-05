@@ -22,6 +22,7 @@ namespace Graphics
 
         explicit Shader(GLenum type);
         virtual ~Shader();
+
         [[nodiscard]] State GetState() const;
         void SetSource(const std::string& source);
         bool Compile();

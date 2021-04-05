@@ -16,6 +16,7 @@ namespace Graphics
     public:
         HasPosition();
         virtual ~HasPosition() = default;
+
         explicit HasPosition(const Math::Vector3f& position);
         [[nodiscard]] Math::Vector3f GetPosition() const;
         void SetPosition(const Math::Vector3f& position);

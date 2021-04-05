@@ -21,6 +21,7 @@ namespace Graphics
     public:
         Core();
         virtual ~Core();
+
         bool Setup();
         void Destroy();
         [[nodiscard]] bool IsCreated() const;

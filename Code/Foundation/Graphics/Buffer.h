@@ -16,6 +16,7 @@ namespace Graphics
     public:
         explicit Buffer(GLenum target);
         virtual ~Buffer();
+
         void Bind() const;
         [[nodiscard]] bool IsBound() const;
         void Unbind() const;

@@ -18,6 +18,7 @@ namespace Graphics
     public:
         FrameBuffer();
         virtual ~FrameBuffer();
+
         void Bind() const;
         void Activate(unsigned int width, unsigned int height) const;
         void Clear() const;

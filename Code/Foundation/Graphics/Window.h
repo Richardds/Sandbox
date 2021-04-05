@@ -17,6 +17,7 @@ namespace Graphics
         Window();
         Window(unsigned int width, unsigned int height, const std::string& title);
         virtual ~Window();
+
         bool Create();
         void Open() const;
         void Close() const;
