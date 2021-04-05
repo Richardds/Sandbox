@@ -35,6 +35,7 @@ namespace Util
         std::string _root;
         std::unordered_map<std::string, std::shared_ptr<Graphics::Texture>> _textures;
         std::unordered_map<std::string, std::shared_ptr<Graphics::Model>> _models;
+        std::unordered_map<std::string, std::shared_ptr<Graphics::Font>> _fonts;
     };
 
     inline std::string ResourcesLoader::GetResourcesRoot() const

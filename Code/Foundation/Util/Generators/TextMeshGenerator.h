@@ -22,7 +22,7 @@ namespace Util
         TextMeshGenerator();
 
         [[nodiscard]] std::shared_ptr<Graphics::Text> Generate(const std::string& text,
-                                                               const std::shared_ptr<Graphics::Font>& textType) const;
+                                                               const std::shared_ptr<Graphics::Font>& font) const;
 
     private:
         Graphics::VertexAttributeConfig _characterAttributesTemplate;

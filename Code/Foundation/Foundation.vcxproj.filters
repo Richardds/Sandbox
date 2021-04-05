@@ -237,6 +237,9 @@
     <ClCompile Include="Math\MathUtils2D.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="Util\Loaders\FontMappingLoader.cpp">
+      <Filter>Util\Loaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Debug.h">
@@ -446,6 +449,9 @@
     </ClInclude>
     <ClInclude Include="Math\MathUtils2D.h">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Loaders\FontMappingLoader.h">
+      <Filter>Util\Loaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

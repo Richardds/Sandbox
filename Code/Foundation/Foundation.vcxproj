@@ -69,6 +69,7 @@
     <ClCompile Include="Util\Generators\SkyboxGenerator.cpp" />
     <ClCompile Include="Util\Loaders\DirectDrawSurfaceLoader.cpp" />
     <ClCompile Include="Util\Loaders\AssimpLoader.cpp" />
+    <ClCompile Include="Util\Loaders\FontMappingLoader.cpp" />
     <ClCompile Include="Util\Loaders\ModelLoader.cpp" />
     <ClCompile Include="Util\Random.cpp" />
     <ClCompile Include="Util\ResourcesLoader.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="Util\Generators\SkyboxGenerator.h" />
     <ClInclude Include="Util\Loaders\DirectDrawSurfaceLoader.h" />
     <ClInclude Include="Util\Loaders\AssimpLoader.h" />
+    <ClInclude Include="Util\Loaders\FontMappingLoader.h" />
     <ClInclude Include="Util\Loaders\ModelLoader.h" />
     <ClInclude Include="Util\Random.h" />
     <ClInclude Include="Util\ResourcesLoader.h" />

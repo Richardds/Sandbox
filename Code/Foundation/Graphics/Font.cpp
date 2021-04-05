@@ -6,26 +6,34 @@
 #include "Precompiled.h"
 #include "Graphics/Font.h"
 
-Graphics::Font::Font(const std::shared_ptr<Texture>& fontMap,
-                             const std::unordered_map<char, CharacterProperties>& charactersMapping) :
-    _fontMap(fontMap),
-    _charactersMapping(charactersMapping)
+Graphics::Font::Font() :
+    _state(State::Initial)
 {
-    // Make sure the font texture is already loaded
-    _Assert(fontMap->GetState() == Texture::State::Loaded);
-    // Make sure the font texture is square
-    _Assert(fontMap->GetWidth() == fontMap->GetHeight());
-    // Make sure the characters mapping is not empty
-    _Assert(!charactersMapping.empty());
 }
 
-Graphics::Font::CharacterProperties Graphics::Font::GetCharacterMapping(const char character) const
+void Graphics::Font::AddCharacterProperties(const char character, const CharacterProperties& props)
 {
-    const auto it = this->_charactersMapping.find(character);
-    if (it != this->_charactersMapping.end())
+    this->_charactersProperties[character] = props;
+}
+
+Graphics::Font::CharacterProperties Graphics::Font::GetCharacterProperties(const char character) const
+{
+    // Search for character in mapping hash table
+    auto it = this->_charactersProperties.find(character);
+
+    // Return character properties when found
+    if (it != this->_charactersProperties.end())
     {
         return it->second;
     }
 
+    // Search for hashtag character whe not found
+    it = this->_charactersProperties.find('#');
+    if (it != this->_charactersProperties.end())
+    {
+        return it->second;
+    }
+
+    // Else return empty mapping (no character will be rendered)
     return {};
 }

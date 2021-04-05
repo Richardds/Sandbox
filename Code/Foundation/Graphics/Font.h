@@ -13,6 +13,12 @@ namespace Graphics
     class Font
     {
     public:
+        enum class State
+        {
+            Initial,
+            Loaded
+        };
+
         struct CharacterProperties
         {
             struct Mapping
@@ -21,6 +27,7 @@ namespace Graphics
                 float width;
                 float height;
             } mapping;
+
             struct Positioning
             {
                 Math::Vector2f offset;
@@ -28,26 +35,55 @@ namespace Graphics
             } positioning;
         };
 
-        Font(const std::shared_ptr<Texture>& fontMap,
-                 const std::unordered_map<char, CharacterProperties>& charactersMapping);
+        Font();
         virtual ~Font() = default;
 
-        [[nodiscard]] CharacterProperties GetCharacterMapping(char character) const;
+        [[nodiscard]] State GetState() const;
         [[nodiscard]] std::shared_ptr<Texture> GetFontMap() const;
-        void SetFontMap(const std::shared_ptr<Texture>& texture);
+        void SetFontMap(const std::shared_ptr<Texture>& fontMap);
+
+        void AddCharacterProperties(char character, const CharacterProperties& props);
+        [[nodiscard]] CharacterProperties GetCharacterProperties(char character) const;
+        [[nodiscard]] bool Empty() const;
+        [[nodiscard]] std::unordered_map<char, CharacterProperties> GetCharactersProperties() const;
+        void FinishLoading();
 
     private:
+        State _state;
         std::shared_ptr<Texture> _fontMap;
-        std::unordered_map<char, CharacterProperties> _charactersMapping;
+        std::unordered_map<char, CharacterProperties> _charactersProperties;
     };
+
+    inline Font::State Font::GetState() const
+    {
+        return this->_state;
+    }
 
     inline std::shared_ptr<Texture> Font::GetFontMap() const
     {
         return this->_fontMap;
     }
 
-    inline void Font::SetFontMap(const std::shared_ptr<Texture>& texture)
+    inline void Font::SetFontMap(const std::shared_ptr<Texture>& fontMap)
     {
-        this->_fontMap = texture;
+        _Assert(fontMap->GetState() == Texture::State::Loaded);
+        this->_fontMap = fontMap;
+    }
+
+    inline bool Font::Empty() const
+    {
+        return !this->_charactersProperties.empty();
+    }
+
+    inline std::unordered_map<char, Font::CharacterProperties> Font::GetCharactersProperties() const
+    {
+        return this->_charactersProperties;
+    }
+
+    inline void Font::FinishLoading()
+    {
+        _Assert(State::Initial == this->_state);
+
+        this->_state = State::Loaded;
     }
 }

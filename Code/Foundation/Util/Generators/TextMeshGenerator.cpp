@@ -15,9 +15,11 @@ Util::TextMeshGenerator::TextMeshGenerator()
 }
 
 std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::string& text,
-                                                                  const std::shared_ptr<Graphics::Font>& textType) const
+                                                                  const std::shared_ptr<Graphics::Font>& font) const
 {
-    const std::shared_ptr<Graphics::Texture>& fontMap = textType->GetFontMap();
+    _Assert(font->GetState() == Graphics::Font::State::Loaded);
+
+    const std::shared_ptr<Graphics::Texture>& fontMap = font->GetFontMap();
     const float textureSize = static_cast<float>(fontMap->GetWidth());
 
     Math::Vector2f offset(0.0f);
@@ -35,7 +37,7 @@ std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::str
     for (const char character : text)
     {
         // Retrieve the current character's properties from font
-        const Graphics::Font::CharacterProperties& props = textType->GetCharacterMapping(character);
+        const Graphics::Font::CharacterProperties& props = font->GetCharacterProperties(character);
 
         // NDC offset
         const Math::Vector2f ndcOffsetScale = Graphics::PixelToNDCScale(offset + props.positioning.offset);

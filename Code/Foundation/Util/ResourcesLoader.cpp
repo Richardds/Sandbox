@@ -6,6 +6,7 @@
 #include "Precompiled.h"
 #include "Util/ResourcesLoader.h"
 #include "IO/Console.h"
+#include "Loaders/FontMappingLoader.h"
 #include "Util/Loaders/AssimpLoader.h"
 #include "Util/Loaders/DirectDrawSurfaceLoader.h"
 #include "Util/Loaders/ModelLoader.h"
@@ -104,19 +105,42 @@ std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadCubeMap(const std:
 
 std::shared_ptr<Graphics::Font> Util::ResourcesLoader::LoadFont(const std::string& name)
 {
+    const auto it = this->_fonts.find(name);
+    if (it != this->_fonts.end())
+    {
+        return it->second;
+    }
+
+    IO::Console::Instance().Info("Loading '%s' font\n", name.c_str());
+
+    std::shared_ptr<Graphics::Font> font = std::make_shared<Graphics::Font>();
+
     std::shared_ptr<Graphics::Texture> fontMap = this->LoadTexture("Fonts/" + name);
+    
     fontMap->Bind();
     glTexParameterf(fontMap->GetTarget(), GL_TEXTURE_LOD_BIAS, 0.0f);
     fontMap->Unbind();
 
-    std::unordered_map<char, Graphics::Font::CharacterProperties> charactersMapping;
-    
-    charactersMapping['T'] = {Math::Vector2f(135.0f, 274.0f), 54.0f, 62.0f, Math::Vector2f(-3.0f, 20.0f), 49.0f};
-    charactersMapping['e'] = {Math::Vector2f(245.0f, 336.0f), 42.0f, 50.0f, Math::Vector2f(0.0f, 33.0f), 44.0f};
-    charactersMapping['x'] = {Math::Vector2f(275.0f, 398.0f), 44.0f, 48.0f, Math::Vector2f(-2.0f, 34.0f), 42.0f};
-    charactersMapping['t'] = {Math::Vector2f(462.0f, 274.0f), 30.0f, 62.0f, Math::Vector2f(-1.0f, 21.0f), 29.0f};
+    font->SetFontMap(fontMap);
 
-    return std::make_shared<Graphics::Font>(fontMap, charactersMapping);
+
+    const std::string fontMappingPath = this->_root + "/Fonts/" + name + ".fnt";
+
+    std::ifstream fontMappingFile(fontMappingPath);
+    if (!fontMappingFile.is_open())
+    {
+        IO::Console::Instance().Error("Failed to open font '%s'\n", name.c_str());
+        return font;
+    }
+
+    FontMappingLoader loader;
+    loader.Load(font, fontMappingFile);
+
+    fontMappingFile.close();
+
+    font->FinishLoading();
+
+    return font;
 }
 
 std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadFBX(const std::string& name)
