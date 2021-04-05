@@ -34,19 +34,19 @@ std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::str
 
     for (const char character : text)
     {
-        // Retrieve mapping from text type
-        const Graphics::Font::CharacterMapping& mapping = textType->GetCharacterMapping(character);
+        // Retrieve the current character's properties from font
+        const Graphics::Font::CharacterProperties& props = textType->GetCharacterMapping(character);
 
-        // NDC
-        const Math::Vector2f ndcScale = Graphics::PixelToNDCScale(Math::Vector2f(mapping.width, mapping.height));
         // NDC offset
-        const Math::Vector2f ndcOffsetScale = Graphics::PixelToNDCScale(offset);
-        const Math::Vector2f ndcOffset = Math::Vector2f(-1.0f, 1.0f) + Math::Vector2f(ndcOffsetScale.x, -ndcOffsetScale.y);
+        const Math::Vector2f ndcOffsetScale = Graphics::PixelToNDCScale(offset + props.positioning.offset);
+        const Math::Vector2f ndcOffset = Math::Vector2f(ndcOffsetScale.x, -ndcOffsetScale.y);
+        // NDC
+        const Math::Vector2f ndcScale = Graphics::PixelToNDCScale(Math::Vector2f(props.mapping.width, props.mapping.height));
 
-        // Texture
-        const Math::Vector2f texScale = Graphics::PixelToTextureScale(Math::Vector2f(mapping.width, mapping.height), textureSize);
         // Texture offset
-        const Math::Vector2f texOffset = Graphics::PixelToTextureScale(mapping.offset, textureSize);
+        const Math::Vector2f texOffset = Graphics::PixelToTextureScale(props.mapping.offset, textureSize);
+        // Texture
+        const Math::Vector2f texScale = Graphics::PixelToTextureScale(Math::Vector2f(props.mapping.width, props.mapping.height), textureSize);
 
         // Append character vertex data
         const std::vector<Graphics::VertexData2> characterVertexData({
@@ -66,7 +66,7 @@ std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::str
         ic += 4;
 
         // Update cursor
-        offset.x += mapping.width;
+        offset.x += props.positioning.advance;
         //offset.y += 0.0f; // TODO: Replace by line height on new line
     }
 

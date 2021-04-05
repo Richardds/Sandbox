@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       ResourcesLoader.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
@@ -105,11 +105,12 @@ std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadCubeMap(const std:
 std::shared_ptr<Graphics::Font> Util::ResourcesLoader::LoadFont(const std::string& name)
 {
     std::shared_ptr<Graphics::Texture> fontMap = this->LoadTexture("Fonts/" + name);
-    std::unordered_map<char, Graphics::Font::CharacterMapping> charactersMapping;
+    std::unordered_map<char, Graphics::Font::CharacterProperties> charactersMapping;
     
-    charactersMapping['A'] = {52.0f, 62.0f, Math::Vector2f(56.0f, 211.0f)};
-    charactersMapping['B'] = {43.0f, 62.0f, Math::Vector2f(108.0f, 211.0f)};
-    charactersMapping['C'] = {48.0f, 64.0f, Math::Vector2f(279.0f, 81.0f)};
+    charactersMapping['T'] = {Math::Vector2f(135.0f, 274.0f), 54.0f, 62.0f, Math::Vector2f(-3.0f, 20.0f), 49.0f};
+    charactersMapping['e'] = {Math::Vector2f(245.0f, 336.0f), 42.0f, 50.0f, Math::Vector2f(0.0f, 33.0f), 44.0f};
+    charactersMapping['x'] = {Math::Vector2f(275.0f, 398.0f), 44.0f, 48.0f, Math::Vector2f(-2.0f, 34.0f), 42.0f};
+    charactersMapping['t'] = {Math::Vector2f(462.0f, 274.0f), 30.0f, 62.0f, Math::Vector2f(-1.0f, 21.0f), 29.0f};
 
     return std::make_shared<Graphics::Font>(fontMap, charactersMapping);
 }

@@ -23,7 +23,7 @@ bool Sandbox::TestScene::Setup()
 
     // Setup text
     const std::shared_ptr<Graphics::Font> font = Util::ResourcesLoader::Instance().LoadFont("tahoma");
-    this->_testText = Util::TextMeshGenerator::Instance().Generate("ABC", font);
+    this->_testText = Util::TextMeshGenerator::Instance().Generate("Text", font);
     this->_testText->SetSize(32.0f);
     this->_testText->SetColor(Math::Vector4f(1.0f, 1.0f, 0.0f, 1.0f));
 

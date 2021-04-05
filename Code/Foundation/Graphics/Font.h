@@ -13,24 +13,32 @@ namespace Graphics
     class Font
     {
     public:
-        struct CharacterMapping
+        struct CharacterProperties
         {
-            float width;
-            float height;
-            Math::Vector2f offset;
+            struct Mapping
+            {
+                Math::Vector2f offset;
+                float width;
+                float height;
+            } mapping;
+            struct Positioning
+            {
+                Math::Vector2f offset;
+                float advance;
+            } positioning;
         };
 
         Font(const std::shared_ptr<Texture>& fontMap,
-                 const std::unordered_map<char, CharacterMapping>& charactersMapping);
+                 const std::unordered_map<char, CharacterProperties>& charactersMapping);
         virtual ~Font() = default;
 
-        [[nodiscard]] CharacterMapping GetCharacterMapping(char character) const;
+        [[nodiscard]] CharacterProperties GetCharacterMapping(char character) const;
         [[nodiscard]] std::shared_ptr<Texture> GetFontMap() const;
         void SetFontMap(const std::shared_ptr<Texture>& texture);
 
     private:
         std::shared_ptr<Texture> _fontMap;
-        std::unordered_map<char, CharacterMapping> _charactersMapping;
+        std::unordered_map<char, CharacterProperties> _charactersMapping;
     };
 
     inline std::shared_ptr<Texture> Font::GetFontMap() const
