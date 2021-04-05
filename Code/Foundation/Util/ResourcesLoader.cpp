@@ -105,6 +105,10 @@ std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadCubeMap(const std:
 std::shared_ptr<Graphics::Font> Util::ResourcesLoader::LoadFont(const std::string& name)
 {
     std::shared_ptr<Graphics::Texture> fontMap = this->LoadTexture("Fonts/" + name);
+    fontMap->Bind();
+    glTexParameterf(fontMap->GetTarget(), GL_TEXTURE_LOD_BIAS, 0.0f);
+    fontMap->Unbind();
+
     std::unordered_map<char, Graphics::Font::CharacterProperties> charactersMapping;
     
     charactersMapping['T'] = {Math::Vector2f(135.0f, 274.0f), 54.0f, 62.0f, Math::Vector2f(-3.0f, 20.0f), 49.0f};

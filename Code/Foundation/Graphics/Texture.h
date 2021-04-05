@@ -43,7 +43,6 @@ namespace Graphics
         void Activate(Bank bank) const;
         [[nodiscard]] bool IsBound() const;
         void Unbind() const;
-        void Data(const void* pixels, unsigned int width, unsigned int height);
         void FinishLoading();
         [[nodiscard]] GLenum GetTarget() const;
         void SetTarget(GLenum target);

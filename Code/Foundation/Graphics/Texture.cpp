@@ -60,26 +60,6 @@ void Graphics::Texture::Unbind() const
     }
 }
 
-void Graphics::Texture::Data(const void* pixels, const unsigned int width, const unsigned int height)
-{
-    _Assert(GL_TEXTURE_2D == this->_target);
-    _Assert(State::Initial == this->_state);
-    _Assert(this->IsBound());
-
-    this->_width = width;
-    this->_height = height;
-
-    glTexParameteri(this->_target, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(this->_target, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(this->_target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(this->_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-    // TODO: glTexStorage2D call
-    glTexImage2D(this->_target, 0, GL_RGB, this->_width, this->_height, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
-
-    this->FinishLoading();
-}
-
 void Graphics::Texture::FinishLoading()
 {
     _Assert(State::Initial == this->_state);

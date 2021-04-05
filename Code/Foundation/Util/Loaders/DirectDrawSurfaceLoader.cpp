@@ -33,10 +33,7 @@ void Util::DirectDrawSurfaceLoader::Load(std::shared_ptr<Graphics::Texture>& tex
     glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(target, GL_TEXTURE_BASE_LEVEL, 0);
     glTexParameteri(target, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(gliTexture.levels() - 1));
-    glTexParameteri(target, GL_TEXTURE_SWIZZLE_R, gliFormat.Swizzles[0]);
-    glTexParameteri(target, GL_TEXTURE_SWIZZLE_G, gliFormat.Swizzles[1]);
-    glTexParameteri(target, GL_TEXTURE_SWIZZLE_B, gliFormat.Swizzles[2]);
-    glTexParameteri(target, GL_TEXTURE_SWIZZLE_A, gliFormat.Swizzles[3]);
+    glTexParameteriv(target, GL_TEXTURE_SWIZZLE_RGBA, reinterpret_cast<const GLint*>(&gliFormat.Swizzles));
 
     switch (gliTexture.target())
     {
