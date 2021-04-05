@@ -11,7 +11,7 @@
 #include "Graphics/Texture.h"
 
 Graphics::TextShader::TextShader() :
-    ShaderSystem("Glyph"),
+    ShaderSystem("Text"),
     _transformationLocation(-1),
     _fontMapSamplerLocation(-1),
     _colorLocation(-1)
