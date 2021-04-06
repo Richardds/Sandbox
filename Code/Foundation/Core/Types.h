@@ -10,7 +10,7 @@
 
 #define _Pack( __Declaration__ ) __pragma( pack(push, 1) ) __Declaration__ __pragma( pack(pop))
 
-using Character = unsigned char;
+using Character = char;
 
 namespace Timing
 {

@@ -21,7 +21,7 @@ namespace Util
     public:
         TextMeshGenerator();
 
-        [[nodiscard]] std::shared_ptr<Graphics::Text> Generate(const std::string& text,
+        [[nodiscard]] std::shared_ptr<Graphics::Text> Generate(const std::basic_string<Character>& text,
                                                                const std::shared_ptr<Graphics::Font>& font) const;
 
     private:

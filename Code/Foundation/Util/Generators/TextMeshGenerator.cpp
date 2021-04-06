@@ -14,7 +14,7 @@ Util::TextMeshGenerator::TextMeshGenerator()
     this->_characterAttributesTemplate.Append(GL_FLOAT, 2);
 }
 
-std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::string& text,
+std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::basic_string<Character>& text,
                                                                   const std::shared_ptr<Graphics::Font>& font) const
 {
     _Assert(font->GetState() == Graphics::Font::State::Loaded);

@@ -46,13 +46,13 @@ namespace Graphics
         void AddCharacterProperties(Character character, const CharacterProperties& props);
         [[nodiscard]] CharacterProperties GetCharacterProperties(Character character) const;
         [[nodiscard]] bool Empty() const;
-        [[nodiscard]] std::unordered_map<char, CharacterProperties> GetCharactersProperties() const;
+        [[nodiscard]] std::unordered_map<Character, CharacterProperties> GetCharactersProperties() const;
         void FinishLoading();
 
     private:
         State _state;
         std::shared_ptr<Texture> _fontMap;
-        std::unordered_map<char, CharacterProperties> _charactersProperties;
+        std::unordered_map<Character, CharacterProperties> _charactersProperties;
     };
 
     inline Font::State Font::GetState() const
@@ -76,7 +76,7 @@ namespace Graphics
         return !this->_charactersProperties.empty();
     }
 
-    inline std::unordered_map<char, Font::CharacterProperties> Font::GetCharactersProperties() const
+    inline std::unordered_map<Character, Font::CharacterProperties> Font::GetCharactersProperties() const
     {
         return this->_charactersProperties;
     }
