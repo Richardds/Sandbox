@@ -20,13 +20,13 @@ namespace Graphics
                  float reflectivity,
                  float specular,
                  float shininess);
-        [[nodiscard]] Math::Vector3f GetColor() const;
+        Math::Vector3f GetColor() const;
         void SetColor(const Math::Vector3f& color);
-        [[nodiscard]] float GetReflectivity() const;
+        float GetReflectivity() const;
         void SetReflectivity(float reflectivity);
-        [[nodiscard]] float GetSpecular() const;
+        float GetSpecular() const;
         void SetSpecular(float specular);
-        [[nodiscard]] float GetShininess() const;
+        float GetShininess() const;
         void SetShininess(float shininess);
 
     private:

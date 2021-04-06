@@ -23,18 +23,18 @@ namespace Graphics
         void Close() const;
         void Destroy();
         void SwapBuffers() const;
-        [[nodiscard]] bool IsCloseRequested() const;
-        [[nodiscard]] bool IsCreated() const;
+        bool IsCloseRequested() const;
+        bool IsCreated() const;
         void SetSize(unsigned int width, unsigned int height);
-        [[nodiscard]] unsigned int GetWidth() const;
-        [[nodiscard]] unsigned int GetHeight() const;
-        [[nodiscard]] float GetAspectRatio() const;
+        unsigned int GetWidth() const;
+        unsigned int GetHeight() const;
+        float GetAspectRatio() const;
         void SetTitle(const std::string& title);
-        [[nodiscard]] const std::string& GetTitle() const;
+        const std::string& GetTitle() const;
         void ApplyViewport() const;
         void EnterFullScreen();
         void ExitFullScreen();
-        [[nodiscard]] GLFWwindow* GetGlfwWindow() const;
+        GLFWwindow* GetGlfwWindow() const;
 
     private:
         bool _isCreated;

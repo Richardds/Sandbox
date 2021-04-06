@@ -22,14 +22,14 @@ namespace Util
 
     public:
         ResourcesLoader();
-        [[nodiscard]] std::string GetResourcesRoot() const;
+        std::string GetResourcesRoot() const;
         void SetResourcesRoot(const std::string& root);
-        [[nodiscard]] std::shared_ptr<Graphics::Shader> LoadShader(const std::string& name, GLenum type) const;
-        [[nodiscard]] std::shared_ptr<Graphics::Texture> LoadTexture(const std::string& name, GLenum target = GL_TEXTURE_2D);
-        [[nodiscard]] std::shared_ptr<Graphics::Texture> LoadCubeMap(const std::string& name);
-        [[nodiscard]] std::shared_ptr<Graphics::Font> LoadFont(const std::string& name);
-        [[nodiscard]] std::shared_ptr<Graphics::Model> LoadFBX(const std::string& name);
-        [[nodiscard]] std::shared_ptr<Graphics::Model> LoadModel(const std::string& name);
+        std::shared_ptr<Graphics::Shader> LoadShader(const std::string& name, GLenum type) const;
+        std::shared_ptr<Graphics::Texture> LoadTexture(const std::string& name, GLenum target = GL_TEXTURE_2D);
+        std::shared_ptr<Graphics::Texture> LoadCubeMap(const std::string& name);
+        std::shared_ptr<Graphics::Font> LoadFont(const std::string& name);
+        std::shared_ptr<Graphics::Model> LoadFBX(const std::string& name);
+        std::shared_ptr<Graphics::Model> LoadModel(const std::string& name);
 
     private:
         std::string _root;

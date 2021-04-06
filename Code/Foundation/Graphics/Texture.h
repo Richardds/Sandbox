@@ -38,20 +38,20 @@ namespace Graphics
         Texture();
         virtual ~Texture();
 
-        [[nodiscard]] State GetState() const;
+        State GetState() const;
         void Bind() const;
         void Activate(Bank bank) const;
-        [[nodiscard]] bool IsBound() const;
+        bool IsBound() const;
         void Unbind() const;
         void FinishLoading();
-        [[nodiscard]] GLenum GetTarget() const;
+        GLenum GetTarget() const;
         void SetTarget(GLenum target);
-        [[nodiscard]] GLuint GetGlTexture() const;
-        [[nodiscard]] unsigned int GetWidth() const;
+        GLuint GetGlTexture() const;
+        unsigned int GetWidth() const;
         void SetWidth(unsigned int width);
-        [[nodiscard]] unsigned int GetHeight() const;
+        unsigned int GetHeight() const;
         void SetHeight(unsigned int height);
-        [[nodiscard]] unsigned int GetDepth() const;
+        unsigned int GetDepth() const;
         void SetDepth(unsigned int depth);
 
         static GLuint GetBound(GLenum target);

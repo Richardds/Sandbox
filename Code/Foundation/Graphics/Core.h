@@ -24,18 +24,18 @@ namespace Graphics
 
         bool Setup();
         void Destroy();
-        [[nodiscard]] bool IsCreated() const;
-        [[nodiscard]] std::shared_ptr<Window> GetRenderingContext() const;
+        bool IsCreated() const;
+        std::shared_ptr<Window> GetRenderingContext() const;
         bool SetRenderingContext(const std::shared_ptr<Window>& window);
         void Debug(const std::string& message);
-        [[nodiscard]] std::string GetGlString(GLenum name) const;
-        [[nodiscard]] Math::Vector4ui GetViewport() const;
-        [[nodiscard]] Math::Vector2f GetResolution() const;
-        [[nodiscard]] std::shared_ptr<Projection> MakeProjection(float fieldOfView) const;
-        [[nodiscard]] std::string GetDeviceVendor() const;
-        [[nodiscard]] std::string GetDeviceName() const;
-        [[nodiscard]] std::string GetDriverVersion() const;
-        [[nodiscard]] std::string GetGlDump() const;
+        std::string GetGlString(GLenum name) const;
+        Math::Vector4ui GetViewport() const;
+        Math::Vector2f GetResolution() const;
+        std::shared_ptr<Projection> MakeProjection(float fieldOfView) const;
+        std::string GetDeviceVendor() const;
+        std::string GetDeviceName() const;
+        std::string GetDriverVersion() const;
+        std::string GetGlDump() const;
 
         /// OpenGL major version
         const int OPENGL_VERSION_MAJOR = 4;

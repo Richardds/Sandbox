@@ -17,14 +17,14 @@ namespace Graphics
         Actor();
         virtual ~Actor() = default;
 
-        [[nodiscard]] float GetMovingSpeed() const;
+        float GetMovingSpeed() const;
         void SetMovingSpeed(float speed);
         void Move(float distance);
         virtual void GoForward(float delta);
         virtual void TurnLeft(float delta);
         virtual void TurnRight(float delta);
         void LookAt(Math::Vector2f target);
-        [[nodiscard]] float DistanceTo(Math::Vector2f target) const;
+        float DistanceTo(Math::Vector2f target) const;
 
     private:
         float _movingSpeed;

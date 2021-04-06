@@ -19,7 +19,7 @@ namespace Util
 
     protected:
         template <typename T>
-        [[nodiscard]] std::shared_ptr<Graphics::Mesh> Store(const std::vector<T>& vertices,
+        std::shared_ptr<Graphics::Mesh> Store(const std::vector<T>& vertices,
                                                             const std::vector<uint32_t>& indices,
                                                             const Graphics::VertexAttributeConfig& config) const;
     };

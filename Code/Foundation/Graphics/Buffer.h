@@ -18,12 +18,12 @@ namespace Graphics
         virtual ~Buffer();
 
         void Bind() const;
-        [[nodiscard]] bool IsBound() const;
+        bool IsBound() const;
         void Unbind() const;
         template <typename T>
         void Data(std::vector<T> data, GLenum type = GL_STATIC_DRAW);
-        [[nodiscard]] GLenum GetTarget() const;
-        [[nodiscard]] GLuint GetGlBuffer() const;
+        GLenum GetTarget() const;
+        GLuint GetGlBuffer() const;
 
         static GLuint GetBound(GLenum target);
 

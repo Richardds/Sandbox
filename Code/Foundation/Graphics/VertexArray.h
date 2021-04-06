@@ -17,9 +17,9 @@ namespace Graphics
         virtual ~VertexArray();
 
         void Bind() const;
-        [[nodiscard]] bool IsBound() const;
+        bool IsBound() const;
         void Unbind() const;
-        [[nodiscard]] GLuint GetGlVertexArray() const;
+        GLuint GetGlVertexArray() const;
 
         static GLuint GetBound();
 

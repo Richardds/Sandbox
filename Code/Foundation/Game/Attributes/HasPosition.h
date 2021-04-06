@@ -18,15 +18,15 @@ namespace Graphics
         virtual ~HasPosition() = default;
 
         explicit HasPosition(const Math::Vector3f& position);
-        [[nodiscard]] Math::Vector3f GetPosition() const;
+        Math::Vector3f GetPosition() const;
         void SetPosition(const Math::Vector3f& position);
-        [[nodiscard]] float GetPositionX() const;
+        float GetPositionX() const;
         void SetPositionX(float positionX);
         void IncreasePositionX(float relativePositionX);
-        [[nodiscard]] float GetPositionY() const;
+        float GetPositionY() const;
         void SetPositionY(float positionY);
         void IncreasePositionY(float relativePositionY);
-        [[nodiscard]] float GetPositionZ() const;
+        float GetPositionZ() const;
         void SetPositionZ(float positionZ);
         void IncreasePositionZ(float relativePositionZ);
         void IncreasePosition(const Math::Vector3f& relativePosition);

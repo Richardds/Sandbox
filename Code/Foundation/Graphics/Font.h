@@ -39,14 +39,14 @@ namespace Graphics
         Font();
         virtual ~Font() = default;
 
-        [[nodiscard]] State GetState() const;
-        [[nodiscard]] std::shared_ptr<Texture> GetFontMap() const;
+        State GetState() const;
+        std::shared_ptr<Texture> GetFontMap() const;
         void SetFontMap(const std::shared_ptr<Texture>& fontMap);
 
         void AddCharacterProperties(Character character, const CharacterProperties& props);
-        [[nodiscard]] CharacterProperties GetCharacterProperties(Character character) const;
-        [[nodiscard]] bool Empty() const;
-        [[nodiscard]] std::unordered_map<Character, CharacterProperties> GetCharactersProperties() const;
+        CharacterProperties GetCharacterProperties(Character character) const;
+        bool Empty() const;
+        std::unordered_map<Character, CharacterProperties> GetCharactersProperties() const;
         void FinishLoading();
 
     private:

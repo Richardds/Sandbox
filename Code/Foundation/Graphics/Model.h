@@ -25,12 +25,12 @@ namespace Graphics
         virtual ~Model() = default;
 
         void Render(const std::shared_ptr<EntityShader>& shader);
-        [[nodiscard]] State GetState() const;
+        State GetState() const;
         void AddMesh(const std::string& name, const std::shared_ptr<TexturedMesh>& mesh);
         void AddMesh(const std::string& name, const std::shared_ptr<Mesh>& mesh);
-        [[nodiscard]] std::shared_ptr<TexturedMesh> GetMesh(const std::string& name) const;
-        [[nodiscard]] bool Empty() const;
-        [[nodiscard]] std::unordered_map<std::string, std::shared_ptr<TexturedMesh>> GetMeshes() const;
+        std::shared_ptr<TexturedMesh> GetMesh(const std::string& name) const;
+        bool Empty() const;
+        std::unordered_map<std::string, std::shared_ptr<TexturedMesh>> GetMeshes() const;
         void FinishLoading();
 
     private:

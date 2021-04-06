@@ -32,7 +32,7 @@ namespace Graphics
         Scene();
         virtual ~Scene() = default;
 
-        [[nodiscard]] State GetState() const;
+        State GetState() const;
         virtual bool Setup();
         virtual void ProcessInput();
         virtual void Update(float delta);
@@ -41,7 +41,7 @@ namespace Graphics
     protected:
         virtual void RenderEntities();
         void RenderSkybox() const;
-        [[nodiscard]] Math::Vector3f GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const;
+        Math::Vector3f GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const;
         std::shared_ptr<Water> AddWater(const std::string& name, float size);
         std::shared_ptr<PointLight> AddLight(const std::string& name);
         std::shared_ptr<Entity> AddEntity(const std::string& name, const std::string& resourceName);

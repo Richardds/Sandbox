@@ -17,15 +17,15 @@ namespace Graphics
         HasRotation(float rotationX, float rotationY, float rotationZ);
         virtual ~HasRotation() = default;
 
-        [[nodiscard]] float GetRotationX() const;
+        float GetRotationX() const;
         void SetRotationX(float rotationX);
         void IncreaseRotationX(float relativeRotationX);
         void InvertRotationX();
-        [[nodiscard]] float GetRotationY() const;
+        float GetRotationY() const;
         void SetRotationY(float rotationY);
         void IncreaseRotationY(float relativeRotationY);
         void InvertRotationY();
-        [[nodiscard]] float GetRotationZ() const;
+        float GetRotationZ() const;
         void SetRotationZ(float rotationZ);
         void IncreaseRotationZ(float relativeRotationZ);
         void InvertRotationZ();

@@ -22,10 +22,10 @@ namespace Graphics
         virtual ~Mesh() = default;
 
         void DrawElements() const;
-        [[nodiscard]] std::shared_ptr<VertexArray> GetVertexArray() const;
-        [[nodiscard]] std::shared_ptr<Buffer> GetVertexBuffer() const;
-        [[nodiscard]] std::shared_ptr<Buffer> GetElementBuffer() const;
-        [[nodiscard]] uint32_t GetElementsCount() const;
+        std::shared_ptr<VertexArray> GetVertexArray() const;
+        std::shared_ptr<Buffer> GetVertexBuffer() const;
+        std::shared_ptr<Buffer> GetElementBuffer() const;
+        uint32_t GetElementsCount() const;
 
     protected:
         std::shared_ptr<VertexArray> _vao;

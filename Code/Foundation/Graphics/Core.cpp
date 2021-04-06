@@ -222,9 +222,9 @@ void Graphics::Core::GlDebugCallback(
     const GLenum type,
     const GLuint id,
     const GLenum severity,
-    [[maybe_unused]] GLsizei length,
+    GLsizei length,
     const GLchar* message,
-    [[maybe_unused]] const void* userParam
+    const void* userParam
 )
 {
     const char* unknown = "Unknown";

@@ -17,9 +17,9 @@ namespace Graphics
         Light();
         virtual ~Light() = default;
 
-        [[nodiscard]] float GetIntensity() const;
+        float GetIntensity() const;
         void SetIntensity(float intensity);
-        [[nodiscard]] Math::Vector3f GetColor() const;
+        Math::Vector3f GetColor() const;
         void SetColor(const Math::Vector3f& color);
 
     private:

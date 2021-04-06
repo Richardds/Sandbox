@@ -22,7 +22,7 @@ namespace Graphics
         virtual ~Entity() = default;
 
         explicit Entity(const Math::Vector3f& position, float rotX = 0.0f, float rotY = 0.0f, float rotZ = 0.0f);
-        [[nodiscard]] std::shared_ptr<Model> GetModel() const;
+        std::shared_ptr<Model> GetModel() const;
         void SetModel(const std::shared_ptr<Model>& model);
         void Render(const std::shared_ptr<EntityShader>& shader) const;
 

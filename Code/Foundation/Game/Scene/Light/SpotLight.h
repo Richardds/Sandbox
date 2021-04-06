@@ -22,12 +22,12 @@ namespace Graphics
 
         SpotLight();
 
-        [[nodiscard]] float GetCutOffAngle() const;
-        [[nodiscard]] float GetCosineCutOffAngle() const;
+        float GetCutOffAngle() const;
+        float GetCosineCutOffAngle() const;
         void SetCutOffAngle(float cutOffAngle);
-        [[nodiscard]] float GetOuterCutOffAngle() const;
-        [[nodiscard]] float GetCosineOuterCutOffAngle() const;
-        [[nodiscard]] float GetOuterCutOffAngleOffset() const;
+        float GetOuterCutOffAngle() const;
+        float GetCosineOuterCutOffAngle() const;
+        float GetOuterCutOffAngleOffset() const;
         void SetOuterCutOffAngleOffset(float outerCutOffAngleOffset);
 
     private:

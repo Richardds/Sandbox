@@ -18,11 +18,11 @@ namespace Graphics
     public:
         Water();
 
-        [[nodiscard]] std::shared_ptr<TexturedMesh> GetMesh() const;
+        std::shared_ptr<TexturedMesh> GetMesh() const;
         void SetMesh(const std::shared_ptr<TexturedMesh>& mesh);
-        [[nodiscard]] float GetDistortionSpeed() const;
+        float GetDistortionSpeed() const;
         void SetDistortionSpeed(float speed);
-        [[nodiscard]] float GetTiling() const;
+        float GetTiling() const;
         void SetTiling(float tiling);
         void Update(float delta);
         void Render(const std::shared_ptr<WaterShader>& shader) const;

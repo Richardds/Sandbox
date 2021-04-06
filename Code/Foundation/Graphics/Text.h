@@ -23,11 +23,11 @@ namespace Graphics
         Text(const std::shared_ptr<Mesh>& mesh, const std::shared_ptr<Texture>& fontMap);
 
         void Render(const std::shared_ptr<TextShader>& shader) const;
-        [[nodiscard]] std::shared_ptr<Texture> GetFontMap() const;
+        std::shared_ptr<Texture> GetFontMap() const;
         void SetFontMap(const std::shared_ptr<Texture>& texture);
-        [[nodiscard]] float GetSize() const;
+        float GetSize() const;
         void SetSize(float size);
-        [[nodiscard]] Math::Vector4f GetColor() const;
+        Math::Vector4f GetColor() const;
         void SetColor(const Math::Vector4f& color);
 
     private:

@@ -26,9 +26,9 @@ namespace Graphics
         void AttachTexture(const std::shared_ptr<Texture>& texture, unsigned int width, unsigned int height) const;
         void AttachDepthTexture(const std::shared_ptr<Texture>& texture, unsigned int width, unsigned int height) const;
         void AttachDepthBuffer(const std::shared_ptr<RenderBuffer>& renderBuffer) const;
-        [[nodiscard]] bool IsBound() const;
+        bool IsBound() const;
         void Unbind() const;
-        [[nodiscard]] GLuint GetGlFrameBuffer() const;
+        GLuint GetGlFrameBuffer() const;
 
         static GLuint GetBound(GLenum target);
 

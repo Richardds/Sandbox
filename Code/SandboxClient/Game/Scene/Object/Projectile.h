@@ -18,8 +18,8 @@ namespace Sandbox
         explicit Projectile(const std::shared_ptr<Actor>& actor);
         Projectile(const Math::Vector3f& position, float rotation);
 
-        [[nodiscard]] float DistanceToOrigin() const;
-        [[nodiscard]] bool OutOfRange() const;
+        float DistanceToOrigin() const;
+        bool OutOfRange() const;
 
     private:
         Math::Vector3f _origin;

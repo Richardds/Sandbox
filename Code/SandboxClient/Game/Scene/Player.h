@@ -29,12 +29,12 @@ namespace Sandbox
 
         Player();
 
-        [[nodiscard]] State GetState() const;
-        [[nodiscard]] Math::Vector2f GetTarget() const;
+        State GetState() const;
+        Math::Vector2f GetTarget() const;
         void SetTarget(const Math::Vector2f& target);
         void Follow();
         void Idle();
-        [[nodiscard]] bool IsReadyToFire() const;
+        bool IsReadyToFire() const;
         void SingleFire(std::shared_ptr<ProjectileManager>& projectileManager);
         void StarFire(std::shared_ptr<ProjectileManager>& projectileManager, unsigned int count);
         void BeamFire(std::shared_ptr<ProjectileManager>& projectileManager, unsigned int count);

@@ -141,9 +141,9 @@ namespace IO
         };
 
         Keyboard() = default;
-        [[nodiscard]] bool IsKeyPressed(Key key) const;
-        [[nodiscard]] bool IsControlPressed() const;
-        [[nodiscard]] bool IsAltPressed() const;
-        [[nodiscard]] bool IsShiftPressed() const;
+        bool IsKeyPressed(Key key) const;
+        bool IsControlPressed() const;
+        bool IsAltPressed() const;
+        bool IsShiftPressed() const;
     };
 }

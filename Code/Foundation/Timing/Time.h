@@ -17,9 +17,9 @@ namespace Timing
         Time() = default;
         Time(const Time& rhs);
         explicit Time(TimePoint time);
-        [[nodiscard]] Duration Diff(const Time& rhs) const;
+        Duration Diff(const Time& rhs) const;
         template <typename T>
-        [[nodiscard]] T Get() const;
+        T Get() const;
 
         static Time Now();
 

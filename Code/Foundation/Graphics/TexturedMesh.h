@@ -24,19 +24,19 @@ namespace Graphics
         explicit TexturedMesh(const std::shared_ptr<Mesh>& mesh);
 
         void Render(const std::shared_ptr<EntityShader>& shader) const;
-        [[nodiscard]] Material GetMaterial() const;
+        Material GetMaterial() const;
         void SetMaterial(const Material& material);
-        [[nodiscard]] bool HasDiffuseMap() const;
-        [[nodiscard]] std::shared_ptr<Texture> GetDiffuseMap() const;
+        bool HasDiffuseMap() const;
+        std::shared_ptr<Texture> GetDiffuseMap() const;
         void SetDiffuseMap(const std::shared_ptr<Texture>& texture);
-        [[nodiscard]] bool HasNormalMap() const;
-        [[nodiscard]] std::shared_ptr<Texture> GetNormalMap() const;
+        bool HasNormalMap() const;
+        std::shared_ptr<Texture> GetNormalMap() const;
         void SetNormalMap(const std::shared_ptr<Texture>& texture);
-        [[nodiscard]] bool HasSpecularMap() const;
-        [[nodiscard]] std::shared_ptr<Texture> GetSpecularMap() const;
+        bool HasSpecularMap() const;
+        std::shared_ptr<Texture> GetSpecularMap() const;
         void SetSpecularMap(const std::shared_ptr<Texture>& texture);
-        [[nodiscard]] bool HasDistortionMap() const;
-        [[nodiscard]] std::shared_ptr<Texture> GetDistortionMap() const;
+        bool HasDistortionMap() const;
+        std::shared_ptr<Texture> GetDistortionMap() const;
         void SetDistortionMap(const std::shared_ptr<Texture>& texture);
 
     private:

@@ -15,14 +15,14 @@ namespace Graphics
     {
     public:
         Projection(float aspectRatio, float fieldOfView, float nearPlane, float farPlane);
-        [[nodiscard]] Math::Matrix4f GetMatrix() const;
-        [[nodiscard]] float GetAspectRatio() const;
+        Math::Matrix4f GetMatrix() const;
+        float GetAspectRatio() const;
         void SetAspectRatio(float aspectRatio);
-        [[nodiscard]] float GetFieldOfView() const;
+        float GetFieldOfView() const;
         void SetFieldOfView(float fieldOfView);
-        [[nodiscard]] float GetNearPlane() const;
+        float GetNearPlane() const;
         void SetNearPlane(float nearPlane);
-        [[nodiscard]] float GetFarPlane() const;
+        float GetFarPlane() const;
         void SetFarPlane(float farPlane);
 
     private:

@@ -20,11 +20,11 @@ namespace App
         virtual void Run() = 0;
         virtual void Close();
         virtual void SetTitle(const std::string& title);
-        [[nodiscard]] const std::string& GetTitle() const;
+        const std::string& GetTitle() const;
         void SetVersion(const std::string& version);
-        [[nodiscard]] const std::string& GetVersion() const;
-        [[nodiscard]] bool IsOpen() const;
-        [[nodiscard]] int GetStatusCode() const;
+        const std::string& GetVersion() const;
+        bool IsOpen() const;
+        int GetStatusCode() const;
 
     protected:
         void SetReturnCode(int code);

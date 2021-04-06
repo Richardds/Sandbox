@@ -22,10 +22,10 @@ namespace Util
 
     private:
         void ProcessNode(aiNode* node);
-        [[nodiscard]] std::shared_ptr<Graphics::TexturedMesh> ProcessMesh(aiMesh* mesh);
-        [[nodiscard]] std::string ParseAssetName(const aiString& assetPath) const;
-        [[nodiscard]] Math::Vector3f ParseColor(const aiColor3D& assimpColor) const;
-        [[nodiscard]] Graphics::Material ParseMaterial(const aiMaterial* assimpMaterial) const;
+        std::shared_ptr<Graphics::TexturedMesh> ProcessMesh(aiMesh* mesh);
+        std::string ParseAssetName(const aiString& assetPath) const;
+        Math::Vector3f ParseColor(const aiColor3D& assimpColor) const;
+        Graphics::Material ParseMaterial(const aiMaterial* assimpMaterial) const;
 
         Graphics::VertexAttributeConfig _attributesTemplate;
         std::shared_ptr<Graphics::Model> _model;

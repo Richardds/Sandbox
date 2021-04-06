@@ -20,7 +20,7 @@ namespace Graphics
 
         TargetedCamera();
 
-        [[nodiscard]] float GetDistance() const;
+        float GetDistance() const;
         void SetDistance(float distance);
         void IncreaseDistance(float distance);
         void Spectate(const Math::Vector3f& target);

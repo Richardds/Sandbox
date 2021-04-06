@@ -17,7 +17,7 @@ namespace Graphics
         explicit HasScale(float scale);
         virtual ~HasScale() = default;
 
-        [[nodiscard]] float GetScale() const;
+        float GetScale() const;
         void SetScale(float scale);
         void IncreaseScale(float scale);
 

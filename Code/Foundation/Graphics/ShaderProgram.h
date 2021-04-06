@@ -26,17 +26,17 @@ namespace Graphics
         ShaderProgram();
         virtual ~ShaderProgram();
 
-        [[nodiscard]] State GetState() const;
+        State GetState() const;
         void AttachRequiredShaders(const std::shared_ptr<Shader>& vertexShader,
                                    const std::shared_ptr<Shader>& fragmentShader);
         bool Link();
         virtual void Use();
-        [[nodiscard]] bool IsInUse() const;
-        [[nodiscard]] GLuint GetGlShaderProgram() const;
-        [[nodiscard]] std::shared_ptr<Shader> GetVertexShader() const;
-        [[nodiscard]] std::shared_ptr<Shader> GetFragmentShader() const;
+        bool IsInUse() const;
+        GLuint GetGlShaderProgram() const;
+        std::shared_ptr<Shader> GetVertexShader() const;
+        std::shared_ptr<Shader> GetFragmentShader() const;
 
-        [[nodiscard]] static GLuint GetInUse();
+        static GLuint GetInUse();
 
     protected:
         virtual GLint GetUniformLocation(const std::string& name);

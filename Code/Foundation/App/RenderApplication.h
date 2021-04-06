@@ -34,10 +34,10 @@ namespace App
         virtual void OnUpdateLogic() = 0;
         virtual void OnUpdateFrame() = 0;
         void SetQuitRequested(bool isQuitRequested);
-        [[nodiscard]] bool IsQuitRequested() const;
-        [[nodiscard]] Timing::Time GetTime() const;
-        [[nodiscard]] Timing::Duration GetFrameTime() const;
-        [[nodiscard]] float GetFrameDelta() const;
+        bool IsQuitRequested() const;
+        Timing::Time GetTime() const;
+        Timing::Duration GetFrameTime() const;
+        float GetFrameDelta() const;
 
     private:
         void UpdateTiming();

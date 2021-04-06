@@ -25,11 +25,11 @@ namespace IO
         };
 
         Mouse();
-        [[nodiscard]] bool IsKeyPressed(Key key) const;
-        [[nodiscard]] Math::Vector2ui GetCoords() const;
-        [[nodiscard]] Math::Vector2i GetRelativeMotion();
-        [[nodiscard]] Math::Vector2f GetGlCoords() const;
-        [[nodiscard]] Math::Vector2f GetRelativeGlMotion();
+        bool IsKeyPressed(Key key) const;
+        Math::Vector2ui GetCoords() const;
+        Math::Vector2i GetRelativeMotion();
+        Math::Vector2f GetGlCoords() const;
+        Math::Vector2f GetRelativeGlMotion();
         void FlushMotion();
         void RegisterScrolling(const std::function<void (float, float)>& callback);
         void DoScroll(float x, float y) const;

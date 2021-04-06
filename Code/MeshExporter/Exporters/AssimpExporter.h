@@ -25,7 +25,7 @@ namespace Util
         void WriteNode(std::ofstream& file, aiNode* node) const;
         void WriteMaterial(std::ofstream& file, aiMaterial* material) const;
         void WriteMesh(std::ofstream& file, aiMesh* mesh) const;
-        [[nodiscard]] std::string ParseAssetName(const aiString& assetPath) const;
+        std::string ParseAssetName(const aiString& assetPath) const;
 
         Assimp::Importer _importer;
         const aiScene* _scene;

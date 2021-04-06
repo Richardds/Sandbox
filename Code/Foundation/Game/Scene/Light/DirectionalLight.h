@@ -16,7 +16,7 @@ namespace Graphics
     public:
         DirectionalLight();
 
-        [[nodiscard]] Math::Vector3f GetDirection() const;
+        Math::Vector3f GetDirection() const;
         void SetDirection(const Math::Vector3f& direction);
 
     private:

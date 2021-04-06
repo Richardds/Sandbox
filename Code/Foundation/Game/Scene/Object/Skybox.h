@@ -18,11 +18,11 @@ namespace Graphics
         explicit Skybox(const std::shared_ptr<Texture>& texture);
         Skybox(const std::shared_ptr<Texture>& texture, float size);
 
-        [[nodiscard]] std::shared_ptr<Mesh> GetMesh() const;
+        std::shared_ptr<Mesh> GetMesh() const;
         void SetMesh(const std::shared_ptr<Mesh>& mesh);
-        [[nodiscard]] std::shared_ptr<Texture> GetTexture() const;
+        std::shared_ptr<Texture> GetTexture() const;
         void SetTexture(const std::shared_ptr<Texture>& texture);
-        [[nodiscard]] float GetSize() const;
+        float GetSize() const;
         void Render() const;
 
     private:

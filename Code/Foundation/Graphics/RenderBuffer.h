@@ -23,15 +23,15 @@ namespace Graphics
         RenderBuffer();
         virtual ~RenderBuffer();
 
-        [[nodiscard]] State GetState() const;
+        State GetState() const;
         void Storage(GLenum format, unsigned int width, unsigned int height);
-        [[nodiscard]] GLenum GetFormat() const;
-        [[nodiscard]] unsigned int GetWidth() const;
-        [[nodiscard]] unsigned int GetHeight() const;
+        GLenum GetFormat() const;
+        unsigned int GetWidth() const;
+        unsigned int GetHeight() const;
         void Bind() const;
-        [[nodiscard]] bool IsBound() const;
+        bool IsBound() const;
         void Unbind() const;
-        [[nodiscard]] GLuint GetGlRenderBuffer() const;
+        GLuint GetGlRenderBuffer() const;
 
         static GLuint GetBound();
 

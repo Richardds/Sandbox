@@ -23,12 +23,12 @@ namespace Graphics
         explicit Shader(GLenum type);
         virtual ~Shader();
 
-        [[nodiscard]] State GetState() const;
+        State GetState() const;
         void SetSource(const std::string& source);
         bool Compile();
-        [[nodiscard]] GLenum GetType() const;
-        [[nodiscard]] GLuint GetGlShader() const;
-        [[nodiscard]] std::string GetSource() const;
+        GLenum GetType() const;
+        GLuint GetGlShader() const;
+        std::string GetSource() const;
 
         static std::string GetStringFromType(GLenum type);
         static std::string GetExtensionFromType(GLenum type);

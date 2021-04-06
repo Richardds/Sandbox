@@ -25,8 +25,8 @@ namespace Graphics
 
         Renderer();
 
-        [[nodiscard]] State GetState() const;
-        [[nodiscard]] std::shared_ptr<T> GetShader(bool use = false) const;
+        State GetState() const;
+        std::shared_ptr<T> GetShader(bool use = false) const;
         void FinishLoading();
 
     protected:
