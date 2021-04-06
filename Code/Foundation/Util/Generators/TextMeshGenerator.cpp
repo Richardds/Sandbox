@@ -34,7 +34,7 @@ std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::str
     // Indices counter
     uint32_t ic = 0;
 
-    for (const char character : text)
+    for (const Character character : text)
     {
         // Retrieve the current character's properties from font
         const Graphics::Font::CharacterProperties& props = font->GetCharacterProperties(character);

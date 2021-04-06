@@ -11,12 +11,12 @@ Graphics::Font::Font() :
 {
 }
 
-void Graphics::Font::AddCharacterProperties(const char character, const CharacterProperties& props)
+void Graphics::Font::AddCharacterProperties(const Character character, const CharacterProperties& props)
 {
     this->_charactersProperties[character] = props;
 }
 
-Graphics::Font::CharacterProperties Graphics::Font::GetCharacterProperties(const char character) const
+Graphics::Font::CharacterProperties Graphics::Font::GetCharacterProperties(const Character character) const
 {
     // Search for character in mapping hash table
     auto it = this->_charactersProperties.find(character);

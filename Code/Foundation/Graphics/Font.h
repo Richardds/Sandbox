@@ -6,6 +6,7 @@
 #pragma once
 
 #include "Precompiled.h"
+#include "Core/Types.h"
 #include "Texture.h"
 
 namespace Graphics
@@ -42,8 +43,8 @@ namespace Graphics
         [[nodiscard]] std::shared_ptr<Texture> GetFontMap() const;
         void SetFontMap(const std::shared_ptr<Texture>& fontMap);
 
-        void AddCharacterProperties(char character, const CharacterProperties& props);
-        [[nodiscard]] CharacterProperties GetCharacterProperties(char character) const;
+        void AddCharacterProperties(Character character, const CharacterProperties& props);
+        [[nodiscard]] CharacterProperties GetCharacterProperties(Character character) const;
         [[nodiscard]] bool Empty() const;
         [[nodiscard]] std::unordered_map<char, CharacterProperties> GetCharactersProperties() const;
         void FinishLoading();

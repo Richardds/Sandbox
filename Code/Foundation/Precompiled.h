@@ -15,6 +15,7 @@
 #include <memory>
 #include <random>
 #include <string>
+#include <regex>
 #include <unordered_map>
 #include <utility>
 #include <vector>

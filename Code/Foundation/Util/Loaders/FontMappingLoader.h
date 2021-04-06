@@ -17,6 +17,9 @@ namespace Util
         FontMappingLoader() = default;
         virtual ~FontMappingLoader() = default;
 
-        void Load(std::shared_ptr<Graphics::Font>& font, std::ifstream& fontMappingFile);
+        void Load(std::shared_ptr<Graphics::Font>& font, std::ifstream& fontMappingFile) const;
+
+    private:
+        static const char* CharacterMappingRegex;
     };
 }
