@@ -25,7 +25,7 @@ IO::Mouse::Mouse() :
 
 bool IO::Mouse::IsKeyPressed(const Key key) const
 {
-    _Assert(Graphics::Core::Instance().IsCreated());
+    _Assert(Graphics::Core::Instance().IsCreated())
 
     return glfwGetMouseButton(Graphics::Core::Instance().GetRenderingContext()->GetGlfwWindow(), EnumToValue(key));
 }

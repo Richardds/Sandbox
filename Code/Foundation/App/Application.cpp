@@ -17,18 +17,18 @@ App::Application::Application() :
 
 App::Application::~Application()
 {
-    _Assert(!this->IsOpen());
+    _Assert(!this->IsOpen())
 }
 
 bool App::Application::Open()
 {
-    _Assert(!this->IsOpen());
+    _Assert(!this->IsOpen())
     this->_isOpen = true;
     return true;
 }
 
 void App::Application::Close()
 {
-    _Assert(this->IsOpen());
+    _Assert(this->IsOpen())
     this->_isOpen = false;
 }

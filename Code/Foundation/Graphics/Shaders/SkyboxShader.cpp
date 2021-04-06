@@ -40,7 +40,7 @@ void Graphics::SkyboxShader::LoadProjection(const std::shared_ptr<const Projecti
 
 void Graphics::SkyboxShader::LoadCamera(const std::shared_ptr<Camera>& camera) const
 {
-    _Assert(camera);
+    _Assert(camera)
 
     Math::Matrix4f viewMatrix = Math::ViewMatrix3D(camera->GetPosition(), camera->GetRotationX(), camera->GetRotationY());
     viewMatrix[3].x = 0.0f;

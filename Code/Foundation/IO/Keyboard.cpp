@@ -10,7 +10,7 @@
 
 bool IO::Keyboard::IsKeyPressed(Key key) const
 {
-    _Assert(Graphics::Core::Instance().IsCreated());
+    _Assert(Graphics::Core::Instance().IsCreated())
 
     return glfwGetKey(
         Graphics::Core::Instance().GetRenderingContext()->GetGlfwWindow(),

@@ -52,8 +52,8 @@ namespace Graphics
 
     inline void Window::SetSize(const unsigned int width, const unsigned int height)
     {
-        _Assert(0 < width);
-        _Assert(0 < height);
+        _Assert(0 < width)
+        _Assert(0 < height)
 
         this->_width = width;
         this->_height = height;

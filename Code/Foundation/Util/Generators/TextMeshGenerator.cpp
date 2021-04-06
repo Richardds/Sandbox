@@ -17,7 +17,7 @@ Util::TextMeshGenerator::TextMeshGenerator()
 std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::basic_string<Character>& text,
                                                                   const std::shared_ptr<Graphics::Font>& font) const
 {
-    _Assert(font->GetState() == Graphics::Font::State::Loaded);
+    _Assert(font->GetState() == Graphics::Font::State::Loaded)
 
     const std::shared_ptr<Graphics::Texture>& fontMap = font->GetFontMap();
     const float textureSize = static_cast<float>(fontMap->GetWidth());

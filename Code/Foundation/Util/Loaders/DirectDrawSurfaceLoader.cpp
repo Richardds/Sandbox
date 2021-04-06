@@ -9,16 +9,16 @@
 
 void Util::DirectDrawSurfaceLoader::Load(std::shared_ptr<Graphics::Texture>& texture, std::vector<char>& buffer) const
 {
-    _Assert(texture->IsBound());
+    _Assert(texture->IsBound())
 
     const gli::texture gliTexture = gli::load_dds(buffer.data(), buffer.size());
 
-    _Assert(!gliTexture.empty());
+    _Assert(!gliTexture.empty())
 
     const gli::gl gl(gli::gl::PROFILE_GL33);
     const GLenum target = gl.translate(gliTexture.target());
 
-    _Assert(texture->GetTarget() == target);
+    _Assert(texture->GetTarget() == target)
 
     const gli::gl::format gliFormat = gl.translate(gliTexture.format(), gliTexture.swizzles());
     const glm::tvec3<GLsizei> dimensions(gliTexture.extent());

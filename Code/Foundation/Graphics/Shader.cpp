@@ -23,7 +23,7 @@ Graphics::Shader::~Shader()
 
 void Graphics::Shader::SetSource(const std::string& source)
 {
-    _Assert(State::Initial == this->_state);
+    _Assert(State::Initial == this->_state)
 
     this->_source = source;
     const char* sourcePtr = this->_source.c_str();
@@ -33,7 +33,7 @@ void Graphics::Shader::SetSource(const std::string& source)
 
 bool Graphics::Shader::Compile()
 {
-    _Assert(State::Source == this->_state);
+    _Assert(State::Source == this->_state)
 
     GLint compilationStatus = 0;
 

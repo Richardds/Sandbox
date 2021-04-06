@@ -29,7 +29,7 @@ void Graphics::VertexAttributeConfig::Append(const GLenum type, const uint16_t c
         break;
     }
 
-    _Assert(0 < elementSize);
+    _Assert(0 < elementSize)
 
     const size_t attributeSize = count * elementSize;
     VertexAttribute attribute = {type, count, attributeSize};
@@ -39,8 +39,8 @@ void Graphics::VertexAttributeConfig::Append(const GLenum type, const uint16_t c
 
 void Graphics::VertexAttributeConfig::Apply(const std::shared_ptr<VertexArray>& vao) const
 {
-    _Assert(vao);
-    _Assert(vao->IsBound());
+    _Assert(vao)
+    _Assert(vao->IsBound())
 
     size_t pointer = 0;
     uint16_t count = 0;

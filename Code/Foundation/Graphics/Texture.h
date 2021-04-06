@@ -90,7 +90,7 @@ namespace Graphics
 
     inline void Texture::SetTarget(const GLenum target)
     {
-        _Assert(State::Initial == this->_state);
+        _Assert(State::Initial == this->_state)
         this->_target = target;
     }
 
@@ -101,7 +101,7 @@ namespace Graphics
 
     inline void Texture::SetWidth(const unsigned int width)
     {
-        _Assert(State::Initial == this->_state);
+        _Assert(State::Initial == this->_state)
         this->_width = width;
     }
 
@@ -112,7 +112,7 @@ namespace Graphics
 
     inline void Texture::SetHeight(const unsigned int height)
     {
-        _Assert(State::Initial == this->_state);
+        _Assert(State::Initial == this->_state)
         this->_height = height;
     }
 
@@ -123,7 +123,7 @@ namespace Graphics
 
     inline void Texture::SetDepth(const unsigned int depth)
     {
-        _Assert(State::Initial == this->_state);
+        _Assert(State::Initial == this->_state)
         this->_depth = depth;
     }
 

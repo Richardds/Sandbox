@@ -31,7 +31,7 @@ Graphics::Scene::State Graphics::Scene::GetState() const
 
 bool Graphics::Scene::Setup()
 {
-    _Assert(State::Initial == this->_state);
+    _Assert(State::Initial == this->_state)
 
     // Setup camera
     this->_camera = std::make_shared<TargetedCamera>();
@@ -86,7 +86,7 @@ bool Graphics::Scene::Setup()
 
 void Graphics::Scene::ProcessInput()
 {
-    _Assert(State::Run == this->_state);
+    _Assert(State::Run == this->_state)
 
     this->_cursorPosition = this->GetScreenWorldPosition(IO::Mouse::Instance().GetCoords());
 
@@ -105,7 +105,7 @@ void Graphics::Scene::ProcessInput()
 
 void Graphics::Scene::Update(const float delta)
 {
-    _Assert(State::Run == this->_state);
+    _Assert(State::Run == this->_state)
 
     if (!this->_paused)
     {
@@ -121,7 +121,7 @@ void Graphics::Scene::Update(const float delta)
 
 void Graphics::Scene::Render()
 {
-    _Assert(State::Run == this->_state);
+    _Assert(State::Run == this->_state)
 
     // Render the entities to the screen buffer
     this->RenderEntities();
@@ -208,7 +208,7 @@ Math::Vector3f Graphics::Scene::GetScreenWorldPosition(const Math::Vector2ui& sc
 std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& name, const float size)
 {
     const auto it = this->_waterTiles.find(name);
-    _Assert(it == this->_waterTiles.end());
+    _Assert(it == this->_waterTiles.end())
     std::shared_ptr<Water> water = std::make_shared<Water>();
     std::shared_ptr<TexturedMesh> waterMesh = std::make_shared<TexturedMesh>(
         Util::PrimitiveGenerator::Instance().Generate3dQuad(size));
@@ -223,7 +223,7 @@ std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& na
 std::shared_ptr<Graphics::PointLight> Graphics::Scene::AddLight(const std::string& name)
 {
     const auto it = this->_lights.find(name);
-    _Assert(it == this->_lights.end());
+    _Assert(it == this->_lights.end())
     std::shared_ptr<PointLight> light = std::make_shared<PointLight>();
     this->_lights.emplace_hint(it, name, light);
     return light;
@@ -240,7 +240,7 @@ std::shared_ptr<Graphics::Entity> Graphics::Scene::AddEntity(const std::string& 
                                                              const std::shared_ptr<Entity>& entity)
 {
     const auto it = this->_entities.find(name);
-    _Assert(it == this->_entities.end());
+    _Assert(it == this->_entities.end())
     this->_entities.emplace_hint(it, name, entity);
     return entity;
 }

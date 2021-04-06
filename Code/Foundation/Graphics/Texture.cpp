@@ -38,7 +38,7 @@ void Graphics::Texture::Bind() const
 {
     if (!this->IsBound())
     {
-        _Assert(0 != this->_target);
+        _Assert(0 != this->_target)
         glBindTexture(this->_target, this->_glTexture);
         _boundTextures[this->_target] = this->_glTexture;
     }
@@ -62,7 +62,7 @@ void Graphics::Texture::Unbind() const
 
 void Graphics::Texture::FinishLoading()
 {
-    _Assert(State::Initial == this->_state);
+    _Assert(State::Initial == this->_state)
 
     this->_state = State::Loaded;
 }

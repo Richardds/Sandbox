@@ -10,7 +10,7 @@
 
 bool Graphics::SkyboxRenderer::Setup(const std::shared_ptr<const Projection>& projection)
 {
-    _Assert(State::Initial == this->GetState());
+    _Assert(State::Initial == this->GetState())
 
     // Setup skybox shader
     this->_shader = std::make_shared<SkyboxShader>();
@@ -39,8 +39,8 @@ void Graphics::SkyboxRenderer::Begin(const std::shared_ptr<Camera>& camera) cons
 
 void Graphics::SkyboxRenderer::Render(const std::shared_ptr<Skybox>& skybox) const
 {
-    _Assert(skybox);
-    _Assert(State::Ready == this->GetState());
+    _Assert(skybox)
+    _Assert(State::Ready == this->GetState())
 
     skybox->Render();
 }

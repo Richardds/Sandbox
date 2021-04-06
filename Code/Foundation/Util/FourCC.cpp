@@ -59,7 +59,7 @@ bool Util::FourCC::IsValid() const
 
 void Util::FourCC::SetFromUint32(const uint32_t fourCC)
 {
-    _Assert(0 != fourCC);
+    _Assert(0 != fourCC)
     this->_fourCC = fourCC;
 }
 
@@ -80,7 +80,7 @@ std::string Util::FourCC::ToString() const
 
 std::string Util::FourCC::ToString(const FourCC& fourCC)
 {
-    _Assert(fourCC.IsValid());
+    _Assert(fourCC.IsValid())
 
     std::string str("AAAA");
     str[0] = static_cast<char>((fourCC._fourCC & 0xFF000000) >> 24);
@@ -93,7 +93,7 @@ std::string Util::FourCC::ToString(const FourCC& fourCC)
 
 Util::FourCC Util::FourCC::FromString(const std::string& fourCC)
 {
-    _Assert(4 == fourCC.length());
+    _Assert(4 == fourCC.length())
 
     return FourCC(uint32_t(fourCC[0] | fourCC[1] << 8 | fourCC[2] << 16 | fourCC[3] << 24));
 }

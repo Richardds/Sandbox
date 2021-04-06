@@ -26,8 +26,8 @@ Graphics::RenderBuffer::~RenderBuffer()
 
 void Graphics::RenderBuffer::Storage(const GLenum format, const unsigned width, const unsigned height)
 {
-    _Assert(State::Initial == this->_state);
-    _Assert(this->IsBound());
+    _Assert(State::Initial == this->_state)
+    _Assert(this->IsBound())
     this->_format = format;
     this->_width = width;
     this->_height = height;

@@ -55,7 +55,7 @@ namespace Graphics
 
     inline void Model::FinishLoading()
     {
-        _Assert(State::Initial == this->_state);
+        _Assert(State::Initial == this->_state)
 
         this->_state = State::Loaded;
     }

@@ -57,7 +57,7 @@ namespace Graphics
     template <typename T>
     void Buffer::Data(std::vector<T> data, GLenum type)
     {
-        _Assert(this->IsBound());
+        _Assert(this->IsBound())
 
         glBufferData(this->_target, data.size() * sizeof(T), static_cast<const void*>(data.data()), type);
     }

@@ -88,7 +88,7 @@ std::shared_ptr<Graphics::TexturedMesh> Util::AssimpLoader::ProcessMesh(aiMesh* 
     for (uint32_t i = 0; i < mesh->mNumFaces; i++)
     {
         const aiFace face = mesh->mFaces[i];
-        _Assert(3 == face.mNumIndices);
+        _Assert(3 == face.mNumIndices)
         indices.emplace_back(face.mIndices[0], face.mIndices[1], face.mIndices[2]);
     }
 

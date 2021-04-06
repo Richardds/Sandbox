@@ -15,7 +15,7 @@ bool Sandbox::TestApplication::Open()
         this->PrintDeviceInfo();
 
         this->_scene = std::make_shared<TestScene>();
-        _Assert(this->_scene->Setup());
+        _Assert(this->_scene->Setup())
 
         return true;
     }

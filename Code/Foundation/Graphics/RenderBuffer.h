@@ -52,19 +52,19 @@ namespace Graphics
 
     inline GLenum RenderBuffer::GetFormat() const
     {
-        _Assert(State::Initial != this->_state);
+        _Assert(State::Initial != this->_state)
         return this->_format;
     }
 
     inline unsigned int RenderBuffer::GetWidth() const
     {
-        _Assert(State::Initial != this->_state);
+        _Assert(State::Initial != this->_state)
         return this->_width;
     }
 
     inline unsigned int RenderBuffer::GetHeight() const
     {
-        _Assert(State::Initial != this->_state);
+        _Assert(State::Initial != this->_state)
         return this->_height;
     }
 

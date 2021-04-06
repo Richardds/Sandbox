@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       Font.h
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #pragma once
@@ -67,7 +67,7 @@ namespace Graphics
 
     inline void Font::SetFontMap(const std::shared_ptr<Texture>& fontMap)
     {
-        _Assert(fontMap->GetState() == Texture::State::Loaded);
+        _Assert(Texture::State::Loaded == fontMap->GetState())
         this->_fontMap = fontMap;
     }
 
@@ -83,7 +83,7 @@ namespace Graphics
 
     inline void Font::FinishLoading()
     {
-        _Assert(State::Initial == this->_state);
+        _Assert(State::Initial == this->_state)
 
         this->_state = State::Loaded;
     }

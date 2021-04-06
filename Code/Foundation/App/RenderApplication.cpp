@@ -23,7 +23,7 @@ App::RenderApplication::RenderApplication() :
 
 bool App::RenderApplication::Open()
 {
-    _Assert(!this->IsOpen());
+    _Assert(!this->IsOpen())
 
     if (Application::Open())
     {
@@ -54,7 +54,7 @@ bool App::RenderApplication::Open()
 
 void App::RenderApplication::Run()
 {
-    _Assert(this->IsOpen());
+    _Assert(this->IsOpen())
 
     while (!this->IsQuitRequested())
     {
@@ -70,7 +70,7 @@ void App::RenderApplication::Run()
 
 void App::RenderApplication::Close()
 {
-    _Assert(this->IsOpen());
+    _Assert(this->IsOpen())
 
     this->_window->Close();
     this->_window->Destroy();
@@ -91,7 +91,7 @@ void App::RenderApplication::SetTitle(const std::string& title)
 
 void App::RenderApplication::UpdateTitleStats() const
 {
-    _Assert(200 > this->_title.size());
+    _Assert(200 > this->_title.size())
 
     if (this->_frameCount == 0)
     {

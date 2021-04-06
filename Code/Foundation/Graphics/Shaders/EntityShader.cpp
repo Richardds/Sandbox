@@ -130,7 +130,7 @@ void Graphics::EntityShader::DisableClippingPlane() const
 
 void Graphics::EntityShader::LoadCamera(const std::shared_ptr<Camera>& camera) const
 {
-    _Assert(camera);
+    _Assert(camera)
 
     const Math::Matrix4f viewMatrix = Math::ViewMatrix3D(camera->GetPosition(), camera->GetRotationX(),
                                                        camera->GetRotationY());
@@ -152,7 +152,7 @@ void Graphics::EntityShader::LoadSun(const std::shared_ptr<DirectionalLight>& su
 void Graphics::EntityShader::LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const
 {
     const int lightsCount = static_cast<int>(lights.size());
-    _Assert(lightsCount - 1 < EntityShader::MAX_LIGHT_COUNT);
+    _Assert(EntityShader::MAX_LIGHT_COUNT > lightsCount - 1)
     this->LoadInt(this->_lightsCountLocation, lightsCount);
 
     int index = 0;
@@ -165,7 +165,7 @@ void Graphics::EntityShader::LoadLights(const std::unordered_map<std::string, st
 
 void Graphics::EntityShader::LoadLight(const int index, const std::shared_ptr<PointLight>& light) const
 {
-    _Assert(index < EntityShader::MAX_LIGHT_COUNT);
+    _Assert(EntityShader::MAX_LIGHT_COUNT > index)
     const Math::Vector3f diffuseColor = light->GetIntensity() * light->GetColor();
     this->LoadVector3f(this->_lightLocations[index].position, light->GetPosition());
     this->LoadVector3f(this->_lightLocations[index].diffuse, diffuseColor);

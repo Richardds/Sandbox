@@ -22,7 +22,7 @@ void Graphics::Model::Render(const std::shared_ptr<EntityShader>& shader)
 
 void Graphics::Model::AddMesh(const std::string& name, const std::shared_ptr<TexturedMesh>& mesh)
 {
-    _Assert(State::Initial == this->_state);
+    _Assert(State::Initial == this->_state)
     this->_meshes[name] = mesh;
 }
 
@@ -35,7 +35,7 @@ std::shared_ptr<Graphics::TexturedMesh> Graphics::Model::GetMesh(const std::stri
 {
     const auto mesh = this->_meshes.find(name);
 
-    _Assert(mesh != this->_meshes.end());
+    _Assert(mesh != this->_meshes.end())
 
     return mesh->second;
 }

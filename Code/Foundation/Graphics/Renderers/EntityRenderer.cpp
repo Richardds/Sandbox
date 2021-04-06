@@ -9,7 +9,7 @@
 
 bool Graphics::EntityRenderer::Setup(const std::shared_ptr<const Projection>& projection)
 {
-    _Assert(State::Initial == this->GetState());
+    _Assert(State::Initial == this->GetState())
 
     // Setup entity shader
     this->_shader = std::make_shared<EntityShader>();
@@ -54,8 +54,8 @@ void Graphics::EntityRenderer::Begin(const std::shared_ptr<Camera>& camera,
 
 void Graphics::EntityRenderer::Render(const std::shared_ptr<Entity>& entity) const
 {
-    _Assert(entity);
-    _Assert(State::Ready == this->GetState());
+    _Assert(entity)
+    _Assert(State::Ready == this->GetState())
 
     entity->Render(this->_shader);
 }

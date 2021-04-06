@@ -11,7 +11,7 @@
 
 bool Graphics::TextRenderer::Setup()
 {
-    _Assert(State::Initial == this->GetState());
+    _Assert(State::Initial == this->GetState())
 
     // Setup text shader
     this->_shader = std::make_shared<TextShader>();
@@ -33,7 +33,7 @@ void Graphics::TextRenderer::Begin() const
 
 void Graphics::TextRenderer::Render(const std::shared_ptr<Text>& text) const
 {
-    _Assert(State::Ready == this->GetState());
+    _Assert(State::Ready == this->GetState())
 
     text->Render(this->_shader);
 }

@@ -101,7 +101,7 @@ void Graphics::WaterShader::LoadProjection(const std::shared_ptr<const Projectio
 
 void Graphics::WaterShader::LoadCamera(const std::shared_ptr<Camera>& camera) const
 {
-    _Assert(camera);
+    _Assert(camera)
 
     const Math::Matrix4f viewMatrix = Math::ViewMatrix3D(camera->GetPosition(), camera->GetRotationX(),
                                                        camera->GetRotationY());
@@ -123,7 +123,7 @@ void Graphics::WaterShader::LoadSun(const std::shared_ptr<DirectionalLight>& sun
 void Graphics::WaterShader::LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const
 {
     const int lightsCount = static_cast<int>(lights.size());
-    _Assert(WaterShader::MAX_LIGHT_COUNT > lightsCount - 1);
+    _Assert(WaterShader::MAX_LIGHT_COUNT > lightsCount - 1)
     this->LoadInt(this->_lightsCountLocation, lightsCount);
 
     int index = 0;
@@ -136,7 +136,7 @@ void Graphics::WaterShader::LoadLights(const std::unordered_map<std::string, std
 
 void Graphics::WaterShader::LoadLight(const int index, const std::shared_ptr<PointLight>& light) const
 {
-    _Assert(WaterShader::MAX_LIGHT_COUNT > index);
+    _Assert(WaterShader::MAX_LIGHT_COUNT > index)
     const Math::Vector3f diffuseColor = light->GetIntensity() * light->GetColor();
     this->LoadVector3f(this->_lightLocations[index].position, light->GetPosition());
     this->LoadVector3f(this->_lightLocations[index].diffuse, diffuseColor);

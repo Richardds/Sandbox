@@ -69,8 +69,8 @@ namespace Graphics
 
     inline void TexturedMesh::SetDiffuseMap(const std::shared_ptr<Texture>& texture)
     {
-        _Assert(texture);
-        _Assert(Texture::State::Loaded == texture->GetState());
+        _Assert(texture)
+        _Assert(Texture::State::Loaded == texture->GetState())
         this->_diffuseMap = texture;
     }
 
@@ -86,8 +86,8 @@ namespace Graphics
 
     inline void TexturedMesh::SetNormalMap(const std::shared_ptr<Texture>& texture)
     {
-        _Assert(texture);
-        _Assert(Texture::State::Loaded == texture->GetState());
+        _Assert(texture)
+        _Assert(Texture::State::Loaded == texture->GetState())
         this->_normalMap = texture;
     }
 
@@ -103,8 +103,8 @@ namespace Graphics
 
     inline void TexturedMesh::SetSpecularMap(const std::shared_ptr<Texture>& texture)
     {
-        _Assert(texture);
-        _Assert(Texture::State::Loaded == texture->GetState());
+        _Assert(texture)
+        _Assert(Texture::State::Loaded == texture->GetState())
         this->_specularMap = texture;
     }
 
@@ -120,8 +120,8 @@ namespace Graphics
 
     inline void TexturedMesh::SetDistortionMap(const std::shared_ptr<Texture>& texture)
     {
-        _Assert(texture);
-        _Assert(Texture::State::Loaded == texture->GetState());
+        _Assert(texture)
+        _Assert(Texture::State::Loaded == texture->GetState())
         this->_distortionMap = texture;
     }
 }

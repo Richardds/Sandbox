@@ -43,8 +43,8 @@ namespace Graphics
 
     inline void Text::SetFontMap(const std::shared_ptr<Texture>& texture)
     {
-        _Assert(texture);
-        _Assert(Texture::State::Loaded == texture->GetState());
+        _Assert(texture)
+        _Assert(Texture::State::Loaded == texture->GetState())
         this->_fontMap = texture;
     }
 
@@ -55,7 +55,7 @@ namespace Graphics
 
     inline void Text::SetSize(const float size)
     {
-        _Assert(size > 0);
+        _Assert(size > 0)
         this->_size = size;
     }
 
@@ -66,7 +66,7 @@ namespace Graphics
 
     inline void Text::SetColor(const Math::Vector4f& color)
     {
-        _Assert(color.a > 0.0f);
+        _Assert(color.a > 0.0f)
         this->_color = color;
     }
 }

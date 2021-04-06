@@ -40,7 +40,7 @@ void Graphics::FrameBuffer::Activate(const unsigned int width, const unsigned in
 
 void Graphics::FrameBuffer::Clear() const
 {
-    _Assert(this->IsBound());
+    _Assert(this->IsBound())
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
@@ -55,9 +55,9 @@ void Graphics::FrameBuffer::AttachTexture(const std::shared_ptr<Texture>& textur
                                           const unsigned width,
                                           const unsigned height) const
 {
-    _Assert(this->IsBound());
-    _Assert(Texture::State::Initial == texture->GetState());
-    _Assert(GL_TEXTURE_2D == texture->GetTarget());
+    _Assert(this->IsBound())
+    _Assert(Texture::State::Initial == texture->GetState())
+    _Assert(GL_TEXTURE_2D == texture->GetTarget())
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -73,9 +73,9 @@ void Graphics::FrameBuffer::AttachDepthTexture(const std::shared_ptr<Texture>& t
                                                const unsigned width,
                                                const unsigned height) const
 {
-    _Assert(this->IsBound());
-    _Assert(Texture::State::Initial == texture->GetState());
-    _Assert(GL_TEXTURE_2D == texture->GetTarget());
+    _Assert(this->IsBound())
+    _Assert(Texture::State::Initial == texture->GetState())
+    _Assert(GL_TEXTURE_2D == texture->GetTarget())
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -89,8 +89,8 @@ void Graphics::FrameBuffer::AttachDepthTexture(const std::shared_ptr<Texture>& t
 
 void Graphics::FrameBuffer::AttachDepthBuffer(const std::shared_ptr<RenderBuffer>& renderBuffer) const
 {
-    _Assert(this->IsBound());
-    _Assert(RenderBuffer::State::Ready == renderBuffer->GetState());
+    _Assert(this->IsBound())
+    _Assert(RenderBuffer::State::Ready == renderBuffer->GetState())
 
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, renderBuffer->GetGlRenderBuffer());
 }

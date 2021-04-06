@@ -17,7 +17,7 @@ Graphics::ShaderSystem::ShaderSystem(const std::string& name) :
 
 bool Graphics::ShaderSystem::Setup()
 {
-    _Assert(State::Initial == this->_state);
+    _Assert(State::Initial == this->_state)
 
     std::shared_ptr<Shader> vertexShader = Util::ResourcesLoader::Instance().LoadShader(
         this->_name, GL_VERTEX_SHADER);
@@ -55,7 +55,7 @@ void Graphics::ShaderSystem::Use()
         return;
     }
 
-    _Assert(State::Ready == this->_state);
+    _Assert(State::Ready == this->_state)
 
     ShaderProgram::Use();
 }

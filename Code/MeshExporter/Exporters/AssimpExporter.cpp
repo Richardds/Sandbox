@@ -165,7 +165,7 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
     for (uint32_t i = 0; i < trianglesCount; i++)
     {
         const aiFace face = mesh->mFaces[i];
-        _Assert(3 == face.mNumIndices);
+        _Assert(3 == face.mNumIndices)
         this->Write(file, Math::Vector3ui32(face.mIndices[0], face.mIndices[1], face.mIndices[2]));
 
         // Print indices

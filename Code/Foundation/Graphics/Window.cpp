@@ -24,13 +24,13 @@ Graphics::Window::Window(const unsigned int width, const unsigned int height, co
 
 Graphics::Window::~Window()
 {
-    _Assert(!this->IsCreated());
+    _Assert(!this->IsCreated())
 }
 
 bool Graphics::Window::Create()
 {
-    _Assert(!this->IsCreated());
-    _Assert(Core::Instance().IsCreated());
+    _Assert(!this->IsCreated())
+    _Assert(Core::Instance().IsCreated())
 
     this->_glfwWindow = glfwCreateWindow(
         static_cast<int>(this->_width),
@@ -40,7 +40,7 @@ bool Graphics::Window::Create()
         nullptr
     );
 
-    _Assert(nullptr != this->_glfwWindow);
+    _Assert(nullptr != this->_glfwWindow)
 
     this->_isCreated = true;
 
@@ -59,7 +59,7 @@ void Graphics::Window::Close() const
 
 void Graphics::Window::Destroy()
 {
-    _Assert(this->IsCreated());
+    _Assert(this->IsCreated())
 
     glfwDestroyWindow(this->_glfwWindow);
 
@@ -68,13 +68,13 @@ void Graphics::Window::Destroy()
 
 void Graphics::Window::SwapBuffers() const
 {
-    _Assert(this->IsCreated());
+    _Assert(this->IsCreated())
     glfwSwapBuffers(this->_glfwWindow);
 }
 
 bool Graphics::Window::IsCloseRequested() const
 {
-    _Assert(this->IsCreated());
+    _Assert(this->IsCreated())
     return glfwWindowShouldClose(this->_glfwWindow);
 }
 
@@ -85,7 +85,7 @@ float Graphics::Window::GetAspectRatio() const
 
 void Graphics::Window::ApplyViewport() const
 {
-    _Assert(this->IsCreated());
+    _Assert(this->IsCreated())
 
     if (this->_fullScreenEnabled)
     {

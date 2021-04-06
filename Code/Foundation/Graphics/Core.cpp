@@ -19,12 +19,12 @@ Graphics::Core::Core() :
 
 Graphics::Core::~Core()
 {
-    _Assert(!this->IsCreated());
+    _Assert(!this->IsCreated())
 }
 
 bool Graphics::Core::Setup()
 {
-    _Assert(!this->IsCreated());
+    _Assert(!this->IsCreated())
 
     glfwSetErrorCallback(GlfwErrorCallback);
 
@@ -59,7 +59,7 @@ bool Graphics::Core::Setup()
 
 void Graphics::Core::Destroy()
 {
-    _Assert(this->IsCreated());
+    _Assert(this->IsCreated())
 
     glfwTerminate();
 
@@ -68,8 +68,8 @@ void Graphics::Core::Destroy()
 
 bool Graphics::Core::SetRenderingContext(const std::shared_ptr<Window>& window)
 {
-    _Assert(this->IsCreated());
-    _Assert(window->IsCreated());
+    _Assert(this->IsCreated())
+    _Assert(window->IsCreated())
 
     this->_context = window;
 
@@ -113,7 +113,7 @@ std::string Graphics::Core::GetGlString(const GLenum name) const
 {
     const GLubyte* string_ptr = glGetString(name);
 
-    _Assert(nullptr != string_ptr);
+    _Assert(nullptr != string_ptr)
 
     return std::string(reinterpret_cast<const char*>(string_ptr));
 }
