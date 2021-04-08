@@ -18,6 +18,7 @@ bool Util::AssimpExporter::Load(const std::vector<char>& buffer)
 {
     this->_scene = this->_importer.ReadFileFromMemory(buffer.data(), buffer.size(),
                                                       aiProcess_Triangulate
+                                                      | aiProcess_SortByPType
                                                       | aiProcess_FlipUVs
                                                       | aiProcess_CalcTangentSpace
                                                       | aiProcess_GenSmoothNormals
@@ -66,7 +67,12 @@ void Util::AssimpExporter::WriteNode(std::ofstream& file, aiNode* node) const
         for (uint16_t i = 0; i < meshesCount; i++)
         {
             aiMesh* mesh = this->_scene->mMeshes[node->mMeshes[i]];
-            this->WriteMesh(file, mesh);
+
+            // Skip the mesh if does not contain any triangles
+            if (mesh->mPrimitiveTypes & aiPrimitiveType_TRIANGLE)
+            {
+                this->WriteMesh(file, mesh);
+            }
         }
 
         return;
@@ -137,39 +143,56 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
     const uint32_t verticesCount = mesh->mNumVertices;
     this->Write(file, verticesCount);
 
-    for (uint32_t i = 0; i < verticesCount; i++)
+    // Write vertices
+    if (mesh->mTextureCoords[0] == nullptr || mesh->mTangents == nullptr)
     {
-        const Graphics::VertexData3 vertex(
-            mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z,
-            mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z,
-            mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y,
-            mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z
-        );
+        for (uint32_t i = 0; i < verticesCount; i++)
+        {
+            const aiVector3D* position = &mesh->mVertices[i];
+            const aiVector3D* normal = &mesh->mNormals[i];
 
-        // Write vertex attributes
-        this->Write(file, vertex);
+            Graphics::VertexData3 vertex{};
+            vertex.vertex = Math::Vector3f(position->x, position->y, position->z);
+            vertex.normal = Math::Vector3f(normal->x, normal->y, normal->z);
+            
+            // Write vertex attributes
+            this->Write(file, vertex);
+        }
+    } else
+    {
+        for (uint32_t i = 0; i < verticesCount; i++)
+        {
+            const aiVector3D* position = &mesh->mVertices[i];
+            const aiVector3D* normal = &mesh->mNormals[i];
+            const aiVector3D* texture = &mesh->mTextureCoords[0][i];
+            const aiVector3D* tangent = &mesh->mTangents[i];
 
-        // Print vertex data
-        //IO::Console::Instance().Info(
-        //	"{%ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff, %ff},\n",
-        //	vertices.vertex.x, vertices.vertex.y, vertices.vertex.z,
-        //	vertices.normal.x, vertices.normal.y, vertices.normal.z,
-        //	vertices.texture.x, vertices.texture.y,
-        //	vertices.tangent.x, vertices.tangent.y, vertices.tangent.z
-        //);
+            const Graphics::VertexData3 vertex(
+                position->x, position->y, position->z,
+                normal->x, normal->y, normal->z,
+                texture->x, texture->y,
+                tangent->x, tangent->y, tangent->z
+            );
+            
+            // Write vertex attributes
+            this->Write(file, vertex);
+        }
     }
 
+    // Write triangles count
     const uint32_t trianglesCount = mesh->mNumFaces;
     this->Write(file, trianglesCount);
 
+    // Write triangles
     for (uint32_t i = 0; i < trianglesCount; i++)
     {
         const aiFace face = mesh->mFaces[i];
-        _Assert(3 == face.mNumIndices)
-        this->Write(file, Math::Vector3ui32(face.mIndices[0], face.mIndices[1], face.mIndices[2]));
 
-        // Print indices
-        //IO::Console::Instance().Info("%u, %u, %u,\n", face.mIndices[0], face.mIndices[1], face.mIndices[2]);
+        // Process triangles only
+        if (face.mNumIndices == 3)
+        {
+            this->Write(file, Math::Vector3ui32(face.mIndices[0], face.mIndices[1], face.mIndices[2]));
+        }
     }
 
     // Write material

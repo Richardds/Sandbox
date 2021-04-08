@@ -20,7 +20,7 @@ namespace Util
 
     private:
         template <typename T>
-        void Write(std::ofstream& file, T value) const;
+        void Write(std::ofstream& file, const T& value) const;
         void WriteString(std::ofstream& outputFile, const std::string& string) const;
         void WriteNode(std::ofstream& file, aiNode* node) const;
         void WriteMaterial(std::ofstream& file, aiMaterial* material) const;
@@ -32,7 +32,7 @@ namespace Util
     };
 
     template <typename T>
-    void AssimpExporter::Write(std::ofstream& file, T value) const
+    void AssimpExporter::Write(std::ofstream& file, const T& value) const
     {
         file.write(reinterpret_cast<const char*>(&value), sizeof(T));
     }
