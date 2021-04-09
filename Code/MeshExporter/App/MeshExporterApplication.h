@@ -5,7 +5,6 @@
 
 #pragma once
 
-#include <Precompiled.h>
 #include <App/Application.h>
 #include <IO/OutputFile.h>
 

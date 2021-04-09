@@ -11,12 +11,14 @@
 namespace Util
 {
     /// std::random wrapper
-    class Random
+    class EXPORT Random
     {
     _Singleton(Random)
 
     public:
         Random() = default;
+        virtual ~Random() = default;
+
         template <typename T>
         T GetInt(T min, T max);
         template <typename T>

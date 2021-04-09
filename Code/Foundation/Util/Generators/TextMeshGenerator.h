@@ -14,12 +14,13 @@
 namespace Util
 {
     /// Generates 2D text mesh
-    class TextMeshGenerator : public Generator
+    class EXPORT TextMeshGenerator : public Generator
     {
     _Singleton(TextMeshGenerator)
 
     public:
         TextMeshGenerator();
+        virtual ~TextMeshGenerator() = default;
 
         std::shared_ptr<Graphics::Text> Generate(const std::basic_string<Character>& text,
                                                                const std::shared_ptr<Graphics::Font>& font) const;

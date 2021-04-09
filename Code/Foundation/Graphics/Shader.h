@@ -10,7 +10,7 @@
 namespace Graphics
 {
     /// Low-level OpenGL generic shader object wrapper
-    class Shader
+    class EXPORT Shader
     {
     public:
         enum class State

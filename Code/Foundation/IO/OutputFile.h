@@ -8,10 +8,11 @@
 #include "Precompiled.h"
 #include "Core/Debug.h"
 #include "Core/Exception/IOException.h"
+#include "Util/FourCC.h"
 
 namespace IO
 {
-    class OutputFile
+    class EXPORT OutputFile
     {
     public:
         OutputFile();
@@ -23,11 +24,12 @@ namespace IO
         std::string GetPath() const;
         size_t GetSize() const;
         bool IsEmpty() const;
+        void Write(const std::string& string);
+        void Write(const Util::FourCC& fourCC);
         template <typename T>
         void Write(const T& value);
         template <typename T>
         void Write(const T* values, size_t count);
-        void Write(const std::string& string);
         void Close();
 
     protected:

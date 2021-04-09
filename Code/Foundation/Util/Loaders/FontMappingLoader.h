@@ -12,7 +12,7 @@
 namespace Util
 {
     /// Loader to fill font characters mapping
-    class FontMappingLoader
+    class EXPORT FontMappingLoader
     {
     public:
         FontMappingLoader() = default;

@@ -1,11 +1,10 @@
 // ----------------------------------------------------------------------------------------
 //  \file       ProjectileManager.h
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #pragma once
 
-#include <Precompiled.h>
 #include <Graphics/Renderers/EntityRenderer.h>
 
 #include "Game/Scene/Object/Projectile.h"

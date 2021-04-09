@@ -12,7 +12,7 @@
 
 namespace Graphics
 {
-    class Text : public Mesh
+    class EXPORT Text : public Mesh
     {
     public:
         Text(const std::shared_ptr<VertexArray>& vertexArrayObject,
@@ -21,6 +21,7 @@ namespace Graphics
              uint32_t elementsCount,
              const std::shared_ptr<Texture>& fontMap);
         Text(const std::shared_ptr<Mesh>& mesh, const std::shared_ptr<Texture>& fontMap);
+        virtual ~Text() = default;
 
         void Render(const std::shared_ptr<TextShader>& shader) const;
         std::shared_ptr<Texture> GetFontMap() const;

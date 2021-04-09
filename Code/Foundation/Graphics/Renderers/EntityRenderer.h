@@ -17,10 +17,11 @@
 namespace Graphics
 {
     /// Renderer which renders basic models
-    class EntityRenderer : public Renderer<EntityShader>
+    class EXPORT EntityRenderer : public Renderer<EntityShader>
     {
     public:
         EntityRenderer() = default;
+        virtual ~EntityRenderer() = default;
 
         bool Setup(const std::shared_ptr<const Projection>& projection);
         void Begin(const std::shared_ptr<Camera>& camera,

@@ -12,12 +12,13 @@
 namespace Util
 {
     /// Generates 3D skybox cube
-    class SkyboxGenerator : public Generator
+    class EXPORT SkyboxGenerator : public Generator
     {
     _Singleton(SkyboxGenerator)
 
     public:
         SkyboxGenerator();
+        virtual ~SkyboxGenerator() = default;
 
         std::shared_ptr<Graphics::Mesh> Generate(float size);
 

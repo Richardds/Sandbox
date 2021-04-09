@@ -17,11 +17,11 @@ namespace Math
     // TODO
     //Matrix3f ViewMatrix2D(const Vector2f& position, float rotation);
 
-    Matrix3f TransformationMatrix2D(const Vector2f& position, float rotation, float scale);
+    EXPORT Matrix3f TransformationMatrix2D(const Vector2f& position, float rotation, float scale);
 
-    Matrix3f TranslationMatrix2D(const Vector2f& position);
+    EXPORT Matrix3f TranslationMatrix2D(const Vector2f& position);
 
-    Matrix3f RotationMatrix2D(float rotation);
+    EXPORT Matrix3f RotationMatrix2D(float rotation);
 
-    Matrix3f ScaleMatrix2D(float scale);
+    EXPORT Matrix3f ScaleMatrix2D(float scale);
 }

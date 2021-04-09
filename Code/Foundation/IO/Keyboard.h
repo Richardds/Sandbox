@@ -11,7 +11,7 @@
 namespace IO
 {
     /// Helper class for reading input from a keyboard
-    class Keyboard
+    class EXPORT Keyboard
     {
     _Singleton(Keyboard)
 
@@ -141,6 +141,8 @@ namespace IO
         };
 
         Keyboard() = default;
+        virtual ~Keyboard() = default;
+
         bool IsKeyPressed(Key key) const;
         bool IsControlPressed() const;
         bool IsAltPressed() const;

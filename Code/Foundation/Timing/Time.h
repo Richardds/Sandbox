@@ -11,12 +11,14 @@
 namespace Timing
 {
     /// Simple std::chrono time wrapper
-    class Time
+    class EXPORT Time
     {
     public:
         Time() = default;
         Time(const Time& rhs);
         explicit Time(TimePoint time);
+        virtual ~Time() = default;
+
         Duration Diff(const Time& rhs) const;
         template <typename T>
         T Get() const;

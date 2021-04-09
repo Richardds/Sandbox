@@ -12,10 +12,12 @@ namespace Graphics
 {
     /// Shader system usually used for creating scene depth buffer
     /// (currently unused)
-    class DepthShader : public ShaderSystem
+    class EXPORT DepthShader : public ShaderSystem
     {
     public:
         DepthShader();
+        virtual ~DepthShader() = default;
+
         void InitializeUniformVariables() override;
         void LoadProjection(const Math::Matrix4f& transformation) const;
 

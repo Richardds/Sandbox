@@ -11,7 +11,7 @@
 namespace Graphics
 {
     /// Helper class for initializing vertex attributes of a vertex array object
-    class VertexAttributeConfig
+    class EXPORT VertexAttributeConfig
     {
     public:
         struct VertexAttribute
@@ -22,6 +22,8 @@ namespace Graphics
         };
 
         VertexAttributeConfig();
+        virtual ~VertexAttributeConfig() = default;
+
         void Append(GLenum type, uint16_t count);
         void Apply(const std::shared_ptr<VertexArray>& vao) const;
 

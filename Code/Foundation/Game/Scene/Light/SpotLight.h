@@ -12,7 +12,7 @@
 namespace Graphics
 {
     /// 3D scene spot light entity
-    class SpotLight : public DirectionalLight, public HasPosition
+    class EXPORT SpotLight : public DirectionalLight, public HasPosition
     {
     public:
         /// Spot light cut-off angle when undefined
@@ -21,6 +21,7 @@ namespace Graphics
         static constexpr float DEFAULT_CUT_OFF_ANGLE_OFFSET = 5.0f;
 
         SpotLight();
+        virtual ~SpotLight() = default;
 
         float GetCutOffAngle() const;
         float GetCosineCutOffAngle() const;

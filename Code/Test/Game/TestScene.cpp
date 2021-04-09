@@ -3,7 +3,6 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include <Precompiled.h>
 #include <Util/ResourcesLoader.h>
 #include <Util/Generators/TextMeshGenerator.h>
 #include <IO/Mouse.h>

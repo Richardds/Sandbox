@@ -11,12 +11,14 @@
 namespace IO
 {
     /// Helper class for writing text to a console
-    class Console
+    class EXPORT Console
     {
     _Singleton(Console)
 
     public:
         Console() = default;
+        virtual ~Console() = default;
+
         void __cdecl Write(FILE* handle, const char* format, ...);
         void __cdecl Info(const char* format, ...);
         void __cdecl Warning(const char* format, ...);

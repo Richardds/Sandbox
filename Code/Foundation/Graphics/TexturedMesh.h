@@ -14,7 +14,7 @@
 namespace Graphics
 {
     /// Describes texture mapping attributes of a mesh
-    class TexturedMesh : public Mesh
+    class EXPORT TexturedMesh : public Mesh
     {
     public:
         TexturedMesh(const std::shared_ptr<VertexArray>& vertexArrayObject,
@@ -22,6 +22,7 @@ namespace Graphics
                      const std::shared_ptr<Buffer>& elementsBuffer,
                      uint32_t elementsCount);
         explicit TexturedMesh(const std::shared_ptr<Mesh>& mesh);
+        virtual ~TexturedMesh() = default;
 
         void Render(const std::shared_ptr<EntityShader>& shader) const;
         Material GetMaterial() const;

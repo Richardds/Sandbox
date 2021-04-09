@@ -3,8 +3,6 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include <Precompiled.h>
-
 #include "Game/Scene/Object/Projectile.h"
 
 Sandbox::Projectile::Projectile(const std::shared_ptr<Actor>& actor) :

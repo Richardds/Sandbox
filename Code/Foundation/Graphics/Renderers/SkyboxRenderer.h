@@ -14,10 +14,11 @@
 namespace Graphics
 {
     /// Renderer which renders skybox
-    class SkyboxRenderer : public Renderer<SkyboxShader>
+    class EXPORT SkyboxRenderer : public Renderer<SkyboxShader>
     {
     public:
         SkyboxRenderer() = default;
+        virtual ~SkyboxRenderer() = default;
 
         bool Setup(const std::shared_ptr<const Projection>& projection);
         void Begin(const std::shared_ptr<Camera>& camera) const;

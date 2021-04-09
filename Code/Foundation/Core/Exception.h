@@ -10,7 +10,7 @@
 namespace Core
 {
     /// Base class of all Sandbox exceptions
-    class Exception : public std::exception
+    class EXPORT Exception : public std::exception
     {
     public:
         explicit Exception(const std::string& message);

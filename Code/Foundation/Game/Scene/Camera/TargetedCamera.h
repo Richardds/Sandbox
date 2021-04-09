@@ -12,13 +12,14 @@ namespace Graphics
 {
     /// 3D scene targeted camera entity
     /// This camera type usually focus on specified 3D position
-    class TargetedCamera : public Camera
+    class EXPORT TargetedCamera : public Camera
     {
     public:
         /// Camera distance from target when unspecified
         static constexpr float DEFAULT_DISTANCE = 15.0f;
 
         TargetedCamera();
+        virtual ~TargetedCamera() = default;
 
         float GetDistance() const;
         void SetDistance(float distance);

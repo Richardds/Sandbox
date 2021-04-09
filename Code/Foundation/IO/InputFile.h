@@ -8,10 +8,11 @@
 #include "Precompiled.h"
 #include "Core/Debug.h"
 #include "Core/Exception/IOException.h"
+#include "Util/FourCC.h"
 
 namespace IO
 {
-    class InputFile
+    class EXPORT InputFile
     {
     public:
         InputFile();
@@ -24,11 +25,12 @@ namespace IO
         size_t GetSize() const;
         bool IsEmpty() const;
         bool IsEndOfFile() const;
+        void Read(std::string& string);
+        void Read(Util::FourCC& fourCC);
         template <typename T>
         void Read(T& value);
         template <typename T>
         void Read(T* values, size_t count);
-        void Read(std::string& string);
         void ReadLine(std::string& line, char delimeter = '\n');
         void Seek(size_t offset);
         void Close();

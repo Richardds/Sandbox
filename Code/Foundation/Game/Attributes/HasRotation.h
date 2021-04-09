@@ -10,7 +10,7 @@
 namespace Graphics
 {
     /// Provides 3D rotation attributes and operations
-    class HasRotation
+    class EXPORT HasRotation
     {
     public:
         HasRotation();

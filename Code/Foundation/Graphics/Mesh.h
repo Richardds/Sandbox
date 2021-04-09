@@ -12,7 +12,7 @@
 namespace Graphics
 {
     /// Holds necessary low-level OpenGL attributes for drawing a mesh of triangles
-    class Mesh
+    class EXPORT Mesh
     {
     public:
         Mesh(const std::shared_ptr<VertexArray>& vertexArrayObject,

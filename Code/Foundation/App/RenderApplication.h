@@ -13,7 +13,7 @@
 namespace App
 {
     /// Base class of every application with rendering capabilities
-    class RenderApplication : public Application
+    class EXPORT RenderApplication : public Application
     {
     public:
         RenderApplication();

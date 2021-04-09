@@ -24,7 +24,7 @@ void Util::ModelLoader::Load(std::shared_ptr<Graphics::Model>& model, IO::InputF
     FourCC magic;
     file.Read(magic);
 
-    if (magic != FourCC("MODL"))
+    if (FourCC("MODL") != magic)
     {
         IO::Console::Instance().Error("File header mismatch\n");
         return;

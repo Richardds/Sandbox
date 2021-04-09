@@ -13,10 +13,11 @@
 namespace Graphics
 {
     /// Renderer which renders text
-    class TextRenderer : public Renderer<TextShader>
+    class EXPORT TextRenderer : public Renderer<TextShader>
     {
     public:
         TextRenderer() = default;
+        virtual ~TextRenderer() = default;
 
         bool Setup();
         void Begin() const;

@@ -12,7 +12,7 @@
 namespace Util
 {
     /// Direct draw surface texture loader which uses GLI library
-    class DirectDrawSurfaceLoader
+    class EXPORT DirectDrawSurfaceLoader
     {
     _Singleton(DirectDrawSurfaceLoader)
 

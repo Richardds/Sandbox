@@ -10,7 +10,7 @@
 namespace Graphics
 {
     /// Low-level OpenGL vertex array object wrapper
-    class VertexArray
+    class EXPORT VertexArray
     {
     public:
         VertexArray();

@@ -11,7 +11,7 @@
 namespace Graphics
 {
     /// 3D scene actor entity
-    class Actor : public Entity
+    class EXPORT Actor : public Entity
     {
     public:
         Actor();

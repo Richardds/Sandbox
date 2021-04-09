@@ -10,7 +10,7 @@
 namespace App
 {
     /// Base class of every application
-    class Application
+    class EXPORT Application
     {
     public:
         Application();

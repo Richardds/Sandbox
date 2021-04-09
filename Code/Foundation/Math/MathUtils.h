@@ -12,7 +12,7 @@
 
 namespace Math
 {
-    float LookAt(const Vector2f& position, const Vector2f& target);
+    EXPORT float LookAt(const Vector2f& position, const Vector2f& target);
 
     template <typename T>
     T Min(T value1, T value2)

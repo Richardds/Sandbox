@@ -16,7 +16,7 @@ namespace Util
 {
     /// Global resource loader for loading models and textures
     /// Handles caching and reusing of already loaded models
-    class ResourcesLoader
+    class EXPORT ResourcesLoader
     {
     _Singleton(ResourcesLoader)
 

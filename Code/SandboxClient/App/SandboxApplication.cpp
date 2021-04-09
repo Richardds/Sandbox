@@ -1,9 +1,8 @@
 // ----------------------------------------------------------------------------------------
 //  \file       SandboxApplication.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include <Precompiled.h>
 #include <IO/Keyboard.h>
 
 #include "App/SandboxApplication.h"

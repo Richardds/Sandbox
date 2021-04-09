@@ -1,11 +1,10 @@
 // ----------------------------------------------------------------------------------------
 //  \file       SandboxApplication.h
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #pragma once
 
-#include <Precompiled.h>
 #include <App/RenderApplication.h>
 
 #include "Game/SandboxScene.h"

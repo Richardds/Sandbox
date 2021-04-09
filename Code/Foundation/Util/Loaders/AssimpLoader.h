@@ -14,10 +14,12 @@
 namespace Util
 {
     /// Model loader which uses Assimp library
-    class AssimpLoader
+    class EXPORT AssimpLoader
     {
     public:
         AssimpLoader();
+        virtual ~AssimpLoader() = default;
+
         std::shared_ptr<Graphics::Model> Load(const std::vector<char>& buffer);
 
     private:

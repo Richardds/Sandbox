@@ -14,7 +14,7 @@ namespace Graphics
     /**
      * Converts top-left absolute pixel coordinates to bottom-left relative screen coordinates
      */
-    inline Math::Vector2f PixelToNDCScale(const Math::Vector2f& coordinates, const Math::Vector2f& screenResolution)
+    EXPORT inline Math::Vector2f PixelToNDCScale(const Math::Vector2f& coordinates, const Math::Vector2f& screenResolution)
     {
         return 2.0f * (coordinates / screenResolution);
     }
@@ -22,7 +22,7 @@ namespace Graphics
     /**
      * Converts top-left absolute pixel coordinates to bottom-left relative screen coordinates
      */
-    inline Math::Vector2f PixelToNDCScale(const Math::Vector2f& coordinates)
+    EXPORT inline Math::Vector2f PixelToNDCScale(const Math::Vector2f& coordinates)
     {
         return PixelToNDCScale(coordinates, Core::Instance().GetResolution());
     }
@@ -30,7 +30,7 @@ namespace Graphics
     /**
      * Converts top-left absolute pixel coordinates to bottom-left relative texture coordinates
      */
-    inline Math::Vector2f PixelToTextureScale(const Math::Vector2f& coordinates, float textureSize)
+    EXPORT inline Math::Vector2f PixelToTextureScale(const Math::Vector2f& coordinates, float textureSize)
     {
         return coordinates / textureSize;
     }

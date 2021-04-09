@@ -24,6 +24,7 @@ namespace Graphics
         };
 
         Renderer();
+        virtual ~Renderer() = default;
 
         State GetState() const;
         std::shared_ptr<T> GetShader(bool use = false) const;

@@ -16,13 +16,14 @@
 namespace Graphics
 {
     /// Renderer which renders water tiles
-    class WaterRenderer : public Renderer<WaterShader>
+    class EXPORT WaterRenderer : public Renderer<WaterShader>
     {
     public:
         /// Water reflection and refraction frame buffer sizes
         const unsigned int TEXTURE_SIZE = 2048;
 
         WaterRenderer() = default;
+        virtual ~WaterRenderer() = default;
 
         bool Setup(const std::shared_ptr<const Projection>& projection);
         void Begin(const std::shared_ptr<Camera>& camera,

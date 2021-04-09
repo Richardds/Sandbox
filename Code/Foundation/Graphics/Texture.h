@@ -11,7 +11,7 @@
 namespace Graphics
 {
     /// Low-level OpenGL texture object wrapper
-    class Texture
+    class EXPORT Texture
     {
     public:
         enum class State

@@ -3,7 +3,6 @@
 //  \author     Richard Boldi� <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include <Precompiled.h>
 #include <IO/Keyboard.h>
 
 #include "App/TestApplication.h"

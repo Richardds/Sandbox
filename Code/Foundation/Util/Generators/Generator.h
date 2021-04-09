@@ -12,16 +12,17 @@
 namespace Util
 {
     /// Base class for every mesh generator
-    class Generator
+    class EXPORT Generator
     {
     public:
         Generator() = default;
+        virtual ~Generator() = default;
 
     protected:
         template <typename T>
         std::shared_ptr<Graphics::Mesh> Store(const std::vector<T>& vertices,
-                                                            const std::vector<uint32_t>& indices,
-                                                            const Graphics::VertexAttributeConfig& config) const;
+                                              const std::vector<uint32_t>& indices,
+                                              const Graphics::VertexAttributeConfig& config) const;
     };
 
     template <typename T>

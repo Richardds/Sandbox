@@ -5,7 +5,6 @@
 
 #pragma once
 
-#include <Precompiled.h>
 #include <IO/OutputFile.h>
 
 namespace Util

@@ -38,7 +38,17 @@
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
-#ifndef WIN32
-#define __stdcall
-#define __cdecl
+#ifdef _WIN32
+#   ifdef DLL_EXPORT
+#       define EXPORT __declspec(dllexport)
+#   else
+#       define EXPORT __declspec(dllimport)
+#   endif
+#else
+#   define __stdcall
+#   define __cdecl
+#   define EXPORT
 #endif
+
+#pragma warning(disable:4251)
+#pragma warning(disable:4275)

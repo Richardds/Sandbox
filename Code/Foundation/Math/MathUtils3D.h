@@ -11,15 +11,15 @@
 
 namespace Math
 {
-    Matrix4f ProjectionMatrix3D(float aspectRatio, float fieldOfView, float nearPlane, float farPlane);
+    EXPORT Matrix4f ProjectionMatrix3D(float aspectRatio, float fieldOfView, float nearPlane, float farPlane);
 
-    Matrix4f ViewMatrix3D(const Vector3f& position, float rotationX, float rotationY);
+    EXPORT Matrix4f ViewMatrix3D(const Vector3f& position, float rotationX, float rotationY);
 
-    Matrix4f TransformationMatrix3D(const Vector3f& position, float rotationX, float rotationY, float rotationZ, float scale);
+    EXPORT Matrix4f TransformationMatrix3D(const Vector3f& position, float rotationX, float rotationY, float rotationZ, float scale);
 
-    Matrix4f TranslationMatrix3D(const Vector3f& position);
+    EXPORT Matrix4f TranslationMatrix3D(const Vector3f& position);
 
-    Matrix4f RotationMatrix3D(float rotationX, float rotationY, float rotationZ);
+    EXPORT Matrix4f RotationMatrix3D(float rotationX, float rotationY, float rotationZ);
 
-    Matrix4f ScaleMatrix3D(float scale);
+    EXPORT Matrix4f ScaleMatrix3D(float scale);
 }

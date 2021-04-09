@@ -5,6 +5,7 @@
 
 #include "Precompiled.h"
 #include "Util/Generators/SkyboxGenerator.h"
+#include "Math/Vector.h"
 
 Util::SkyboxGenerator::SkyboxGenerator()
 {

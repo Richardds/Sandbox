@@ -23,9 +23,14 @@ std::unordered_map<GLenum, GLuint> Graphics::Buffer::_boundBuffers = {
     {GL_UNIFORM_BUFFER, 0}
 };
 
+GLuint Graphics::Buffer::GetBound(const GLenum target)
+{
+    return _boundBuffers[target];
+}
+
 Graphics::Buffer::Buffer(const GLenum target) :
-    _target(target),
-    _glBuffer(0)
+    _glBuffer(0),
+    _target(target)
 {
     glGenBuffers(1, &this->_glBuffer);
 }
@@ -36,7 +41,7 @@ Graphics::Buffer::~Buffer()
     glDeleteBuffers(1, &this->_glBuffer);
 }
 
-void Graphics::Buffer::Bind() const
+void Graphics::Buffer::Bind()
 {
     if (!this->IsBound())
     {
@@ -45,11 +50,21 @@ void Graphics::Buffer::Bind() const
     }
 }
 
-void Graphics::Buffer::Unbind() const
+bool Graphics::Buffer::IsBound() const
+{
+    return _boundBuffers[this->_target] == this->_glBuffer;
+}
+
+void Graphics::Buffer::Unbind()
 {
     if (this->IsBound())
     {
         glBindBuffer(this->_target, 0);
         _boundBuffers[this->_target] = 0;
     }
+}
+
+void Graphics::Buffer::LoadData(const void* data, const size_t size, const GLenum type)
+{
+    glBufferData(this->_target, size, data, type);
 }

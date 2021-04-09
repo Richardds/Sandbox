@@ -20,7 +20,7 @@
 namespace Graphics
 {
     /// 3D scene which describe models, lights, camera and skybox
-    class Scene
+    class EXPORT Scene
     {
     public:
         enum class State

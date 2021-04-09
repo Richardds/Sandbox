@@ -13,10 +13,12 @@
 namespace Graphics
 {
     /// Shader system used for drawing skybox
-    class SkyboxShader : public ShaderSystem
+    class EXPORT SkyboxShader : public ShaderSystem
     {
     public:
         SkyboxShader();
+        virtual ~SkyboxShader() = default;
+
         void InitializeUniformVariables() override;
         void LoadProjection(const std::shared_ptr<const Projection>& projection) const;
         void LoadCamera(const std::shared_ptr<Camera>& camera) const;

@@ -12,7 +12,7 @@
 namespace IO
 {
     /// Helper class for reading input from a mouse
-    class Mouse
+    class EXPORT Mouse
     {
     _Singleton(Mouse)
 
@@ -25,6 +25,8 @@ namespace IO
         };
 
         Mouse();
+        virtual ~Mouse() = default;
+
         bool IsKeyPressed(Key key) const;
         Math::Vector2ui GetCoords() const;
         Math::Vector2i GetRelativeMotion();

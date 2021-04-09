@@ -15,7 +15,7 @@
 namespace Graphics
 {
     /// 3D scene entity
-    class Entity : public HasPosition, public HasRotation, public HasScale
+    class EXPORT Entity : public HasPosition, public HasRotation, public HasScale
     {
     public:
         Entity();

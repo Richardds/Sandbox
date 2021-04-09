@@ -11,10 +11,12 @@
 namespace Graphics
 {
     /// Holds projection information necessary for creating projection matrix
-    class Projection
+    class EXPORT Projection
     {
     public:
         Projection(float aspectRatio, float fieldOfView, float nearPlane, float farPlane);
+        virtual ~Projection() = default;
+
         Math::Matrix4f GetMatrix() const;
         float GetAspectRatio() const;
         void SetAspectRatio(float aspectRatio);

@@ -12,7 +12,7 @@
 namespace Graphics
 {
     /// Surface material class used as model shading attribute
-    class Material
+    class EXPORT Material
     {
     public:
         explicit Material(float reflectivity);
@@ -20,6 +20,8 @@ namespace Graphics
                  float reflectivity,
                  float specular,
                  float shininess);
+        virtual ~Material() = default;
+
         Math::Vector3f GetColor() const;
         void SetColor(const Math::Vector3f& color);
         float GetReflectivity() const;

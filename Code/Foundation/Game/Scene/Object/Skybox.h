@@ -12,11 +12,12 @@
 namespace Graphics
 {
     /// 3D scene skybox
-    class Skybox
+    class EXPORT Skybox
     {
     public:
         explicit Skybox(const std::shared_ptr<Texture>& texture);
         Skybox(const std::shared_ptr<Texture>& texture, float size);
+        virtual ~Skybox() = default;
 
         std::shared_ptr<Mesh> GetMesh() const;
         void SetMesh(const std::shared_ptr<Mesh>& mesh);

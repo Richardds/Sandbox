@@ -10,7 +10,6 @@
 #include "Game/Scene/Light/DirectionalLight.h"
 #include "Game/Scene/Light/PointLight.h"
 #include "Game/Scene/Light/SpotLight.h"
-#include "Graphics/Material.h"
 #include "Graphics/Projection.h"
 #include "Graphics/Shaders/ShaderSystem.h"
 #include "Math/Matrix.h"
@@ -18,10 +17,12 @@
 namespace Graphics
 {
     /// Shader system used for drawing water tiles
-    class WaterShader : public ShaderSystem
+    class EXPORT WaterShader : public ShaderSystem
     {
     public:
         WaterShader();
+        virtual ~WaterShader() = default;
+
         void InitializeUniformVariables() override;
         void LoadProjection(const std::shared_ptr<const Projection>& projection) const;
         void LoadCamera(const std::shared_ptr<Camera>& camera) const;

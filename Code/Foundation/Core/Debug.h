@@ -9,8 +9,8 @@
 
 namespace Core
 {
-    void Abort(const char*, const char*, int);
-    void AbortMessage(const char*, const char*, const char*, int);
+    EXPORT void Abort(const char*, const char*, int);
+    EXPORT void AbortMessage(const char*, const char*, const char*, int);
 }
 
 #define _Assert(exp) { if (!(exp)) ::Core::Abort(#exp,__FILE__,__LINE__); }

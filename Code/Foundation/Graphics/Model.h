@@ -12,7 +12,7 @@
 namespace Graphics
 {
     /// Holds model information of multiple meshes
-    class Model
+    class EXPORT Model
     {
     public:
         enum class State

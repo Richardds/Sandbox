@@ -6,37 +6,41 @@
 #pragma once
 
 #include "Precompiled.h"
-#include "Graphics/Core.h"
+#include "Core/Debug.h"
 
 namespace Graphics
 {
     /// Low-level OpenGL vertex buffer object wrapper
-    class Buffer
+    class EXPORT Buffer
     {
     public:
+        static GLuint GetBound(GLenum target);
+
         explicit Buffer(GLenum target);
         virtual ~Buffer();
 
-        void Bind() const;
+        void Bind();
         bool IsBound() const;
-        void Unbind() const;
-        template <typename T>
-        void Data(std::vector<T> data, GLenum type = GL_STATIC_DRAW);
-        GLenum GetTarget() const;
+        void Unbind();
         GLuint GetGlBuffer() const;
-
-        static GLuint GetBound(GLenum target);
+        GLenum GetTarget() const;
+        GLenum GetType() const;
+        template<typename T>
+        void Data(std::vector<T> data, const GLenum type = GL_STATIC_DRAW);
 
     private:
-        GLenum _target;
-        GLuint _glBuffer;
-
         static std::unordered_map<GLenum, GLuint> _boundBuffers;
+
+        GLuint _glBuffer;
+        GLenum _target;
+        GLenum _type;
+
+        void LoadData(const void* data, size_t size, GLenum type);
     };
 
-    inline bool Buffer::IsBound() const
+    inline GLuint Buffer::GetGlBuffer() const
     {
-        return _boundBuffers[this->_target] == this->_glBuffer;
+        return this->_glBuffer;
     }
 
     inline GLenum Buffer::GetTarget() const
@@ -44,21 +48,17 @@ namespace Graphics
         return this->_target;
     }
 
-    inline GLuint Buffer::GetGlBuffer() const
+    inline GLenum Buffer::GetType() const
     {
-        return this->_glBuffer;
+        return this->_type;
     }
 
-    inline GLuint Buffer::GetBound(GLenum target)
-    {
-        return _boundBuffers[target];
-    }
-
-    template <typename T>
-    void Buffer::Data(std::vector<T> data, GLenum type)
+    template<typename T>
+    void Buffer::Data(std::vector<T> data, const GLenum type)
     {
         _Assert(this->IsBound())
+        _Assert(0 < data.size())
 
-        glBufferData(this->_target, data.size() * sizeof(T), static_cast<const void*>(data.data()), type);
+        this->LoadData(static_cast<const void*>(data.data()), data.size() * sizeof(T), type);
     }
 }

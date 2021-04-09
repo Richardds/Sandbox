@@ -3,7 +3,6 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include <Precompiled.h>
 #include <IO/Console.h>
 
 #include "App/MeshExporterApplication.h"

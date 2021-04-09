@@ -3,10 +3,9 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include <Precompiled.h>
+#include <Core/Types.h>
 
 #include "Game/Scene/Object/Hardcoded.h"
-#include "Core/Types.h"
 
 Sandbox::Hardcoded::Hardcoded()
 {

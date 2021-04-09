@@ -57,6 +57,12 @@ void IO::OutputFile::Write(const std::string& string)
     this->Write(string.c_str(), size);
 }
 
+void IO::OutputFile::Write(const Util::FourCC& fourCC)
+{
+    const uint32_t value = fourCC.ToUint32();
+    this->Write(value);
+}
+
 void IO::OutputFile::Close()
 {
     if (this->_isOpen)

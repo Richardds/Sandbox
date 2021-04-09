@@ -5,7 +5,6 @@
 
 #pragma once
 
-#include <Precompiled.h>
 #include <App/RenderApplication.h>
 
 #include "Game/TestScene.h"

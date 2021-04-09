@@ -11,7 +11,7 @@
 namespace Graphics
 {
     /// Base light class
-    class Light
+    class EXPORT Light
     {
     public:
         Light();

@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       FourCC.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
@@ -84,7 +84,7 @@ void Util::FourCC::SetFromUint32(const uint32_t fourCC)
     this->_fourCC = fourCC;
 }
 
-uint32_t Util::FourCC::toUint32() const
+uint32_t Util::FourCC::ToUint32() const
 {
     return this->_fourCC;
 }

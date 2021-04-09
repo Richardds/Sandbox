@@ -13,10 +13,11 @@
 namespace Graphics
 {
     /// Water entity
-    class Water : public HasPosition
+    class EXPORT Water : public HasPosition
     {
     public:
         Water();
+        virtual ~Water() = default;
 
         std::shared_ptr<TexturedMesh> GetMesh() const;
         void SetMesh(const std::shared_ptr<TexturedMesh>& mesh);

@@ -11,7 +11,7 @@
 namespace Core
 {
     /// Exception class for all IO operations
-    class IOException : public Exception
+    class EXPORT IOException : public Exception
     {
     public:
         IOException(const std::string& message);

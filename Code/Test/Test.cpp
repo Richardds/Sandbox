@@ -3,8 +3,6 @@
 //  \author     Richard Boldi� <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include <Precompiled.h>
-
 #include "App/TestApplication.h"
 
 using namespace Sandbox;

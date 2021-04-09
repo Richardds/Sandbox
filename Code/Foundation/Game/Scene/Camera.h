@@ -12,7 +12,7 @@
 namespace Graphics
 {
     /// 3D scene camera entity
-    class Camera : public HasPosition, public HasRotation
+    class EXPORT Camera : public HasPosition, public HasRotation
     {
     public:
         Camera();

@@ -11,7 +11,7 @@
 namespace Graphics
 {
     /// Provides 3D position attributes and operations
-    class HasPosition
+    class EXPORT HasPosition
     {
     public:
         HasPosition();

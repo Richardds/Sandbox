@@ -11,7 +11,7 @@
 namespace Graphics
 {
     /// Low-level OpenGL render buffer object wrapper
-    class RenderBuffer
+    class EXPORT RenderBuffer
     {
     public:
         enum class State

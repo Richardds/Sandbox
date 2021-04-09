@@ -11,7 +11,7 @@
 namespace Graphics
 {
     /// GLFW context (window) class
-    class Window
+    class EXPORT Window
     {
     public:
         Window();

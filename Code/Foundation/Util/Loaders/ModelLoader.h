@@ -14,7 +14,7 @@
 namespace Util
 {
     /// Model loader which uses our custom format
-    class ModelLoader
+    class EXPORT ModelLoader
     {
     public:
         ModelLoader();

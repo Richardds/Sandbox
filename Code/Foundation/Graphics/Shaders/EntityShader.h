@@ -18,10 +18,12 @@
 namespace Graphics
 {
     /// Shader system used for drawing entities
-    class EntityShader final : public ShaderSystem
+    class EXPORT EntityShader final : public ShaderSystem
     {
     public:
         EntityShader();
+        virtual ~EntityShader() = default;
+
         void InitializeUniformVariables() override;
         void LoadProjection(const std::shared_ptr<const Projection>& projection) const;
         void EnableClippingPlane(const Math::Vector4f& plane) const;

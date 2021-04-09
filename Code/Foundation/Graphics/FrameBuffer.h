@@ -13,7 +13,7 @@
 namespace Graphics
 {
     /// Low-level OpenGL frame buffer object wrapper
-    class FrameBuffer
+    class EXPORT FrameBuffer
     {
     public:
         FrameBuffer();

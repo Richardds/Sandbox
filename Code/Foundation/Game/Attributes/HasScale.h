@@ -10,7 +10,7 @@
 namespace Graphics
 {
     /// Provides scale attributes and operations
-    class HasScale
+    class EXPORT HasScale
     {
     public:
         HasScale();

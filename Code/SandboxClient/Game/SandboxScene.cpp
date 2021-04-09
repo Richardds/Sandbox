@@ -3,8 +3,6 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
-
 #include <IO/Keyboard.h>
 #include <IO/Mouse.h>
 #include <Util/Random.h>

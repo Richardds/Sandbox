@@ -67,6 +67,14 @@ void IO::InputFile::Read(std::string& string)
     string = std::string(stringBuffer.begin(), stringBuffer.end());
 }
 
+void IO::InputFile::Read(Util::FourCC& fourCC)
+{
+    uint32_t value;
+    this->Read(value);
+
+    fourCC.SetFromUint32(value);
+}
+
 void IO::InputFile::ReadLine(std::string& line, const char delimeter)
 {
     _Assert(this->IsOpen())

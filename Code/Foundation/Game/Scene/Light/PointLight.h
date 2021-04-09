@@ -12,10 +12,11 @@
 namespace Graphics
 {
     /// 3D scene point light entity
-    class PointLight : public Light, public HasPosition
+    class EXPORT PointLight : public Light, public HasPosition
     {
     public:
         PointLight();
+        virtual ~PointLight() = default;
 
         Math::Vector3f GetAttenuation() const;
         void SetAttenuation(const Math::Vector3f& attenuation);

@@ -11,10 +11,11 @@
 namespace Graphics
 {
     /// 3D scene directional light entity
-    class DirectionalLight : public Light
+    class EXPORT DirectionalLight : public Light
     {
     public:
         DirectionalLight();
+        virtual ~DirectionalLight() = default;
 
         Math::Vector3f GetDirection() const;
         void SetDirection(const Math::Vector3f& direction);

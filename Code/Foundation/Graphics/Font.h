@@ -11,7 +11,7 @@
 
 namespace Graphics
 {
-    class Font
+    class EXPORT Font
     {
     public:
         enum class State

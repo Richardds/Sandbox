@@ -11,7 +11,7 @@
 namespace Graphics
 {
     /// Shader system base class operating over shader program
-    class ShaderSystem : public ShaderProgram
+    class EXPORT ShaderSystem : public ShaderProgram
     {
     public:
         enum class State

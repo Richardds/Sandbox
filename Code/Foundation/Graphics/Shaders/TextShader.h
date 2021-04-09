@@ -11,10 +11,11 @@
 namespace Graphics
 {
     /// Shader system used for drawing text
-    class TextShader : public ShaderSystem
+    class EXPORT TextShader : public ShaderSystem
     {
     public:
         TextShader();
+        virtual ~TextShader() = default;
 
         void InitializeUniformVariables() override;
         void LoadTransformation(const Math::Matrix3f& transformation) const;

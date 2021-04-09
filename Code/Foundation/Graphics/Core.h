@@ -14,7 +14,7 @@
 namespace Graphics
 {
     /// Helper singleton class for managing OpenGL low-level stuff
-    class Core
+    class EXPORT Core
     {
     _Singleton(Core)
 

@@ -1,9 +1,8 @@
 // ----------------------------------------------------------------------------------------
 //  \file       ProjectileManager.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include <Precompiled.h>
 #include <Util/ResourcesLoader.h>
 
 #include "ProjectileManager.h"

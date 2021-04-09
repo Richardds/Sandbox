@@ -3,11 +3,11 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include <Precompiled.h>
 #include <Core/Types.h>
-#include <Exporters/AssimpExporter.h>
 #include <Util/FourCC.h>
 #include <Util/ResourcesLoader.h>
+
+#include "Exporters/AssimpExporter.h"
 
 Util::AssimpExporter::AssimpExporter() :
     _scene(nullptr)
