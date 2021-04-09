@@ -3,10 +3,7 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include <cstdlib>
-
 #include "Precompiled.h"
-
 #include "Core/Debug.h"
 #include "IO/Console.h"
 

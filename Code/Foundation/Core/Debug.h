@@ -13,5 +13,10 @@ namespace Core
     EXPORT void AbortMessage(const char*, const char*, const char*, int);
 }
 
-#define _Assert(exp) { if (!(exp)) ::Core::Abort(#exp,__FILE__,__LINE__); }
-#define _AssertMessage(exp, msg) { if (!(exp)) ::Core::AbortMessage(#exp,msg,__FILE__,__LINE__); }
+#ifdef ASSERT
+#   define _Assert(exp) { if (!(exp)) ::Core::Abort(#exp,__FILE__,__LINE__); }
+#   define _AssertMessage(exp, msg) { if (!(exp)) ::Core::AbortMessage(#exp,msg,__FILE__,__LINE__); }
+#else
+#   define _Assert(exp) {}
+#   define _AssertMessage(exp, msg) {}
+#endif

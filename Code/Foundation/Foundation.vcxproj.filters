@@ -480,5 +480,6 @@
     <ClInclude Include="IO\OutputFile.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="Config.h" />
   </ItemGroup>
 </Project>

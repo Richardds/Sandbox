@@ -38,6 +38,8 @@
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
+#include "Config.h"
+
 #ifdef _WIN32
 #   ifdef DLL_EXPORT
 #       define EXPORT __declspec(dllexport)

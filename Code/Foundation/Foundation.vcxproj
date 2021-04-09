@@ -81,6 +81,7 @@
   <ItemGroup>
     <ClInclude Include="App\Application.h" />
     <ClInclude Include="App\RenderApplication.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="Core\Debug.h" />
     <ClInclude Include="Core\Exception.h" />
     <ClInclude Include="Core\Exception\IOException.h" />
