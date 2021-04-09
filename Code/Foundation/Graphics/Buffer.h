@@ -27,6 +27,7 @@ namespace Graphics
         GLenum GetType() const;
         template<typename T>
         void Data(std::vector<T> data, const GLenum type = GL_STATIC_DRAW);
+        void Invalidate();
 
     private:
         static std::unordered_map<GLenum, GLuint> _boundBuffers;

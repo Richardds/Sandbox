@@ -64,6 +64,11 @@ void Graphics::Buffer::Unbind()
     }
 }
 
+void Graphics::Buffer::Invalidate()
+{
+    glInvalidateBufferData(this->_glBuffer);
+}
+
 void Graphics::Buffer::LoadData(const void* data, const size_t size, const GLenum type)
 {
     glBufferData(this->_target, size, data, type);
