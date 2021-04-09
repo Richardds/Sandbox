@@ -19,10 +19,10 @@ Util::ModelLoader::ModelLoader()
     this->_attributesTemplate.Append(GL_FLOAT, 3);
 }
 
-void Util::ModelLoader::Load(std::shared_ptr<Graphics::Model>& model, std::ifstream& file)
+void Util::ModelLoader::Load(std::shared_ptr<Graphics::Model>& model, IO::InputFile& file) const
 {
     FourCC magic;
-    this->Read(&magic, file);
+    file.Read(magic);
 
     if (magic != FourCC("MODL"))
     {
@@ -31,75 +31,43 @@ void Util::ModelLoader::Load(std::shared_ptr<Graphics::Model>& model, std::ifstr
     }
 
     uint16_t meshesCount;
-    this->Read(&meshesCount, file);
+    file.Read(meshesCount);
 
     for (uint16_t i = 0; i < meshesCount; i++)
     {
-        const std::string meshName = this->ReadString(file);
+        std::string meshName;
+        file.Read(meshName);
         IO::Console::Instance().Info("-> Mesh '%s'\n", meshName.c_str());
         model->AddMesh(meshName, this->ReadMesh(file));
     }
 }
 
-std::string Util::ModelLoader::ReadString(std::ifstream& file) const
-{
-    uint16_t length;
-    this->Read(&length, file);
-
-    char* stringBuffer = new char[static_cast<size_t>(length) + 1];
-    file.read(stringBuffer, length);
-    stringBuffer[length] = '\0';
-
-    std::string str(stringBuffer, length);
-
-    delete[] stringBuffer;
-
-    return str;
-}
-
-std::shared_ptr<Graphics::Material> Util::ModelLoader::ReadMaterial(std::ifstream& file) const
-{
-    Math::Vector3f color;
-    this->Read(&color, file);
-
-    float reflectivity;
-    this->Read(&reflectivity, file);
-
-    float specular;
-    this->Read(&specular, file);
-
-    float shininess;
-    this->Read(&shininess, file);
-
-    return std::make_shared<Graphics::Material>(color, reflectivity, specular, shininess);
-}
-
-std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ReadMesh(std::ifstream& file) const
+std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ReadMesh(IO::InputFile& file) const
 {
     std::vector<Graphics::VertexData3> data;
     std::vector<Math::Vector3ui32> indices;
 
     uint32_t verticesCount;
-    this->Read(&verticesCount, file);
+    file.Read(verticesCount);
 
     data.reserve(verticesCount);
 
     for (uint32_t i = 0; i < verticesCount; i++)
     {
         Graphics::VertexData3 vertex;
-        this->Read(&vertex, file);
+        file.Read(vertex);
         data.emplace_back(vertex);
     }
 
     uint32_t trianglesCount;
-    this->Read(&trianglesCount, file);
+    file.Read(trianglesCount);
 
     indices.reserve(3 * static_cast<size_t>(trianglesCount));
 
     for (uint32_t i = 0; i < trianglesCount; i++)
     {
         Math::Vector3ui32 triangleIndexes;
-        this->Read(&triangleIndexes, file);
+        file.Read(triangleIndexes);
         indices.emplace_back(triangleIndexes);
     }
 
@@ -130,30 +98,47 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ReadMesh(std::ifstrea
 
     // Load model textures
     uint8_t textureBitfield;
-    this->Read(&textureBitfield, file);
+    file.Read(textureBitfield);
 
     std::string textureName;
 
     if (HAS_TEXTURE_DIFFUSE & textureBitfield)
     {
-        textureName = this->ReadString(file);
+        file.Read(textureName);
         std::shared_ptr<Graphics::Texture> texture = ResourcesLoader::Instance().LoadTexture(textureName);
         texturedMesh->SetDiffuseMap(texture);
     }
 
     if (HAS_TEXTURE_NORMALS & textureBitfield)
     {
-        textureName = this->ReadString(file);
+        file.Read(textureName);
         std::shared_ptr<Graphics::Texture> texture = ResourcesLoader::Instance().LoadTexture(textureName);
         texturedMesh->SetNormalMap(texture);
     }
 
     if (HAS_TEXTURE_SPECULAR & textureBitfield)
     {
-        textureName = this->ReadString(file);
+        file.Read(textureName);
         std::shared_ptr<Graphics::Texture> texture = ResourcesLoader::Instance().LoadTexture(textureName);
         texturedMesh->SetSpecularMap(texture);
     }
 
     return texturedMesh;
+}
+
+std::shared_ptr<Graphics::Material> Util::ModelLoader::ReadMaterial(IO::InputFile& file) const
+{
+    Math::Vector3f color;
+    file.Read(color);
+
+    float reflectivity;
+    file.Read(reflectivity);
+
+    float specular;
+    file.Read(specular);
+
+    float shininess;
+    file.Read(shininess);
+
+    return std::make_shared<Graphics::Material>(color, reflectivity, specular, shininess);
 }

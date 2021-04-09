@@ -9,6 +9,7 @@
 #include "Graphics/Material.h"
 #include "Graphics/Model.h"
 #include "Graphics/VertexAttributeConfig.h"
+#include "IO/InputFile.h"
 
 namespace Util
 {
@@ -19,21 +20,12 @@ namespace Util
         ModelLoader();
         virtual ~ModelLoader() = default;
 
-        void Load(std::shared_ptr<Graphics::Model>& model, std::ifstream& file);
+        void Load(std::shared_ptr<Graphics::Model>& model, IO::InputFile& file) const;
 
     private:
-        template <typename T>
-        void Read(T* value, std::ifstream& file) const;
-        std::string ReadString(std::ifstream& file) const;
-        std::shared_ptr<Graphics::Material> ReadMaterial(std::ifstream& file) const;
-        std::shared_ptr<Graphics::TexturedMesh> ReadMesh(std::ifstream& file) const;
+        std::shared_ptr<Graphics::TexturedMesh> ReadMesh(IO::InputFile& file) const;
+        std::shared_ptr<Graphics::Material> ReadMaterial(IO::InputFile& file) const;
 
         Graphics::VertexAttributeConfig _attributesTemplate;
     };
-
-    template <typename T>
-    void ModelLoader::Read(T* value, std::ifstream& file) const
-    {
-        file.read(reinterpret_cast<char*>(value), sizeof(T));
-    }
 }

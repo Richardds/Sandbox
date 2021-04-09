@@ -6,6 +6,7 @@
 #pragma once
 
 #include <Precompiled.h>
+#include <IO/OutputFile.h>
 
 namespace Util
 {
@@ -16,24 +17,16 @@ namespace Util
         AssimpExporter();
 
         bool Load(const std::vector<char>& buffer);
-        void Export(std::ofstream& outputFile) const;
+        void Export(IO::OutputFile& outputFile) const;
 
     private:
-        template <typename T>
-        void Write(std::ofstream& file, const T& value) const;
-        void WriteString(std::ofstream& outputFile, const std::string& string) const;
-        void WriteNode(std::ofstream& file, aiNode* node) const;
-        void WriteMaterial(std::ofstream& file, aiMaterial* material) const;
-        void WriteMesh(std::ofstream& file, aiMesh* mesh) const;
-        std::string ParseAssetName(const aiString& assetPath) const;
+        static std::string ParseAssetName(const aiString& assetPath);
+
+        void WriteNode(IO::OutputFile& file, const aiNode* node) const;
+        void WriteMaterial(IO::OutputFile& file, const aiMaterial* material) const;
+        void WriteMesh(IO::OutputFile& file, const aiMesh* mesh) const;
 
         Assimp::Importer _importer;
         const aiScene* _scene;
     };
-
-    template <typename T>
-    void AssimpExporter::Write(std::ofstream& file, const T& value) const
-    {
-        file.write(reinterpret_cast<const char*>(&value), sizeof(T));
-    }
 }

@@ -7,6 +7,7 @@
 
 #include <Precompiled.h>
 #include <App/Application.h>
+#include <IO/OutputFile.h>
 
 namespace Sandbox
 {
@@ -20,13 +21,12 @@ namespace Sandbox
         void SetInputFilePath(const std::string& path);
         void SetOutputFilePath(const std::string& path);
         void Run() override;
-        void Close() override;
 
     private:
         std::string _fbxFilePath;
         std::string _modelFilePath;
         std::vector<char> _fbxDataBuffer;
-        std::ofstream _modelFile;
+        IO::OutputFile _modelFile;
     };
 
     inline void MeshExporterApplication::SetInputFilePath(const std::string& path)

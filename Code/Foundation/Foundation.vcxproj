@@ -14,6 +14,8 @@
     <ClCompile Include="App\Application.cpp" />
     <ClCompile Include="App\RenderApplication.cpp" />
     <ClCompile Include="Core\Debug.cpp" />
+    <ClCompile Include="Core\Exception.cpp" />
+    <ClCompile Include="Core\Exception\IOException.cpp" />
     <ClCompile Include="Game\Attributes\HasPosition.cpp" />
     <ClCompile Include="Game\Attributes\HasRotation.cpp" />
     <ClCompile Include="Game\Attributes\HasScale.cpp" />
@@ -57,8 +59,10 @@
     <ClCompile Include="Graphics\VertexAttributeConfig.cpp" />
     <ClCompile Include="Graphics\Window.cpp" />
     <ClCompile Include="IO\Console.cpp" />
+    <ClCompile Include="IO\InputFile.cpp" />
     <ClCompile Include="IO\Keyboard.cpp" />
     <ClCompile Include="IO\Mouse.cpp" />
+    <ClCompile Include="IO\OutputFile.cpp" />
     <ClCompile Include="Math\MathUtils.cpp" />
     <ClCompile Include="Math\MathUtils2D.cpp" />
     <ClCompile Include="Math\MathUtils3D.cpp" />
@@ -78,6 +82,8 @@
     <ClInclude Include="App\Application.h" />
     <ClInclude Include="App\RenderApplication.h" />
     <ClInclude Include="Core\Debug.h" />
+    <ClInclude Include="Core\Exception.h" />
+    <ClInclude Include="Core\Exception\IOException.h" />
     <ClInclude Include="Core\Singleton.h" />
     <ClInclude Include="Core\Types.h" />
     <ClInclude Include="Game\Attributes\HasPosition.h" />
@@ -124,8 +130,10 @@
     <ClInclude Include="Graphics\VertexAttributeConfig.h" />
     <ClInclude Include="Graphics\Window.h" />
     <ClInclude Include="IO\Console.h" />
+    <ClInclude Include="IO\InputFile.h" />
     <ClInclude Include="IO\Keyboard.h" />
     <ClInclude Include="IO\Mouse.h" />
+    <ClInclude Include="IO\OutputFile.h" />
     <ClInclude Include="Math\Constants.h" />
     <ClInclude Include="Math\MathUtils.h" />
     <ClInclude Include="Math\MathUtils2D.h" />

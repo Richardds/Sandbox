@@ -13,6 +13,9 @@ namespace Util
     class FourCC
     {
     public:
+        static std::string ToString(const FourCC& fourCC);
+        static FourCC FromString(const std::string& fourCC);
+
         FourCC();
         FourCC(uint32_t fourCC);
         FourCC(const std::string& fourCC);
@@ -27,8 +30,6 @@ namespace Util
         uint32_t toUint32() const;
         void SetFromString(const std::string& fourCC);
         std::string ToString() const;
-        static std::string ToString(const FourCC& fourCC);
-        static FourCC FromString(const std::string& fourCC);
 
     private:
         uint32_t _fourCC;

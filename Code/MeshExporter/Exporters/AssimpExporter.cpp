@@ -44,29 +44,32 @@ bool Util::AssimpExporter::Load(const std::vector<char>& buffer)
     return true;
 }
 
-void Util::AssimpExporter::Export(std::ofstream& outputFile) const
+void Util::AssimpExporter::Export(IO::OutputFile& outputFile) const
 {
-    this->Write(outputFile, Util::FourCC("MODL"));
+    outputFile.Write(FourCC("MODL"));
     this->WriteNode(outputFile, this->_scene->mRootNode);
 }
 
-void Util::AssimpExporter::WriteString(std::ofstream& outputFile, const std::string& string) const
+std::string Util::AssimpExporter::ParseAssetName(const aiString& assetPath)
 {
-    this->Write(outputFile, static_cast<uint16_t>(string.size()));
-    outputFile.write(string.c_str(), string.size());
+    const std::string pathStr(assetPath.C_Str());
+    const size_t extIndex = pathStr.find_last_of('.');
+    return pathStr.substr(0, extIndex);
 }
 
-void Util::AssimpExporter::WriteNode(std::ofstream& file, aiNode* node) const
+void Util::AssimpExporter::WriteNode(IO::OutputFile& file, const aiNode* node) const
 {
-    const uint16_t meshesCount = node->mNumMeshes;
+    const unsigned int meshesCount = node->mNumMeshes;
 
+    _Assert(65535 >= meshesCount)
+        
     if (meshesCount > 0)
     {
-        this->Write(file, meshesCount);
+        file.Write(static_cast<uint16_t>(meshesCount));
 
         for (uint16_t i = 0; i < meshesCount; i++)
         {
-            aiMesh* mesh = this->_scene->mMeshes[node->mMeshes[i]];
+            const aiMesh* mesh = this->_scene->mMeshes[node->mMeshes[i]];
 
             // Skip the mesh if does not contain any triangles
             if (mesh->mPrimitiveTypes & aiPrimitiveType_TRIANGLE)
@@ -84,23 +87,23 @@ void Util::AssimpExporter::WriteNode(std::ofstream& file, aiNode* node) const
     }
 }
 
-void Util::AssimpExporter::WriteMaterial(std::ofstream& file, aiMaterial* material) const
+void Util::AssimpExporter::WriteMaterial(IO::OutputFile& file, const aiMaterial* material) const
 {
     aiColor3D assimpColor;
     material->Get(AI_MATKEY_COLOR_DIFFUSE, assimpColor);
-    this->Write(file, Math::Vector3f(assimpColor.r, assimpColor.g, assimpColor.b));
+    file.Write(Math::Vector3f(assimpColor.r, assimpColor.g, assimpColor.b));
 
     float reflectivity;
     material->Get(AI_MATKEY_REFLECTIVITY, reflectivity);
-    this->Write(file, reflectivity);
+    file.Write(reflectivity);
 
     float specular;
     material->Get(AI_MATKEY_SHININESS_STRENGTH, specular);
-    this->Write(file, specular);
+    file.Write(specular);
 
     float shininess;
     material->Get(AI_MATKEY_SHININESS, shininess);
-    this->Write(file, shininess);
+    file.Write(shininess);
 
     uint8_t textureBitfield = 0;
     textureBitfield |= HAS_TEXTURE_DIFFUSE * (1 == material->GetTextureCount(aiTextureType_DIFFUSE));
@@ -108,7 +111,7 @@ void Util::AssimpExporter::WriteMaterial(std::ofstream& file, aiMaterial* materi
     textureBitfield |= HAS_TEXTURE_SPECULAR * (1 == material->GetTextureCount(aiTextureType_SPECULAR));
 
     // Write texture bitfield
-    this->Write(file, textureBitfield);
+    file.Write(textureBitfield);
 
     aiString assetPath;
 
@@ -116,32 +119,32 @@ void Util::AssimpExporter::WriteMaterial(std::ofstream& file, aiMaterial* materi
     if (HAS_TEXTURE_DIFFUSE & textureBitfield)
     {
         material->GetTexture(aiTextureType_DIFFUSE, 0, &assetPath);
-        this->WriteString(file, this->ParseAssetName(assetPath));
+        file.Write(this->ParseAssetName(assetPath));
     }
 
     // Write normals mapping name
     if (HAS_TEXTURE_NORMALS & textureBitfield)
     {
         material->GetTexture(aiTextureType_NORMALS, 0, &assetPath);
-        this->WriteString(file, this->ParseAssetName(assetPath));
+        file.Write(this->ParseAssetName(assetPath));
     }
 
     // Write specular mapping name
     if (HAS_TEXTURE_SPECULAR & textureBitfield)
     {
         material->GetTexture(aiTextureType_SPECULAR, 0, &assetPath);
-        this->WriteString(file, this->ParseAssetName(assetPath));
+        file.Write(this->ParseAssetName(assetPath));
     }
 }
 
-void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
+void Util::AssimpExporter::WriteMesh(IO::OutputFile& file, const aiMesh* mesh) const
 {
     // Write name
-    this->WriteString(file, mesh->mName.C_Str());
+    file.Write(std::string(mesh->mName.C_Str()));
 
     // Write vertices count
     const uint32_t verticesCount = mesh->mNumVertices;
-    this->Write(file, verticesCount);
+    file.Write(verticesCount);
 
     // Write vertices
     if (mesh->mTextureCoords[0] == nullptr || mesh->mTangents == nullptr)
@@ -156,7 +159,7 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
             vertex.normal = Math::Vector3f(normal->x, normal->y, normal->z);
             
             // Write vertex attributes
-            this->Write(file, vertex);
+            file.Write(vertex);
         }
     } else
     {
@@ -175,13 +178,13 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
             );
             
             // Write vertex attributes
-            this->Write(file, vertex);
+            file.Write(vertex);
         }
     }
 
     // Write triangles count
     const uint32_t trianglesCount = mesh->mNumFaces;
-    this->Write(file, trianglesCount);
+    file.Write(trianglesCount);
 
     // Write triangles
     for (uint32_t i = 0; i < trianglesCount; i++)
@@ -191,18 +194,11 @@ void Util::AssimpExporter::WriteMesh(std::ofstream& file, aiMesh* mesh) const
         // Process triangles only
         if (face.mNumIndices == 3)
         {
-            this->Write(file, Math::Vector3ui32(face.mIndices[0], face.mIndices[1], face.mIndices[2]));
+            file.Write(Math::Vector3ui32(face.mIndices[0], face.mIndices[1], face.mIndices[2]));
         }
     }
 
     // Write material
-    aiMaterial* material = this->_scene->mMaterials[mesh->mMaterialIndex];
+    const aiMaterial* material = this->_scene->mMaterials[mesh->mMaterialIndex];
     this->WriteMaterial(file, material);
-}
-
-std::string Util::AssimpExporter::ParseAssetName(const aiString& assetPath) const
-{
-    const std::string pathStr(assetPath.C_Str());
-    const size_t extIndex = pathStr.find_last_of('.');
-    return pathStr.substr(0, extIndex);
 }

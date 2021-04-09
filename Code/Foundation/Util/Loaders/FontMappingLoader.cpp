@@ -13,7 +13,7 @@ const char* Util::FontMappingLoader::CharacterMappingRegex = "^char +id=([0-9]+)
                                                              " +xoffset=(-?[0-9]+) +yoffset=(-?[0-9]+) +xadvance=([0-9]+)"
                                                              " +page=([0-9]+) +chnl=([0-9]+) +$";
 
-void Util::FontMappingLoader::Load(std::shared_ptr<Graphics::Font>& font, std::ifstream& fontMappingFile) const
+void Util::FontMappingLoader::Load(std::shared_ptr<Graphics::Font>& font, IO::InputFile& fontMappingFile) const
 {
     std::string line;
     std::smatch match;
@@ -21,9 +21,9 @@ void Util::FontMappingLoader::Load(std::shared_ptr<Graphics::Font>& font, std::i
 
     const std::regex regex(CharacterMappingRegex);
 
-    while (fontMappingFile.good())
+    while (!fontMappingFile.IsEndOfFile())
     {
-        std::getline(fontMappingFile, line);
+        fontMappingFile.ReadLine(line);
 
         if (std::regex_match(line, match, regex)) {
             enteredCharSection = true;

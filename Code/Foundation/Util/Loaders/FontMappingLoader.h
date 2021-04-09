@@ -7,6 +7,7 @@
 
 #include "Precompiled.h"
 #include "Graphics/Font.h"
+#include "IO/InputFile.h"
 
 namespace Util
 {
@@ -17,7 +18,7 @@ namespace Util
         FontMappingLoader() = default;
         virtual ~FontMappingLoader() = default;
 
-        void Load(std::shared_ptr<Graphics::Font>& font, std::ifstream& fontMappingFile) const;
+        void Load(std::shared_ptr<Graphics::Font>& font, IO::InputFile& fontMappingFile) const;
 
     private:
         static const char* CharacterMappingRegex;

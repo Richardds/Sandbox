@@ -27,29 +27,27 @@ std::shared_ptr<Graphics::Shader> Util::ResourcesLoader::LoadShader(const std::s
     const std::string path = this->_root + "/Shaders/" + name + "/" + name + "." +
         Graphics::Shader::GetExtensionFromType(type);
 
-    std::ifstream shaderFile(path, std::ios::binary | std::ios::ate);
-    if (!shaderFile.is_open())
+    IO::InputFile shaderFile(path);
+    if (!shaderFile.IsOpen())
     {
         IO::Console::Instance().Error("Failed to open %s shader '%s'\n", type_str.c_str(), name.c_str());
         return shader;
     }
-
-    const std::streamsize shaderFileSize = shaderFile.tellg();
-    if (shaderFileSize == 0)
+    if (shaderFile.IsEmpty())
     {
-        shaderFile.close();
-        IO::Console::Instance().Error("Failed to load %s shader '%s'\n", type_str.c_str(), name.c_str());
+        IO::Console::Instance().Error("Failed to load shader '%s': Shader file is empty\n", name.c_str());
+        shaderFile.Close();
         return shader;
     }
 
-    shaderFile.seekg(0, std::ios::beg);
+    // Read shader into memory
+    const size_t shaderFileSize = shaderFile.GetSize();
+    std::vector<char> shaderSource(shaderFileSize);
+    shaderFile.Read(shaderSource.data(), shaderFileSize);
 
-    std::vector<char> shaderSource(shaderFileSize + 1);
-    shaderFile.read(shaderSource.data(), shaderFileSize);
-    shaderFile.close();
-
-    shaderSource[shaderFileSize] = '\0';
-    shader->SetSource(shaderSource.data());
+    shaderFile.Close();
+    
+    shader->SetSource(std::string(shaderSource.begin(), shaderSource.end()));
 
     return shader;
 }
@@ -69,26 +67,27 @@ std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadTexture(const std:
 
     const std::string path = this->_root + "/Textures/" + name + ".dds";
 
-    std::ifstream textureFile(path, std::ios::binary | std::ios::ate);
-    if (!textureFile.is_open())
+    IO::InputFile textureFile(path);
+    if (!textureFile.IsOpen())
     {
         IO::Console::Instance().Error("Failed to open texture '%s'\n", name.c_str());
         return texture;
     }
-
-    const std::streamsize textureFileSize = textureFile.tellg();
-    if (textureFileSize == 0)
+    if (textureFile.IsEmpty())
     {
-        IO::Console::Instance().Error("Invalid texture '%s'\n", name.c_str());
-        textureFile.close();
+        IO::Console::Instance().Error("Failed to load texture '%s': Texture file is empty\n", name.c_str());
+        textureFile.Close();
         return texture;
     }
-    textureFile.seekg(0, std::ios::beg);
 
+    // Read texture into memory
+    const size_t textureFileSize = textureFile.GetSize();
     std::vector<char> buffer(textureFileSize);
-    textureFile.read(buffer.data(), textureFileSize);
-    textureFile.close();
+    textureFile.Read(buffer.data(), textureFileSize);
 
+    textureFile.Close();
+
+    // Load texture into GPU memory
     texture->Bind();
     DirectDrawSurfaceLoader::Instance().Load(texture, buffer);
     texture->Unbind();
@@ -123,20 +122,26 @@ std::shared_ptr<Graphics::Font> Util::ResourcesLoader::LoadFont(const std::strin
 
     font->SetFontMap(fontMap);
 
-
     const std::string fontMappingPath = this->_root + "/Fonts/" + name + ".fnt";
 
-    std::ifstream fontMappingFile(fontMappingPath);
-    if (!fontMappingFile.is_open())
+    IO::InputFile fontMappingFile(fontMappingPath);
+    if (!fontMappingFile.IsOpen())
     {
         IO::Console::Instance().Error("Failed to open font '%s'\n", name.c_str());
         return font;
     }
+    if (fontMappingFile.IsEmpty())
+    {
+        IO::Console::Instance().Error("Failed to load model '%s': Model file is empty\n", name.c_str());
+        fontMappingFile.Close();
+        return font;
+    }
 
+    // Parse font mapping file
     FontMappingLoader loader;
     loader.Load(font, fontMappingFile);
 
-    fontMappingFile.close();
+    fontMappingFile.Close();
 
     font->FinishLoading();
 
@@ -157,29 +162,29 @@ std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadFBX(const std::strin
 
     const std::string path = this->_root + "/Models/" + name + ".fbx";
 
-    std::ifstream modelFile(path, std::ios::binary | std::ios::ate);
-    if (!modelFile.is_open())
+    IO::InputFile modelFile(path);
+    if (!modelFile.IsOpen())
     {
         IO::Console::Instance().Error("Failed to open model '%s'\n", name.c_str());
         return model;
     }
-
-    const std::streamsize modelFileSize = modelFile.tellg();
-    if (modelFileSize == 0)
+    if (modelFile.IsEmpty())
     {
-        IO::Console::Instance().Error("Failed to load model '%s': Model file is empty\n", name.c_str());
+        IO::Console::Instance().Error("Failed to load FBX model '%s': FBX model file is empty\n", name.c_str());
+        modelFile.Close();
         return model;
     }
-    modelFile.seekg(0, std::ios::beg);
 
+    // Read FBX model into memory
+    const size_t modelFileSize = modelFile.GetSize();
     std::vector<char> buffer(modelFileSize);
-    modelFile.read(buffer.data(), modelFileSize);
-    modelFile.close();
+    modelFile.Read(buffer.data(), modelFileSize);
 
-    AssimpLoader loader;
+    modelFile.Close();
 
     try
     {
+        AssimpLoader loader;
         model = loader.Load(buffer);
     }
     catch (const std::runtime_error& e)
@@ -207,17 +212,24 @@ std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadModel(const std::str
 
     const std::string path = this->_root + "/Models/" + name + ".model";
 
-    std::ifstream modelFile(path, std::ios::binary);
-    if (!modelFile.is_open())
+    IO::InputFile modelFile(path);
+    if (!modelFile.IsOpen())
     {
         IO::Console::Instance().Error("Failed to open model '%s'\n", name.c_str());
         return model;
     }
+    if (modelFile.IsEmpty())
+    {
+        IO::Console::Instance().Error("Failed to load model '%s': Model file is empty\n", name.c_str());
+        modelFile.Close();
+        return model;
+    }
 
+    // Parse model file
     ModelLoader loader;
     loader.Load(model, modelFile);
 
-    modelFile.close();
+    modelFile.Close();
 
     model->FinishLoading();
 

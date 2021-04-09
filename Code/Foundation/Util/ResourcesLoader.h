@@ -22,6 +22,8 @@ namespace Util
 
     public:
         ResourcesLoader();
+        virtual ~ResourcesLoader() = default;
+
         std::string GetResourcesRoot() const;
         void SetResourcesRoot(const std::string& root);
         std::shared_ptr<Graphics::Shader> LoadShader(const std::string& name, GLenum type) const;

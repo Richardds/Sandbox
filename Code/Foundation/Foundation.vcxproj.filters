@@ -52,6 +52,9 @@
     <Filter Include="Game\Scene\Light">
       <UniqueIdentifier>{c1dc9c3f-81d7-4077-a362-2e2f6b4eefb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Exception">
+      <UniqueIdentifier>{560f1072-0cf9-4e65-8cfa-719b6ea0f847}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Debug.cpp">
@@ -239,6 +242,18 @@
     </ClCompile>
     <ClCompile Include="Util\Loaders\FontMappingLoader.cpp">
       <Filter>Util\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Exception.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Exception\IOException.cpp">
+      <Filter>Core\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\InputFile.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\OutputFile.cpp">
+      <Filter>IO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -452,6 +467,18 @@
     </ClInclude>
     <ClInclude Include="Util\Loaders\FontMappingLoader.h">
       <Filter>Util\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Exception.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Exception\IOException.h">
+      <Filter>Core\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\InputFile.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\OutputFile.h">
+      <Filter>IO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

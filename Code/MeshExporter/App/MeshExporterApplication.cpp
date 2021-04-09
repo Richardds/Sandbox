@@ -8,6 +8,7 @@
 
 #include "App/MeshExporterApplication.h"
 #include "Exporters/AssimpExporter.h"
+#include "IO/InputFile.h"
 
 bool Sandbox::MeshExporterApplication::Open()
 {
@@ -27,32 +28,27 @@ bool Sandbox::MeshExporterApplication::Open()
             return false;
         }
 
-        std::ifstream fbxFile;
-        fbxFile.open(this->_fbxFilePath, std::ios::binary | std::ios::ate);
-
-        if (!fbxFile.is_open())
+        IO::InputFile fbxFile(this->_fbxFilePath);
+        if (!fbxFile.IsOpen())
         {
-            this->SetReturnCode(EXIT_FAILURE);
             IO::Console::Instance().Error("Failed to open input FBX file\n");
+            this->SetReturnCode(EXIT_FAILURE);
             return false;
         }
 
-        this->_modelFile.open(this->_modelFilePath, std::ios::binary);
-
-        if (!this->_modelFile.is_open())
+        if (!this->_modelFile.Open(this->_modelFilePath))
         {
-            fbxFile.close();
-            this->SetReturnCode(EXIT_FAILURE);
             IO::Console::Instance().Error("Failed to open output model file\n");
+            this->SetReturnCode(EXIT_FAILURE);
             return false;
         }
 
         // Load FBX file data into memory
-        const std::streamsize fbxFileSize = fbxFile.tellg();
-        fbxFile.seekg(0, std::ios::beg);
+        const size_t fbxFileSize = fbxFile.GetSize();
         this->_fbxDataBuffer.resize(fbxFileSize);
-        fbxFile.read(this->_fbxDataBuffer.data(), fbxFileSize);
-        fbxFile.close();
+        fbxFile.Read(this->_fbxDataBuffer.data(), fbxFileSize);
+
+        fbxFile.Close();
 
         return true;
     }
@@ -72,12 +68,7 @@ void Sandbox::MeshExporterApplication::Run()
 
     exporter.Export(this->_modelFile);
 
+    this->_modelFile.Close();
+
     IO::Console::Instance().Info("Model '%s' successfully exported\n", this->_modelFilePath.c_str());
-}
-
-void Sandbox::MeshExporterApplication::Close()
-{
-    this->_modelFile.close();
-
-    Application::Close();
 }
