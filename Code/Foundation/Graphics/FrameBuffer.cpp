@@ -100,6 +100,6 @@ void Graphics::FrameBuffer::Unbind() const
     if (this->IsBound())
     {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        FrameBuffer::_boundFrameBuffer = 0;
+        _boundFrameBuffer = 0;
     }
 }

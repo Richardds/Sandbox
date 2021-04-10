@@ -23,9 +23,14 @@ namespace Util
         virtual ~TextMeshGenerator() = default;
 
         std::shared_ptr<Graphics::Text> Generate(const std::basic_string<Character>& text,
-                                                               const std::shared_ptr<Graphics::Font>& font) const;
+                                                 const std::shared_ptr<Graphics::Font>& font,
+                                                 float spacingScale = 1.0f) const;
 
     private:
         Graphics::VertexAttributeConfig _characterAttributesTemplate;
+
+        Math::Vector2f CalculateTextMeshSize(const std::basic_string<Character>& text,
+                                             const std::shared_ptr<Graphics::Font>& font,
+                                             float spacingScale) const;
     };
 }

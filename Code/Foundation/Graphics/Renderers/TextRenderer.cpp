@@ -5,7 +5,6 @@
 
 #include "Precompiled.h"
 #include "Graphics/Renderers/TextRenderer.h"
-#include "Graphics/GraphicsUtils.h"
 #include "IO/Console.h"
 #include "Util/Generators/TextMeshGenerator.h"
 

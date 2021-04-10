@@ -42,17 +42,23 @@ namespace Graphics
         State GetState() const;
         std::shared_ptr<Texture> GetFontMap() const;
         void SetFontMap(const std::shared_ptr<Texture>& fontMap);
-
+        void SetConfig(float size, float spacing, bool isBold, bool isItalic);
+        float GetSize() const;
+        float GetSpacing() const;
+        bool IsBold() const;
+        bool IsItalic() const;
         void AddCharacterProperties(Character character, const CharacterProperties& props);
         CharacterProperties GetCharacterProperties(Character character) const;
-        bool Empty() const;
-        std::unordered_map<Character, CharacterProperties> GetCharactersProperties() const;
         void FinishLoading();
 
     private:
         State _state;
         std::shared_ptr<Texture> _fontMap;
         std::unordered_map<Character, CharacterProperties> _charactersProperties;
+        float _size;
+        float _spacing;
+        bool _isBold;
+        bool _isItalic;
     };
 
     inline Font::State Font::GetState() const
@@ -67,18 +73,41 @@ namespace Graphics
 
     inline void Font::SetFontMap(const std::shared_ptr<Texture>& fontMap)
     {
+        _Assert(State::Initial == this->_state)
         _Assert(Texture::State::Loaded == fontMap->GetState())
+
         this->_fontMap = fontMap;
     }
 
-    inline bool Font::Empty() const
+    inline void Font::SetConfig(const float size, const float spacing, const bool isBold, const bool isItalic)
     {
-        return !this->_charactersProperties.empty();
+        _Assert(State::Initial == this->_state)
+        _Assert(0.0f < size)
+
+        this->_size = size;
+        this->_spacing = spacing;
+        this->_isBold = isBold;
+        this->_isItalic = isItalic;
     }
 
-    inline std::unordered_map<Character, Font::CharacterProperties> Font::GetCharactersProperties() const
+    inline float Font::GetSize() const
     {
-        return this->_charactersProperties;
+        return this->_size;
+    }
+
+    inline float Font::GetSpacing() const
+    {
+        return this->_spacing;
+    }
+
+    inline bool Font::IsBold() const
+    {
+        return this->_isBold;
+    }
+
+    inline bool Font::IsItalic() const
+    {
+        return this->_isItalic;
     }
 
     inline void Font::FinishLoading()

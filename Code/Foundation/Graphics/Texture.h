@@ -53,6 +53,10 @@ namespace Graphics
         void SetHeight(unsigned int height);
         unsigned int GetDepth() const;
         void SetDepth(unsigned int depth);
+        float GetLODBias() const;
+        void SetLODBias(float value);
+        float GetAnisotropicFiltering() const;
+        void SetAnisotropicFiltering(float value);
 
         static GLuint GetBound(GLenum target);
         static void UnbindBound(GLenum target);
@@ -64,6 +68,8 @@ namespace Graphics
         GLsizei _width;
         GLsizei _height;
         GLsizei _depth;
+        float _lodBias;
+        float _anisotropicFiltering;
 
         static std::unordered_map<GLenum, GLuint> _boundTextures;
     };
@@ -125,6 +131,16 @@ namespace Graphics
     {
         _Assert(State::Initial == this->_state)
         this->_depth = depth;
+    }
+
+    inline float Texture::GetAnisotropicFiltering() const
+    {
+        return this->_anisotropicFiltering;
+    }
+
+    inline float Texture::GetLODBias() const
+    {
+        return this->_lodBias;
     }
 
     inline GLuint Texture::GetBound(const GLenum target)

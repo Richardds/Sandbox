@@ -19,7 +19,10 @@ Graphics::Core::Core() :
 
 Graphics::Core::~Core()
 {
-    _Assert(!this->IsCreated())
+    if (this->_isCreated)
+    {
+        this->Destroy();
+    }
 }
 
 bool Graphics::Core::Setup()
@@ -138,7 +141,7 @@ Math::Vector2f Graphics::Core::GetResolution() const
     return Math::Vector2f(viewport.z, viewport.w);
 }
 
-std::shared_ptr<Graphics::Projection> Graphics::Core::MakeProjection(float fieldOfView) const
+std::shared_ptr<Graphics::Projection> Graphics::Core::CreateProjection(float fieldOfView) const
 {
     return std::make_shared<Projection>(this->_context->GetAspectRatio(), fieldOfView, 0.1f, 1000.0f);
 }
@@ -210,6 +213,14 @@ std::string Graphics::Core::GetGlDump() const
     );
 
     return std::string(stateBuffer);
+}
+
+float Graphics::Core::GetMaxAnisotropicFiltering() const
+{
+    float maxAnisotropicFiltering;
+    glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropicFiltering);
+
+    return maxAnisotropicFiltering;
 }
 
 void Graphics::Core::GlfwErrorCallback(const int errorCode, const char* description)

@@ -21,6 +21,7 @@ namespace Util
         void Load(std::shared_ptr<Graphics::Font>& font, IO::InputFile& fontMappingFile) const;
 
     private:
+        static const char* FontInfoHeaderRegex;;
         static const char* CharacterMappingRegex;
     };
 }

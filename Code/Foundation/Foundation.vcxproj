@@ -16,6 +16,7 @@
     <ClCompile Include="Core\Debug.cpp" />
     <ClCompile Include="Core\Exception.cpp" />
     <ClCompile Include="Core\Exception\IOException.cpp" />
+    <ClCompile Include="Core\Exception\ParsingException.cpp" />
     <ClCompile Include="Game\Attributes\HasPosition.cpp" />
     <ClCompile Include="Game\Attributes\HasRotation.cpp" />
     <ClCompile Include="Game\Attributes\HasScale.cpp" />
@@ -85,6 +86,7 @@
     <ClInclude Include="Core\Debug.h" />
     <ClInclude Include="Core\Exception.h" />
     <ClInclude Include="Core\Exception\IOException.h" />
+    <ClInclude Include="Core\Exception\ParsingException.h" />
     <ClInclude Include="Core\Singleton.h" />
     <ClInclude Include="Core\Types.h" />
     <ClInclude Include="Game\Attributes\HasPosition.h" />

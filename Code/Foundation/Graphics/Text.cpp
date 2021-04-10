@@ -14,7 +14,9 @@ Graphics::Text::Text(const std::shared_ptr<VertexArray>& vertexArrayObject,
                      const std::shared_ptr<Texture>& fontMap) :
     Mesh(vertexArrayObject, vertexBuffer, elementsBuffer, elementsCount),
     _fontMap(fontMap),
-    _size(24.0f),
+    _position(0.0f),
+    _size(1.0f),
+    _spacing(1.0f),
     _color(1.0f)
 {
 }
@@ -30,9 +32,9 @@ void Graphics::Text::Render(const std::shared_ptr<TextShader>& shader) const
 
     shader->LoadTransformation(
         Math::TransformationMatrix2D(
-            Math::Vector2f(0.0f, 0.0f),
+            this->_position,
             0.0f,
-            1.0f
+            this->_size
         )
     );
     shader->LoadColor(this->_color);

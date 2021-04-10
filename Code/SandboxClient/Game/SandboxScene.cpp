@@ -31,7 +31,7 @@ bool Sandbox::SandboxScene::Setup()
     this->_camera->SetRotationX(20.0f);
 
     // Load Skybox
-    std::shared_ptr<Graphics::Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadCubeMap("Skybox/day");
+    std::shared_ptr<Graphics::Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadTexture("Skybox/day", GL_TEXTURE_CUBE_MAP);
     this->_skybox = std::make_shared<Graphics::Skybox>(skyboxTexture, 750.0f);
 
     // Configure lights
@@ -156,7 +156,7 @@ bool Sandbox::SandboxScene::Setup()
     this->AddEntity("hardcoded", hardcoded);
 
     // Register mouse scrolling
-    IO::Mouse::Instance().RegisterScrolling([this](float x, float y)
+    IO::Mouse::Instance().RegisterScrolling([this](const float x, const float y)
     {
         if (this->_lockCameraToPlayer)
         {

@@ -37,7 +37,7 @@ bool Graphics::Scene::Setup()
     this->_camera = std::make_shared<TargetedCamera>();
 
     // Setup global projection
-    this->_projection = Core::Instance().MakeProjection(this->_camera->GetFieldOfView());
+    this->_projection = Core::Instance().CreateProjection(this->_camera->GetFieldOfView());
 
     // Setup entity renderer
     this->_skyboxRenderer = std::make_shared<SkyboxRenderer>();
@@ -198,7 +198,7 @@ Math::Vector3f Graphics::Scene::GetScreenWorldPosition(const Math::Vector2ui& sc
     const Math::Vector3f worldPosition = unProject(
         Math::Vector3f(screenPosition.x, viewport.w - screenPosition.y, depth),
         Math::ViewMatrix3D(this->_camera->GetPosition(), this->_camera->GetRotationX(), this->_camera->GetRotationY()),
-        Core::Instance().MakeProjection(this->_camera->GetFieldOfView())->GetMatrix(),
+        Core::Instance().CreateProjection(this->_camera->GetFieldOfView())->GetMatrix(),
         viewport
     );
 

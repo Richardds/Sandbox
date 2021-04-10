@@ -255,6 +255,9 @@
     <ClCompile Include="IO\OutputFile.cpp">
       <Filter>IO</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Exception\ParsingException.cpp">
+      <Filter>Core\Exception</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Debug.h">
@@ -481,5 +484,8 @@
       <Filter>IO</Filter>
     </ClInclude>
     <ClInclude Include="Config.h" />
+    <ClInclude Include="Core\Exception\ParsingException.h">
+      <Filter>Core\Exception</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

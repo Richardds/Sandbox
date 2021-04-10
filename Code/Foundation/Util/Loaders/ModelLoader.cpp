@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       ModelLoader.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Precompiled.h"
@@ -106,6 +106,10 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ReadMesh(IO::InputFil
     {
         file.Read(textureName);
         std::shared_ptr<Graphics::Texture> texture = ResourcesLoader::Instance().LoadTexture(textureName);
+        texture->Bind();
+        texture->SetLODBias(-1.0f);
+        texture->SetAnisotropicFiltering(16.0f);
+        texture->Unbind();
         texturedMesh->SetDiffuseMap(texture);
     }
 
@@ -113,6 +117,10 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ReadMesh(IO::InputFil
     {
         file.Read(textureName);
         std::shared_ptr<Graphics::Texture> texture = ResourcesLoader::Instance().LoadTexture(textureName);
+        texture->Bind();
+        texture->SetLODBias(-1.0f);
+        texture->SetAnisotropicFiltering(16.0f);
+        texture->Unbind();
         texturedMesh->SetNormalMap(texture);
     }
 
@@ -120,6 +128,10 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ReadMesh(IO::InputFil
     {
         file.Read(textureName);
         std::shared_ptr<Graphics::Texture> texture = ResourcesLoader::Instance().LoadTexture(textureName);
+        texture->Bind();
+        texture->SetLODBias(-1.0f);
+        texture->SetAnisotropicFiltering(16.0f);
+        texture->Unbind();
         texturedMesh->SetSpecularMap(texture);
     }
 

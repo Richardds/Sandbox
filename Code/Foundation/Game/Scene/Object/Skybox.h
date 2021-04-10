@@ -15,7 +15,6 @@ namespace Graphics
     class EXPORT Skybox
     {
     public:
-        explicit Skybox(const std::shared_ptr<Texture>& texture);
         Skybox(const std::shared_ptr<Texture>& texture, float size);
         virtual ~Skybox() = default;
 
@@ -27,9 +26,6 @@ namespace Graphics
         void Render() const;
 
     private:
-        /// Diameter size of skybox when unspecified
-        static constexpr float DEFAULT_SKYBOX_SIZE = 500.0f;
-
         std::shared_ptr<Mesh> _mesh;
         std::shared_ptr<Texture> _texture;
         float _size;
@@ -52,6 +48,7 @@ namespace Graphics
 
     inline void Skybox::SetTexture(const std::shared_ptr<Texture>& texture)
     {
+        _Assert(GL_TEXTURE_CUBE_MAP == texture->GetTarget())
         this->_texture = texture;
     }
 

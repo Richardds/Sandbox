@@ -7,17 +7,25 @@
 #include "Graphics/Font.h"
 
 Graphics::Font::Font() :
-    _state(State::Initial)
+    _state(State::Initial),
+    _size(50.0f),
+    _spacing(8.0f),
+    _isBold(false),
+    _isItalic(false)
 {
 }
 
 void Graphics::Font::AddCharacterProperties(const Character character, const CharacterProperties& props)
 {
+    _Assert(State::Initial == this->_state)
+
     this->_charactersProperties[character] = props;
 }
 
 Graphics::Font::CharacterProperties Graphics::Font::GetCharacterProperties(const Character character) const
 {
+    _Assert(State::Loaded == this->_state)
+
     // Search for character in mapping hash table
     auto it = this->_charactersProperties.find(character);
 

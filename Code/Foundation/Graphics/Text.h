@@ -28,12 +28,16 @@ namespace Graphics
         void SetFontMap(const std::shared_ptr<Texture>& texture);
         float GetSize() const;
         void SetSize(float size);
+        float GetSpacing() const;
+        void SetSpacing(float spacing);
         Math::Vector4f GetColor() const;
         void SetColor(const Math::Vector4f& color);
 
     private:
         std::shared_ptr<Texture> _fontMap;
+        Math::Vector2f _position;
         float _size;
+        float _spacing;
         Math::Vector4f _color;
     };
     
@@ -58,6 +62,16 @@ namespace Graphics
     {
         _Assert(size > 0)
         this->_size = size;
+    }
+
+    inline float Text::GetSpacing() const
+    {
+        return this->_spacing;
+    }
+
+    inline void Text::SetSpacing(const float spacing)
+    {
+        this->_spacing = spacing;
     }
 
     inline Math::Vector4f Text::GetColor() const

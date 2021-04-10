@@ -23,15 +23,13 @@ bool Sandbox::TestScene::Setup()
     // Setup text
     const std::shared_ptr<Graphics::Font> font = Util::ResourcesLoader::Instance().LoadFont("tahoma");
     this->_testText = Util::TextMeshGenerator::Instance().Generate("It works!", font);
-    this->_testText->SetSize(32.0f);
-    this->_testText->SetColor(Math::Vector4f(1.0f, 1.0f, 0.0f, 1.0f));
 
     // Add crate entity
     std::shared_ptr<Graphics::Entity> entity = this->AddEntity("object", "crate");
     entity->SetPosition(Math::Vector3f(-5.0f, 0.0f, 0.0f));
 
     // Register mouse scrolling
-    IO::Mouse::Instance().RegisterScrolling([this](float x, float y)
+    IO::Mouse::Instance().RegisterScrolling([this](const float x, const float y)
     {
         this->_camera->IncreaseDistance(y);
     });

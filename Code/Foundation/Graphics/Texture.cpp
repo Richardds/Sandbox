@@ -6,6 +6,7 @@
 #include "Precompiled.h"
 #include "Graphics/Texture.h"
 #include "Core/Types.h"
+#include "Math/MathUtils.h"
 
 std::unordered_map<GLenum, GLuint> Graphics::Texture::_boundTextures = {
     {GL_TEXTURE_1D, 0},
@@ -23,7 +24,9 @@ Graphics::Texture::Texture() :
     _glTexture(0),
     _width(0),
     _height(1),
-    _depth(1)
+    _depth(1),
+    _lodBias(0.0f),
+    _anisotropicFiltering(0.0f)
 {
     glGenTextures(1, &this->_glTexture);
 }
@@ -65,6 +68,20 @@ void Graphics::Texture::FinishLoading()
     _Assert(State::Initial == this->_state)
 
     this->_state = State::Loaded;
+}
+
+void Graphics::Texture::SetLODBias(const float value)
+{
+    _Assert(this->IsBound())
+
+    glTexParameterf(this->_target, GL_TEXTURE_LOD_BIAS, value);
+}
+
+void Graphics::Texture::SetAnisotropicFiltering(const float value)
+{
+    _Assert(this->IsBound())
+
+    glTexParameterf(this->_target, GL_TEXTURE_MAX_ANISOTROPY_EXT, value);
 }
 
 void Graphics::Texture::UnbindBound(const GLenum target)

@@ -97,11 +97,6 @@ std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadTexture(const std:
     return texture;
 }
 
-std::shared_ptr<Graphics::Texture> Util::ResourcesLoader::LoadCubeMap(const std::string& name)
-{
-    return this->LoadTexture(name, GL_TEXTURE_CUBE_MAP);
-}
-
 std::shared_ptr<Graphics::Font> Util::ResourcesLoader::LoadFont(const std::string& name)
 {
     const auto it = this->_fonts.find(name);
@@ -113,13 +108,8 @@ std::shared_ptr<Graphics::Font> Util::ResourcesLoader::LoadFont(const std::strin
     IO::Console::Instance().Info("Loading '%s' font\n", name.c_str());
 
     std::shared_ptr<Graphics::Font> font = std::make_shared<Graphics::Font>();
-
     std::shared_ptr<Graphics::Texture> fontMap = this->LoadTexture("Fonts/" + name);
-    
-    fontMap->Bind();
-    glTexParameterf(fontMap->GetTarget(), GL_TEXTURE_LOD_BIAS, 0.0f);
-    fontMap->Unbind();
-
+    fontMap->SetLODBias(0.0f);
     font->SetFontMap(fontMap);
 
     const std::string fontMappingPath = this->_root + "/Fonts/" + name + ".fnt";

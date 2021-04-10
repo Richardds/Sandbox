@@ -20,10 +20,12 @@ namespace Graphics
         void InitializeUniformVariables() override;
         void LoadTransformation(const Math::Matrix3f& transformation) const;
         void LoadColor(const Math::Vector4f& color) const;
+        void LoadOutlineColor(const Math::Vector4f& color) const;
 
     private:
         GLint _transformationLocation;
         GLint _fontMapSamplerLocation;
         GLint _colorLocation;
+        GLint _outlineColorLocation;
     };
 }
