@@ -30,12 +30,11 @@ bool Sandbox::SandboxScene::Setup()
     this->_camera->SetDistance(12.5f);
     this->_camera->SetRotationX(20.0f);
 
-    // Load Skybox
-    std::shared_ptr<Graphics::Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadTexture("Skybox/day", GL_TEXTURE_CUBE_MAP);
-    this->_skybox = std::make_shared<Graphics::Skybox>(skyboxTexture, 750.0f);
+    // Setup skybox
+    this->_skybox = this->SetupSkybox("Skybox/day", 750.0f);
 
     // Configure lights
-    std::shared_ptr<Graphics::PointLight> light1 = this->AddLight("light_1");
+    std::shared_ptr<Graphics::PointLight> light1 = this->AddLight("light");
     light1->SetColor(Math::Vector3f(1.0f, 0.8f, 0.6f));
     light1->SetPosition(Math::Vector3f(4.5f, 1.5f, 2.75f));
     light1->SetAttenuation(Math::Vector3f(1.0f, 0.1f, 0.025f));

@@ -205,18 +205,28 @@ Math::Vector3f Graphics::Scene::GetScreenWorldPosition(const Math::Vector2ui& sc
     return worldPosition;
 }
 
+std::shared_ptr<Graphics::Skybox> Graphics::Scene::SetupSkybox(const std::string& name, const float size) const
+{
+    std::shared_ptr<Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadTexture(name, GL_TEXTURE_CUBE_MAP);
+    return std::make_shared<Skybox>(skyboxTexture, size);
+}
+
 std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& name, const float size)
 {
     const auto it = this->_waterTiles.find(name);
     _Assert(it == this->_waterTiles.end())
-    std::shared_ptr<Water> water = std::make_shared<Water>();
     std::shared_ptr<TexturedMesh> waterMesh = std::make_shared<TexturedMesh>(
-        Util::PrimitiveGenerator::Instance().Generate3dQuad(size));
+        Util::PrimitiveGenerator::Instance().Generate3dQuad(size)
+    );
     waterMesh->SetDistortionMap(Util::ResourcesLoader::Instance().LoadTexture("water_d"));
     waterMesh->SetNormalMap(Util::ResourcesLoader::Instance().LoadTexture("water_n"));
+
+    std::shared_ptr<Water> water = std::make_shared<Water>();
     water->SetMesh(waterMesh);
     water->SetTiling(size / 5.0f);
+
     this->_waterTiles.emplace_hint(it, name, water);
+
     return water;
 }
 

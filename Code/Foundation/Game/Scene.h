@@ -42,6 +42,7 @@ namespace Graphics
         virtual void RenderEntities();
         void RenderSkybox() const;
         Math::Vector3f GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const;
+        std::shared_ptr<Skybox> SetupSkybox(const std::string& name, float size) const;
         std::shared_ptr<Water> AddWater(const std::string& name, float size);
         std::shared_ptr<PointLight> AddLight(const std::string& name);
         std::shared_ptr<Entity> AddEntity(const std::string& name, const std::string& resourceName);

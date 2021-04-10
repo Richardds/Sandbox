@@ -109,7 +109,9 @@ std::shared_ptr<Graphics::Font> Util::ResourcesLoader::LoadFont(const std::strin
 
     std::shared_ptr<Graphics::Font> font = std::make_shared<Graphics::Font>();
     std::shared_ptr<Graphics::Texture> fontMap = this->LoadTexture("Fonts/" + name);
+    fontMap->Bind();
     fontMap->SetLODBias(0.0f);
+    fontMap->Unbind();
     font->SetFontMap(fontMap);
 
     const std::string fontMappingPath = this->_root + "/Fonts/" + name + ".fnt";
