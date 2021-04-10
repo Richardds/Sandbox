@@ -53,7 +53,7 @@ bool Graphics::Core::Setup()
     glfwWindowHint(GLFW_SAMPLES, 8);
 
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
     this->_isCreated = true;
 
