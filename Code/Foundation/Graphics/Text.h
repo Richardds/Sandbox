@@ -6,13 +6,16 @@
 #pragma once
 
 #include "Precompiled.h"
+#include "Game/Attributes/HasPosition2D.h"
+#include "Game/Attributes/HasRotation2D.h"
+#include "Game/Attributes/HasScale.h"
 #include "Graphics/Mesh.h"
 #include "Graphics/Texture.h"
 #include "Shaders/TextShader.h"
 
 namespace Graphics
 {
-    class EXPORT Text : public Mesh
+    class EXPORT Text : public Mesh, public HasPosition2D, public HasRotation2D, public HasScale
     {
     public:
         Text(const std::shared_ptr<VertexArray>& vertexArrayObject,
@@ -26,6 +29,7 @@ namespace Graphics
         void Render(const std::shared_ptr<TextShader>& shader) const;
         std::shared_ptr<Texture> GetFontMap() const;
         void SetFontMap(const std::shared_ptr<Texture>& texture);
+
         float GetSize() const;
         void SetSize(float size);
         float GetSpacing() const;
@@ -35,8 +39,6 @@ namespace Graphics
 
     private:
         std::shared_ptr<Texture> _fontMap;
-        Math::Vector2f _position;
-        float _size;
         float _spacing;
         Math::Vector4f _color;
     };
@@ -51,17 +53,6 @@ namespace Graphics
         _Assert(texture)
         _Assert(Texture::State::Loaded == texture->GetState())
         this->_fontMap = texture;
-    }
-
-    inline float Text::GetSize() const
-    {
-        return this->_size;
-    }
-
-    inline void Text::SetSize(const float size)
-    {
-        _Assert(size > 0)
-        this->_size = size;
     }
 
     inline float Text::GetSpacing() const

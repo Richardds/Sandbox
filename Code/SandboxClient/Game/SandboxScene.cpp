@@ -30,6 +30,9 @@ bool Sandbox::SandboxScene::Setup()
     this->_camera->SetDistance(12.5f);
     this->_camera->SetRotationX(20.0f);
 
+    // Add test text
+    this->AddText("title", "BIRB GAME");
+
     // Setup skybox
     this->_skybox = this->SetupSkybox("Skybox/day", 750.0f);
 

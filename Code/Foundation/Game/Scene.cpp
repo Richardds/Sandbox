@@ -166,6 +166,15 @@ void Graphics::Scene::Render()
 
     // Render the skybox to the screen buffer
     this->RenderSkybox();
+
+    // Render texts
+    this->_textRenderer->Begin();
+    glDisable(GL_DEPTH_TEST);
+    for (const auto& [name, text] : this->_texts)
+    {
+        this->_textRenderer->Render(text);
+    }
+    glEnable(GL_DEPTH_TEST);
 }
 
 void Graphics::Scene::RenderEntities()
@@ -213,6 +222,17 @@ std::shared_ptr<Graphics::Skybox> Graphics::Scene::SetupSkybox(const std::string
 {
     std::shared_ptr<Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadTexture(name, GL_TEXTURE_CUBE_MAP);
     return std::make_shared<Skybox>(skyboxTexture, size);
+}
+
+std::shared_ptr<Graphics::Text> Graphics::Scene::AddText(const std::string& name, const std::string& text)
+{
+    const auto it = this->_texts.find(name);
+    _Assert(it == this->_texts.end())
+    std::shared_ptr<Text> textMesh = this->_textFactory->Generate(text);
+
+    this->_texts.emplace_hint(it, name, textMesh);
+
+    return textMesh;
 }
 
 std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& name, const float size)

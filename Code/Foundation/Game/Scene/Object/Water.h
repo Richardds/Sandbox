@@ -8,12 +8,12 @@
 #include "Precompiled.h"
 #include "Graphics/TexturedMesh.h"
 #include "Graphics/Shaders/WaterShader.h"
-#include "Game/Attributes/HasPosition.h"
+#include "Game/Attributes/HasPosition3D.h"
 
 namespace Graphics
 {
     /// Water entity
-    class EXPORT Water : public HasPosition
+    class EXPORT Water : public HasPosition3D
     {
     public:
         Water();

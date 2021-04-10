@@ -6,13 +6,13 @@
 #pragma once
 
 #include "Precompiled.h"
-#include "Game/Attributes/HasPosition.h"
-#include "Game/Attributes/HasRotation.h"
+#include "Game/Attributes/HasPosition3D.h"
+#include "Game/Attributes/HasRotation3D.h"
 
 namespace Graphics
 {
     /// 3D scene camera entity
-    class EXPORT Camera : public HasPosition, public HasRotation
+    class EXPORT Camera : public HasPosition3D, public HasRotation3D
     {
     public:
         Camera();

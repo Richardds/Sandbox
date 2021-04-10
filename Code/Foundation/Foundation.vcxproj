@@ -17,8 +17,10 @@
     <ClCompile Include="Core\Exception.cpp" />
     <ClCompile Include="Core\Exception\IOException.cpp" />
     <ClCompile Include="Core\Exception\ParsingException.cpp" />
-    <ClCompile Include="Game\Attributes\HasPosition.cpp" />
-    <ClCompile Include="Game\Attributes\HasRotation.cpp" />
+    <ClCompile Include="Game\Attributes\HasPosition2D.cpp" />
+    <ClCompile Include="Game\Attributes\HasPosition3D.cpp" />
+    <ClCompile Include="Game\Attributes\HasRotation2D.cpp" />
+    <ClCompile Include="Game\Attributes\HasRotation3D.cpp" />
     <ClCompile Include="Game\Attributes\HasScale.cpp" />
     <ClCompile Include="Game\Scene.cpp" />
     <ClCompile Include="Game\Scene\Camera.cpp" />
@@ -89,8 +91,10 @@
     <ClInclude Include="Core\Exception\ParsingException.h" />
     <ClInclude Include="Core\Singleton.h" />
     <ClInclude Include="Core\Types.h" />
-    <ClInclude Include="Game\Attributes\HasPosition.h" />
-    <ClInclude Include="Game\Attributes\HasRotation.h" />
+    <ClInclude Include="Game\Attributes\HasPosition2D.h" />
+    <ClInclude Include="Game\Attributes\HasPosition3D.h" />
+    <ClInclude Include="Game\Attributes\HasRotation2D.h" />
+    <ClInclude Include="Game\Attributes\HasRotation3D.h" />
     <ClInclude Include="Game\Attributes\HasScale.h" />
     <ClInclude Include="Game\Scene.h" />
     <ClInclude Include="Game\Scene\Camera.h" />

@@ -7,12 +7,12 @@
 
 #include "Precompiled.h"
 #include "Game/Scene/Light/DirectionalLight.h"
-#include "Game/Attributes/HasPosition.h"
+#include "Game/Attributes/HasPosition3D.h"
 
 namespace Graphics
 {
     /// 3D scene spot light entity
-    class EXPORT SpotLight : public DirectionalLight, public HasPosition
+    class EXPORT SpotLight : public DirectionalLight, public HasPosition3D
     {
     public:
         /// Spot light cut-off angle when undefined

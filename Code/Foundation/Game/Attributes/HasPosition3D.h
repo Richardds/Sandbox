@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------------------
-//  \file       HasPosition.h
+//  \file       HasPosition3D.h
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
@@ -11,13 +11,13 @@
 namespace Graphics
 {
     /// Provides 3D position attributes and operations
-    class EXPORT HasPosition
+    class EXPORT HasPosition3D
     {
     public:
-        HasPosition();
-        virtual ~HasPosition() = default;
+        HasPosition3D();
+        virtual ~HasPosition3D() = default;
 
-        explicit HasPosition(const Math::Vector3f& position);
+        explicit HasPosition3D(const Math::Vector3f& position);
         Math::Vector3f GetPosition() const;
         void SetPosition(const Math::Vector3f& position);
         float GetPositionX() const;
@@ -35,62 +35,62 @@ namespace Graphics
         Math::Vector3f _position;
     };
 
-    inline Math::Vector3f HasPosition::GetPosition() const
+    inline Math::Vector3f HasPosition3D::GetPosition() const
     {
         return this->_position;
     }
 
-    inline void HasPosition::SetPosition(const Math::Vector3f& position)
+    inline void HasPosition3D::SetPosition(const Math::Vector3f& position)
     {
         this->_position = position;
     }
 
-    inline float HasPosition::GetPositionX() const
+    inline float HasPosition3D::GetPositionX() const
     {
         return this->_position.x;
     }
 
-    inline void HasPosition::SetPositionX(const float positionX)
+    inline void HasPosition3D::SetPositionX(const float positionX)
     {
         this->_position.x = positionX;
     }
 
-    inline void HasPosition::IncreasePositionX(const float relativePositionX)
+    inline void HasPosition3D::IncreasePositionX(const float relativePositionX)
     {
         this->_position.x += relativePositionX;
     }
 
-    inline float HasPosition::GetPositionY() const
+    inline float HasPosition3D::GetPositionY() const
     {
         return this->_position.y;
     }
 
-    inline void HasPosition::SetPositionY(const float positionY)
+    inline void HasPosition3D::SetPositionY(const float positionY)
     {
         this->_position.y = positionY;
     }
 
-    inline void HasPosition::IncreasePositionY(const float relativePositionY)
+    inline void HasPosition3D::IncreasePositionY(const float relativePositionY)
     {
         this->_position.y += relativePositionY;
     }
 
-    inline float HasPosition::GetPositionZ() const
+    inline float HasPosition3D::GetPositionZ() const
     {
         return this->_position.z;
     }
 
-    inline void HasPosition::SetPositionZ(const float positionZ)
+    inline void HasPosition3D::SetPositionZ(const float positionZ)
     {
         this->_position.z = positionZ;
     }
 
-    inline void HasPosition::IncreasePositionZ(const float relativePositionZ)
+    inline void HasPosition3D::IncreasePositionZ(const float relativePositionZ)
     {
         this->_position.z += relativePositionZ;
     }
 
-    inline void HasPosition::IncreasePosition(const Math::Vector3f& relativePosition)
+    inline void HasPosition3D::IncreasePosition(const Math::Vector3f& relativePosition)
     {
         this->_position += relativePosition;
     }

@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------------------
-//  \file       HasRotation.h
+//  \file       HasRotation3D.h
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
@@ -10,12 +10,12 @@
 namespace Graphics
 {
     /// Provides 3D rotation attributes and operations
-    class EXPORT HasRotation
+    class EXPORT HasRotation3D
     {
     public:
-        HasRotation();
-        HasRotation(float rotationX, float rotationY, float rotationZ);
-        virtual ~HasRotation() = default;
+        HasRotation3D();
+        HasRotation3D(float rotationX, float rotationY, float rotationZ);
+        virtual ~HasRotation3D() = default;
 
         float GetRotationX() const;
         void SetRotationX(float rotationX);
@@ -37,67 +37,67 @@ namespace Graphics
         float _rotationZ;
     };
 
-    inline float HasRotation::GetRotationX() const
+    inline float HasRotation3D::GetRotationX() const
     {
         return this->_rotationX;
     }
 
-    inline void HasRotation::SetRotationX(const float rotationX)
+    inline void HasRotation3D::SetRotationX(const float rotationX)
     {
         this->_rotationX = rotationX;
     }
 
-    inline void HasRotation::IncreaseRotationX(const float relativeRotationX)
+    inline void HasRotation3D::IncreaseRotationX(const float relativeRotationX)
     {
         this->_rotationX += relativeRotationX;
     }
 
-    inline void HasRotation::InvertRotationX()
+    inline void HasRotation3D::InvertRotationX()
     {
         this->_rotationX = -this->_rotationX;
     }
 
-    inline float HasRotation::GetRotationY() const
+    inline float HasRotation3D::GetRotationY() const
     {
         return this->_rotationY;
     }
 
-    inline void HasRotation::SetRotationY(const float rotationY)
+    inline void HasRotation3D::SetRotationY(const float rotationY)
     {
         this->_rotationY = rotationY;
     }
 
-    inline void HasRotation::IncreaseRotationY(const float relativeRotationY)
+    inline void HasRotation3D::IncreaseRotationY(const float relativeRotationY)
     {
         this->_rotationY += relativeRotationY;
     }
 
-    inline void HasRotation::InvertRotationY()
+    inline void HasRotation3D::InvertRotationY()
     {
         this->_rotationY = -this->_rotationY;
     }
 
-    inline float HasRotation::GetRotationZ() const
+    inline float HasRotation3D::GetRotationZ() const
     {
         return this->_rotationZ;
     }
 
-    inline void HasRotation::SetRotationZ(const float rotationZ)
+    inline void HasRotation3D::SetRotationZ(const float rotationZ)
     {
         this->_rotationZ = rotationZ;
     }
 
-    inline void HasRotation::IncreaseRotationZ(const float relativeRotationZ)
+    inline void HasRotation3D::IncreaseRotationZ(const float relativeRotationZ)
     {
         this->_rotationZ += relativeRotationZ;
     }
 
-    inline void HasRotation::InvertRotationZ()
+    inline void HasRotation3D::InvertRotationZ()
     {
         this->_rotationZ = -this->_rotationZ;
     }
 
-    inline void HasRotation::IncreaseRotation(const float rotationX, const float rotationY, const float rotationZ)
+    inline void HasRotation3D::IncreaseRotation(const float rotationX, const float rotationY, const float rotationZ)
     {
         this->_rotationX += rotationX;
         this->_rotationY += rotationY;

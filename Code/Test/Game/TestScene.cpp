@@ -18,8 +18,8 @@ bool Sandbox::TestScene::Setup()
     this->_camera->SetDistance(5.0f);
     this->_camera->SetRotationX(20.0f);
 
-    // Setup text
-    this->_testText = this->_textFactory->Generate("It works!");
+    // Add test text
+    this->AddText("test", "It works!");
 
     // Add crate entity
     std::shared_ptr<Graphics::Entity> entity = this->AddEntity("object", "crate");
@@ -61,7 +61,4 @@ void Sandbox::TestScene::Update(const float delta)
 void Sandbox::TestScene::Render()
 {
     Scene::Render();
-
-    this->_textRenderer->Begin();
-    this->_textRenderer->Render(this->_testText);
 }

@@ -8,14 +8,14 @@
 #include "Precompiled.h"
 #include "Graphics/Model.h"
 #include "Graphics/Shaders/EntityShader.h"
-#include "Game/Attributes/HasPosition.h"
-#include "Game/Attributes/HasRotation.h"
+#include "Game/Attributes/HasPosition3D.h"
+#include "Game/Attributes/HasRotation3D.h"
 #include "Game/Attributes/HasScale.h"
 
 namespace Graphics
 {
     /// 3D scene entity
-    class EXPORT Entity : public HasPosition, public HasRotation, public HasScale
+    class EXPORT Entity : public HasPosition3D, public HasRotation3D, public HasScale
     {
     public:
         Entity();

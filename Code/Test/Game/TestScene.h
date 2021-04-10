@@ -26,8 +26,5 @@ namespace Sandbox
         void ProcessInput() override;
         void Update(float delta) override;
         void Render() override;
-
-    private:
-        std::shared_ptr<Graphics::Text> _testText;
     };
 }

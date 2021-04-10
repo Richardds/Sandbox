@@ -7,12 +7,12 @@
 
 #include "Precompiled.h"
 #include "Game/Scene/Light.h"
-#include "Game/Attributes/HasPosition.h"
+#include "Game/Attributes/HasPosition3D.h"
 
 namespace Graphics
 {
     /// 3D scene point light entity
-    class EXPORT PointLight : public Light, public HasPosition
+    class EXPORT PointLight : public Light, public HasPosition3D
     {
     public:
         PointLight();

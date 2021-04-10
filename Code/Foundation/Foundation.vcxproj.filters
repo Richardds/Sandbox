@@ -141,10 +141,10 @@
     <ClCompile Include="Game\Attributes\HasScale.cpp">
       <Filter>Game\Attributes</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Attributes\HasPosition.cpp">
+    <ClCompile Include="Game\Attributes\HasPosition3D.cpp">
       <Filter>Game\Attributes</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Attributes\HasRotation.cpp">
+    <ClCompile Include="Game\Attributes\HasRotation3D.cpp">
       <Filter>Game\Attributes</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scene.cpp">
@@ -258,6 +258,12 @@
     <ClCompile Include="Core\Exception\ParsingException.cpp">
       <Filter>Core\Exception</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Attributes\HasRotation2D.cpp">
+      <Filter>Game\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Attributes\HasPosition2D.cpp">
+      <Filter>Game\Attributes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Debug.h">
@@ -359,13 +365,13 @@
     <ClInclude Include="Graphics\Material.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Attributes\HasRotation.h">
+    <ClInclude Include="Game\Attributes\HasRotation3D.h">
       <Filter>Game\Attributes</Filter>
     </ClInclude>
     <ClInclude Include="Game\Attributes\HasScale.h">
       <Filter>Game\Attributes</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Attributes\HasPosition.h">
+    <ClInclude Include="Game\Attributes\HasPosition3D.h">
       <Filter>Game\Attributes</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scene.h">
@@ -486,6 +492,12 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="Core\Exception\ParsingException.h">
       <Filter>Core\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Attributes\HasPosition2D.h">
+      <Filter>Game\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Attributes\HasRotation2D.h">
+      <Filter>Game\Attributes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
