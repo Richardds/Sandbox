@@ -39,6 +39,10 @@ bool Graphics::Scene::Setup()
     // Setup global projection
     this->_projection = Core::Instance().CreateProjection(this->_camera->GetFieldOfView());
 
+    // Setup text factory
+    const std::shared_ptr<Font> font = Util::ResourcesLoader::Instance().LoadFont("tahoma");
+    this->_textFactory = std::make_shared<Util::TextMeshGenerator>(font, 1.1f);
+
     // Setup entity renderer
     this->_skyboxRenderer = std::make_shared<SkyboxRenderer>();
     if (!this->_skyboxRenderer->Setup(this->_projection))

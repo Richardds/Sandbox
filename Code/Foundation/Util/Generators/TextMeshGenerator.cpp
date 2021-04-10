@@ -9,23 +9,23 @@
 #include "Core/Types.h"
 #include "Math/MathUtils.h"
 
-Util::TextMeshGenerator::TextMeshGenerator()
+Util::TextMeshGenerator::TextMeshGenerator(const std::shared_ptr<Graphics::Font>& font, const float spacingScale) :
+    _font(font),
+    _spacingScale(spacingScale)
 {
     this->_characterAttributesTemplate.Append(GL_FLOAT, 2);
     this->_characterAttributesTemplate.Append(GL_FLOAT, 2);
 }
 
-std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::basic_string<Character>& text,
-                                                                  const std::shared_ptr<Graphics::Font>& font,
-                                                                  const float spacingScale) const
+std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::basic_string<Character>& text) const
 {
-    _Assert(font->GetState() == Graphics::Font::State::Loaded)
+    _Assert(this->_font->GetState() == Graphics::Font::State::Loaded)
 
-    const std::shared_ptr<Graphics::Texture>& fontMap = font->GetFontMap();
+    const std::shared_ptr<Graphics::Texture>& fontMap = this->_font->GetFontMap();
     const float textureSize = static_cast<float>(fontMap->GetWidth());
 
     // Calculate offset by mesh width
-    const Math::Vector2f meshSize = this->CalculateTextMeshSize(text, font, spacingScale);
+    const Math::Vector2f meshSize = this->CalculateTextMeshSize(text);
 
     Math::Vector2f offset(meshSize / -2.0f);
     std::vector<Graphics::VertexData2> vertices;
@@ -42,7 +42,7 @@ std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::bas
     for (const Character character : text)
     {
         // Retrieve the current character's properties from font
-        const auto& [mapping, positioning] = font->GetCharacterProperties(character);
+        const auto& [mapping, positioning] = this->_font->GetCharacterProperties(character);
 
         // NDC offset
         const Math::Vector2f ndcOffsetScale = Graphics::PixelToNDCScale(offset + positioning.offset);
@@ -73,7 +73,7 @@ std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::bas
         ic += 4;
 
         // Update cursor
-        offset.x += positioning.advance - font->GetSpacing() * spacingScale;
+        offset.x += positioning.advance - this->_font->GetSpacing() * _spacingScale;
         //offset.y += 0.0f; // TODO: Replace by line height on new line
     }
 
@@ -82,18 +82,16 @@ std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::bas
     return std::make_shared<Graphics::Text>(textMesh, fontMap);
 }
 
-Math::Vector2f Util::TextMeshGenerator::CalculateTextMeshSize(const std::basic_string<Character>& text,
-                                                              const std::shared_ptr<Graphics::Font>& font,
-                                                              const float spacingScale) const
+Math::Vector2f Util::TextMeshGenerator::CalculateTextMeshSize(const std::basic_string<Character>& text) const
 {
     Math::Vector2f size(0.0f);
 
     for (const Character character : text)
     {
         // Retrieve the current character's properties from font
-        const auto& [mapping, positioning] = font->GetCharacterProperties(character);
+        const auto& [mapping, positioning] = this->_font->GetCharacterProperties(character);
 
-        size.x += positioning.advance - font->GetSpacing() * spacingScale;
+        size.x += positioning.advance - this->_font->GetSpacing() * this->_spacingScale;
         size.y = Math::Max(mapping.height, size.y);
     }
 

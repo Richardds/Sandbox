@@ -3,8 +3,6 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include <Util/ResourcesLoader.h>
-#include <Util/Generators/TextMeshGenerator.h>
 #include <IO/Mouse.h>
 
 #include "TestScene.h"
@@ -21,8 +19,7 @@ bool Sandbox::TestScene::Setup()
     this->_camera->SetRotationX(20.0f);
 
     // Setup text
-    const std::shared_ptr<Graphics::Font> font = Util::ResourcesLoader::Instance().LoadFont("tahoma");
-    this->_testText = Util::TextMeshGenerator::Instance().Generate("It works!", font);
+    this->_testText = this->_textFactory->Generate("It works!");
 
     // Add crate entity
     std::shared_ptr<Graphics::Entity> entity = this->AddEntity("object", "crate");
