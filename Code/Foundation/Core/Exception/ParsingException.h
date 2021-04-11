@@ -15,6 +15,5 @@ namespace Core
     {
     public:
         ParsingException(const std::string& message);
-        virtual ~ParsingException() = default;
     };
 }

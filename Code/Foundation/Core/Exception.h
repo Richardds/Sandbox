@@ -14,7 +14,6 @@ namespace Core
     {
     public:
         explicit Exception(const std::string& message);
-        virtual ~Exception() = default;
 
         std::string GetMessage() const;
         const char* what() const override;

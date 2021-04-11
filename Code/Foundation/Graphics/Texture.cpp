@@ -6,7 +6,6 @@
 #include "Precompiled.h"
 #include "Graphics/Texture.h"
 #include "Core/Types.h"
-#include "Math/MathUtils.h"
 
 std::unordered_map<GLenum, GLuint> Graphics::Texture::_boundTextures = {
     {GL_TEXTURE_1D, 0},
@@ -70,6 +69,7 @@ void Graphics::Texture::FinishLoading()
     this->_state = State::Loaded;
 }
 
+// ReSharper disable once CppMemberFunctionMayBeConst
 void Graphics::Texture::SetLODBias(const float value)
 {
     _Assert(this->IsBound())
@@ -77,6 +77,7 @@ void Graphics::Texture::SetLODBias(const float value)
     glTexParameterf(this->_target, GL_TEXTURE_LOD_BIAS, value);
 }
 
+// ReSharper disable once CppMemberFunctionMayBeConst
 void Graphics::Texture::SetAnisotropicFiltering(const float value)
 {
     _Assert(this->IsBound())

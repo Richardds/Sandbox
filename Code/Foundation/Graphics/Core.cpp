@@ -238,10 +238,9 @@ void Graphics::Core::GlDebugCallback(
     const void* userParam
 )
 {
-    const char* unknown = "Unknown";
-    const char* source_str = unknown;
-    const char* type_str = unknown;
-    const char* severity_str = unknown;
+    const char* sourceStr;
+    const char* typeStr;
+    const char* severityStr;
 
     switch (id)
     {
@@ -255,55 +254,55 @@ void Graphics::Core::GlDebugCallback(
 
     switch (source)
     {
-    case GL_DEBUG_SOURCE_API: source_str = "API";
+    case GL_DEBUG_SOURCE_API: sourceStr = "API";
         break;
-    case GL_DEBUG_SOURCE_WINDOW_SYSTEM: source_str = "Window System";
+    case GL_DEBUG_SOURCE_WINDOW_SYSTEM: sourceStr = "Window System";
         break;
-    case GL_DEBUG_SOURCE_SHADER_COMPILER: source_str = "Shader Compiler";
+    case GL_DEBUG_SOURCE_SHADER_COMPILER: sourceStr = "Shader Compiler";
         break;
-    case GL_DEBUG_SOURCE_THIRD_PARTY: source_str = "Third Party";
+    case GL_DEBUG_SOURCE_THIRD_PARTY: sourceStr = "Third Party";
         break;
-    case GL_DEBUG_SOURCE_APPLICATION: source_str = "Application";
+    case GL_DEBUG_SOURCE_APPLICATION: sourceStr = "Application";
         break;
-    case GL_DEBUG_SOURCE_OTHER: source_str = "Other";
+    case GL_DEBUG_SOURCE_OTHER: sourceStr = "Other";
         break;
-    default: ;
+    default: sourceStr = "Unknown";
     }
 
     switch (type)
     {
-    case GL_DEBUG_TYPE_ERROR: type_str = "Error";
+    case GL_DEBUG_TYPE_ERROR: typeStr = "Error";
         break;
-    case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR: type_str = "Deprecated";
+    case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR: typeStr = "Deprecated";
         break;
-    case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR: type_str = "Undefined";
+    case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR: typeStr = "Undefined";
         break;
-    case GL_DEBUG_TYPE_PORTABILITY: type_str = "Portability";
+    case GL_DEBUG_TYPE_PORTABILITY: typeStr = "Portability";
         break;
-    case GL_DEBUG_TYPE_PERFORMANCE: type_str = "Performance";
+    case GL_DEBUG_TYPE_PERFORMANCE: typeStr = "Performance";
         break;
-    case GL_DEBUG_TYPE_MARKER: type_str = "Marker";
+    case GL_DEBUG_TYPE_MARKER: typeStr = "Marker";
         break;
-    case GL_DEBUG_TYPE_PUSH_GROUP: type_str = "Push Group";
+    case GL_DEBUG_TYPE_PUSH_GROUP: typeStr = "Push Group";
         break;
-    case GL_DEBUG_TYPE_POP_GROUP: type_str = "Pop Group";
+    case GL_DEBUG_TYPE_POP_GROUP: typeStr = "Pop Group";
         break;
-    case GL_DEBUG_TYPE_OTHER: type_str = "Other";
+    case GL_DEBUG_TYPE_OTHER: typeStr = "Other";
         break;
-    default: ;
+    default: typeStr = "Unknown";
     }
 
     switch (severity)
     {
-    case GL_DEBUG_SEVERITY_HIGH: severity_str = "High";
+    case GL_DEBUG_SEVERITY_HIGH: severityStr = "High";
         break;
-    case GL_DEBUG_SEVERITY_MEDIUM: severity_str = "Medium";
+    case GL_DEBUG_SEVERITY_MEDIUM: severityStr = "Medium";
         break;
-    case GL_DEBUG_SEVERITY_LOW: severity_str = "Low";
+    case GL_DEBUG_SEVERITY_LOW: severityStr = "Low";
         break;
-    case GL_DEBUG_SEVERITY_NOTIFICATION: severity_str = "Notification";
+    case GL_DEBUG_SEVERITY_NOTIFICATION: severityStr = "Notification";
         break;
-    default: ;
+    default: severityStr = "Unknown";
     }
 
     const std::string glDump = Instance().GetGlDump();
@@ -316,8 +315,8 @@ void Graphics::Core::GlDebugCallback(
         "Type: %s\n"
         "OpenGL State:\n"
         "%s",
-        id, source_str, message, severity_str, type_str, glDump.c_str()
+        id, sourceStr, message, severityStr, typeStr, glDump.c_str()
     );
 
-    _AssertMessage(false, "OpenGL debug message");
+    _AssertMessage(false, "OpenGL debug message")
 }

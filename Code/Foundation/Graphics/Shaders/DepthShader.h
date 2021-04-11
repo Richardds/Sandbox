@@ -16,7 +16,6 @@ namespace Graphics
     {
     public:
         DepthShader();
-        virtual ~DepthShader() = default;
 
         void InitializeUniformVariables() override;
         void LoadProjection(const Math::Matrix4f& transformation) const;

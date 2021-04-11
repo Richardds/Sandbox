@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
-//  \file       IOException.h
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \file       UnsupportedException.h
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #pragma once
@@ -11,9 +11,9 @@
 namespace Core
 {
     /// Exception class for all IO operations
-    class EXPORT IOException : public Exception
+    class EXPORT UnsupportedException : public Exception
     {
     public:
-        IOException(const std::string& message);
+        UnsupportedException(const std::string& message);
     };
 }

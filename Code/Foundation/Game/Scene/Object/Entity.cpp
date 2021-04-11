@@ -7,10 +7,6 @@
 #include "Game/Scene/Object/Entity.h"
 #include "Math/MathUtils.h"
 
-Graphics::Entity::Entity()
-{
-}
-
 Graphics::Entity::Entity(const Math::Vector3f& position, const float rotX, const float rotY, const float rotZ) :
     HasPosition3D(position),
     HasRotation3D(rotX, rotY, rotZ)

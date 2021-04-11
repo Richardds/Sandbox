@@ -14,7 +14,10 @@ namespace Graphics
     {
     public:
         VertexArray();
+        VertexArray(const VertexArray& vao) = delete;
         virtual ~VertexArray();
+
+        VertexArray& operator=(const VertexArray& vao) = delete;
 
         void Bind() const;
         bool IsBound() const;

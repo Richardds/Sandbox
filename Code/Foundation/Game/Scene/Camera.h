@@ -16,7 +16,6 @@ namespace Graphics
     {
     public:
         Camera();
-        virtual ~Camera() = default;
 
         explicit Camera(float fieldOfView);
         float GetFieldOfView() const;

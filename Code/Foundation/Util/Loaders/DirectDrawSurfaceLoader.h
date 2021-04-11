@@ -12,13 +12,12 @@
 namespace Util
 {
     /// Direct draw surface texture loader which uses GLI library
-    class EXPORT DirectDrawSurfaceLoader
+    class EXPORT DirectDrawSurfaceLoader final
     {
     _Singleton(DirectDrawSurfaceLoader)
 
     public:
         DirectDrawSurfaceLoader() = default;
-        virtual ~DirectDrawSurfaceLoader() = default;
 
         void Load(std::shared_ptr<Graphics::Texture>& texture, std::vector<char>& buffer) const;
 

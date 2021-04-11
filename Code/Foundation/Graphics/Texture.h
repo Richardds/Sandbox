@@ -36,7 +36,10 @@ namespace Graphics
         };
 
         Texture();
+        Texture(const Texture& texture) = delete;
         virtual ~Texture();
+
+        Texture& operator=(const Texture& texture) = delete;
 
         State GetState() const;
         void Bind() const;

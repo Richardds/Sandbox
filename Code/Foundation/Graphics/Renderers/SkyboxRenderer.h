@@ -18,7 +18,6 @@ namespace Graphics
     {
     public:
         SkyboxRenderer() = default;
-        virtual ~SkyboxRenderer() = default;
 
         bool Setup(const std::shared_ptr<const Projection>& projection);
         void Begin(const std::shared_ptr<Camera>& camera) const;

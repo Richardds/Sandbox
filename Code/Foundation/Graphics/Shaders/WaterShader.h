@@ -21,7 +21,6 @@ namespace Graphics
     {
     public:
         WaterShader();
-        virtual ~WaterShader() = default;
 
         void InitializeUniformVariables() override;
         void LoadProjection(const std::shared_ptr<const Projection>& projection) const;

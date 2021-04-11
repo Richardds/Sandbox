@@ -18,7 +18,7 @@ Util::PrimitiveGenerator::PrimitiveGenerator()
     this->_3dAttributesTemplate.Append(GL_FLOAT, 3);
 }
 
-std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate2dQuad(const float diameter)
+std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate2dQuad(const float diameter) const
 {
     const float radius = diameter / 2.0f;
 
@@ -37,7 +37,7 @@ std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate2dQuad(const f
     return this->Store(vertices, indices, this->_2dAttributesTemplate);
 }
 
-std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate3dQuad(const float diameter)
+std::shared_ptr<Graphics::Mesh> Util::PrimitiveGenerator::Generate3dQuad(const float diameter) const
 {
     const float radius = diameter / 2.0f;
 

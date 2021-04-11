@@ -54,10 +54,14 @@ void Util::FontMappingLoader::Load(std::shared_ptr<Graphics::Font>& font, IO::In
 
             Character character = static_cast<Character>(std::stoi(match[1]));
             Graphics::Font::CharacterProperties props = {
-                Math::Vector2f(static_cast<float>(std::stoi(match[2])), static_cast<float>(std::stoi(match[3]))),
-                static_cast<float>(std::stoi(match[4])), static_cast<float>(std::stoi(match[5])),
-                Math::Vector2f(static_cast<float>(std::stoi(match[6])), static_cast<float>(std::stoi(match[7]))),
+                {
+                    Math::Vector2f(static_cast<float>(std::stoi(match[2])), static_cast<float>(std::stoi(match[3]))),
+                static_cast<float>(std::stoi(match[4])), static_cast<float>(std::stoi(match[5]))
+                },
+                {
+                    Math::Vector2f(static_cast<float>(std::stoi(match[6])), static_cast<float>(std::stoi(match[7]))),
                 static_cast<float>(std::stoi(match[8]))
+                }
             };
 
             font->AddCharacterProperties(character, props);

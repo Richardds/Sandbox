@@ -264,6 +264,9 @@
     <ClCompile Include="Game\Attributes\HasPosition2D.cpp">
       <Filter>Game\Attributes</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Exception\UnsupportedException.cpp">
+      <Filter>Core\Exception</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Debug.h">
@@ -498,6 +501,9 @@
     </ClInclude>
     <ClInclude Include="Game\Attributes\HasRotation2D.h">
       <Filter>Game\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Exception\UnsupportedException.h">
+      <Filter>Core\Exception</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,7 +3,6 @@
 //  \author     Richard Boldi� <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
 #include "Game/Attributes/HasRotation2D.h"
 
 Graphics::HasRotation2D::HasRotation2D() :

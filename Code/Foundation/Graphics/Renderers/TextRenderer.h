@@ -17,7 +17,6 @@ namespace Graphics
     {
     public:
         TextRenderer() = default;
-        virtual ~TextRenderer() = default;
 
         bool Setup();
         void Begin() const;

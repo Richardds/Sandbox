@@ -21,7 +21,10 @@ namespace Graphics
         };
 
         RenderBuffer();
+        RenderBuffer(const RenderBuffer& renderBuffer) = delete;
         virtual ~RenderBuffer();
+
+        RenderBuffer& operator=(const RenderBuffer& renderBuffer) = delete;
 
         State GetState() const;
         void Storage(GLenum format, unsigned int width, unsigned int height);

@@ -16,7 +16,6 @@ namespace Graphics
     {
     public:
         PointLight();
-        virtual ~PointLight() = default;
 
         Math::Vector3f GetAttenuation() const;
         void SetAttenuation(const Math::Vector3f& attenuation);

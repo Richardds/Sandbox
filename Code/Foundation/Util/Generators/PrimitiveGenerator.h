@@ -12,16 +12,15 @@
 namespace Util
 {
     /// Generates 2D and 3D primitives
-    class EXPORT PrimitiveGenerator : public Generator
+    class EXPORT PrimitiveGenerator final : public Generator
     {
     _Singleton(PrimitiveGenerator)
 
     public:
         PrimitiveGenerator();
-        virtual ~PrimitiveGenerator() = default;
 
-        std::shared_ptr<Graphics::Mesh> Generate2dQuad(float diameter);
-        std::shared_ptr<Graphics::Mesh> Generate3dQuad(float diameter);
+        std::shared_ptr<Graphics::Mesh> Generate2dQuad(float diameter) const;
+        std::shared_ptr<Graphics::Mesh> Generate3dQuad(float diameter) const;
 
     private:
         Graphics::VertexAttributeConfig _2dAttributesTemplate;

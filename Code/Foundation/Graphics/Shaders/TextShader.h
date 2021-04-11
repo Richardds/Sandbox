@@ -15,7 +15,6 @@ namespace Graphics
     {
     public:
         TextShader();
-        virtual ~TextShader() = default;
 
         void InitializeUniformVariables() override;
         void LoadTransformation(const Math::Matrix3f& transformation) const;

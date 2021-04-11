@@ -5,7 +5,7 @@
 
 #include "Precompiled.h"
 #include "Util/Loaders/DirectDrawSurfaceLoader.h"
-#include "IO/Console.h"
+#include "Core/Exception/UnsupportedException.h"
 
 void Util::DirectDrawSurfaceLoader::Load(std::shared_ptr<Graphics::Texture>& texture, std::vector<char>& buffer) const
 {
@@ -50,7 +50,7 @@ void Util::DirectDrawSurfaceLoader::Load(std::shared_ptr<Graphics::Texture>& tex
         this->Load3dTexture(texture, gliTexture, gliFormat);
         break;
     default:
-        IO::Console::Instance().Error("Unsupported texture target\n");
+        throw Core::UnsupportedException("Unsupported texture target");
     }
 
     texture->FinishLoading();

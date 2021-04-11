@@ -24,7 +24,10 @@ namespace Graphics
         };
 
         ShaderProgram();
+        ShaderProgram(const ShaderProgram& shaderProgram) = delete;
         virtual ~ShaderProgram();
+
+        ShaderProgram& operator=(const ShaderProgram& shaderProgram) = delete;
 
         State GetState() const;
         void AttachRequiredShaders(const std::shared_ptr<Shader>& vertexShader,

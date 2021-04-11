@@ -17,16 +17,18 @@ namespace Graphics
         static GLuint GetBound(GLenum target);
 
         explicit Buffer(GLenum target);
+        Buffer(const Buffer& buffer) = delete;
         virtual ~Buffer();
+
+        Buffer& operator=(const Buffer& buffer) = delete;
 
         void Bind();
         bool IsBound() const;
         void Unbind();
         GLuint GetGlBuffer() const;
         GLenum GetTarget() const;
-        GLenum GetType() const;
         template<typename T>
-        void Data(std::vector<T> data, const GLenum type = GL_STATIC_DRAW);
+        void Data(std::vector<T> data, GLenum type = GL_STATIC_DRAW);
         void Invalidate();
 
     private:
@@ -34,7 +36,6 @@ namespace Graphics
 
         GLuint _glBuffer;
         GLenum _target;
-        GLenum _type;
 
         void LoadData(const void* data, size_t size, GLenum type);
     };
@@ -47,11 +48,6 @@ namespace Graphics
     inline GLenum Buffer::GetTarget() const
     {
         return this->_target;
-    }
-
-    inline GLenum Buffer::GetType() const
-    {
-        return this->_type;
     }
 
     template<typename T>

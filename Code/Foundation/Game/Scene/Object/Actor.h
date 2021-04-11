@@ -15,7 +15,6 @@ namespace Graphics
     {
     public:
         Actor();
-        virtual ~Actor() = default;
 
         float GetMovingSpeed() const;
         void SetMovingSpeed(float speed);

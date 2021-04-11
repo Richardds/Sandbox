@@ -17,7 +17,6 @@ namespace Graphics
     {
     public:
         Water();
-        virtual ~Water() = default;
 
         std::shared_ptr<TexturedMesh> GetMesh() const;
         void SetMesh(const std::shared_ptr<TexturedMesh>& mesh);

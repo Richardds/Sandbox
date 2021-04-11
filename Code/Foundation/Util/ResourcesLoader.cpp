@@ -130,7 +130,7 @@ std::shared_ptr<Graphics::Font> Util::ResourcesLoader::LoadFont(const std::strin
     }
 
     // Parse font mapping file
-    FontMappingLoader loader;
+    const FontMappingLoader loader;
     loader.Load(font, fontMappingFile);
 
     fontMappingFile.Close();
@@ -218,7 +218,7 @@ std::shared_ptr<Graphics::Model> Util::ResourcesLoader::LoadModel(const std::str
     }
 
     // Parse model file
-    ModelLoader loader;
+    const ModelLoader loader;
     loader.Load(model, modelFile);
 
     modelFile.Close();

@@ -16,13 +16,12 @@ namespace Util
 {
     /// Global resource loader for loading models and textures
     /// Handles caching and reusing of already loaded models
-    class EXPORT ResourcesLoader
+    class EXPORT ResourcesLoader final
     {
     _Singleton(ResourcesLoader)
 
     public:
         ResourcesLoader();
-        virtual ~ResourcesLoader() = default;
 
         std::string GetResourcesRoot() const;
         void SetResourcesRoot(const std::string& root);

@@ -21,7 +21,10 @@ namespace Graphics
         };
 
         explicit Shader(GLenum type);
+        Shader(const Shader& shader) = delete;
         virtual ~Shader();
+
+        Shader& operator=(const Shader& shader) = delete;
 
         State GetState() const;
         void SetSource(const std::string& source);

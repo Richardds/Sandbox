@@ -17,7 +17,10 @@ namespace Graphics
     {
     public:
         FrameBuffer();
+        FrameBuffer(const FrameBuffer& frameBuffer) = delete;
         virtual ~FrameBuffer();
+
+        FrameBuffer& operator=(const FrameBuffer& frameBuffer) = delete;
 
         void Bind() const;
         void Activate(unsigned int width, unsigned int height) const;

@@ -19,7 +19,6 @@ namespace Graphics
         static constexpr float DEFAULT_DISTANCE = 15.0f;
 
         TargetedCamera();
-        virtual ~TargetedCamera() = default;
 
         float GetDistance() const;
         void SetDistance(float distance);

@@ -24,14 +24,11 @@ namespace Graphics
              uint32_t elementsCount,
              const std::shared_ptr<Texture>& fontMap);
         Text(const std::shared_ptr<Mesh>& mesh, const std::shared_ptr<Texture>& fontMap);
-        virtual ~Text() = default;
 
         void Render(const std::shared_ptr<TextShader>& shader) const;
         std::shared_ptr<Texture> GetFontMap() const;
         void SetFontMap(const std::shared_ptr<Texture>& texture);
-
-        float GetSize() const;
-        void SetSize(float size);
+        
         float GetSpacing() const;
         void SetSpacing(float spacing);
         Math::Vector4f GetColor() const;

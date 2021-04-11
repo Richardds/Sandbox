@@ -54,7 +54,7 @@ std::shared_ptr<Graphics::TexturedMesh> Util::ModelLoader::ReadMesh(IO::InputFil
 
     for (uint32_t i = 0; i < verticesCount; i++)
     {
-        Graphics::VertexData3 vertex;
+        Graphics::VertexData3 vertex{};
         file.Read(vertex);
         data.emplace_back(vertex);
     }

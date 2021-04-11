@@ -16,7 +16,10 @@ namespace Graphics
     public:
         Window();
         Window(unsigned int width, unsigned int height, const std::string& title);
+        Window(const Window& window) = delete;
         virtual ~Window();
+
+        Window& operator=(const Window& window) = delete;
 
         bool Create();
         void Open() const;

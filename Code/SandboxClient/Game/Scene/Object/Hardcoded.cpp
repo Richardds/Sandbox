@@ -15,7 +15,7 @@ Sandbox::Hardcoded::Hardcoded()
     this->_hardcodedAttributesTemplate.Append(GL_FLOAT, 3);
 }
 
-std::shared_ptr<Graphics::Mesh> Sandbox::Hardcoded::Generate()
+std::shared_ptr<Graphics::Mesh> Sandbox::Hardcoded::Generate() const
 {
     const std::vector<Graphics::VertexData3> vertices({
         {

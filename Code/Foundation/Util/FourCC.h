@@ -10,7 +10,7 @@
 namespace Util
 {
     /// Magic 4 byte identifier class
-    class EXPORT FourCC
+    class EXPORT FourCC final
     {
     public:
         static std::string ToString(const FourCC& fourCC);
@@ -19,7 +19,6 @@ namespace Util
         FourCC();
         FourCC(uint32_t fourCC);
         FourCC(const std::string& fourCC);
-        virtual ~FourCC() = default;
 
         bool operator==(const FourCC& rhs) const;
         bool operator!=(const FourCC& rhs) const;

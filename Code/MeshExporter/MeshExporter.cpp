@@ -9,7 +9,7 @@
 
 using namespace Sandbox;
 
-int main(int argc, char* argv[])
+int main(const int argc, char* argv[])
 {
     MeshExporterApplication app;
     app.SetTitle("Mesh Exporter");

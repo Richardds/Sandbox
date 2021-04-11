@@ -41,6 +41,7 @@ Graphics::Buffer::~Buffer()
     glDeleteBuffers(1, &this->_glBuffer);
 }
 
+// ReSharper disable once CppMemberFunctionMayBeConst
 void Graphics::Buffer::Bind()
 {
     if (!this->IsBound())
@@ -55,6 +56,7 @@ bool Graphics::Buffer::IsBound() const
     return _boundBuffers[this->_target] == this->_glBuffer;
 }
 
+// ReSharper disable once CppMemberFunctionMayBeConst
 void Graphics::Buffer::Unbind()
 {
     if (this->IsBound())
@@ -64,11 +66,13 @@ void Graphics::Buffer::Unbind()
     }
 }
 
+// ReSharper disable once CppMemberFunctionMayBeConst
 void Graphics::Buffer::Invalidate()
 {
     glInvalidateBufferData(this->_glBuffer);
 }
 
+// ReSharper disable once CppMemberFunctionMayBeConst
 void Graphics::Buffer::LoadData(const void* data, const size_t size, const GLenum type)
 {
     glBufferData(this->_target, size, data, type);

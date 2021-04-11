@@ -18,7 +18,7 @@ namespace Sandbox
     public:
         Hardcoded();
 
-        std::shared_ptr<Graphics::Mesh> Generate();
+        std::shared_ptr<Graphics::Mesh> Generate() const;
 
     private:
         Graphics::VertexAttributeConfig _hardcodedAttributesTemplate;

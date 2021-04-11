@@ -3,7 +3,6 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
 #include "Game/Attributes/HasRotation3D.h"
 
 Graphics::HasRotation3D::HasRotation3D() :

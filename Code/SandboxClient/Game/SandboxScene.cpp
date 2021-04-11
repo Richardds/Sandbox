@@ -139,10 +139,10 @@ bool Sandbox::SandboxScene::Setup()
         entity->SetRotationZ(15.0f);
         positionX += 7.5f;
 
-        std::shared_ptr<Graphics::PointLight> light = this->AddLight("light_" + material);
-        light->SetColor(Math::Vector3f(1.0f, 1.0f, 1.0f));
-        light->SetPosition(Math::Vector3f(entity->GetPositionX(), entity->GetPositionY() + 3.0f, entity->GetPositionZ()));
-        light->SetAttenuation(Math::Vector3f(1.0f, 0.1f, 0.025f));
+        std::shared_ptr<Graphics::PointLight> pointLight = this->AddLight("light_" + material);
+        pointLight->SetColor(Math::Vector3f(1.0f, 1.0f, 1.0f));
+        pointLight->SetPosition(Math::Vector3f(entity->GetPositionX(), entity->GetPositionY() + 3.0f, entity->GetPositionZ()));
+        pointLight->SetAttenuation(Math::Vector3f(1.0f, 0.1f, 0.025f));
     }
 
     // Add hardcoded mesh to the scene

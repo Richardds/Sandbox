@@ -17,6 +17,7 @@
     <ClCompile Include="Core\Exception.cpp" />
     <ClCompile Include="Core\Exception\IOException.cpp" />
     <ClCompile Include="Core\Exception\ParsingException.cpp" />
+    <ClCompile Include="Core\Exception\UnsupportedException.cpp" />
     <ClCompile Include="Game\Attributes\HasPosition2D.cpp" />
     <ClCompile Include="Game\Attributes\HasPosition3D.cpp" />
     <ClCompile Include="Game\Attributes\HasRotation2D.cpp" />
@@ -89,6 +90,7 @@
     <ClInclude Include="Core\Exception.h" />
     <ClInclude Include="Core\Exception\IOException.h" />
     <ClInclude Include="Core\Exception\ParsingException.h" />
+    <ClInclude Include="Core\Exception\UnsupportedException.h" />
     <ClInclude Include="Core\Singleton.h" />
     <ClInclude Include="Core\Types.h" />
     <ClInclude Include="Game\Attributes\HasPosition2D.h" />
@@ -216,6 +218,7 @@
       <PreprocessorDefinitions>_DEBUG;DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -232,6 +235,7 @@
       <PreprocessorDefinitions>NDEBUG;DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

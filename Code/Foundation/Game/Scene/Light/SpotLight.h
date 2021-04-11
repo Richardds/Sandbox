@@ -21,7 +21,6 @@ namespace Graphics
         static constexpr float DEFAULT_CUT_OFF_ANGLE_OFFSET = 5.0f;
 
         SpotLight();
-        virtual ~SpotLight() = default;
 
         float GetCutOffAngle() const;
         float GetCosineCutOffAngle() const;

@@ -6,6 +6,7 @@
 #include "Precompiled.h"
 #include "Graphics/Shader.h"
 #include "Core/Debug.h"
+#include "Core/Exception/UnsupportedException.h"
 #include "IO/Console.h"
 
 Graphics::Shader::Shader(const GLenum type) :
@@ -67,7 +68,7 @@ std::string Graphics::Shader::GetStringFromType(const GLenum type)
     case GL_FRAGMENT_SHADER:
         return "fragment";
     default:
-        return "invalid";
+        throw Core::UnsupportedException("Unsupported shader type");
     }
 }
 
@@ -80,6 +81,6 @@ std::string Graphics::Shader::GetExtensionFromType(const GLenum type)
     case GL_FRAGMENT_SHADER:
         return "frag";
     default:
-        return "invalid";
+        throw Core::UnsupportedException("Unsupported shader type");
     }
 }

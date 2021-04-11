@@ -14,7 +14,10 @@ namespace App
     {
     public:
         Application();
+        Application(const Application& application) = delete;
         virtual ~Application();
+
+        Application& operator=(const Application& application) = delete;
 
         virtual bool Open();
         virtual void Run() = 0;

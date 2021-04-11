@@ -18,10 +18,9 @@ namespace Graphics
     class EXPORT Entity : public HasPosition3D, public HasRotation3D, public HasScale
     {
     public:
-        Entity();
-        virtual ~Entity() = default;
-
+        Entity() = default;
         explicit Entity(const Math::Vector3f& position, float rotX = 0.0f, float rotY = 0.0f, float rotZ = 0.0f);
+
         std::shared_ptr<Model> GetModel() const;
         void SetModel(const std::shared_ptr<Model>& model);
         void Render(const std::shared_ptr<EntityShader>& shader) const;

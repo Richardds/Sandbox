@@ -12,7 +12,7 @@ Util::SkyboxGenerator::SkyboxGenerator()
     this->_skyboxAttributesTemplate.Append(GL_FLOAT, 3);
 }
 
-std::shared_ptr<Graphics::Mesh> Util::SkyboxGenerator::Generate(const float size)
+std::shared_ptr<Graphics::Mesh> Util::SkyboxGenerator::Generate(const float size) const
 {
     const float radius = size / 2.0f;
 

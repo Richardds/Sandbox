@@ -106,7 +106,7 @@ void App::RenderApplication::UpdateTitleStats() const
     snprintf(titleBuffer, 256, "%s | Frame rate: %3u | Avg. frame time: %3.3f ms | VSync %s",
               this->_title.c_str(),
               this->_lastFrameCount,
-              averageFrameTimeMs,
+              static_cast<double>(averageFrameTimeMs),
               this->_vSyncEnabled ? "enabled" : "disabled"
     );
 
