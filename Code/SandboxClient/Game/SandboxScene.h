@@ -7,6 +7,7 @@
 
 #include <Game/Scene.h>
 
+#include "Managers/DuckManager.h"
 #include "Managers/ProjectileManager.h"
 #include "Scene/Player.h"
 
@@ -41,6 +42,7 @@ namespace Sandbox
     private:
         std::shared_ptr<Player> _player;
         std::shared_ptr<ProjectileManager> _projectileManager;
+        std::shared_ptr<DuckManager> _duckManager;
 
         bool _lockCameraToPlayer;
     };

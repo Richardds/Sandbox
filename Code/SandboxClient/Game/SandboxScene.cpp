@@ -23,15 +23,17 @@ bool Sandbox::SandboxScene::Setup()
         return false;
     }
 
-    // Create projectile manager
-    this->_projectileManager = std::make_shared<ProjectileManager>();
+    // Setup managers
+    this->_projectileManager = std::make_shared<ProjectileManager>(Util::ResourcesLoader::Instance().LoadModel("projectile"));
+    this->_duckManager = std::make_shared<DuckManager>(Util::ResourcesLoader::Instance().LoadModel("duck"));
 
     // Configure camera
-    this->_camera->SetDistance(12.5f);
+    this->_camera->SetDistance(12.0f);
     this->_camera->SetRotationX(20.0f);
 
-    // Add test text
-    this->AddText("title", "BIRB GAME");
+    // Add title
+    std::shared_ptr<Graphics::Text> title = this->AddText("title", "BIRB GAME");
+    title->SetPositionY(0.90f);
 
     // Setup skybox
     this->_skybox = this->SetupSkybox("Skybox/day", 750.0f);
@@ -43,16 +45,18 @@ bool Sandbox::SandboxScene::Setup()
     light1->SetAttenuation(Math::Vector3f(1.0f, 0.1f, 0.025f));
 
     // Setup flash light
+    this->_flashLight->SetColor(Math::Vector3f(1.0f, 1.0f, 0.8f));
     this->_flashLight->SetCutOffAngle(7.5f);
     this->_flashLight->SetOuterCutOffAngleOffset(7.5f);
-    this->_flashLight->SetIntensity(0.6f);
+    this->_flashLight->SetIntensity(0.75f);
 
     // Load water
     std::shared_ptr<Graphics::Water> water = this->AddWater("water", 1500.0f);
 
     // Load player
-    this->_player = this->SetupPlayer("boat");
-    this->_player->SetMovingSpeed(2.0f);
+    this->_player = this->SetupPlayer("duck");
+    this->_player->SetMovingSpeed(1.0f);
+    //this->_player->SetScale(5.0f);
 
     // Add house entities
     for (int i = 0; i < 5; i++)
@@ -110,18 +114,23 @@ bool Sandbox::SandboxScene::Setup()
     // Add duck entities
     for (int i = 0; i < 30; i++)
     {
-        std::string entityName = "birb_" + std::to_string(i);
+        std::string entityName = "duck_" + std::to_string(i);
         const float offsetX = 7.5f;
         const float offsetZ = 5.0f;
-        std::shared_ptr<Graphics::Entity> entity = this->AddEntity(entityName, "duck");
-        entity->SetRotationY(Util::Random::Instance().GetAngle());
-        entity->SetScale(Util::Random::Instance().GetReal(2.0f, 30.0f));
-        entity->SetPosition(Math::Vector3f(
+
+        const Math::Vector3f position = Math::Vector3f(
             offsetX + Util::Random::Instance().GetReal(0.0f, 20.0f),
             0.0f,
             offsetZ - Util::Random::Instance().GetReal(0.0f, 20.0f)
-        ));
+        );
+        const float rotation = Util::Random::Instance().GetAngle();
+
+        std::shared_ptr<Duck> duck = std::make_shared<Duck>(position, rotation);
+        duck->SetScale(Util::Random::Instance().GetReal(1.0f, 5.0f));
+        duck->SetMovingSpeed(Util::Random::Instance().GetReal(1.0f, 5.0f));
+        this->_duckManager->Manage(duck);
     }
+
     // Light up birbs
     std::shared_ptr<Graphics::PointLight> light = this->AddLight("light_birbs");
     light->SetColor(Math::Vector3f(1.0f, 1.0f, 1.0f));
@@ -129,7 +138,6 @@ bool Sandbox::SandboxScene::Setup()
     light->SetAttenuation(Math::Vector3f(1.0f, 0.005f, 0.0075f));
 
     // Material examples
-    // Alpha
     std::vector<std::string> materials = {"alpha", "tiles", "sponge", "metal"};
     float positionX = 12.5f;
     for (const auto& material : materials)
@@ -378,10 +386,14 @@ void Sandbox::SandboxScene::Update(const float delta)
         this->_camera->SetRotationX(90.0f);
     }
 
+    // Update managers
     this->_projectileManager->Update(delta);
+    this->_duckManager->Update(delta);
 
+    // Update player
     this->_player->Update(delta);
 
+    // Spectate the player if the camera is locked to player
     if (this->_lockCameraToPlayer)
     {
         this->_camera->Spectate(this->_player->GetPosition());
@@ -416,6 +428,7 @@ void Sandbox::SandboxScene::RenderEntities()
 {
     Scene::RenderEntities();
     this->_projectileManager->RenderWith(this->_entityRenderer);
+    this->_duckManager->RenderWith(this->_entityRenderer);
 }
 
 std::shared_ptr<Sandbox::Player> Sandbox::SandboxScene::SetupPlayer(const std::string& resourceName)

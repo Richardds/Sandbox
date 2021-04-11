@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------------------
-//  \file       Projectile.h
+//  \file       Duck.h
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
@@ -10,12 +10,12 @@
 
 namespace Sandbox
 {
-    /// 3D world actor overrider class used for abstracting a projectile
-    class Projectile : public Graphics::Actor
+    /// 3D world actor overrider class used for abstracting a duck
+    class Duck : public Graphics::Actor
     {
     public:
-        explicit Projectile(const std::shared_ptr<Actor>& actor);
-        Projectile(const Math::Vector3f& origin, float rotation);
+        explicit Duck(const std::shared_ptr<Actor>& actor);
+        Duck(const Math::Vector3f& origin, float rotation);
 
         float DistanceToOrigin() const;
         bool OutOfRange() const;

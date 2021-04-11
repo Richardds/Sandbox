@@ -93,8 +93,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App\SandboxApplication.cpp" />
+    <ClCompile Include="Game\Managers\DuckManager.cpp" />
     <ClCompile Include="Game\SandboxScene.cpp" />
     <ClCompile Include="Game\Managers\ProjectileManager.cpp" />
+    <ClCompile Include="Game\Scene\Object\Duck.cpp" />
     <ClCompile Include="Game\Scene\Object\Hardcoded.cpp" />
     <ClCompile Include="Game\Scene\Object\Projectile.cpp" />
     <ClCompile Include="Game\Scene\Player.cpp" />
@@ -102,8 +104,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\SandboxApplication.h" />
+    <ClInclude Include="Game\Managers\DuckManager.h" />
     <ClInclude Include="Game\SandboxScene.h" />
     <ClInclude Include="Game\Managers\ProjectileManager.h" />
+    <ClInclude Include="Game\Scene\Object\Duck.h" />
     <ClInclude Include="Game\Scene\Object\Hardcoded.h" />
     <ClInclude Include="Game\Scene\Object\Projectile.h" />
     <ClInclude Include="Game\Scene\Player.h" />

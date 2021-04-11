@@ -3,13 +3,11 @@
 //  \author     Richard Boldi� <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include <Util/ResourcesLoader.h>
-
 #include "ProjectileManager.h"
 
-Sandbox::ProjectileManager::ProjectileManager()
+Sandbox::ProjectileManager::ProjectileManager(const std::shared_ptr<Graphics::Model>& projectileModel) :
+    _projectileModel(projectileModel)
 {
-    this->_projectileModel = Util::ResourcesLoader::Instance().LoadModel("projectile");
 }
 
 void Sandbox::ProjectileManager::Update(const float delta)
@@ -18,9 +16,11 @@ void Sandbox::ProjectileManager::Update(const float delta)
 
     while (it != this->_projectiles.end())
     {
-        (*it)->GoForward(delta);
+        const auto& projectile = (*it);
 
-        if ((*it)->OutOfRange())
+        projectile->GoForward(delta);
+
+        if (projectile->OutOfRange())
         {
             it = this->_projectiles.erase(it);
         }

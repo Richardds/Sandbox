@@ -20,6 +20,12 @@
     <ClCompile Include="Game\Scene\Object\Hardcoded.cpp">
       <Filter>Game\Scene\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Managers\DuckManager.cpp">
+      <Filter>Game\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Object\Duck.cpp">
+      <Filter>Game\Scene\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="App">
@@ -55,6 +61,12 @@
       <Filter>Game\Scene\Object</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scene\Object\Hardcoded.h">
+      <Filter>Game\Scene\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Managers\DuckManager.h">
+      <Filter>Game\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Object\Duck.h">
       <Filter>Game\Scene\Object</Filter>
     </ClInclude>
   </ItemGroup>

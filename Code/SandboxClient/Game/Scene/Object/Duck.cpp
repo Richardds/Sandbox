@@ -1,29 +1,29 @@
 // ----------------------------------------------------------------------------------------
-//  \file       Projectile.cpp
+//  \file       Duck.cpp
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Game/Scene/Object/Projectile.h"
+#include "Game/Scene/Object/Duck.h"
 
-Sandbox::Projectile::Projectile(const std::shared_ptr<Actor>& actor) :
-    Projectile(actor->GetPosition(), actor->GetRotationY())
+Sandbox::Duck::Duck(const std::shared_ptr<Actor>& actor) :
+    Duck(actor->GetPosition(), actor->GetRotationY())
 {
 }
 
-Sandbox::Projectile::Projectile(const Math::Vector3f& origin, const float rotation) :
+Sandbox::Duck::Duck(const Math::Vector3f& origin, const float rotation) :
     _origin(origin),
-    _range(75.0f)
+    _range(30.0f)
 {
     this->SetPosition(origin);
     this->SetRotationY(rotation);
 }
 
-float Sandbox::Projectile::DistanceToOrigin() const
+float Sandbox::Duck::DistanceToOrigin() const
 {
     return this->DistanceTo(this->_origin);
 }
 
-bool Sandbox::Projectile::OutOfRange() const
+bool Sandbox::Duck::OutOfRange() const
 {
     return this->DistanceToOrigin() > this->_range;
 }
