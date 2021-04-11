@@ -18,6 +18,8 @@ namespace Graphics
 
         float GetMovingSpeed() const;
         void SetMovingSpeed(float speed);
+        float GetTurningSpeed() const;
+        void SetTurningSpeed(float speed);
         void Move(float distance);
         virtual void GoForward(float delta);
         virtual void TurnLeft(float delta);
@@ -38,5 +40,15 @@ namespace Graphics
     inline void Actor::SetMovingSpeed(const float speed)
     {
         this->_movingSpeed = speed;
+    }
+
+    inline float Actor::GetTurningSpeed() const
+    {
+        return this->_turningSpeed;
+    }
+
+    inline void Actor::SetTurningSpeed(const float speed)
+    {
+        this->_turningSpeed = speed;
     }
 }

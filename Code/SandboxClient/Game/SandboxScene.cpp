@@ -52,6 +52,8 @@ bool Sandbox::SandboxScene::Setup()
 
     // Load player
     this->_player = this->SetupPlayer("boat");
+    this->_player->SetMovingSpeed(2.0f);
+    this->_player->SetTurningSpeed(90.0f);
 
     // Add house entities
     for (int i = 0; i < 5; i++)
