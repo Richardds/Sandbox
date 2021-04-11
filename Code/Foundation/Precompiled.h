@@ -5,10 +5,12 @@
 
 #pragma once
 
+// C libraries
 #include <cstdarg>
 #include <cstdio>
 #include <cstdlib>
 
+// C++ libraries
 #include <chrono>
 #include <fstream>
 #include <functional>
@@ -16,13 +18,16 @@
 #include <random>
 #include <string>
 #include <regex>
-#include <unordered_map>
 #include <utility>
+#include <unordered_map>
 #include <vector>
+#include <list>
 
+// OpenGL related libraries
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+// Math library
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -30,14 +35,17 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+// Texture library
 #include <gli/gl.hpp>
 #include <gli/gli.hpp>
 #include <gli/load_dds.hpp>
 
+// Mesh library
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
+// Compile time configuration
 #include "Config.h"
 
 #ifdef _WIN32
