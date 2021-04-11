@@ -16,16 +16,17 @@ namespace Util
     _Singleton(Random)
 
     public:
-        Random() = default;
+        Random();
 
         template <typename T>
         T GetInt(T min, T max);
         template <typename T>
         T GetReal(T min, T max);
+        bool GetBool(double chance = 0.5);
         float GetAngle();
 
     private:
-        std::random_device _random;
+        std::mt19937 _random;
     };
 
     template <typename T>
