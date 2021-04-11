@@ -9,7 +9,7 @@
 
 Graphics::Actor::Actor() :
     _movingSpeed(2.0f),
-    _turningSpeed(180.0f)
+    _turningSpeed(100.0f)
 {
 }
 
@@ -34,10 +34,10 @@ void Graphics::Actor::TurnLeft(const float delta)
 
 void Graphics::Actor::TurnRight(const float delta)
 {
-    this->IncreaseRotationY(-1 * this->_turningSpeed * delta);
+    this->IncreaseRotationY(-1.0f * this->_turningSpeed * delta);
 }
 
-void Graphics::Actor::LookAt(const Math::Vector2f target)
+void Graphics::Actor::LookAt(const Math::Vector2f& target)
 {
     this->_rotationY = Math::LookAt(
         Math::Vector2f(this->_position.x, this->_position.z),
@@ -45,7 +45,16 @@ void Graphics::Actor::LookAt(const Math::Vector2f target)
     );
 }
 
-float Graphics::Actor::DistanceTo(const Math::Vector2f target) const
+float Graphics::Actor::LookAtDiff(const Math::Vector2f& target) const
 {
-    return distance(Math::Vector2f(this->_position.x, this->_position.z), target);
+    return Math::LookAtDiff(
+        Math::Vector2f(this->_position.x, this->_position.z),
+        this->_rotationY,
+        target
+    );
+}
+
+float Graphics::Actor::DistanceTo(const Math::Vector2f& target) const
+{
+    return Math::DistanceTo(Math::Vector2f(this->_position.x, this->_position.z), target);
 }

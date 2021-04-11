@@ -8,14 +8,9 @@
 #include "Core/Debug.h"
 #include "Graphics/Core.h"
 
-bool IO::Keyboard::IsKeyPressed(Key key) const
+bool IO::Keyboard::IsKeyPressed(const Key key) const
 {
-    _Assert(Graphics::Core::Instance().IsCreated())
-
-    return glfwGetKey(
-        Graphics::Core::Instance().GetRenderingContext()->GetGlfwWindow(),
-        static_cast<std::underlying_type<Key>::type>(key)
-    );
+    return this->GetKeyState(key) == GLFW_PRESS;
 }
 
 bool IO::Keyboard::IsControlPressed() const
@@ -31,4 +26,19 @@ bool IO::Keyboard::IsAltPressed() const
 bool IO::Keyboard::IsShiftPressed() const
 {
     return this->IsKeyPressed(Key::LeftShift);
+}
+
+int IO::Keyboard::GetKeyState(Key key) const
+{
+    _Assert(Graphics::Core::Instance().IsCreated())
+
+    const std::shared_ptr<Graphics::Window> context = Graphics::Core::Instance().GetRenderingContext();
+
+    _Assert(context)
+    _Assert(context->IsCreated())
+
+    return glfwGetKey(
+        context->GetGlfwWindow(),
+        static_cast<std::underlying_type<Key>::type>(key)
+    );
 }

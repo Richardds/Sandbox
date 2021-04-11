@@ -13,6 +13,8 @@
 namespace Math
 {
     EXPORT float LookAt(const Vector2f& position, const Vector2f& target);
+    EXPORT float LookAtDiff(const Vector2f& position, float rotation, const Vector2f& target);
+    EXPORT float DistanceTo(const Vector2f& position, const Vector2f& target);
 
     template <typename T>
     T Min(T value1, T value2)

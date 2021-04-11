@@ -147,5 +147,8 @@ namespace IO
         bool IsControlPressed() const;
         bool IsAltPressed() const;
         bool IsShiftPressed() const;
+
+    private:
+        int GetKeyState(Key key) const;
     };
 }

@@ -24,10 +24,11 @@ namespace Graphics
         virtual void GoForward(float delta);
         virtual void TurnLeft(float delta);
         virtual void TurnRight(float delta);
-        void LookAt(Math::Vector2f target);
-        float DistanceTo(Math::Vector2f target) const;
+        void LookAt(const Math::Vector2f& target);
+        float LookAtDiff(const Math::Vector2f& target) const;
+        float DistanceTo(const Math::Vector2f& target) const;
 
-    private:
+    protected:
         float _movingSpeed;
         float _turningSpeed;
     };

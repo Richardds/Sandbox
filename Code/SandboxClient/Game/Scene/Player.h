@@ -19,7 +19,6 @@ namespace Sandbox
         enum class State
         {
             Idle,
-            Running,
             Following
         };
 
@@ -42,6 +41,7 @@ namespace Sandbox
     private:
         State _state;
         Math::Vector2f _target;
+        float _targetRotation;
         float _attackSpeed;
         float _countdown;
     };

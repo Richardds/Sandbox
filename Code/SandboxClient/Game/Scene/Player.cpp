@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       Player.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include <Math/MathUtils.h>
@@ -10,6 +10,7 @@
 Sandbox::Player::Player() :
     _state(State::Idle),
     _target(0.0f),
+    _targetRotation(0.0f),
     _attackSpeed(DEFAULT_ATTACK_SPEED),
     _countdown(0.0f)
 {
@@ -38,8 +39,9 @@ void Sandbox::Player::StarFire(std::shared_ptr<ProjectileManager>& projectileMan
     for (unsigned int i = 0; i < count; ++i)
     {
         const float angle = static_cast<float>(i) * step;
-        std::shared_ptr<Projectile> projectile = std::make_shared<Projectile
-        >(this->_position, this->_rotationY + angle);
+        std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(
+            this->_position, this->_rotationY + angle
+        );
         projectile->SetPositionY(0.5f);
         projectile->SetMovingSpeed(15);
         projectileManager->Manage(projectile);
@@ -85,7 +87,6 @@ void Sandbox::Player::Update(const float delta)
         }
         else
         {
-            this->LookAt(this->_target);
             this->GoForward(delta);
         }
     }
