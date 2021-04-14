@@ -31,3 +31,8 @@ float Math::DistanceTo(const Vector2f& position, const Vector2f& target)
 {
     return distance(position, target);
 }
+
+float Math::DistanceTo(const Vector3f& position, const Vector3f& target)
+{
+    return distance(position, target);
+}
