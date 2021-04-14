@@ -44,8 +44,6 @@ bool App::RenderApplication::Open()
 
         this->OnConfigureContext();
 
-        this->_time = Timing::Time::Now();
-
         return true;
     }
 
@@ -56,6 +54,10 @@ void App::RenderApplication::Run()
 {
     _Assert(this->IsOpen())
 
+    // Reset timer
+    this->_time = Timing::Time::Now();
+
+    // Enter main loop
     while (!this->IsQuitRequested())
     {
         this->UpdateTiming();
