@@ -4,6 +4,7 @@
 // ----------------------------------------------------------------------------------------
 
 #include "DuckManager.h"
+#include "IO/Console.h"
 #include "Util/Random.h"
 
 Sandbox::DuckManager::DuckManager(const std::shared_ptr<Graphics::Model>& duckModel) :
@@ -19,9 +20,11 @@ void Sandbox::DuckManager::Update(const float delta)
     {
         const auto& duck = (*it);
 
-        if (duck->OutOfRange())
+        //IO::Console::Instance().Info("%d %d\n", duck->IsOutOfRange(), duck->IsHeadingBack());
+
+        if (duck->IsOutOfRange() && !duck->IsHeadingBack())
         {
-            duck->IncreaseRotationY(Util::Random::Instance().GetReal(120.0f, 240.0f));
+            duck->InvertRotationY();
         }
 
         duck->GoForward(delta);

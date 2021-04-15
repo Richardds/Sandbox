@@ -29,7 +29,7 @@ namespace Graphics
         void AddMesh(const std::string& name, const std::shared_ptr<TexturedMesh>& mesh);
         void AddMesh(const std::string& name, const std::shared_ptr<Mesh>& mesh);
         std::shared_ptr<TexturedMesh> GetMesh(const std::string& name) const;
-        bool Empty() const;
+        bool IsEmpty() const;
         std::unordered_map<std::string, std::shared_ptr<TexturedMesh>> GetMeshes() const;
         void FinishLoading();
 
@@ -41,11 +41,6 @@ namespace Graphics
     inline Model::State Model::GetState() const
     {
         return this->_state;
-    }
-
-    inline bool Model::Empty() const
-    {
-        return this->_meshes.empty();
     }
 
     inline std::unordered_map<std::string, std::shared_ptr<TexturedMesh>> Model::GetMeshes() const

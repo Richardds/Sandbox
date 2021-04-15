@@ -16,6 +16,7 @@
 #include "Game/Scene/Object/Skybox.h"
 #include "Game/Scene/Camera/TargetedCamera.h"
 #include "Game/Scene/Object/Water.h"
+#include "Math/Physics/PhysicsEngine.h"
 #include "Util/Generators/TextMeshGenerator.h"
 
 namespace Graphics
@@ -54,11 +55,12 @@ namespace Graphics
         std::shared_ptr<TargetedCamera> _camera;
         std::shared_ptr<DirectionalLight> _sun;
         std::shared_ptr<Skybox> _skybox;
-        std::shared_ptr<Util::TextMeshGenerator> _textFactory;
         std::shared_ptr<SkyboxRenderer> _skyboxRenderer;
         std::shared_ptr<EntityRenderer> _entityRenderer;
         std::shared_ptr<WaterRenderer> _waterRenderer;
         std::shared_ptr<TextRenderer> _textRenderer;
+        std::shared_ptr<Util::TextMeshGenerator> _textFactory;
+        std::shared_ptr<Math::PhysicsEngine> _physics;
         std::unordered_map<std::string, std::shared_ptr<Text>> _texts;
         std::unordered_map<std::string, std::shared_ptr<PointLight>> _lights;
         std::shared_ptr<SpotLight> _flashLight;

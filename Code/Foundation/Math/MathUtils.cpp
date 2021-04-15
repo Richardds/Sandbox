@@ -7,6 +7,16 @@
 #include "Math/MathUtils.h"
 #include "Math/Constants.h"
 
+float Math::Degrees(const float radians)
+{
+    return glm::degrees(radians);
+}
+
+float Math::Radians(const float degrees)
+{
+    return glm::radians(degrees);
+}
+
 float Math::LookAt(const Vector2f& position, const Vector2f& target)
 {
     // https://math.stackexchange.com/a/1596518
@@ -17,7 +27,14 @@ float Math::LookAt(const Vector2f& position, const Vector2f& target)
 
 float Math::LookAtDiff(const Vector2f& position, const float rotation, const Vector2f& target)
 {
-    const float diff = LookAt(position, target) - rotation;
+    const float dst = DistanceTo(position, target);
+
+    if (dst < FLT_EPSILON)
+    {
+        return 0.0f;
+    }
+
+    const float diff = LookAt(position, target) - glm::mod(rotation, 360.0f);
 
     if (diff >= 0.0f && diff < 180.0f)
     {

@@ -20,7 +20,7 @@ void Sandbox::ProjectileManager::Update(const float delta)
 
         projectile->GoForward(delta);
 
-        if (projectile->OutOfRange())
+        if (projectile->IsOutOfRange())
         {
             it = this->_projectiles.erase(it);
         }

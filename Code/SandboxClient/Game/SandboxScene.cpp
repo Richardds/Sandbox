@@ -112,7 +112,7 @@ bool Sandbox::SandboxScene::Setup()
     }
 
     // Add duck entities
-    for (int i = 0; i < 30; i++)
+    for (int i = 0; i < 1; i++)
     {
         std::string entityName = "duck_" + std::to_string(i);
         const float offsetX = 7.5f;
@@ -124,6 +124,10 @@ bool Sandbox::SandboxScene::Setup()
             offsetZ - Util::Random::Instance().GetReal(0.0f, 20.0f)
         );
         const float rotation = Util::Random::Instance().GetAngle();
+
+        auto dummy = this->AddEntity("dummy", "arrow");
+        dummy->SetPosition(position);
+        dummy->SetRotationY(rotation);
 
         std::shared_ptr<Duck> duck = std::make_shared<Duck>(position, rotation);
         duck->SetScale(Util::Random::Instance().GetReal(1.0f, 5.0f));
@@ -165,6 +169,25 @@ bool Sandbox::SandboxScene::Setup()
     hardcoded->SetModel(hardcodedModel);
     hardcoded->SetPosition(Math::Vector3f(5.0f, 2.5f, -15.0f));
     this->AddEntity("hardcoded", hardcoded);
+
+    // Add physics test
+    auto rbTestCube1 = std::make_shared<Math::Cube>(Math::Vector3f(-4.0f, 3.0f, 0.0f), Math::Vector3f(0.75f, 0.75f, 0.75f), 0.1f);
+    auto testCube1 = this->AddEntity("test_cube_1", "crate");
+    this->_physics->Register(rbTestCube1, testCube1);
+
+    auto rbTestCube2 = std::make_shared<Math::Cube>(Math::Vector3f(-4.0f, 6.0f, 1.0f), Math::Vector3f(0.75f, 0.75f, 0.75f), 1.0f);
+    auto testCube2 = this->AddEntity("test_cube_2", "crate");
+    this->_physics->Register(rbTestCube2, testCube2);
+
+    // TEST
+
+    Math::Quaternion q(Math::Vector3f(glm::radians(45.0f), glm::radians(45.0f), glm::radians(45.0f)));
+
+    Math::Vector3f euler = glm::eulerAngles(q);
+    float x = glm::degrees(euler.x);
+    float y = glm::degrees(euler.y);
+    float z = glm::degrees(euler.z);
+    // END TEST
 
     // Register mouse scrolling
     IO::Mouse::Instance().RegisterScrolling([this](const float x, const float y)

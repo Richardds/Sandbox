@@ -39,3 +39,8 @@ std::shared_ptr<Graphics::TexturedMesh> Graphics::Model::GetMesh(const std::stri
 
     return mesh->second;
 }
+
+bool Graphics::Model::IsEmpty() const
+{
+    return this->_meshes.empty();
+}

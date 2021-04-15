@@ -70,6 +70,10 @@
     <ClCompile Include="Math\MathUtils.cpp" />
     <ClCompile Include="Math\MathUtils2D.cpp" />
     <ClCompile Include="Math\MathUtils3D.cpp" />
+    <ClCompile Include="Math\Physics\PhysicsEngine.cpp" />
+    <ClCompile Include="Math\Physics\RigidBody.cpp" />
+    <ClCompile Include="Math\Physics\RigidBody\Cube.cpp" />
+    <ClCompile Include="Math\Physics\RigidBody\Plane.cpp" />
     <ClCompile Include="Timing\Time.cpp" />
     <ClCompile Include="Util\FourCC.cpp" />
     <ClCompile Include="Util\Generators\TextMeshGenerator.cpp" />
@@ -148,6 +152,10 @@
     <ClInclude Include="Math\MathUtils2D.h" />
     <ClInclude Include="Math\MathUtils3D.h" />
     <ClInclude Include="Math\Matrix.h" />
+    <ClInclude Include="Math\Physics\PhysicsEngine.h" />
+    <ClInclude Include="Math\Physics\RigidBody.h" />
+    <ClInclude Include="Math\Physics\RigidBody\Cube.h" />
+    <ClInclude Include="Math\Physics\RigidBody\Plane.h" />
     <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Math\Vector.h" />
     <ClInclude Include="Precompiled.h" />
@@ -223,7 +231,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp.lib;zlib.lib;BulletDynamics_Debug.lib;BulletCollision_Debug.lib;LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

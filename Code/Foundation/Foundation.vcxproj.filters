@@ -55,6 +55,12 @@
     <Filter Include="Core\Exception">
       <UniqueIdentifier>{560f1072-0cf9-4e65-8cfa-719b6ea0f847}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math\Physics">
+      <UniqueIdentifier>{c7a1dd69-760a-4e19-9cf4-e18eb2042fb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\Physics\RigidBody">
+      <UniqueIdentifier>{9d2c7ba2-3f5b-4bd9-b01e-c55f6f094ca0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Debug.cpp">
@@ -266,6 +272,18 @@
     </ClCompile>
     <ClCompile Include="Core\Exception\UnsupportedException.cpp">
       <Filter>Core\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Physics\PhysicsEngine.cpp">
+      <Filter>Math\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Physics\RigidBody.cpp">
+      <Filter>Math\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Physics\RigidBody\Plane.cpp">
+      <Filter>Math\Physics\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Physics\RigidBody\Cube.cpp">
+      <Filter>Math\Physics\RigidBody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -504,6 +522,18 @@
     </ClInclude>
     <ClInclude Include="Core\Exception\UnsupportedException.h">
       <Filter>Core\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Physics\PhysicsEngine.h">
+      <Filter>Math\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Physics\RigidBody.h">
+      <Filter>Math\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Physics\RigidBody\Plane.h">
+      <Filter>Math\Physics\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Physics\RigidBody\Cube.h">
+      <Filter>Math\Physics\RigidBody</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

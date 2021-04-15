@@ -18,7 +18,8 @@ namespace Sandbox
         Duck(const Math::Vector3f& origin, float rotation);
 
         float DistanceToOrigin() const;
-        bool OutOfRange() const;
+        bool IsOutOfRange() const;
+        bool IsHeadingBack() const;
 
     private:
         Math::Vector3f _origin;

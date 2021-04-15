@@ -15,7 +15,7 @@ Graphics::Entity::Entity(const Math::Vector3f& position, const float rotX, const
 
 void Graphics::Entity::Render(const std::shared_ptr<EntityShader>& shader) const
 {
-    if (!this->_model || this->_model->Empty())
+    if (!this->_model || this->_model->IsEmpty())
     {
         return;
     }

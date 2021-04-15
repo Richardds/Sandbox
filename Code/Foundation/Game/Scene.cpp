@@ -12,6 +12,7 @@
 #include "IO/Keyboard.h"
 #include "IO/Mouse.h"
 #include "Math/MathUtils.h"
+#include "Math/Physics/RigidBody/Plane.h"
 #include "Util/ResourcesLoader.h"
 #include "Util/Generators/PrimitiveGenerator.h"
 
@@ -38,10 +39,6 @@ bool Graphics::Scene::Setup()
 
     // Setup global projection
     this->_projection = Core::Instance().CreateProjection(this->_camera->GetFieldOfView());
-
-    // Setup text factory
-    const std::shared_ptr<Font> font = Util::ResourcesLoader::Instance().LoadFont("tahoma");
-    this->_textFactory = std::make_shared<Util::TextMeshGenerator>(font, 1.1f);
 
     // Setup entity renderer
     this->_skyboxRenderer = std::make_shared<SkyboxRenderer>();
@@ -81,7 +78,19 @@ bool Graphics::Scene::Setup()
     this->_sun->SetDirection(Math::Vector3f(-1.0f, 1.0f, -1.0f));
     this->_sun->SetIntensity(0.6f);
 
+    // Setup flashlight
     this->_flashLight = std::make_shared<SpotLight>();
+
+    // Setup text factory
+    const std::shared_ptr<Font> font = Util::ResourcesLoader::Instance().LoadFont("tahoma");
+    this->_textFactory = std::make_shared<Util::TextMeshGenerator>(font, 1.1f);
+
+    // Setup physics engine
+    this->_physics = std::make_shared<Math::PhysicsEngine>();
+    this->_physics->Setup();
+    // Add world plane
+    const std::shared_ptr<Math::Plane> worldPlane = std::make_shared<Math::Plane>();
+    this->_physics->Register(worldPlane);
 
     this->_state = State::Run;
 
@@ -114,6 +123,9 @@ void Graphics::Scene::Update(const float delta)
     if (!this->_paused)
     {
         this->_time += delta;
+
+        // Update physics engine
+        this->_physics->Update(delta);
 
         // GoForward water distortion offset motion
         for (auto& [name, waterTile] : this->_waterTiles)

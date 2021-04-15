@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       Projectile.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Game/Scene/Object/Projectile.h"
@@ -23,7 +23,7 @@ float Sandbox::Projectile::DistanceToOrigin() const
     return this->DistanceTo(this->_origin);
 }
 
-bool Sandbox::Projectile::OutOfRange() const
+bool Sandbox::Projectile::IsOutOfRange() const
 {
     return this->DistanceToOrigin() > this->_range;
 }

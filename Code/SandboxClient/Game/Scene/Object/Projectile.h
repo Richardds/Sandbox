@@ -18,7 +18,7 @@ namespace Sandbox
         Projectile(const Math::Vector3f& origin, float rotation);
 
         float DistanceToOrigin() const;
-        bool OutOfRange() const;
+        bool IsOutOfRange() const;
 
     private:
         Math::Vector3f _origin;
