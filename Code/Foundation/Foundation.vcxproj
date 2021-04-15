@@ -72,7 +72,7 @@
     <ClCompile Include="Math\MathUtils3D.cpp" />
     <ClCompile Include="Math\Physics\PhysicsEngine.cpp" />
     <ClCompile Include="Math\Physics\RigidBody.cpp" />
-    <ClCompile Include="Math\Physics\RigidBody\Cube.cpp" />
+    <ClCompile Include="Math\Physics\RigidBody\Box.cpp" />
     <ClCompile Include="Math\Physics\RigidBody\Plane.cpp" />
     <ClCompile Include="Timing\Time.cpp" />
     <ClCompile Include="Util\FourCC.cpp" />
@@ -154,7 +154,7 @@
     <ClInclude Include="Math\Matrix.h" />
     <ClInclude Include="Math\Physics\PhysicsEngine.h" />
     <ClInclude Include="Math\Physics\RigidBody.h" />
-    <ClInclude Include="Math\Physics\RigidBody\Cube.h" />
+    <ClInclude Include="Math\Physics\RigidBody\Box.h" />
     <ClInclude Include="Math\Physics\RigidBody\Plane.h" />
     <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Math\Vector.h" />

@@ -56,12 +56,12 @@ void Math::PhysicsEngine::Update(const float delta)
         const btTransform& transform = rigidBody->GetRigidBody()->getWorldTransform();
         const btVector3 position = transform.getOrigin();
         const btQuaternion qRotation = transform.getRotation();
-        const Vector3f rotation = eulerAngles(glm::quat(qRotation.x(), qRotation.y(), qRotation.z(), qRotation.w()));
+        const Vector3f rotation = eulerAngles(glm::quat(qRotation.w(), qRotation.x(), qRotation.y(), qRotation.z()));
 
         entity->SetPosition(Vector3f(position.x(), position.y(), position.z()));
-        entity->SetRotationX(glm::degrees(-rotation.z));
-        entity->SetRotationY(glm::degrees(-rotation.y));
-        entity->SetRotationZ(glm::degrees(rotation.x));
+        entity->SetRotationX(glm::degrees(rotation.x));
+        entity->SetRotationY(glm::degrees(rotation.y));
+        entity->SetRotationZ(glm::degrees(rotation.z));
     }
 }
 

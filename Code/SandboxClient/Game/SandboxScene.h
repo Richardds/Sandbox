@@ -9,7 +9,6 @@
 
 #include "Managers/DuckManager.h"
 #include "Managers/ProjectileManager.h"
-#include "Math/Physics/RigidBody/Cube.h"
 #include "Scene/Player.h"
 
 namespace Sandbox

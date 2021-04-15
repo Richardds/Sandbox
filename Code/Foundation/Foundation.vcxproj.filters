@@ -282,7 +282,7 @@
     <ClCompile Include="Math\Physics\RigidBody\Plane.cpp">
       <Filter>Math\Physics\RigidBody</Filter>
     </ClCompile>
-    <ClCompile Include="Math\Physics\RigidBody\Cube.cpp">
+    <ClCompile Include="Math\Physics\RigidBody\Box.cpp">
       <Filter>Math\Physics\RigidBody</Filter>
     </ClCompile>
   </ItemGroup>
@@ -532,7 +532,7 @@
     <ClInclude Include="Math\Physics\RigidBody\Plane.h">
       <Filter>Math\Physics\RigidBody</Filter>
     </ClInclude>
-    <ClInclude Include="Math\Physics\RigidBody\Cube.h">
+    <ClInclude Include="Math\Physics\RigidBody\Box.h">
       <Filter>Math\Physics\RigidBody</Filter>
     </ClInclude>
   </ItemGroup>

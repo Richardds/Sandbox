@@ -7,6 +7,7 @@
 #include <IO/Mouse.h>
 #include <Util/Random.h>
 #include <Util/ResourcesLoader.h>
+#include <Math/Physics/RigidBody/Box.h>
 
 #include "SandboxScene.h"
 #include "Scene/Object/Hardcoded.h"
@@ -171,23 +172,13 @@ bool Sandbox::SandboxScene::Setup()
     this->AddEntity("hardcoded", hardcoded);
 
     // Add physics test
-    auto rbTestCube1 = std::make_shared<Math::Cube>(Math::Vector3f(-4.0f, 3.0f, 0.0f), Math::Vector3f(0.75f, 0.75f, 0.75f), 0.1f);
+    auto rbTestCube1 = std::make_shared<Math::Box>(Math::Vector3f(5.0f, 3.0f, -3.0f), Math::Vector3f(0.75f, 0.75f, 0.75f), 0.1f);
     auto testCube1 = this->AddEntity("test_cube_1", "crate");
     this->_physics->Register(rbTestCube1, testCube1);
 
-    auto rbTestCube2 = std::make_shared<Math::Cube>(Math::Vector3f(-4.0f, 6.0f, 1.0f), Math::Vector3f(0.75f, 0.75f, 0.75f), 1.0f);
+    auto rbTestCube2 = std::make_shared<Math::Box>(Math::Vector3f(5.0f, 6.0f, -2.0f), Math::Vector3f(0.75f, 0.75f, 0.75f), 1.0f);
     auto testCube2 = this->AddEntity("test_cube_2", "crate");
     this->_physics->Register(rbTestCube2, testCube2);
-
-    // TEST
-
-    Math::Quaternion q(Math::Vector3f(glm::radians(45.0f), glm::radians(45.0f), glm::radians(45.0f)));
-
-    Math::Vector3f euler = glm::eulerAngles(q);
-    float x = glm::degrees(euler.x);
-    float y = glm::degrees(euler.y);
-    float z = glm::degrees(euler.z);
-    // END TEST
 
     // Register mouse scrolling
     IO::Mouse::Instance().RegisterScrolling([this](const float x, const float y)

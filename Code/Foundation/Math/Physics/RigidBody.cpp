@@ -14,6 +14,7 @@ Math::RigidBody::RigidBody(const Vector3f& position, const float mass, const std
     btTransform transform;
     transform.setIdentity();
     transform.setOrigin(btVector3(position.x, position.y, position.z));
+    //transform.setRotation( ... ); // TODO
 
     this->_motionState = new btDefaultMotionState(transform);
 

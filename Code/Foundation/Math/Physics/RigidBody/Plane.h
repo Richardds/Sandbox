@@ -14,7 +14,8 @@ namespace Math
     {
     public:
         Plane();
-        explicit Plane(const Vector3f& normal);
+        explicit Plane(const Vector3f& position);
+        explicit Plane(const Vector3f& position, const Vector3f& normal);
     };
     
 }
