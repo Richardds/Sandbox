@@ -20,8 +20,11 @@ IO::InputFile::InputFile(const std::string& path) :
     _fileSize(0)
 {
     this->_isOpen = this->_file.is_open();
-    this->_fileSize = this->_file.tellg();
-    this->Seek(0);
+    if (this->_isOpen)
+    {
+        this->_fileSize = this->_file.tellg();
+        this->Seek(0);
+    }
 }
 
 IO::InputFile::~InputFile()
