@@ -11,18 +11,28 @@
 namespace Sandbox
 {
     /// 3D world actor overrider class used for abstracting a duck
-    class Duck : public Graphics::Actor
+    class Duck final : public Graphics::Actor
     {
     public:
-        explicit Duck(const std::shared_ptr<Actor>& actor);
         Duck(const Math::Vector3f& origin, float rotation);
 
+        Math::Vector3f GetOrigin() const;
+        void SetOrigin(const Math::Vector3f& origin);
         float DistanceToOrigin() const;
         bool IsOutOfRange() const;
-        bool IsHeadingBack() const;
 
     private:
         Math::Vector3f _origin;
         float _range;
     };
+
+    inline Math::Vector3f Duck::GetOrigin() const
+    {
+        return this->_origin;
+    }
+
+    inline void Duck::SetOrigin(const Math::Vector3f& origin)
+    {
+        this->_origin = origin;
+    }
 }

@@ -11,7 +11,7 @@
 namespace Sandbox
 {
     /// 3D world actor overrider class used for abstracting a projectile
-    class Projectile : public Graphics::Actor
+    class Projectile final : public Graphics::Actor
     {
     public:
         explicit Projectile(const std::shared_ptr<Actor>& actor);

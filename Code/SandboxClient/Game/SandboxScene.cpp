@@ -26,7 +26,7 @@ bool Sandbox::SandboxScene::Setup()
 
     // Setup managers
     this->_projectileManager = std::make_shared<ProjectileManager>(Util::ResourcesLoader::Instance().LoadModel("projectile"));
-    this->_duckManager = std::make_shared<DuckManager>(Util::ResourcesLoader::Instance().LoadModel("duck"));
+    this->_duckManager = std::make_shared<DuckManager>();
 
     // Configure camera
     this->_camera->SetDistance(12.0f);
@@ -113,7 +113,9 @@ bool Sandbox::SandboxScene::Setup()
     }
 
     // Add duck entities
-    for (int i = 0; i < 1; i++)
+    const std::shared_ptr<Graphics::Model> duckModel = Util::ResourcesLoader::Instance().LoadModel("duck");
+    const Math::Vector3f duckBoxSize(0.3f, 0.4f, 0.5f);
+    for (int i = 0; i < 10; i++)
     {
         std::string entityName = "duck_" + std::to_string(i);
         const float offsetX = 7.5f;
@@ -125,15 +127,20 @@ bool Sandbox::SandboxScene::Setup()
             offsetZ - Util::Random::Instance().GetReal(0.0f, 20.0f)
         );
         const float rotation = Util::Random::Instance().GetAngle();
+        const float scale = Util::Random::Instance().GetReal(1.0f, 5.0f);
 
-        auto dummy = this->AddEntity("dummy", "arrow");
-        dummy->SetPosition(position);
-        dummy->SetRotationY(rotation);
-
+        // Setup duck entity
         std::shared_ptr<Duck> duck = std::make_shared<Duck>(position, rotation);
-        duck->SetScale(Util::Random::Instance().GetReal(1.0f, 5.0f));
-        duck->SetMovingSpeed(Util::Random::Instance().GetReal(1.0f, 5.0f));
+        duck->SetModel(duckModel);
+        duck->SetPosition(position);
+        duck->SetRotationY(rotation);
+        duck->SetScale(scale);
+        duck->SetMovingSpeed(Util::Random::Instance().GetReal(1.0f, 3.0f));
         this->_duckManager->Manage(duck);
+
+        // Setup physics
+        //auto rbDuck = std::make_shared<Math::Box>(position, duckBoxSize * scale, 2.5f);
+        //this->_physics->Register(rbDuck, duck);
     }
 
     // Light up birbs
