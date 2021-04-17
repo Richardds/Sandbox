@@ -374,11 +374,8 @@ void Sandbox::SandboxScene::RenderEntities()
 
 std::shared_ptr<Sandbox::Player> Sandbox::SandboxScene::SetupPlayer(const std::string& resourceName)
 {
-    const std::string playerEntityName = "player";
-    const auto it = this->_entitiesMapping.find(playerEntityName);
-    _Assert(it == this->_entitiesMapping.end())
     std::shared_ptr<Player> player = std::make_shared<Player>();
     player->SetModel(Util::ResourcesLoader::Instance().LoadModel(resourceName));
-    this->_entitiesMapping.emplace_hint(it, playerEntityName, player);
+    this->AddEntity("player", player);
     return player;
 }
