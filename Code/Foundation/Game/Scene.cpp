@@ -25,11 +25,6 @@ Graphics::Scene::Scene() :
 {
 }
 
-Graphics::Scene::State Graphics::Scene::GetState() const
-{
-    return this->_state;
-}
-
 bool Graphics::Scene::Setup()
 {
     _Assert(State::Initial == this->_state)

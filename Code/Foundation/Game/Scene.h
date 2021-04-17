@@ -82,4 +82,9 @@ namespace Graphics
     private:
         State _state;
     };
+
+    inline Scene::State Scene::GetState() const
+    {
+        return this->_state;
+    }
 }
