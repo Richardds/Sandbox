@@ -19,13 +19,7 @@ bool Sandbox::SandboxApplication::Open()
         this->_scene = std::make_shared<SandboxScene>();
         _Assert(this->_scene->Setup())
 
-        try
-        {
-            Util::ResourcesLoader::Instance().LoadScene(reinterpret_cast<std::shared_ptr<Graphics::Scene>&>(this->_scene), "default");
-        } catch (const Core::Exception& e)
-        {
-            IO::Console::Instance().Error("Failed to load scene: %s\n", e.what());
-        }
+        this->LoadScene("default");
 
         return true;
     }
@@ -40,6 +34,12 @@ void Sandbox::SandboxApplication::Close()
 
 void Sandbox::SandboxApplication::OnProcessInput()
 {
+    // Reload scene
+    if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::F4))
+    {
+        this->_scene->Reset();
+    }
+
     // Disable full screen
     if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::Escape))
     {
@@ -87,4 +87,15 @@ void Sandbox::SandboxApplication::OnUpdateLogic()
 void Sandbox::SandboxApplication::OnUpdateFrame()
 {
     this->_scene->Render();
+}
+
+void Sandbox::SandboxApplication::LoadScene(const std::string& name)
+{
+    try
+    {
+        Util::ResourcesLoader::Instance().LoadScene(reinterpret_cast<std::shared_ptr<Graphics::Scene>&>(this->_scene), name);
+    } catch (const Core::Exception& e)
+    {
+        IO::Console::Instance().Error("Failed to load scene: %s\n", e.what());
+    }
 }

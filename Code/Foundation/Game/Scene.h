@@ -36,6 +36,7 @@ namespace Graphics
 
         State GetState() const;
         virtual bool Setup();
+        virtual void Reset();
         virtual void ProcessInput();
         virtual void Update(float delta);
         virtual void Render();
@@ -52,7 +53,7 @@ namespace Graphics
 
     protected:
         virtual void RenderEntities();
-        void RenderSkybox() const;
+        virtual void RenderSkybox() const;
         Math::Vector3f GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const;
 
         std::shared_ptr<Projection> _projection;

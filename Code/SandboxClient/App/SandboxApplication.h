@@ -24,6 +24,7 @@ namespace Sandbox
         void OnProcessInput() override;
         void OnUpdateLogic() override;
         void OnUpdateFrame() override;
+        void LoadScene(const std::string& name);
 
     private:
         std::shared_ptr<SandboxScene> _scene;

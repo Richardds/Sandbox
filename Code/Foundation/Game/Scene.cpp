@@ -98,6 +98,15 @@ bool Graphics::Scene::Setup()
     return true;
 }
 
+void Graphics::Scene::Reset()
+{
+    this->_skybox.reset();
+    this->_entitiesMapping.clear();
+    this->_entities.clear();
+    this->_lightsMapping.clear();
+    this->_lights.clear();
+}
+
 void Graphics::Scene::ProcessInput()
 {
     _Assert(State::Run == this->_state)
