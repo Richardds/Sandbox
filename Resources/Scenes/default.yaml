@@ -1,0 +1,94 @@
+version: 1
+
+scene:
+  skybox:
+    name: day
+    size: 750.0
+
+  entities:
+    # Houses
+    - model: house
+      position: [-15.0, 0.0, -10.0]
+    - model: house
+      position: [-12.0, 0.0, -17.5]
+    - model: house
+      position: [-9.0, 0.0, -25.0]
+    - model: house
+      position: [-6.0, 0.0, -32.5]
+    - model: house
+      position: [-3.0, 0.0, -40.0]
+    # Crates
+    - model: crate
+      position: [-6.84, 0.05, 3.0]
+      rotation: [238.59, 353.41, 83.30]
+    - model: crate
+      position: [-8.24, -0.71, 0.0]
+      rotation: [269.01, 196.95, 38.04]
+    - model: crate
+      position: [-8.25, -0.47, -3.0]
+      rotation: [347.30, 235.41, 340.05]
+    - model: crate
+      position: [-7.97, -0.29, -6.0]
+      rotation: [57.03, 26.43, 331.49]
+    - model: crate
+      position: [-7.48, -0.25, -9.0]
+      rotation: [226.40, 277.17, 41.74]
+    # Piers
+    - model: pier_modular
+      position: [5.0, 0.0, 2.5]
+    - model: pier_modular
+      position: [5.0, 0.0, 0.95]
+    - model: pier_modular
+      position: [5.0, 0.0, -0.6]
+    - model: pier_modular
+      position: [5.0, 0.0, -2.15]
+    - model: pier_modular
+      position: [5.0, 0.0, -3.7]
+    - model: pier_modular
+      position: [5.0, 0.0, -5.25]
+    - model: pier_modular
+      position: [5.0, 0.0, -6.8]
+    - model: pier_modular
+      position: [5.0, 0.0, -8.35]
+    - model: pier_modular
+      position: [5.0, 0.0, -9.9]
+    - model: pier_modular
+      position: [5.0, 0.0, -11.45]
+    # Barrels
+    - model: drum_shell
+      position: [5.5, 0.65, 2.75]
+      rotation: [0.0, 45.0, 0.0]
+    - model: drum_radioactive
+      position: [5.5, 0.65, 2.15]
+      rotation: [0.0, 45.0, 0.0]
+    # Materials demo
+    - model: mat_alpha
+      position: [20.5, 2.0, -20.0]
+      rotation: [15.0, 0.0, 15.0]
+    - model: mat_tiles
+      position: [28.0, 2.0, -20.0]
+      rotation: [15.0, 0.0, 15.0]
+    - model: mat_sponge
+      position: [35.5, 2.0, -20.0]
+      rotation: [15.0, 0.0, 15.0]
+    - model: mat_metal
+      position: [43.0, 2.0, -20.0]
+      rotation: [15.0, 0.0, 15.0]
+
+  lights:
+    direction:
+      - name: sun
+        intensity: 0.6
+        color: [1.0, 0.95, 0.85]
+        direction: [-1.0, 1.0, -1.0]
+    
+    point:
+      - name: light_01
+        position: [4.5, 1.5, 2.75]
+        intensity: 0.8
+        color: [1.0, 0.8, 0.6]
+        attenuation: [1.0, 0.1, 0.025]
+      - position: [20.5, 2.0, -20.0]
+      - position: [28.0, 2.0, -20.0]
+      - position: [35.5, 2.0, -20.0]
+      - position: [43.0, 2.0, -20.0]

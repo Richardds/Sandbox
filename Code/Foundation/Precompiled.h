@@ -56,6 +56,9 @@
 #include <BulletCollision/CollisionShapes/btBoxShape.h>
 #include <LinearMath/btDefaultMotionState.h>
 
+// YAML library
+#include <yaml-cpp/yaml.h>
+
 // Compile time configuration
 #include "Config.h"
 

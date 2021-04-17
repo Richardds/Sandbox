@@ -16,8 +16,8 @@ Graphics::TargetedCamera::TargetedCamera() :
 
 void Graphics::TargetedCamera::Spectate(const Math::Vector3f& target)
 {
-    const float radiansX = glm::radians(this->_rotationX);
-    const float radiansY = glm::radians(this->_rotationY);
+    const float radiansX = glm::radians(this->_rotation.x);
+    const float radiansY = glm::radians(this->_rotation.y);
 
     this->_position.x = target.x - this->_distance * glm::cos(radiansX) * glm::sin(radiansY);
     this->_position.y = target.y + this->_distance * glm::sin(radiansX);

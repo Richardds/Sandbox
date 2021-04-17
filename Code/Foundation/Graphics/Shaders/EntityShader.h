@@ -29,7 +29,7 @@ namespace Graphics
         void DisableClippingPlane() const;
         void LoadCamera(const std::shared_ptr<Camera>& camera) const;
         void LoadSun(const std::shared_ptr<DirectionalLight>& sun) const;
-        void LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const;
+        void LoadLights(const std::vector<std::shared_ptr<PointLight>>& lights) const;
         void LoadLight(int index, const std::shared_ptr<PointLight>& light) const;
         void LoadFlashLight(const std::shared_ptr<SpotLight>& light) const;
         void LoadFlashLightEnabled(bool enabled) const;

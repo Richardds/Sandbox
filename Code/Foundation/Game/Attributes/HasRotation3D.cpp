@@ -6,13 +6,11 @@
 #include "Game/Attributes/HasRotation3D.h"
 
 Graphics::HasRotation3D::HasRotation3D() :
-    HasRotation3D(0.0f, 0.0f, 0.0f)
+    _rotation(Math::Vector3f(0.0f, 0.0f, 0.0f))
 {
 }
 
-Graphics::HasRotation3D::HasRotation3D(const float rotationX, const float rotationY, const float rotationZ) :
-    _rotationX(rotationX),
-    _rotationY(rotationY),
-    _rotationZ(rotationZ)
+Graphics::HasRotation3D::HasRotation3D(const Math::Vector3f& rotation) :
+    _rotation(rotation)
 {
 }

@@ -19,7 +19,8 @@ namespace Graphics
     {
     public:
         Entity() = default;
-        explicit Entity(const Math::Vector3f& position, float rotX = 0.0f, float rotY = 0.0f, float rotZ = 0.0f);
+        explicit Entity(const Math::Vector3f& position);
+        explicit Entity(const Math::Vector3f& position, const Math::Vector3f& rotation);
 
         std::shared_ptr<Model> GetModel() const;
         void SetModel(const std::shared_ptr<Model>& model);

@@ -88,6 +88,7 @@ bool Graphics::Scene::Setup()
     // Setup physics engine
     this->_physics = std::make_shared<Math::PhysicsEngine>();
     this->_physics->Setup();
+
     // Add world plane
     const std::shared_ptr<Math::Plane> worldPlane = std::make_shared<Math::Plane>();
     this->_physics->Register(worldPlane);
@@ -189,51 +190,11 @@ void Graphics::Scene::Render()
     glEnable(GL_DEPTH_TEST);
 }
 
-void Graphics::Scene::RenderEntities()
+
+void Graphics::Scene::SetupSkybox(const std::string& name, const float size)
 {
-    this->_entityRenderer->Begin(this->_camera, this->_sun, this->_skybox, this->_lights, this->_flashLight);
-
-    for (const auto& [name, entity] : this->_entities)
-    {
-        this->_entityRenderer->Render(entity);
-    }
-}
-
-void Graphics::Scene::RenderSkybox() const
-{
-    if (this->_skybox != nullptr && this->_renderSkybox)
-    {
-        this->_skyboxRenderer->Begin(this->_camera);
-        this->_skyboxRenderer->Render(this->_skybox);
-    }
-}
-
-Math::Vector3f Graphics::Scene::GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const
-{
-    const Math::Vector4ui viewport = Core::Instance().GetViewport();
-
-    GLfloat depth;
-    glReadPixels(screenPosition.x, viewport.w - screenPosition.y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
-
-    if (depth == 1.0f)
-    {
-        return Math::Vector3f(0.0f, 0.0f, 0.0f);
-    }
-
-    const Math::Vector3f worldPosition = unProject(
-        Math::Vector3f(screenPosition.x, viewport.w - screenPosition.y, depth),
-        Math::ViewMatrix3D(this->_camera->GetPosition(), this->_camera->GetRotationX(), this->_camera->GetRotationY()),
-        Core::Instance().CreateProjection(this->_camera->GetFieldOfView())->GetMatrix(),
-        viewport
-    );
-
-    return worldPosition;
-}
-
-std::shared_ptr<Graphics::Skybox> Graphics::Scene::SetupSkybox(const std::string& name, const float size) const
-{
-    std::shared_ptr<Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadTexture(name, GL_TEXTURE_CUBE_MAP);
-    return std::make_shared<Skybox>(skyboxTexture, size);
+    std::shared_ptr<Texture> skyboxTexture = Util::ResourcesLoader::Instance().LoadTexture("Skybox/" + name, GL_TEXTURE_CUBE_MAP);
+    this->_skybox = std::make_shared<Skybox>(skyboxTexture, size);
 }
 
 std::shared_ptr<Graphics::Text> Graphics::Scene::AddText(const std::string& name, const std::string& text)
@@ -268,25 +229,86 @@ std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& na
 
 std::shared_ptr<Graphics::PointLight> Graphics::Scene::AddLight(const std::string& name)
 {
-    const auto it = this->_lights.find(name);
-    _Assert(it == this->_lights.end())
-    std::shared_ptr<PointLight> light = std::make_shared<PointLight>();
-    this->_lights.emplace_hint(it, name, light);
+    const auto it = this->_lightsMapping.find(name);
+    _Assert(it == this->_lightsMapping.end())
+    std::shared_ptr<PointLight> light = this->AddLight();
+    this->_lightsMapping.emplace_hint(it, name, light);
     return light;
+}
+
+std::shared_ptr<Graphics::PointLight> Graphics::Scene::AddLight()
+{
+    std::shared_ptr<PointLight> light = std::make_shared<PointLight>();
+    this->_lights.emplace_back(light);
+    return light;
+}
+
+std::shared_ptr<Graphics::Entity> Graphics::Scene::AddEntity(const std::string& resourceName)
+{
+    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+    entity->SetModel(Util::ResourcesLoader::Instance().LoadModel(resourceName));
+    this->AddEntity(entity);
+    return entity;
+}
+
+void Graphics::Scene::AddEntity(const std::shared_ptr<Entity>& entity)
+{
+    this->_entities.emplace_back(entity);
 }
 
 std::shared_ptr<Graphics::Entity> Graphics::Scene::AddEntity(const std::string& name, const std::string& resourceName)
 {
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
     entity->SetModel(Util::ResourcesLoader::Instance().LoadModel(resourceName));
-    return this->AddEntity(name, entity);
+    this->AddEntity(name, entity);
+    return entity;
 }
 
-std::shared_ptr<Graphics::Entity> Graphics::Scene::AddEntity(const std::string& name,
-                                                             const std::shared_ptr<Entity>& entity)
+void Graphics::Scene::AddEntity(const std::string& name, const std::shared_ptr<Entity>& entity)
 {
-    const auto it = this->_entities.find(name);
-    _Assert(it == this->_entities.end())
-    this->_entities.emplace_hint(it, name, entity);
-    return entity;
+    const auto it = this->_entitiesMapping.find(name);
+    _Assert(it == this->_entitiesMapping.end())
+    this->AddEntity(entity);
+    this->_entitiesMapping.emplace_hint(it, name, entity);
+}
+
+void Graphics::Scene::RenderEntities()
+{
+    this->_entityRenderer->Begin(this->_camera, this->_sun, this->_skybox, this->_lights, this->_flashLight);
+
+    for (const auto& entity : this->_entities)
+    {
+        this->_entityRenderer->Render(entity);
+    }
+}
+
+void Graphics::Scene::RenderSkybox() const
+{
+    if (this->_skybox != nullptr && this->_renderSkybox)
+    {
+        this->_skyboxRenderer->Begin(this->_camera);
+        this->_skyboxRenderer->Render(this->_skybox);
+    }
+}
+
+Math::Vector3f Graphics::Scene::GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const
+{
+    const Math::Vector4ui viewport = Core::Instance().GetViewport();
+
+    GLfloat depth;
+    glReadPixels(screenPosition.x, viewport.w - screenPosition.y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+
+    if (depth == 1.0f)
+    {
+        return Math::Vector3f(0.0f, 0.0f, 0.0f);
+    }
+
+    const Math::Vector3f worldPosition = unProject(
+        Math::Vector3f(screenPosition.x, viewport.w - screenPosition.y, depth),
+        Math::ViewMatrix3D(this->_camera->GetPosition(), this->_camera->GetRotation()),
+        Core::Instance().CreateProjection(this->_camera->GetFieldOfView())->GetMatrix(),
+        viewport
+    );
+
+    return worldPosition;
 }

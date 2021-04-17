@@ -27,7 +27,7 @@ namespace Graphics
         bool Setup(const std::shared_ptr<const Projection>& projection);
         void Begin(const std::shared_ptr<Camera>& camera,
                    const std::shared_ptr<DirectionalLight>& sun,
-                   const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights,
+                   const std::vector<std::shared_ptr<PointLight>>& lights,
                    const std::shared_ptr<SpotLight>& flashLight) const;
         void RenderToReflectionBuffer(const std::function<void()>& renderFunction) const;
         void RenderToRefractionBuffer(const std::function<void()>& renderFunction) const;

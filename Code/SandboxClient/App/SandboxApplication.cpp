@@ -4,6 +4,9 @@
 // ----------------------------------------------------------------------------------------
 
 #include <IO/Keyboard.h>
+#include <Core/Exception.h>
+#include <IO/Console.h>
+#include <Util/ResourcesLoader.h>
 
 #include "App/SandboxApplication.h"
 
@@ -15,6 +18,14 @@ bool Sandbox::SandboxApplication::Open()
 
         this->_scene = std::make_shared<SandboxScene>();
         _Assert(this->_scene->Setup())
+
+        try
+        {
+            Util::ResourcesLoader::Instance().LoadScene(reinterpret_cast<std::shared_ptr<Graphics::Scene>&>(this->_scene), "default");
+        } catch (const Core::Exception& e)
+        {
+            IO::Console::Instance().Error("Failed to load scene: %s\n", e.what());
+        }
 
         return true;
     }

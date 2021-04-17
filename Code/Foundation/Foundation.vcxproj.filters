@@ -132,9 +132,6 @@
     <ClCompile Include="Graphics\TexturedMesh.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Util\Loaders\AssimpLoader.cpp">
-      <Filter>Util\Loaders</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Shaders\DepthShader.cpp">
       <Filter>Graphics\Shaders</Filter>
     </ClCompile>
@@ -285,6 +282,9 @@
     <ClCompile Include="Math\Physics\RigidBody\Box.cpp">
       <Filter>Math\Physics\RigidBody</Filter>
     </ClCompile>
+    <ClCompile Include="Util\Loaders\SceneLoader.cpp">
+      <Filter>Util\Loaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Debug.h">
@@ -373,9 +373,6 @@
     </ClInclude>
     <ClInclude Include="Graphics\TexturedMesh.h">
       <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Util\Loaders\AssimpLoader.h">
-      <Filter>Util\Loaders</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Shaders\DepthShader.h">
       <Filter>Graphics\Shaders</Filter>
@@ -534,6 +531,9 @@
     </ClInclude>
     <ClInclude Include="Math\Physics\RigidBody\Box.h">
       <Filter>Math\Physics\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Loaders\SceneLoader.h">
+      <Filter>Util\Loaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -132,8 +132,7 @@ void Graphics::EntityShader::LoadCamera(const std::shared_ptr<Camera>& camera) c
 {
     _Assert(camera)
 
-    const Math::Matrix4f viewMatrix = Math::ViewMatrix3D(camera->GetPosition(), camera->GetRotationX(),
-                                                       camera->GetRotationY());
+    const Math::Matrix4f viewMatrix = Math::ViewMatrix3D(camera->GetPosition(), camera->GetRotation());
     this->LoadMatrix4f(this->_viewLocation, viewMatrix);
     this->LoadVector3f(this->_viewPositionLocation, camera->GetPosition());
 }
@@ -149,14 +148,14 @@ void Graphics::EntityShader::LoadSun(const std::shared_ptr<DirectionalLight>& su
     this->LoadFloat(this->_sunLocation.specular, 1.0f);
 }
 
-void Graphics::EntityShader::LoadLights(const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights) const
+void Graphics::EntityShader::LoadLights(const std::vector<std::shared_ptr<PointLight>>& lights) const
 {
     const int lightsCount = static_cast<int>(lights.size());
     _Assert(EntityShader::MAX_LIGHT_COUNT > lightsCount - 1)
     this->LoadInt(this->_lightsCountLocation, lightsCount);
 
     int index = 0;
-    for (const auto& [name, light] : lights)
+    for (const auto& light : lights)
     {
         this->LoadLight(index, light);
         index++;

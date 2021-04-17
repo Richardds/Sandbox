@@ -40,7 +40,7 @@ void Sandbox::TestScene::ProcessCameraInput() const
     {
         // Increase viewing rotation relative to the player
         const Math::Vector2f mouseMotion = 75.0f * IO::Mouse::Instance().GetRelativeGlMotion();
-        this->_camera->IncreaseRotation(-mouseMotion.y, mouseMotion.x, 0.0f);
+        this->_camera->IncreaseRotation(Math::Vector3f(-mouseMotion.y, mouseMotion.x, 0.0f));
     }
 }
 
@@ -55,7 +55,7 @@ void Sandbox::TestScene::Update(const float delta)
 {
     Scene::Update(delta);
 
-    this->_camera->Spectate(this->_entities["object"]->GetPosition());
+    this->_camera->Spectate(this->_entitiesMapping["object"]->GetPosition());
 }
 
 void Sandbox::TestScene::Render()

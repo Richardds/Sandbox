@@ -30,7 +30,7 @@ bool Graphics::EntityRenderer::Setup(const std::shared_ptr<const Projection>& pr
 void Graphics::EntityRenderer::Begin(const std::shared_ptr<Camera>& camera,
                                      const std::shared_ptr<DirectionalLight>& sun,
                                      const std::shared_ptr<Skybox>& skybox,
-                                     const std::unordered_map<std::string, std::shared_ptr<PointLight>>& lights,
+                                     const std::vector<std::shared_ptr<PointLight>>& lights,
                                      const std::shared_ptr<SpotLight>& flashLight) const
 {
     this->_shader->Use();

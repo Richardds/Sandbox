@@ -40,16 +40,20 @@ namespace Graphics
         virtual void Update(float delta);
         virtual void Render();
 
+        void SetupSkybox(const std::string& name, float size);
+        std::shared_ptr<Text> AddText(const std::string& name, const std::string& text);
+        std::shared_ptr<Water> AddWater(const std::string& name, float size);
+        std::shared_ptr<PointLight> AddLight(const std::string& name);
+        std::shared_ptr<PointLight> AddLight();
+        std::shared_ptr<Entity> AddEntity(const std::string& resourceName);
+        void AddEntity(const std::shared_ptr<Entity>& entity);
+        std::shared_ptr<Entity> AddEntity(const std::string& name, const std::string& resourceName);
+        void AddEntity(const std::string& name, const std::shared_ptr<Entity>& entity);
+
     protected:
         virtual void RenderEntities();
         void RenderSkybox() const;
         Math::Vector3f GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const;
-        std::shared_ptr<Skybox> SetupSkybox(const std::string& name, float size) const;
-        std::shared_ptr<Text> AddText(const std::string& name, const std::string& text);
-        std::shared_ptr<Water> AddWater(const std::string& name, float size);
-        std::shared_ptr<PointLight> AddLight(const std::string& name);
-        std::shared_ptr<Entity> AddEntity(const std::string& name, const std::string& resourceName);
-        std::shared_ptr<Entity> AddEntity(const std::string& name, const std::shared_ptr<Entity>& entity);
 
         std::shared_ptr<Projection> _projection;
         std::shared_ptr<TargetedCamera> _camera;
@@ -62,9 +66,11 @@ namespace Graphics
         std::shared_ptr<Util::TextMeshGenerator> _textFactory;
         std::shared_ptr<Math::PhysicsEngine> _physics;
         std::unordered_map<std::string, std::shared_ptr<Text>> _texts;
-        std::unordered_map<std::string, std::shared_ptr<PointLight>> _lights;
+        std::vector<std::shared_ptr<PointLight>> _lights;
+        std::unordered_map<std::string, std::shared_ptr<PointLight>> _lightsMapping;
         std::shared_ptr<SpotLight> _flashLight;
-        std::unordered_map<std::string, std::shared_ptr<Entity>> _entities;
+        std::vector<std::shared_ptr<Entity>> _entities;
+        std::unordered_map<std::string, std::shared_ptr<Entity>> _entitiesMapping;
         std::unordered_map<std::string, std::shared_ptr<Water>> _waterTiles;
 
         Math::Vector3f _cursorPosition;

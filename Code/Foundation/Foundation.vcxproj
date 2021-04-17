@@ -80,9 +80,9 @@
     <ClCompile Include="Util\Generators\PrimitiveGenerator.cpp" />
     <ClCompile Include="Util\Generators\SkyboxGenerator.cpp" />
     <ClCompile Include="Util\Loaders\DirectDrawSurfaceLoader.cpp" />
-    <ClCompile Include="Util\Loaders\AssimpLoader.cpp" />
     <ClCompile Include="Util\Loaders\FontMappingLoader.cpp" />
     <ClCompile Include="Util\Loaders\ModelLoader.cpp" />
+    <ClCompile Include="Util\Loaders\SceneLoader.cpp" />
     <ClCompile Include="Util\Random.cpp" />
     <ClCompile Include="Util\ResourcesLoader.cpp" />
   </ItemGroup>
@@ -166,9 +166,9 @@
     <ClInclude Include="Util\Generators\PrimitiveGenerator.h" />
     <ClInclude Include="Util\Generators\SkyboxGenerator.h" />
     <ClInclude Include="Util\Loaders\DirectDrawSurfaceLoader.h" />
-    <ClInclude Include="Util\Loaders\AssimpLoader.h" />
     <ClInclude Include="Util\Loaders\FontMappingLoader.h" />
     <ClInclude Include="Util\Loaders\ModelLoader.h" />
+    <ClInclude Include="Util\Loaders\SceneLoader.h" />
     <ClInclude Include="Util\Random.h" />
     <ClInclude Include="Util\ResourcesLoader.h" />
   </ItemGroup>
@@ -211,6 +211,7 @@
     <IntDir>$(SolutionDir)Bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
     <IncludePath>$(ProjectDir);$(DEV_HOME)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DEV_HOME)\Lib;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -218,6 +219,7 @@
     <IntDir>$(SolutionDir)Bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
     <IncludePath>$(ProjectDir);$(DEV_HOME)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DEV_HOME)\Lib;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -231,7 +233,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp.lib;zlib.lib;BulletDynamics_Debug.lib;BulletCollision_Debug.lib;LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3d.lib;assimpd.lib;zlibd.lib;yamld.lib;BulletDynamicsd.lib;BulletCollisiond.lib;LinearMathd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -250,7 +252,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp.lib;zlib.lib;yaml.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

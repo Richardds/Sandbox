@@ -24,7 +24,7 @@ bool Sandbox::Player::IsReadyToFire() const
 void Sandbox::Player::SingleFire(std::shared_ptr<ProjectileManager>& projectileManager)
 {
     this->_countdown = 1.0f / this->_attackSpeed;
-    std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(this->_position, this->_rotationY);
+    std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(this->_position, this->_rotation.y);
     projectile->SetPositionY(0.5f);
     projectile->SetMovingSpeed(20.0f);
     projectileManager->Manage(projectile);
@@ -40,7 +40,7 @@ void Sandbox::Player::StarFire(std::shared_ptr<ProjectileManager>& projectileMan
     {
         const float angle = static_cast<float>(i) * step;
         std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(
-            this->_position, this->_rotationY + angle
+            this->_position, this->_rotation.y + angle
         );
         projectile->SetPositionY(0.5f);
         projectile->SetMovingSpeed(15);
@@ -57,12 +57,13 @@ void Sandbox::Player::BeamFire(std::shared_ptr<ProjectileManager>& projectileMan
     for (unsigned int i = 0; i < count; ++i)
     {
         const float offset = static_cast<float>(i) * step;
+        const float rotationRadians = glm::radians(this->_rotation.y);
         const Math::Vector3f position = Math::Vector3f(
-            this->_position.x + glm::sin(glm::radians(this->_rotationY)) * offset,
+            this->_position.x + glm::sin(rotationRadians) * offset,
             this->_position.y,
-            this->_position.z + glm::cos(glm::radians(this->_rotationY)) * offset
+            this->_position.z + glm::cos(rotationRadians) * offset
         );
-        std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(position, this->_rotationY);
+        std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>(position, this->_rotation.y);
         projectile->SetPositionY(0.5f);
         projectile->SetMovingSpeed(30.0f);
         projectileManager->Manage(projectile);

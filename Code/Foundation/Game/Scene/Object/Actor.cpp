@@ -15,10 +15,11 @@ Graphics::Actor::Actor() :
 
 void Graphics::Actor::Move(const float distance)
 {
+    const float rotationRadians = glm::radians(this->_rotation.y);
     this->IncreasePosition(Math::Vector3f(
-        glm::sin(glm::radians(this->_rotationY)) * distance,
+        glm::sin(rotationRadians) * distance,
         0.0f,
-        glm::cos(glm::radians(this->_rotationY)) * distance
+        glm::cos(rotationRadians) * distance
     ));
 }
 
@@ -39,7 +40,7 @@ void Graphics::Actor::TurnRight(const float delta)
 
 void Graphics::Actor::LookAt(const Math::Vector2f& target)
 {
-    this->_rotationY = Math::LookAt(
+    this->_rotation.y = Math::LookAt(
         Math::Vector2f(this->_position.x, this->_position.z),
         target
     );
@@ -49,7 +50,7 @@ float Graphics::Actor::LookAtDiff(const Math::Vector2f& target) const
 {
     return Math::LookAtDiff(
         Math::Vector2f(this->_position.x, this->_position.z),
-        this->_rotationY,
+        this->_rotation.y,
         target
     );
 }

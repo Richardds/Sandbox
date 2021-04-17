@@ -36,15 +36,6 @@ bool Sandbox::SandboxScene::Setup()
     std::shared_ptr<Graphics::Text> title = this->AddText("title", "BIRB GAME");
     title->SetPositionY(0.90f);
 
-    // Setup skybox
-    this->_skybox = this->SetupSkybox("Skybox/day", 750.0f);
-
-    // Configure lights
-    std::shared_ptr<Graphics::PointLight> light1 = this->AddLight("light");
-    light1->SetColor(Math::Vector3f(1.0f, 0.8f, 0.6f));
-    light1->SetPosition(Math::Vector3f(4.5f, 1.5f, 2.75f));
-    light1->SetAttenuation(Math::Vector3f(1.0f, 0.1f, 0.025f));
-
     // Setup flash light
     this->_flashLight->SetColor(Math::Vector3f(1.0f, 1.0f, 0.8f));
     this->_flashLight->SetCutOffAngle(7.5f);
@@ -57,60 +48,6 @@ bool Sandbox::SandboxScene::Setup()
     // Load player
     this->_player = this->SetupPlayer("duck");
     this->_player->SetMovingSpeed(1.0f);
-    //this->_player->SetScale(5.0f);
-
-    // Add house entities
-    for (int i = 0; i < 5; i++)
-    {
-        std::string entityName = "house_" + std::to_string(i);
-        const float offsetX = -15.0f;
-        const float offsetZ = -10.0f;
-        std::shared_ptr<Graphics::Entity> entity = this->AddEntity(entityName, "house");
-        entity->SetPosition(Math::Vector3f(
-            offsetX + 3.0f * static_cast<float>(i),
-            0.0f,
-            offsetZ - 7.5f * static_cast<float>(i)
-        ));
-    }
-
-    // Add pier entities
-    for (int i = 0; i < 10; i++)
-    {
-        std::string entityName = "pier_" + std::to_string(i);
-        const float offsetX = 5.0f;
-        const float offsetZ = 2.5f;
-        std::shared_ptr<Graphics::Entity> entity = this->AddEntity(entityName, "pier_modular");
-        entity->SetPosition(Math::Vector3f(
-            offsetX,
-            0.0f,
-            offsetZ - 1.55f * static_cast<float>(i)
-        ));
-    }
-
-    std::shared_ptr<Graphics::Entity> drum1 = this->AddEntity("drum_1", "drum_shell");
-    drum1->SetPosition(Math::Vector3f(5.5f, 0.65f, 2.75f));
-    drum1->SetRotationY(45.0f);
-
-    std::shared_ptr<Graphics::Entity> drum2 = this->AddEntity("drum_2", "drum_radioactive");
-    drum2->SetPosition(Math::Vector3f(5.5f, 0.65f, 2.15f));
-    drum2->SetRotationY(45.0f);
-
-    // Add crate entities
-    for (int i = 0; i < 5; i++)
-    {
-        std::string entityName = "crate_" + std::to_string(i);
-        const float offsetX = -7.5f;
-        const float offsetZ = 3.0f;
-        std::shared_ptr<Graphics::Entity> entity = this->AddEntity(entityName, "water_crate");
-        entity->SetRotationX(Util::Random::Instance().GetAngle());
-        entity->SetRotationY(Util::Random::Instance().GetAngle());
-        entity->SetRotationZ(Util::Random::Instance().GetAngle());
-        entity->SetPosition(Math::Vector3f(
-            offsetX + Util::Random::Instance().GetReal(-1.0f, 1.0f),
-            Util::Random::Instance().GetReal(-0.75f, 0.25f),
-            offsetZ - 3.0f * static_cast<float>(i)
-        ));
-    }
 
     // Add duck entities
     const std::shared_ptr<Graphics::Model> duckModel = Util::ResourcesLoader::Instance().LoadModel("duck");
@@ -148,24 +85,7 @@ bool Sandbox::SandboxScene::Setup()
     light->SetColor(Math::Vector3f(1.0f, 1.0f, 1.0f));
     light->SetPosition(Math::Vector3f(15.0f, 7.5f, 12.5f));
     light->SetAttenuation(Math::Vector3f(1.0f, 0.005f, 0.0075f));
-
-    // Material examples
-    std::vector<std::string> materials = {"alpha", "tiles", "sponge", "metal"};
-    float positionX = 12.5f;
-    for (const auto& material : materials)
-    {
-        std::shared_ptr<Graphics::Entity> entity = this->AddEntity("material_" + material, "mat_" + material);
-        entity->SetPosition(Math::Vector3f(positionX, 2.0f, -20.0f));
-        entity->SetRotationX(15.0f);
-        entity->SetRotationZ(15.0f);
-        positionX += 7.5f;
-
-        std::shared_ptr<Graphics::PointLight> pointLight = this->AddLight("light_" + material);
-        pointLight->SetColor(Math::Vector3f(1.0f, 1.0f, 1.0f));
-        pointLight->SetPosition(Math::Vector3f(entity->GetPositionX(), entity->GetPositionY() + 3.0f, entity->GetPositionZ()));
-        pointLight->SetAttenuation(Math::Vector3f(1.0f, 0.1f, 0.025f));
-    }
-
+    
     // Add hardcoded mesh to the scene
     std::shared_ptr<Graphics::Entity> hardcoded = std::make_shared<Graphics::Entity>();
     std::shared_ptr<Graphics::Model> hardcodedModel = std::make_shared<Graphics::Model>();
@@ -224,7 +144,7 @@ void Sandbox::SandboxScene::ProcessCameraInput()
         {
             // Increase viewing rotation relative to the player
             mouseMotion *= 75.0f; // Make motion more sensitive
-            this->_camera->IncreaseRotation(-mouseMotion.y, mouseMotion.x, 0.0f);
+            this->_camera->IncreaseRotation(Math::Vector3f(-mouseMotion.y, mouseMotion.x, 0.0f));
         }
         // Free camera
         else
@@ -255,7 +175,7 @@ void Sandbox::SandboxScene::ProcessCameraInput()
             {
                 // Increase viewing rotation relative to the world
                 mouseMotion *= -75.0f; // Invert and make motion more sensitive
-                this->_camera->IncreaseRotation(-mouseMotion.y, mouseMotion.x, 0.0f);
+                this->_camera->IncreaseRotation(Math::Vector3f(-mouseMotion.y, mouseMotion.x, 0.0f));
             }
         }
     }
@@ -434,9 +354,9 @@ void Sandbox::SandboxScene::Update(const float delta)
         this->_sun->SetIntensity(0.15f);
 
         // Update hardcoded mesh motion
-        this->_entities["hardcoded"]->IncreaseRotationY(45.0f * delta);
-        this->_entities["hardcoded"]->SetRotationX(glm::sin(this->_time) * 15.0f);
-        this->_entities["hardcoded"]->SetPositionY(2.5f + glm::sin(this->_time) * 0.5f);
+        this->_entitiesMapping["hardcoded"]->IncreaseRotationY(45.0f * delta);
+        this->_entitiesMapping["hardcoded"]->SetRotationX(glm::sin(this->_time) * 15.0f);
+        this->_entitiesMapping["hardcoded"]->SetPositionY(2.5f + glm::sin(this->_time) * 0.5f);
     }
 }
 
@@ -455,10 +375,10 @@ void Sandbox::SandboxScene::RenderEntities()
 std::shared_ptr<Sandbox::Player> Sandbox::SandboxScene::SetupPlayer(const std::string& resourceName)
 {
     const std::string playerEntityName = "player";
-    const auto it = this->_entities.find(playerEntityName);
-    _Assert(it == this->_entities.end())
+    const auto it = this->_entitiesMapping.find(playerEntityName);
+    _Assert(it == this->_entitiesMapping.end())
     std::shared_ptr<Player> player = std::make_shared<Player>();
     player->SetModel(Util::ResourcesLoader::Instance().LoadModel(resourceName));
-    this->_entities.emplace_hint(it, playerEntityName, player);
+    this->_entitiesMapping.emplace_hint(it, playerEntityName, player);
     return player;
 }

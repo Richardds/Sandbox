@@ -25,6 +25,7 @@ namespace IO
         size_t GetSize() const;
         bool IsEmpty() const;
         bool IsEndOfFile() const;
+        std::ifstream& GetStream();
         void Read(std::string& string);
         void Read(Util::FourCC& fourCC);
         template <typename T>
@@ -34,7 +35,7 @@ namespace IO
         void ReadLine(std::string& line, char delimeter = '\n');
         void Seek(size_t offset);
         void Close();
-
+        
     protected:
         std::ifstream _file;
         bool _isOpen;
@@ -65,6 +66,11 @@ namespace IO
     inline bool InputFile::IsEndOfFile() const
     {
         return this->_file.eof();
+    }
+
+    inline std::ifstream& InputFile::GetStream()
+    {
+        return this->_file;
     }
 
     template <typename T>

@@ -3,7 +3,6 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
 #include "Util/Loaders/FontMappingLoader.h"
 #include "Core/Types.h"
 #include "Core/Exception/ParsingException.h"
