@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       TestApplication.cpp
-//  \author     Richard Boldi� <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include <IO/Keyboard.h>

@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       HasRotation2D.h
-//  \author     Richard Boldi� <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #pragma once

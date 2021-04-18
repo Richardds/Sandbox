@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       HasRotation2D.cpp
-//  \author     Richard Boldi� <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Game/Attributes/HasRotation2D.h"

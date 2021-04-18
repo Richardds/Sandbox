@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       Player.cpp
-//  \author     Richard Boldi� <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include <Math/MathUtils.h>
