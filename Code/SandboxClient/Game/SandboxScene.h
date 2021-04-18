@@ -33,7 +33,6 @@ namespace Sandbox
         void ProcessFlashLight() const;
         void ProcessInput() override;
         void Update(float delta) override;
-        void Render() override;
         std::shared_ptr<Player> SetupPlayer(const std::string& resourceName);
 
     protected:
@@ -43,6 +42,7 @@ namespace Sandbox
         std::shared_ptr<Player> _player;
         std::shared_ptr<ProjectileManager> _projectileManager;
         std::shared_ptr<DuckManager> _duckManager;
+        std::shared_ptr<Graphics::Text> _textDelta;
 
         bool _lockCameraToPlayer;
     };

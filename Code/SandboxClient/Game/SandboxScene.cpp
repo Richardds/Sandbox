@@ -11,6 +11,7 @@
 
 #include "SandboxScene.h"
 #include "Scene/Object/Hardcoded.h"
+#include "Util/String.h"
 
 Sandbox::SandboxScene::SandboxScene() :
     _lockCameraToPlayer(true)
@@ -35,10 +36,15 @@ bool Sandbox::SandboxScene::Setup()
     // Add title
     std::shared_ptr<Graphics::Text> textTitle = this->AddText("SANDBOX");
     textTitle->SetPositionY(0.90f);
+    // Add version
     std::shared_ptr<Graphics::Text> textVersion = this->AddText("0.1.4-dev");
     textVersion->SetColor(Math::Vector4f(0.85f, 0.0f, 0.0f, 1.0f));
     textVersion->SetScale(0.25f);
     textVersion->SetPosition(Math::Vector2f(0.175f, 0.7775f));
+    // Add frame delta
+    this->_textDelta = this->AddText("16.66 ms");
+    this->_textDelta->SetScale(0.5f);
+    this->_textDelta->SetPosition(Math::Vector2f(-0.875f, 0.95f));
 
     // Setup flash light
     this->_flashLight->SetColor(Math::Vector3f(1.0f, 1.0f, 0.8f));
@@ -362,11 +368,9 @@ void Sandbox::SandboxScene::Update(const float delta)
         this->_entitiesMapping["hardcoded"]->SetRotationX(glm::sin(this->_time) * 15.0f);
         this->_entitiesMapping["hardcoded"]->SetPositionY(2.5f + glm::sin(this->_time) * 0.5f);
     }
-}
 
-void Sandbox::SandboxScene::Render()
-{
-    Scene::Render();
+    // Update frame delta text
+    this->_textDelta->SetMesh(this->_textFactory->GenerateMesh(Util::String::Format("%2.2f ms", delta * 1000.0f)));
 }
 
 void Sandbox::SandboxScene::RenderEntities() const

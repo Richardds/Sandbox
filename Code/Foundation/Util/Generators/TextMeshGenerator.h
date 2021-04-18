@@ -18,6 +18,7 @@ namespace Util
     public:
         TextMeshGenerator(const std::shared_ptr<Graphics::Font>& font, float spacingScale = 1.0f);
 
+        std::shared_ptr<Graphics::Mesh> GenerateMesh(const std::basic_string<Character>& text) const;
         std::shared_ptr<Graphics::Text> Generate(const std::basic_string<Character>& text) const;
 
     private:

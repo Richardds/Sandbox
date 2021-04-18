@@ -17,7 +17,7 @@ Util::TextMeshGenerator::TextMeshGenerator(const std::shared_ptr<Graphics::Font>
     this->_characterAttributesTemplate.Append(GL_FLOAT, 2);
 }
 
-std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::basic_string<Character>& text) const
+std::shared_ptr<Graphics::Mesh> Util::TextMeshGenerator::GenerateMesh(const std::basic_string<Character>& text) const
 {
     _Assert(this->_font->GetState() == Graphics::Font::State::Loaded)
 
@@ -74,12 +74,14 @@ std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::bas
 
         // Update cursor
         offset.x += positioning.advance - this->_font->GetSpacing() * _spacingScale;
-        //offset.y += 0.0f; // TODO: Replace by line height on new line
     }
 
-    std::shared_ptr<Graphics::Mesh> textMesh = this->Store(vertices, indices, this->_characterAttributesTemplate);
+    return this->Store(vertices, indices, this->_characterAttributesTemplate);
+}
 
-    return std::make_shared<Graphics::Text>(textMesh, fontMap);
+std::shared_ptr<Graphics::Text> Util::TextMeshGenerator::Generate(const std::basic_string<Character>& text) const
+{
+    return std::make_shared<Graphics::Text>(this->GenerateMesh(text), this->_font->GetFontMap());
 }
 
 Math::Vector2f Util::TextMeshGenerator::CalculateTextMeshSize(const std::basic_string<Character>& text) const

@@ -15,30 +15,37 @@
 
 namespace Graphics
 {
-    class EXPORT Text : public Mesh, public HasPosition2D, public HasRotation2D, public HasScale
+    class EXPORT Text : public HasPosition2D, public HasRotation2D, public HasScale
     {
     public:
-        Text(const std::shared_ptr<VertexArray>& vertexArrayObject,
-             const std::shared_ptr<Buffer>& vertexBuffer,
-             const std::shared_ptr<Buffer>& elementsBuffer,
-             uint32_t elementsCount,
-             const std::shared_ptr<Texture>& fontMap);
         Text(const std::shared_ptr<Mesh>& mesh, const std::shared_ptr<Texture>& fontMap);
 
         void Render(const std::shared_ptr<TextShader>& shader) const;
+        std::shared_ptr<Mesh> GetMesh() const;
+        void SetMesh(const std::shared_ptr<Mesh>& mesh);
         std::shared_ptr<Texture> GetFontMap() const;
         void SetFontMap(const std::shared_ptr<Texture>& texture);
-        
         float GetSpacing() const;
         void SetSpacing(float spacing);
         Math::Vector4f GetColor() const;
         void SetColor(const Math::Vector4f& color);
 
     private:
+        std::shared_ptr<Mesh> _textMesh;
         std::shared_ptr<Texture> _fontMap;
         float _spacing;
         Math::Vector4f _color;
     };
+
+    inline std::shared_ptr<Mesh> Text::GetMesh() const
+    {
+        return this->_textMesh;
+    }
+
+    inline void Text::SetMesh(const std::shared_ptr<Mesh>& mesh)
+    {
+        this->_textMesh = mesh;
+    }
     
     inline std::shared_ptr<Texture> Text::GetFontMap() const
     {
