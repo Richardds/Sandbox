@@ -144,56 +144,18 @@ void Graphics::Scene::Render()
 {
     _Assert(State::Run == this->_state)
 
-    // Render the entities to the screen buffer
-    this->RenderEntities();
-
-    // Render the water tiles using multi-pass technique
-    for (auto& [name, waterTile] : this->_waterTiles)
-    {
-        // Render scene to water reflection frame buffer
-        // Cull everything under the water
-        this->_entityRenderer->GetShader()->EnableClippingPlane(
-            Math::Vector4f(0.0f, 1.0f, 0.0f, -waterTile->GetPositionY()));
-        const float distance = 2.0f * (this->_camera->GetPositionY() - waterTile->GetPositionY());
-        this->_camera->IncreasePositionY(-distance);
-        this->_camera->InvertRotationX();
-        this->_waterRenderer->RenderToReflectionBuffer([this]()
-        {
-            this->RenderSkybox();
-            this->RenderEntities();
-        });
-        this->_camera->IncreasePositionY(distance);
-        this->_camera->InvertRotationX();
-
-        // Render scene to water refraction frame buffer
-        // Cull everything 0.025 units above the water
-        this->_entityRenderer->GetShader()->EnableClippingPlane(
-            Math::Vector4f(0.0f, -1.0f, 0.0f, waterTile->GetPositionY() + 0.025f));
-        this->_waterRenderer->RenderToRefractionBuffer([this]()
-        {
-            this->RenderSkybox();
-            this->RenderEntities();
-        });
-        this->_entityRenderer->GetShader()->DisableClippingPlane();
-
-        // Render the water tile to the screen buffer
-        this->_waterRenderer->Begin(this->_camera, this->_sun, this->_lights, this->_flashLight);
-        this->_waterRenderer->Render(waterTile);
-    }
-
     // Render the skybox to the screen buffer
     this->RenderSkybox();
 
-    // Render texts
-    this->_textRenderer->Begin();
-    glDisable(GL_DEPTH_TEST);
-    for (const auto& [name, text] : this->_texts)
-    {
-        this->_textRenderer->Render(text);
-    }
-    glEnable(GL_DEPTH_TEST);
-}
+    // Render the water tiles using multi-pass technique
+    this->RenderWaterTiles();
 
+    // Render the entities to the screen buffer
+    this->RenderEntities();
+
+    // Render texts
+    this->RenderTexts();
+}
 
 void Graphics::Scene::SetupSkybox(const std::string& name, const float size)
 {
@@ -201,14 +163,19 @@ void Graphics::Scene::SetupSkybox(const std::string& name, const float size)
     this->_skybox = std::make_shared<Skybox>(skyboxTexture, size);
 }
 
+std::shared_ptr<Graphics::Text> Graphics::Scene::AddText(const std::string& text)
+{
+    std::shared_ptr<Text> textMesh = this->_textFactory->Generate(text);
+    this->_texts.emplace_back(textMesh);
+    return textMesh;
+}
+
 std::shared_ptr<Graphics::Text> Graphics::Scene::AddText(const std::string& name, const std::string& text)
 {
-    const auto it = this->_texts.find(name);
-    _Assert(it == this->_texts.end())
-    std::shared_ptr<Text> textMesh = this->_textFactory->Generate(text);
-
-    this->_texts.emplace_hint(it, name, textMesh);
-
+    const auto it = this->_textsMapping.find(name);
+    _Assert(it == this->_textsMapping.end())
+    std::shared_ptr<Text> textMesh = this->AddText(text);
+    this->_textsMapping.emplace_hint(it, name, textMesh);
     return textMesh;
 }
 
@@ -276,7 +243,54 @@ void Graphics::Scene::AddEntity(const std::string& name, const std::shared_ptr<E
     this->_entitiesMapping.emplace_hint(it, name, entity);
 }
 
-void Graphics::Scene::RenderEntities()
+void Graphics::Scene::RenderSkybox() const
+{
+    if (this->_skybox != nullptr && this->_renderSkybox)
+    {
+        this->_skyboxRenderer->Begin(this->_camera);
+        this->_skyboxRenderer->Render(this->_skybox);
+    }
+}
+
+void Graphics::Scene::RenderWaterTiles() const
+{
+    this->_entityRenderer->Begin(this->_camera, this->_sun, this->_skybox, this->_lights, this->_flashLight);
+
+    for (auto& [name, waterTile] : this->_waterTiles)
+    {
+        // Render scene to water reflection frame buffer
+        // Cull everything under the water
+        this->_entityRenderer->GetShader()->EnableClippingPlane(
+            Math::Vector4f(0.0f, 1.0f, 0.0f, -waterTile->GetPositionY()));
+        const float distance = 2.0f * (this->_camera->GetPositionY() - waterTile->GetPositionY());
+        this->_camera->IncreasePositionY(-distance);
+        this->_camera->InvertRotationX();
+        this->_waterRenderer->RenderToReflectionBuffer([this]()
+        {
+            this->RenderSkybox();
+            this->RenderEntities();
+        });
+        this->_camera->IncreasePositionY(distance);
+        this->_camera->InvertRotationX();
+
+        // Render scene to water refraction frame buffer
+        // Cull everything 0.025 units above the water
+        this->_entityRenderer->GetShader()->EnableClippingPlane(
+            Math::Vector4f(0.0f, -1.0f, 0.0f, waterTile->GetPositionY() + 0.025f));
+        this->_waterRenderer->RenderToRefractionBuffer([this]()
+        {
+            this->RenderSkybox();
+            this->RenderEntities();
+        });
+        this->_entityRenderer->GetShader()->DisableClippingPlane();
+
+        // Render the water tile to the screen buffer
+        this->_waterRenderer->Begin(this->_camera, this->_sun, this->_lights, this->_flashLight);
+        this->_waterRenderer->Render(waterTile);
+    }
+}
+
+void Graphics::Scene::RenderEntities() const
 {
     this->_entityRenderer->Begin(this->_camera, this->_sun, this->_skybox, this->_lights, this->_flashLight);
 
@@ -286,13 +300,15 @@ void Graphics::Scene::RenderEntities()
     }
 }
 
-void Graphics::Scene::RenderSkybox() const
+void Graphics::Scene::RenderTexts() const
 {
-    if (this->_skybox != nullptr && this->_renderSkybox)
+    this->_textRenderer->Begin();
+    glDisable(GL_DEPTH_TEST);
+    for (const auto& text : this->_texts)
     {
-        this->_skyboxRenderer->Begin(this->_camera);
-        this->_skyboxRenderer->Render(this->_skybox);
+        this->_textRenderer->Render(text);
     }
+    glEnable(GL_DEPTH_TEST);
 }
 
 Math::Vector3f Graphics::Scene::GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const

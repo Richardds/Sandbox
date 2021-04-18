@@ -37,7 +37,7 @@ namespace Sandbox
         std::shared_ptr<Player> SetupPlayer(const std::string& resourceName);
 
     protected:
-        void RenderEntities() override;
+        void RenderEntities() const override;
 
     private:
         std::shared_ptr<Player> _player;

@@ -33,8 +33,11 @@ bool Sandbox::SandboxScene::Setup()
     this->_camera->SetRotationX(20.0f);
 
     // Add title
-    std::shared_ptr<Graphics::Text> title = this->AddText("title", "BIRB GAME");
-    title->SetPositionY(0.90f);
+    std::shared_ptr<Graphics::Text> textTitle = this->AddText("SANDBOX");
+    textTitle->SetPositionY(0.90f);
+    std::shared_ptr<Graphics::Text> textVersion = this->AddText("0.0.4-dev");
+    textVersion->SetScale(0.25f);
+    textVersion->SetPosition(Math::Vector2f(0.25f, 0.90f));
 
     // Setup flash light
     this->_flashLight->SetColor(Math::Vector3f(1.0f, 1.0f, 0.8f));
@@ -365,7 +368,7 @@ void Sandbox::SandboxScene::Render()
     Scene::Render();
 }
 
-void Sandbox::SandboxScene::RenderEntities()
+void Sandbox::SandboxScene::RenderEntities() const
 {
     Scene::RenderEntities();
     this->_projectileManager->RenderWith(this->_entityRenderer);

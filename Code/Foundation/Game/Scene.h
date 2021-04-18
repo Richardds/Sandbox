@@ -42,6 +42,7 @@ namespace Graphics
         virtual void Render();
 
         void SetupSkybox(const std::string& name, float size);
+        std::shared_ptr<Text> AddText(const std::string& text);
         std::shared_ptr<Text> AddText(const std::string& name, const std::string& text);
         std::shared_ptr<Water> AddWater(const std::string& name, float size);
         std::shared_ptr<PointLight> AddLight(const std::string& name);
@@ -52,8 +53,10 @@ namespace Graphics
         void AddEntity(const std::string& name, const std::shared_ptr<Entity>& entity);
 
     protected:
-        virtual void RenderEntities();
         virtual void RenderSkybox() const;
+        virtual void RenderWaterTiles() const;
+        virtual void RenderEntities() const;
+        virtual void RenderTexts() const;
         Math::Vector3f GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const;
 
         std::shared_ptr<Projection> _projection;
@@ -66,7 +69,8 @@ namespace Graphics
         std::shared_ptr<TextRenderer> _textRenderer;
         std::shared_ptr<Util::TextMeshGenerator> _textFactory;
         std::shared_ptr<Math::PhysicsEngine> _physics;
-        std::unordered_map<std::string, std::shared_ptr<Text>> _texts;
+        std::vector<std::shared_ptr<Text>> _texts;
+        std::unordered_map<std::string, std::shared_ptr<Text>> _textsMapping;
         std::vector<std::shared_ptr<PointLight>> _lights;
         std::unordered_map<std::string, std::shared_ptr<PointLight>> _lightsMapping;
         std::shared_ptr<SpotLight> _flashLight;
