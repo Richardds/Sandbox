@@ -85,6 +85,7 @@
     <ClCompile Include="Util\Loaders\SceneLoader.cpp" />
     <ClCompile Include="Util\Random.cpp" />
     <ClCompile Include="Util\ResourcesLoader.cpp" />
+    <ClCompile Include="Util\YAMLParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\Application.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Util\Loaders\SceneLoader.h" />
     <ClInclude Include="Util\Random.h" />
     <ClInclude Include="Util\ResourcesLoader.h" />
+    <ClInclude Include="Util\YAMLParser.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
