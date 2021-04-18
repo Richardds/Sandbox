@@ -5,8 +5,6 @@
 
 #include "Precompiled.h"
 #include "Graphics/Shaders/TextShader.h"
-
-
 #include "Core/Types.h"
 #include "Graphics/Texture.h"
 
@@ -15,7 +13,8 @@ Graphics::TextShader::TextShader() :
     _transformationLocation(-1),
     _fontMapSamplerLocation(-1),
     _colorLocation(-1),
-    _outlineColorLocation(-1)
+    _outlineColorLocation(-1),
+    _smoothnessModifierLocation(-1)
 {
 }
 
@@ -30,6 +29,9 @@ void Graphics::TextShader::InitializeUniformVariables()
     // Color
     this->InitializeVector4fLocation("fontColor", Math::Vector4f(1.0f, 1.0f, 1.0f, 1.0f), this->_colorLocation);
     this->InitializeVector4fLocation("outlineColor", Math::Vector4f(0.0f, 0.0f, 0.0f, 1.0f), this->_outlineColorLocation);
+
+    // Smoothness modifier
+    this->InitializeFloatLocation("smoothnessModifier", 1.0f, this->_smoothnessModifierLocation);
 }
 
 void Graphics::TextShader::LoadTransformation(const Math::Matrix3f& transformation) const
@@ -45,4 +47,9 @@ void Graphics::TextShader::LoadColor(const Math::Vector4f& color) const
 void Graphics::TextShader::LoadOutlineColor(const Math::Vector4f& color) const
 {
     this->LoadVector4f(this->_outlineColorLocation, color);
+}
+
+void Graphics::TextShader::LoadSmoothnessModifier(const float smoothnessModifier) const
+{
+    this->LoadFloat(this->_smoothnessModifierLocation, smoothnessModifier);
 }

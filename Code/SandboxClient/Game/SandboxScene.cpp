@@ -35,9 +35,10 @@ bool Sandbox::SandboxScene::Setup()
     // Add title
     std::shared_ptr<Graphics::Text> textTitle = this->AddText("SANDBOX");
     textTitle->SetPositionY(0.90f);
-    std::shared_ptr<Graphics::Text> textVersion = this->AddText("0.0.4-dev");
+    std::shared_ptr<Graphics::Text> textVersion = this->AddText("0.1.4-dev");
+    textVersion->SetColor(Math::Vector4f(0.85f, 0.0f, 0.0f, 1.0f));
     textVersion->SetScale(0.25f);
-    textVersion->SetPosition(Math::Vector2f(0.25f, 0.90f));
+    textVersion->SetPosition(Math::Vector2f(0.175f, 0.7775f));
 
     // Setup flash light
     this->_flashLight->SetColor(Math::Vector3f(1.0f, 1.0f, 0.8f));

@@ -36,6 +36,7 @@ void Graphics::Text::Render(const std::shared_ptr<TextShader>& shader) const
         )
     );
     shader->LoadColor(this->_color);
+    shader->LoadSmoothnessModifier(1.0f / this->_scale);
 
     this->DrawElements();
 }

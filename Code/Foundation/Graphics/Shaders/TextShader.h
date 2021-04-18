@@ -20,11 +20,13 @@ namespace Graphics
         void LoadTransformation(const Math::Matrix3f& transformation) const;
         void LoadColor(const Math::Vector4f& color) const;
         void LoadOutlineColor(const Math::Vector4f& color) const;
+        void LoadSmoothnessModifier(float smoothnessModifier) const;
 
     private:
         GLint _transformationLocation;
         GLint _fontMapSamplerLocation;
         GLint _colorLocation;
         GLint _outlineColorLocation;
+        GLint _smoothnessModifierLocation;
     };
 }
