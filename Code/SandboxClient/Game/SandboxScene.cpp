@@ -361,12 +361,14 @@ void Sandbox::SandboxScene::Update(const float delta)
         const float darkeningFactor = (glm::sin(this->_time / 5.0f) + 1.0f) / (2.0f / (1.0f - SUN_LOWER_LIMIT)) + SUN_LOWER_LIMIT;
         this->_skyboxRenderer->GetShader(true)->LoadDarkeningFactor(darkeningFactor);
         this->_sun->SetIntensity(darkeningFactor);
-        this->_sun->SetIntensity(0.15f);
 
         // Update hardcoded mesh motion
-        this->_entitiesMapping["hardcoded"]->IncreaseRotationY(45.0f * delta);
-        this->_entitiesMapping["hardcoded"]->SetRotationX(glm::sin(this->_time) * 15.0f);
-        this->_entitiesMapping["hardcoded"]->SetPositionY(2.5f + glm::sin(this->_time) * 0.5f);
+        if (this->_entitiesMapping["hardcoded"])
+        {
+            this->_entitiesMapping["hardcoded"]->IncreaseRotationY(45.0f * delta);
+            this->_entitiesMapping["hardcoded"]->SetRotationX(glm::sin(this->_time) * 15.0f);
+            this->_entitiesMapping["hardcoded"]->SetPositionY(2.5f + glm::sin(this->_time) * 0.5f);
+        }
     }
 }
 

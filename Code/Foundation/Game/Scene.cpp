@@ -70,7 +70,7 @@ bool Graphics::Scene::Setup()
     // Setup sun
     this->_sun = std::make_shared<DirectionalLight>();
     this->_sun->SetColor(Math::Vector3f(1.0f, 0.95f, 0.85f));
-    this->_sun->SetDirection(Math::Vector3f(-1.0f, 1.0f, -1.0f));
+    this->_sun->SetDirection(Math::Vector3f(0.0f, 0.0f, -1.0f));
     this->_sun->SetIntensity(0.6f);
 
     // Setup flashlight
@@ -191,7 +191,7 @@ std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& na
 
     std::shared_ptr<Water> water = std::make_shared<Water>();
     water->SetMesh(waterMesh);
-    water->SetTiling(size / 5.0f);
+    water->SetTiling(size / 10.0f);
 
     this->_waterTiles.emplace_hint(it, name, water);
 

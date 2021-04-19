@@ -59,7 +59,7 @@ uniform SpotLight flashLight;
 uniform bool flashLightEnabled;
 uniform Fog fog;
 
-const float distortionStrength = 0.01f;
+const float distortionStrength = 0.005f;
 
 const float waterTransparency = 0.95f;
 const float waterSpecular = 0.125f;
@@ -99,7 +99,7 @@ void main()
 
     vec3 normalMapping = unitNormal;
     if (normalSampler.enabled) {
-        normalMapping = normalize(fromTangentSpace * (texture(normalSampler.texture, distortedTextureCoords).rgb * 2.0f - 1.0f));
+        normalMapping = normalize(fromTangentSpace * vec3(texture(normalSampler.texture, distortedTextureCoords).rg * 2.0f - 1.0f, 1.0f));
     }
 
     vec2 reflectionTextureCoords = vec2(ndc.x, -ndc.y);
@@ -162,6 +162,4 @@ void main()
         // Fade fragment color by visibility
         fragmentColor = vec4(mix(fog.color, waterDiffuse + specular, fragmentVisibility), 1.0f);
     }
-
-    //fragmentColor = vec4(normalMapping, 1.0f);         // Debug normal mapping
 }
