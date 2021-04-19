@@ -10,6 +10,11 @@
 
 #include "App/SandboxApplication.h"
 
+Sandbox::SandboxApplication::SandboxApplication() :
+    _sceneName("default")
+{
+}
+
 bool Sandbox::SandboxApplication::Open()
 {
     if (RenderApplication::Open())
@@ -19,7 +24,7 @@ bool Sandbox::SandboxApplication::Open()
         this->_scene = std::make_shared<SandboxScene>();
         _Assert(this->_scene->Setup())
 
-        this->LoadScene("default");
+        this->LoadScene(this->_sceneName);
 
         return true;
     }
@@ -38,6 +43,7 @@ void Sandbox::SandboxApplication::OnProcessInput()
     if (IO::Keyboard::Instance().IsKeyPressed(IO::Keyboard::Key::F4))
     {
         this->_scene->Reset();
+        this->LoadScene(this->_sceneName);
     }
 
     // Disable full screen

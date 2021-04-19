@@ -15,7 +15,7 @@ namespace Sandbox
     class SandboxApplication : public App::RenderApplication
     {
     public:
-        SandboxApplication() = default;
+        SandboxApplication();
 
         bool Open() override;
         void Close() override;
@@ -28,5 +28,6 @@ namespace Sandbox
 
     private:
         std::shared_ptr<SandboxScene> _scene;
+        std::string _sceneName;
     };
 }
