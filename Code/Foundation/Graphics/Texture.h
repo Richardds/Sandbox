@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Graphics/Core.h"
 
 namespace Graphics

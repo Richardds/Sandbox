@@ -160,7 +160,7 @@
     <ClInclude Include="Math\Physics\RigidBody\Plane.h" />
     <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Math\Vector.h" />
-    <ClInclude Include="Precompiled.h" />
+    <ClInclude Include="Libraries.h" />
     <ClInclude Include="Timing\Time.h" />
     <ClInclude Include="Util\FourCC.h" />
     <ClInclude Include="Util\Generators\Generator.h" />

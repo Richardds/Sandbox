@@ -3,7 +3,7 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Graphics/VertexArray.h"
 
 GLuint Graphics::VertexArray::_boundVertexArray = 0;

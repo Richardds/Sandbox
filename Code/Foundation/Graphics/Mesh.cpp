@@ -3,7 +3,7 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Graphics/Mesh.h"
 
 Graphics::Mesh::Mesh(const std::shared_ptr<VertexArray>& vertexArrayObject,

@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Game/Scene/Camera.h"
 #include "Game/Scene/Light/DirectionalLight.h"
 #include "Game/Scene/Light/PointLight.h"

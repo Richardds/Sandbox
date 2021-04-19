@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Graphics/Renderers/SkyboxRenderer.h"
 #include "Graphics/Renderers/EntityRenderer.h"
 #include "Graphics/Renderers/WaterRenderer.h"

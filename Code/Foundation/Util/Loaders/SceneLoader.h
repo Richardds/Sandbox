@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Game/Scene.h"
 #include "IO/InputFile.h"
 #include "Util/YAMLParser.h"

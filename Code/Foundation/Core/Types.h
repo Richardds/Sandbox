@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Math/Vector.h"
 
 #define _Pack( __Declaration__ ) __pragma( pack(push, 1) ) __Declaration__ __pragma( pack(pop))

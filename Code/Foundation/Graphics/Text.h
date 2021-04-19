@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Game/Attributes/HasPosition2D.h"
 #include "Game/Attributes/HasRotation2D.h"
 #include "Game/Attributes/HasScale.h"

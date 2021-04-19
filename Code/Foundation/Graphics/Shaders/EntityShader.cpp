@@ -3,7 +3,7 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Graphics/Shaders/EntityShader.h"
 #include "Core/Debug.h"
 #include "Core/Types.h"

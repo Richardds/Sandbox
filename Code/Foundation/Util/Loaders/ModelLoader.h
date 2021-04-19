@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Graphics/Material.h"
 #include "Graphics/Model.h"
 #include "Graphics/VertexAttributeConfig.h"

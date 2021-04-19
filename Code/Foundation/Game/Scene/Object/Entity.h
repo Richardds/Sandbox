@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Graphics/Model.h"
 #include "Graphics/Shaders/EntityShader.h"
 #include "Game/Attributes/HasPosition3D.h"

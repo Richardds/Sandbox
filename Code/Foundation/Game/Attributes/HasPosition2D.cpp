@@ -3,7 +3,7 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Game/Attributes/HasPosition2D.h"
 
 Graphics::HasPosition2D::HasPosition2D() :

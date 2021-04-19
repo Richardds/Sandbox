@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Core/Debug.h"
 #include "Core/Exception/IOException.h"
 #include "Util/FourCC.h"

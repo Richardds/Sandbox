@@ -3,7 +3,7 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "IO/Console.h"
 
 void __cdecl IO::Console::Write(FILE* handle, const char* format, ...)

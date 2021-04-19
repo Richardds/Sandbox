@@ -3,7 +3,7 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Util/Generators/TextMeshGenerator.h"
 #include "Graphics/GraphicsUtils.h"
 #include "Core/Types.h"

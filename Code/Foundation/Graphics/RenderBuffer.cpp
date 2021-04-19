@@ -3,7 +3,7 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Graphics/RenderBuffer.h"
 
 GLuint Graphics::RenderBuffer::_boundRenderBuffer = 0;

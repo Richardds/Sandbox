@@ -3,7 +3,7 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Util/Loaders/DirectDrawSurfaceLoader.h"
 #include "Core/Exception/UnsupportedException.h"
 

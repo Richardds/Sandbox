@@ -3,7 +3,7 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Game/Scene/Light/DirectionalLight.h"
 
 Graphics::DirectionalLight::DirectionalLight() :

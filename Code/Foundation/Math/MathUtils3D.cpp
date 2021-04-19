@@ -3,7 +3,7 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Math/MathUtils.h"
 
 Math::Matrix4f Math::ProjectionMatrix3D(const float aspectRatio,

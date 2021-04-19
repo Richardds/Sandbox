@@ -3,7 +3,7 @@
 //  \author     Richard Boldiš <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
-#include "Precompiled.h"
+#include "Libraries.h"
 #include "Graphics/Renderers/SkyboxRenderer.h"
 #include "IO/Console.h"
 #include "Util/Generators/SkyboxGenerator.h"
