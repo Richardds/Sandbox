@@ -11,6 +11,7 @@
 #include "IO/Mouse.h"
 
 App::RenderApplication::RenderApplication() :
+    _stats({0, 0.0f}),
     _frameTime(0.0f),
     _currentSecond(0.0f),
     _frameCount(0),
@@ -89,30 +90,6 @@ void App::RenderApplication::SetTitle(const std::string& title)
     {
         this->_window->SetTitle(title);
     }
-}
-
-void App::RenderApplication::UpdateTitleStats() const
-{
-    _Assert(200 > this->_title.size())
-
-    if (this->_frameCount == 0)
-    {
-        this->_window->SetTitle(this->_title);
-        return;
-    }
-
-    char titleBuffer[256];
-    const float averageFrameTime = this->_currentSecond / static_cast<float>(this->_frameCount);
-    const float averageFrameTimeMs = averageFrameTime / 1000.0f;
-
-    snprintf(titleBuffer, 256, "%s | Frame rate: %3u | Avg. frame time: %3.3f ms | VSync %s",
-              this->_title.c_str(),
-              this->_lastFrameCount,
-              static_cast<double>(averageFrameTimeMs),
-              this->_vSyncEnabled ? "enabled" : "disabled"
-    );
-
-    this->_window->SetTitle(titleBuffer);
 }
 
 void App::RenderApplication::OnConfigureContext()
@@ -202,11 +179,14 @@ void App::RenderApplication::UpdateTiming()
     const Timing::Time now = Timing::Time::Now();
 
     this->_frameTime = now.Diff(this->_time);
-    this->_time = Timing::Time::Now();
+    this->_time = now;
 
     if (this->_currentSecond > 999999.999f)
     {
-        this->UpdateTitleStats();
+        this->_stats = {
+            this->_frameCount,
+            this->_currentSecond / static_cast<float>(this->_frameCount) / 1000.0f
+        };
         this->_lastFrameCount = this->_frameCount;
         this->_currentSecond = 0.0f;
         this->_frameCount = 0;

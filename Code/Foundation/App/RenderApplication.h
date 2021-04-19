@@ -16,13 +16,18 @@ namespace App
     class EXPORT RenderApplication : public Application
     {
     public:
+        struct Stats
+        {
+            unsigned int framePerSecond;
+            float frameTimeAverage;
+        };
+
         RenderApplication();
 
         bool Open() override;
         void Run() override;
         void Close() override;
         void SetTitle(const std::string& title) override;
-        void UpdateTitleStats() const;
 
     protected:
         virtual void OnConfigureContext();
@@ -38,6 +43,8 @@ namespace App
         Timing::Time GetTime() const;
         Timing::Duration GetFrameTime() const;
         float GetFrameDelta() const;
+
+        Stats _stats;
 
     private:
         void UpdateTiming();

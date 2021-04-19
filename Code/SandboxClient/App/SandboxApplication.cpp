@@ -81,6 +81,7 @@ void Sandbox::SandboxApplication::OnProcessInput()
 
 void Sandbox::SandboxApplication::OnUpdateLogic()
 {
+    this->_scene->UpdateDebugInformation(this->_stats);
     this->_scene->Update(this->GetFrameDelta());
 }
 

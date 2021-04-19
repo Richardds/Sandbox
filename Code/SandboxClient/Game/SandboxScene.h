@@ -7,6 +7,7 @@
 
 #include <Game/Scene.h>
 
+#include "App/RenderApplication.h"
 #include "Managers/DuckManager.h"
 #include "Managers/ProjectileManager.h"
 #include "Scene/Player.h"
@@ -33,6 +34,7 @@ namespace Sandbox
         void ProcessFlashLight() const;
         void ProcessInput() override;
         void Update(float delta) override;
+        void UpdateDebugInformation(const App::RenderApplication::Stats& stats) const;
         std::shared_ptr<Player> SetupPlayer(const std::string& resourceName);
 
     protected:
@@ -42,7 +44,7 @@ namespace Sandbox
         std::shared_ptr<Player> _player;
         std::shared_ptr<ProjectileManager> _projectileManager;
         std::shared_ptr<DuckManager> _duckManager;
-        std::shared_ptr<Graphics::Text> _textDelta;
+        std::shared_ptr<Graphics::Text> _textStats;
 
         bool _lockCameraToPlayer;
     };

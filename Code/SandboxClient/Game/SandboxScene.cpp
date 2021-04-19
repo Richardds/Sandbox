@@ -42,9 +42,9 @@ bool Sandbox::SandboxScene::Setup()
     textVersion->SetScale(0.25f);
     textVersion->SetPosition(Math::Vector2f(0.175f, 0.7775f));
     // Add frame delta
-    this->_textDelta = this->AddText("16.66 ms");
-    this->_textDelta->SetScale(0.5f);
-    this->_textDelta->SetPosition(Math::Vector2f(-0.875f, 0.95f));
+    this->_textStats = this->AddText("60 FPS (16.667 ms)");
+    this->_textStats->SetScale(0.35f);
+    this->_textStats->SetPosition(Math::Vector2f(-0.8225f, 0.96f));
 
     // Setup flash light
     this->_flashLight->SetColor(Math::Vector3f(1.0f, 1.0f, 0.8f));
@@ -368,9 +368,13 @@ void Sandbox::SandboxScene::Update(const float delta)
         this->_entitiesMapping["hardcoded"]->SetRotationX(glm::sin(this->_time) * 15.0f);
         this->_entitiesMapping["hardcoded"]->SetPositionY(2.5f + glm::sin(this->_time) * 0.5f);
     }
+}
 
-    // Update frame delta text
-    this->_textDelta->SetMesh(this->_textFactory->GenerateMesh(Util::String::Format("%2.2f ms", delta * 1000.0f)));
+void Sandbox::SandboxScene::UpdateDebugInformation(const App::RenderApplication::Stats& stats) const
+{
+    this->_textStats->SetMesh(this->_textFactory->GenerateMesh(
+        Util::String::Format("%d FPS (%.3f ms)", stats.framePerSecond, stats.frameTimeAverage)
+    ));
 }
 
 void Sandbox::SandboxScene::RenderEntities() const
