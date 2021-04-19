@@ -233,15 +233,11 @@ void Sandbox::SandboxScene::ProcessPlayerInput()
         }
         else if (IO::Keyboard::Instance().IsControlPressed())
         {
-            this->_player->Idle();
-            this->_player->SetPosition(Math::Vector3f(
-                this->_cursorPosition.x,
-                0.0f,
-                this->_cursorPosition.z
-            ));
+            this->_player->SetMovingSpeed(15.0f);
         }
         else
         {
+            this->_player->SetMovingSpeed(2.0f);
             this->_player->SetTarget(cursorPosition2d);
             this->_player->Follow();
         }
