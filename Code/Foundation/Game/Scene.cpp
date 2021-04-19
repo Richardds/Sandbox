@@ -245,7 +245,7 @@ void Graphics::Scene::AddEntity(const std::string& name, const std::shared_ptr<E
 
 void Graphics::Scene::RenderSkybox() const
 {
-    if (this->_skybox != nullptr && this->_renderSkybox)
+    if (this->_skybox && this->_renderSkybox)
     {
         this->_skyboxRenderer->Begin(this->_camera);
         this->_skyboxRenderer->Render(this->_skybox);
