@@ -34,6 +34,7 @@ namespace Graphics
         void LoadFogEnabled(bool enabled);
         void LoadWorldTransformation(const Math::Matrix4f& transformationMatrix) const;
         void LoadTextureTiling(float tiling) const;
+        void LoadWavesEnabled(bool wavesEnabled) const;
         void LoadHasNormalMap(bool hasNormalMap) const;
         void LoadHasDistortionMap(bool hasDistortionMap) const;
         void LoadDistortionOffset(float offset) const;
@@ -51,6 +52,7 @@ namespace Graphics
         TextureSamplerLocation _normalSamplerLocation;
         TextureSamplerLocation _distortionSamplerLocation;
         GLint _textureTilingLocation;
+        GLint _wavesEnabledLocation;
         GLint _distortionOffsetLocation;
         GLint _reflectionSamplerLocation;
         GLint _refractionSamplerLocation;

@@ -24,6 +24,8 @@ namespace Graphics
         void SetDistortionSpeed(float speed);
         float GetTiling() const;
         void SetTiling(float tiling);
+        bool GetWavesEnabled() const;
+        void SetWavesEnabled(bool wavesEnabled);
         void Update(float delta);
         void Render(const std::shared_ptr<WaterShader>& shader) const;
 
@@ -37,6 +39,7 @@ namespace Graphics
         float _distortionOffset;
         float _distortionSpeed;
         float _tiling;
+        bool _wavesEnabled;
     };
 
     inline std::shared_ptr<TexturedMesh> Water::GetMesh() const
@@ -67,5 +70,15 @@ namespace Graphics
     inline void Water::SetTiling(const float tiling)
     {
         this->_tiling = tiling;
+    }
+
+    inline bool Water::GetWavesEnabled() const
+    {
+        return this->_wavesEnabled;
+    }
+
+    inline void Water::SetWavesEnabled(const bool wavesEnabled)
+    {
+        this->_wavesEnabled = wavesEnabled;
     }
 }

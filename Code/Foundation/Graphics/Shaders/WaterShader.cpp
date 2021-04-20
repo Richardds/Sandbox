@@ -19,6 +19,7 @@ Graphics::WaterShader::WaterShader() :
     _normalTransformationLocation(-1),
 
     _textureTilingLocation(-1),
+    _wavesEnabledLocation(-1),
     _distortionOffsetLocation(-1),
     _reflectionSamplerLocation(-1),
     _refractionSamplerLocation(-1),
@@ -52,6 +53,7 @@ void Graphics::WaterShader::InitializeUniformVariables()
     this->InitializeBoolLocation("distortionSampler.enabled", false, this->_distortionSamplerLocation.enabled);
     this->InitializeIntLocation("distortionSampler.texture", EnumToValue(Texture::Bank::Distortion),
                                 this->_distortionSamplerLocation.texture);
+    this->InitializeBoolLocation("wavesEnabled", false, this->_wavesEnabledLocation);
     this->InitializeFloatLocation("distortionOffset", 0.0f, this->_distortionOffsetLocation);
     this->InitializeIntLocation("reflectionSampler", EnumToValue(Texture::Bank::Reflection),
                                 this->_reflectionSamplerLocation);
@@ -183,6 +185,11 @@ void Graphics::WaterShader::LoadWorldTransformation(const Math::Matrix4f& transf
 void Graphics::WaterShader::LoadTextureTiling(const float tiling) const
 {
     this->LoadFloat(this->_textureTilingLocation, tiling);
+}
+
+void Graphics::WaterShader::LoadWavesEnabled(const bool wavesEnabled) const
+{
+    this->LoadBool(this->_wavesEnabledLocation, wavesEnabled);
 }
 
 void Graphics::WaterShader::LoadHasNormalMap(const bool hasNormalMap) const

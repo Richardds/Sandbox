@@ -48,6 +48,7 @@ uniform vec3 viewPosition;
 
 uniform TextureSampler normalSampler;
 uniform TextureSampler distortionSampler;
+uniform bool wavesEnabled;
 uniform float distortionOffset;
 uniform sampler2D reflectionSampler;
 uniform sampler2D refractionSampler;
@@ -63,7 +64,7 @@ const float distortionStrength = 0.005f;
 
 const float waterTransparency = 0.95f;
 const float waterSpecular = 0.125f;
-const float waterShininess = 50.5f;
+const float waterShininess = 50.0f;
 
 float diffuseFactor(vec3 lightDirection, vec3 normal)
 {
@@ -91,14 +92,14 @@ void main()
     vec2 distortion = vec2(0.0f, 0.0f);
     vec2 distortedTextureCoords = textureCoords;
 
-    if (distortionSampler.enabled) {
+    if (distortionSampler.enabled && wavesEnabled) {
         distortedTextureCoords = texture(distortionSampler.texture, vec2(textureCoords.x + distortionOffset, textureCoords.y)).rg * 0.25f;
         distortedTextureCoords = textureCoords + vec2(distortedTextureCoords.x, distortedTextureCoords.y + distortionOffset);
         distortion = (texture(distortionSampler.texture, distortedTextureCoords).rg * 2.0f - 1.0f) * distortionStrength;
     }
 
     vec3 normalMapping = unitNormal;
-    if (normalSampler.enabled) {
+    if (normalSampler.enabled && wavesEnabled) {
         normalMapping = normalize(fromTangentSpace * vec3(texture(normalSampler.texture, distortedTextureCoords).rg * 2.0f - 1.0f, 1.0f));
     }
 

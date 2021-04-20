@@ -96,5 +96,7 @@ void Graphics::WaterRenderer::Render(const std::shared_ptr<Water>& water) const
     _Assert(water)
     _Assert(State::Ready == this->GetState())
 
+    this->_shader->LoadWavesEnabled(water->GetWavesEnabled());
+
     water->Render(this->_shader);
 }

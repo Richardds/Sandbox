@@ -10,7 +10,8 @@
 Graphics::Water::Water() :
     _distortionOffset(0.0f),
     _distortionSpeed(DEFAULT_DISTORTION_SPEED),
-    _tiling(DEFAULT_TILING)
+    _tiling(DEFAULT_TILING),
+    _wavesEnabled(true)
 {
 }
 
