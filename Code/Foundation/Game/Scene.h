@@ -44,6 +44,7 @@ namespace Graphics
         void SetupSkybox(const std::string& name, float size);
         std::shared_ptr<Text> AddText(const std::string& text);
         std::shared_ptr<Text> AddText(const std::string& name, const std::string& text);
+        std::shared_ptr<Water> AddWater(float size);
         std::shared_ptr<Water> AddWater(const std::string& name, float size);
         std::shared_ptr<PointLight> AddLight(const std::string& name);
         std::shared_ptr<PointLight> AddLight();
@@ -54,7 +55,7 @@ namespace Graphics
 
     protected:
         virtual void RenderSkybox() const;
-        virtual void RenderWaterTiles() const;
+        virtual void RenderWater() const;
         virtual void RenderEntities() const;
         virtual void RenderTexts() const;
         Math::Vector3f GetScreenWorldPosition(const Math::Vector2ui& screenPosition) const;
@@ -76,7 +77,8 @@ namespace Graphics
         std::shared_ptr<SpotLight> _flashLight;
         std::vector<std::shared_ptr<Entity>> _entities;
         std::unordered_map<std::string, std::shared_ptr<Entity>> _entitiesMapping;
-        std::unordered_map<std::string, std::shared_ptr<Water>> _waterTiles;
+        std::vector<std::shared_ptr<Water>> _water;
+        std::unordered_map<std::string, std::shared_ptr<Water>> _waterMappings;
 
         Math::Vector3f _cursorPosition;
         float _time;

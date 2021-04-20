@@ -133,7 +133,7 @@ void Graphics::Scene::Update(const float delta)
         this->_physics->Update(delta);
 
         // GoForward water distortion offset motion
-        for (auto& [name, waterTile] : this->_waterTiles)
+        for (auto& waterTile : this->_water)
         {
             waterTile->Update(delta);
         }
@@ -148,7 +148,7 @@ void Graphics::Scene::Render()
     this->RenderSkybox();
 
     // Render the water tiles using multi-pass technique
-    this->RenderWaterTiles();
+    this->RenderWater();
 
     // Render the entities to the screen buffer
     this->RenderEntities();
@@ -179,10 +179,8 @@ std::shared_ptr<Graphics::Text> Graphics::Scene::AddText(const std::string& name
     return textMesh;
 }
 
-std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& name, const float size)
+std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const float size)
 {
-    const auto it = this->_waterTiles.find(name);
-    _Assert(it == this->_waterTiles.end())
     std::shared_ptr<TexturedMesh> waterMesh = std::make_shared<TexturedMesh>(
         Util::PrimitiveGenerator::Instance().Generate3dQuad(size)
     );
@@ -191,10 +189,19 @@ std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& na
 
     std::shared_ptr<Water> water = std::make_shared<Water>();
     water->SetMesh(waterMesh);
-    water->SetTiling(size / 10.0f);
+    water->SetTiling(size / 5.0f);
 
-    this->_waterTiles.emplace_hint(it, name, water);
+    this->_water.emplace_back(water);
 
+    return water;
+}
+
+std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& name, const float size)
+{
+    const auto it = this->_waterMappings.find(name);
+    _Assert(it == this->_waterMappings.end())
+    std::shared_ptr<Water> water = this->AddWater(size);
+    this->_waterMappings.emplace_hint(it, name, water);
     return water;
 }
 
@@ -252,12 +259,12 @@ void Graphics::Scene::RenderSkybox() const
     }
 }
 
-void Graphics::Scene::RenderWaterTiles() const
+void Graphics::Scene::RenderWater() const
 {
-    this->_entityRenderer->Begin(this->_camera, this->_sun, this->_skybox, this->_lights, this->_flashLight);
-
-    for (auto& [name, waterTile] : this->_waterTiles)
+    for (auto& waterTile : this->_water)
     {
+        this->_entityRenderer->Begin(this->_camera, this->_sun, this->_skybox, this->_lights, this->_flashLight);
+
         // Render scene to water reflection frame buffer
         // Cull everything under the water
         this->_entityRenderer->GetShader()->EnableClippingPlane(
