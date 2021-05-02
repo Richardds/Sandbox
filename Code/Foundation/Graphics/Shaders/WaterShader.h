@@ -25,9 +25,10 @@ namespace Graphics
         void InitializeUniformVariables() override;
         void LoadProjection(const std::shared_ptr<const Projection>& projection) const;
         void LoadCamera(const std::shared_ptr<Camera>& camera) const;
-        void LoadSun(const std::shared_ptr<DirectionalLight>& sun) const;
-        void LoadLights(const std::vector<std::shared_ptr<PointLight>>& lights) const;
-        void LoadLight(int index, const std::shared_ptr<PointLight>& light) const;
+        void LoadDirectionalLights(const std::vector<std::shared_ptr<DirectionalLight>>& lights) const;
+        void LoadDirectionalLight(int index, const std::shared_ptr<DirectionalLight>& light) const;
+        void LoadPointLights(const std::vector<std::shared_ptr<PointLight>>& lights) const;
+        void LoadPointLight(int index, const std::shared_ptr<PointLight>& light) const;
         void LoadFlashLight(const std::shared_ptr<SpotLight>& light) const;
         void LoadFlashLightEnabled(bool enabled) const;
         void LoadFog(const Math::Vector3f& color, float density, float gradient) const;
@@ -41,7 +42,9 @@ namespace Graphics
 
     private:
         /// Maximal count of possible lights used in the scene
-        static const int MAX_LIGHT_COUNT = 10;
+        /// Needs to be changed in shader source too!
+        static const int MAX_DIRECTIONAL_LIGHT_COUNT = 3;
+        static const int MAX_POINT_LIGHT_COUNT = 10;
 
         GLint _projectionLocation;
         GLint _viewLocation;
@@ -57,11 +60,14 @@ namespace Graphics
         GLint _reflectionSamplerLocation;
         GLint _refractionSamplerLocation;
 
-        SunLocation _sunLocation;
-        PointLightLocation _lightLocations[MAX_LIGHT_COUNT];
-        GLint _lightsCountLocation;
-        SpotLightLocation _flashLightLocation;
+        GLint _directionalLightsCountLocation;
+        DirectionalLightLocation _directionalLightsLocations[MAX_DIRECTIONAL_LIGHT_COUNT];
+
+        GLint _pointLightsCountLocation;
+        PointLightLocation _pointLightsLocations[MAX_POINT_LIGHT_COUNT];
+
         GLint _flashLightEnabledLocation;
+        SpotLightLocation _flashLightLocation;
 
         GLint _fogEnabledLocation;
         GLint _fogColorLocation;

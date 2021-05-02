@@ -24,7 +24,8 @@ Graphics::WaterShader::WaterShader() :
     _reflectionSamplerLocation(-1),
     _refractionSamplerLocation(-1),
 
-    _lightsCountLocation(-1),
+    _directionalLightsCountLocation(-1),
+    _pointLightsCountLocation(-1),
     _flashLightEnabledLocation(-1),
 
     _fogEnabledLocation(-1),
@@ -60,24 +61,40 @@ void Graphics::WaterShader::InitializeUniformVariables()
     this->InitializeIntLocation("refractionSampler", EnumToValue(Texture::Bank::Refraction),
                                 this->_refractionSamplerLocation);
 
-    // Setup sun
-    this->InitializeVector3fLocation("sun.direction", Math::Vector3f(0.0f, -1.0f, 0.0f), this->_sunLocation.direction);
-    this->InitializeVector3fLocation("sun.ambient", Math::Vector3f(0.2f), this->_sunLocation.ambient);
-    this->InitializeVector3fLocation("sun.diffuse", Math::Vector3f(0.5f), this->_sunLocation.diffuse);
-    this->InitializeFloatLocation("sun.specular", 1.0f, this->_sunLocation.specular);
+    // Setup directional lights
+    this->InitializeIntLocation("directionalLightsCount", 0, this->_directionalLightsCountLocation);
+    for (int index = 0; index < MAX_DIRECTIONAL_LIGHT_COUNT; index++)
+    {
+        this->InitializeVector3fLocation("directionalLights[" + std::to_string(index) + "].direction",
+                                         Math::Vector3f(0.0f, -1.0f, 0.0f),
+                                         this->_directionalLightsLocations[index].direction);
+        this->InitializeVector3fLocation("directionalLights[" + std::to_string(index) + "].diffuse",
+                                         Math::Vector3f(0.5f),
+                                         this->_directionalLightsLocations[index].diffuse);
+        this->InitializeFloatLocation("directionalLights[" + std::to_string(index) + "].intensity",
+                                      1.0f,
+                                      this->_directionalLightsLocations[index].intensity);
+        this->InitializeFloatLocation("directionalLights[" + std::to_string(index) + "].specular",
+                                      1.0f,
+                                      this->_directionalLightsLocations[index].specular);
+    }
 
     // Setup point lights
-    this->InitializeIntLocation("lightsCount", 0, this->_lightsCountLocation);
-    for (int index = 0; index < MAX_LIGHT_COUNT; index++)
+    this->InitializeIntLocation("pointLightsCount", 0, this->_pointLightsCountLocation);
+    for (int index = 0; index < MAX_POINT_LIGHT_COUNT; index++)
     {
-        this->InitializeVector3fLocation("light[" + std::to_string(index) + "].position", Math::Vector3f(0.0f),
-                                         this->_lightLocations[index].position);
-        this->InitializeVector3fLocation("light[" + std::to_string(index) + "].attenuation",
-                                         Math::Vector3f(1.0f, 0.0f, 0.0f), this->_lightLocations[index].attenuation);
-        this->InitializeVector3fLocation("light[" + std::to_string(index) + "].diffuse", Math::Vector3f(1.0f),
-                                         this->_lightLocations[index].diffuse);
-        this->InitializeFloatLocation("light[" + std::to_string(index) + "].specular", 1.0f,
-                                      this->_lightLocations[index].specular);
+        this->InitializeVector3fLocation("pointLights[" + std::to_string(index) + "].position",
+                                         Math::Vector3f(0.0f),
+                                         this->_pointLightsLocations[index].position);
+        this->InitializeVector3fLocation("pointLights[" + std::to_string(index) + "].attenuation",
+                                         Math::Vector3f(1.0f, 0.0f, 0.0f),
+                                         this->_pointLightsLocations[index].attenuation);
+        this->InitializeVector3fLocation("pointLights[" + std::to_string(index) + "].diffuse",
+                                         Math::Vector3f(1.0f),
+                                         this->_pointLightsLocations[index].diffuse);
+        this->InitializeFloatLocation("pointLights[" + std::to_string(index) + "].specular",
+                                      1.0f,
+                                      this->_pointLightsLocations[index].specular);
     }
 
     // Setup flash light
@@ -110,39 +127,51 @@ void Graphics::WaterShader::LoadCamera(const std::shared_ptr<Camera>& camera) co
     this->LoadVector3f(this->_viewPositionLocation, camera->GetPosition());
 }
 
-void Graphics::WaterShader::LoadSun(const std::shared_ptr<DirectionalLight>& sun) const
-{
-    const Math::Vector3f diffuseColor = sun->GetIntensity() * sun->GetColor();
-    const Math::Vector3f ambientColor = 0.2f * sun->GetColor();
-
-    this->LoadVector3f(this->_sunLocation.direction, sun->GetDirection());
-    this->LoadVector3f(this->_sunLocation.ambient, ambientColor);
-    this->LoadVector3f(this->_sunLocation.diffuse, diffuseColor);
-    this->LoadFloat(this->_sunLocation.specular, 1.0f);
-}
-
-void Graphics::WaterShader::LoadLights(const std::vector<std::shared_ptr<PointLight>>& lights) const
+void Graphics::WaterShader::LoadDirectionalLights(const std::vector<std::shared_ptr<DirectionalLight>>& lights) const
 {
     const int lightsCount = static_cast<int>(lights.size());
-    _Assert(WaterShader::MAX_LIGHT_COUNT > lightsCount - 1)
-    this->LoadInt(this->_lightsCountLocation, lightsCount);
+    _Assert(WaterShader::MAX_DIRECTIONAL_LIGHT_COUNT > lightsCount - 1)
+    this->LoadInt(this->_directionalLightsCountLocation, lightsCount);
 
     int index = 0;
     for (const auto& light : lights)
     {
-        this->LoadLight(index, light);
+        this->LoadDirectionalLight(index, light);
         index++;
     }
 }
 
-void Graphics::WaterShader::LoadLight(const int index, const std::shared_ptr<PointLight>& light) const
+void Graphics::WaterShader::LoadDirectionalLight(const int index, const std::shared_ptr<DirectionalLight>& light) const
 {
-    _Assert(WaterShader::MAX_LIGHT_COUNT > index)
+    _Assert(WaterShader::MAX_DIRECTIONAL_LIGHT_COUNT > index)
+    this->LoadVector3f(this->_directionalLightsLocations[index].direction, light->GetDirection());
+    this->LoadVector3f(this->_directionalLightsLocations[index].diffuse, light->GetColor());
+    this->LoadFloat(this->_directionalLightsLocations[index].intensity, light->GetIntensity());
+    this->LoadFloat(this->_directionalLightsLocations[index].specular, 1.0f);
+}
+
+void Graphics::WaterShader::LoadPointLights(const std::vector<std::shared_ptr<PointLight>>& lights) const
+{
+    const int lightsCount = static_cast<int>(lights.size());
+    _Assert(WaterShader::MAX_POINT_LIGHT_COUNT > lightsCount - 1)
+    this->LoadInt(this->_pointLightsCountLocation, lightsCount);
+
+    int index = 0;
+    for (const auto& light : lights)
+    {
+        this->LoadPointLight(index, light);
+        index++;
+    }
+}
+
+void Graphics::WaterShader::LoadPointLight(const int index, const std::shared_ptr<PointLight>& light) const
+{
+    _Assert(WaterShader::MAX_POINT_LIGHT_COUNT > index)
     const Math::Vector3f diffuseColor = light->GetIntensity() * light->GetColor();
-    this->LoadVector3f(this->_lightLocations[index].position, light->GetPosition());
-    this->LoadVector3f(this->_lightLocations[index].diffuse, diffuseColor);
-    this->LoadFloat(this->_lightLocations[index].specular, 1.0f);
-    this->LoadVector3f(this->_lightLocations[index].attenuation, light->GetAttenuation());
+    this->LoadVector3f(this->_pointLightsLocations[index].position, light->GetPosition());
+    this->LoadVector3f(this->_pointLightsLocations[index].diffuse, diffuseColor);
+    this->LoadFloat(this->_pointLightsLocations[index].specular, 1.0f);
+    this->LoadVector3f(this->_pointLightsLocations[index].attenuation, light->GetAttenuation());
 }
 
 void Graphics::WaterShader::LoadFlashLight(const std::shared_ptr<SpotLight>& light) const

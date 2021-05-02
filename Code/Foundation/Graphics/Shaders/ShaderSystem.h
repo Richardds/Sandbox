@@ -38,15 +38,15 @@ namespace Graphics
             GLint enabled;
         };
 
-        struct SunLocation
+        struct DirectionalLightLocation
         {
-            SunLocation() : direction(-1), ambient(-1), diffuse(-1), specular(-1)
+            DirectionalLightLocation() : direction(-1), diffuse(-1), specular(-1)
             {
             }
 
             GLint direction;
-            GLint ambient;
             GLint diffuse;
+            GLint intensity;
             GLint specular;
         };
 

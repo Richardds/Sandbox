@@ -49,6 +49,8 @@ namespace Graphics
         std::shared_ptr<Water> AddWater(const std::string& name, float size);
         std::shared_ptr<PointLight> AddLight(const std::string& name);
         std::shared_ptr<PointLight> AddLight();
+        std::shared_ptr<DirectionalLight> AddDirectionalLight(const std::string& name);
+        std::shared_ptr<DirectionalLight> AddDirectionalLight();
         std::shared_ptr<Entity> AddEntity(const std::string& resourceName);
         void AddEntity(const std::shared_ptr<Entity>& entity);
         std::shared_ptr<Entity> AddEntity(const std::string& name, const std::string& resourceName);
@@ -63,7 +65,6 @@ namespace Graphics
 
         std::shared_ptr<Projection> _projection;
         std::shared_ptr<TargetedCamera> _camera;
-        std::shared_ptr<DirectionalLight> _sun;
         std::shared_ptr<Skybox> _skybox;
         std::shared_ptr<SkyboxRenderer> _skyboxRenderer;
         std::shared_ptr<EntityRenderer> _entityRenderer;
@@ -73,8 +74,10 @@ namespace Graphics
         std::shared_ptr<Math::PhysicsEngine> _physics;
         std::vector<std::shared_ptr<Text>> _texts;
         std::unordered_map<std::string, std::shared_ptr<Text>> _textsMapping;
-        std::vector<std::shared_ptr<PointLight>> _lights;
-        std::unordered_map<std::string, std::shared_ptr<PointLight>> _lightsMapping;
+        std::vector<std::shared_ptr<DirectionalLight>> _directionalLights;
+        std::unordered_map<std::string, std::shared_ptr<DirectionalLight>> _directionalLightsMapping;
+        std::vector<std::shared_ptr<PointLight>> _pointLights;
+        std::unordered_map<std::string, std::shared_ptr<PointLight>> _pointLightsMapping;
         std::shared_ptr<SpotLight> _flashLight;
         std::vector<std::shared_ptr<Entity>> _entities;
         std::unordered_map<std::string, std::shared_ptr<Entity>> _entitiesMapping;

@@ -150,6 +150,7 @@ void Graphics::ShaderSystem::InitializeVector3fLocation(const std::string& name,
     if (location == -1)
     {
         IO::Console::Instance().Warning("Failed to initialize Vector3f '%s' uniform location!\n", name.c_str());
+        IO::Console::Instance().Warning("%d\n", glGetError());
         return;
     }
     this->LoadVector3f(location, vector);

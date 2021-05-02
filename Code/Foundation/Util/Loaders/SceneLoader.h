@@ -28,6 +28,8 @@ namespace Util
         void HandleEntities(const YAML::Node& entitiesNode) const;
         void HandleEntity(const YAML::Node& entityNode) const;
         void HandleLights(const YAML::Node& lightsNode) const;
+        void HandleDirectionalLights(const YAML::Node& directionalLightsNode) const;
+        void HandleDirectionalLight(const YAML::Node& directionalLightNode) const;
         void HandlePointLights(const YAML::Node& pointLightsNode) const;
         void HandlePointLight(const YAML::Node& pointLightNode) const;
 

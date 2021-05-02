@@ -104,10 +104,55 @@ void Util::SceneLoader::HandleLights(const YAML::Node& lightsNode) const
 {
     ValidateNode(lightsNode, YAML::NodeType::Map);
 
+    // Parse directional lights
+    this->HandleDirectionalLights(lightsNode["directional"]);
+
     // Parse point lights
     this->HandlePointLights(lightsNode["point"]);
+}
 
-    // TODO: Other light types
+void Util::SceneLoader::HandleDirectionalLights(const YAML::Node& directionalLightsNode) const
+{
+    ValidateNode(directionalLightsNode, YAML::NodeType::Sequence);
+
+    for (const auto& directionalLightNode : directionalLightsNode)
+    {
+        this->HandleDirectionalLight(directionalLightNode);
+    }
+}
+
+void Util::SceneLoader::HandleDirectionalLight(const YAML::Node& directionalLightNode) const
+{
+    this->ValidateNode(directionalLightNode, YAML::NodeType::Map);
+
+    std::shared_ptr<Graphics::DirectionalLight> light;
+
+    // Parse optional name
+    if (directionalLightNode["name"])
+    {
+        light = this->_scene->AddDirectionalLight(this->Parse<std::string>(directionalLightNode["name"]));
+    } else
+    {
+        light = this->_scene->AddDirectionalLight();
+    }
+
+    // Parse optional position
+    if (directionalLightNode["direction"])
+    {
+        light->SetDirection(this->ParseVector3f(directionalLightNode["direction"]));
+    }
+
+    // Parse optional intensity
+    if (directionalLightNode["intensity"])
+    {
+        light->SetIntensity(this->Parse<float>(directionalLightNode["intensity"]));
+    }
+
+    // Parse optional color
+    if (directionalLightNode["color"])
+    {
+        light->SetColor(this->ParseVector3f(directionalLightNode["color"]));
+    }
 }
 
 void Util::SceneLoader::HandlePointLights(const YAML::Node& pointLightsNode) const

@@ -10,10 +10,10 @@ struct TextureCubeSampler {
     bool enabled;
 };
 
-struct Sun {
+struct DirectionalLight {
     vec3 direction;
-    vec3 ambient;
     vec3 diffuse;
+    float intensity;
     float specular;
 };
 
@@ -63,17 +63,21 @@ uniform TextureSampler specularSampler;
 
 uniform TextureCubeSampler skyboxSampler;
 
-uniform Sun sun;
-uniform int lightsCount;
-uniform PointLight light[10];
-uniform SpotLight flashLight;
+uniform int directionalLightsCount;
+uniform DirectionalLight directionalLights[3];
+
+uniform int pointLightsCount;
+uniform PointLight pointLights[10];
+
 uniform bool flashLightEnabled;
+uniform SpotLight flashLight;
+
 uniform Fog fog;
 uniform Material material;
 
 float diffuseFactor(vec3 lightDirection, vec3 normal)
 {
-    return max(dot(lightDirection, normal), 0.0f);
+    return max(dot(lightDirection, normal), 0.15f);
 }
 
 float specularFactor(float shininess, vec3 viewDirection, vec3 lightDirection, vec3 normal)
@@ -114,35 +118,40 @@ void main()
     }
 
     // Calculate fragment color using Phong lighting model
-    vec3 sunDirection = normalize(sun.direction);
-    
-    vec3 ambient = sun.ambient * materialDiffuse;
-    vec3 diffuse = sun.diffuse * materialDiffuse * diffuseFactor(sunDirection, normalMapping);
-    float specular = sun.specular * materialSpecular * specularFactor(material.shininess, viewDirection, sunDirection, normalMapping);
+    vec3 diffuse = vec3(0.0f);
+    float specular = 0.0f;
 
-    for (int index = 0; index < lightsCount; index++) {
-        vec3 lightDirection = normalize(light[index].position - fragmentPosition.xyz);
-        float lightDistance = length(light[index].position - fragmentPosition.xyz);
-        float attenuation = light[index].attenuation.x + (light[index].attenuation.y * lightDistance) + (light[index].attenuation.z * lightDistance * lightDistance);
+    // Apply directional lights
+    for (int index = 0; index < directionalLightsCount; index++) {
+        vec3 direction = normalize(directionalLights[index].direction);
+        diffuse = directionalLights[index].diffuse * directionalLights[index].intensity * materialDiffuse * diffuseFactor(direction, normalMapping);
+        specular = directionalLights[index].specular * materialSpecular * specularFactor(material.shininess, viewDirection, direction, normalMapping);
+    }
 
-        diffuse += (light[index].diffuse * materialDiffuse * diffuseFactor(lightDirection, normalMapping)) / attenuation;
-        specular += (light[index].specular * materialSpecular * specularFactor(material.shininess, viewDirection, lightDirection, normalMapping)) / attenuation;
+    // Apply point lights
+    for (int index = 0; index < pointLightsCount; index++) {
+        vec3 direction = normalize(pointLights[index].position - fragmentPosition.xyz);
+        float lightDistance = length(pointLights[index].position - fragmentPosition.xyz);
+        float attenuation = pointLights[index].attenuation.x + (pointLights[index].attenuation.y * lightDistance) + (pointLights[index].attenuation.z * lightDistance * lightDistance);
+
+        diffuse += (pointLights[index].diffuse * materialDiffuse * diffuseFactor(direction, normalMapping)) / attenuation;
+        specular += (pointLights[index].specular * materialSpecular * specularFactor(material.shininess, viewDirection, direction, normalMapping)) / attenuation;
     }
 
     // Apply spot light if enabled
     if (flashLightEnabled) {
-        vec3 lightDirection = normalize(flashLight.position - fragmentPosition.xyz);
-        float spot = dot(lightDirection, normalize(-flashLight.direction));
+        vec3 direction = normalize(flashLight.position - fragmentPosition.xyz);
+        float spot = dot(direction, normalize(-flashLight.direction));
         float transition = flashLight.cutOff - flashLight.outerCutOff;
         float intensity = clamp((spot - flashLight.outerCutOff) / transition, 0.0f, 1.0f);
         // Increase light in spot area
         if (spot > flashLight.outerCutOff) {
-            diffuse += intensity * flashLight.diffuse * materialDiffuse * diffuseFactor(lightDirection, normalMapping);
-            specular += intensity * flashLight.specular * materialSpecular * specularFactor(material.shininess, viewDirection, lightDirection, normalMapping);
+            diffuse += intensity * flashLight.diffuse * materialDiffuse * diffuseFactor(direction, normalMapping);
+            specular += intensity * flashLight.specular * materialSpecular * specularFactor(material.shininess, viewDirection, direction, normalMapping);
         }
     }
 
-    vec3 phongModelColor = ambient + diffuse + specular;
+    vec3 phongModelColor = diffuse + specular;
 
     fragmentColor = vec4(phongModelColor, 1.0f); // Phong lighting
 

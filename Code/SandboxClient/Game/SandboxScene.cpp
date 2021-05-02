@@ -55,10 +55,6 @@ bool Sandbox::SandboxScene::Setup()
     // Load water
     std::shared_ptr<Graphics::Water> water = this->AddWater("water", 1500.0f);
 
-    // Load player
-    this->_player = this->SetupPlayer("duck");
-    this->_player->SetMovingSpeed(1.0f);
-
     // Register mouse scrolling
     IO::Mouse::Instance().RegisterScrolling([this](const float x, const float y)
     {
@@ -80,6 +76,10 @@ void Sandbox::SandboxScene::Reset()
 
 bool Sandbox::SandboxScene::OnSceneSetup()
 {
+    // Load player
+    this->_player = this->SetupPlayer("duck");
+    this->_player->SetMovingSpeed(1.0f);
+
     // Add duck entities
     const std::shared_ptr<Graphics::Model> duckModel = Util::ResourcesLoader::Instance().LoadModel("duck");
     const Math::Vector3f duckBoxSize(0.3f, 0.4f, 0.5f);
@@ -345,10 +345,6 @@ void Sandbox::SandboxScene::Update(const float delta)
         this->_camera->SetRotationX(90.0f);
     }
 
-    // Update managers
-    this->_projectileManager->Update(delta);
-    this->_duckManager->Update(delta);
-
     // Update player
     this->_player->Update(delta);
 
@@ -361,11 +357,15 @@ void Sandbox::SandboxScene::Update(const float delta)
     // Time based updates
     if (!this->_paused)
     {
+        // Update managers
+        this->_projectileManager->Update(delta);
+        this->_duckManager->Update(delta);
+
         // GoForward scene day & night cycle effect
         // Intensity interval <SUN_LOWER_LIMIT-1.000>
         const float darkeningFactor = (glm::sin(this->_time / 5.0f) + 1.0f) / (2.0f / (1.0f - SUN_LOWER_LIMIT)) + SUN_LOWER_LIMIT;
         this->_skyboxRenderer->GetShader(true)->LoadDarkeningFactor(darkeningFactor);
-        this->_sun->SetIntensity(darkeningFactor);
+        this->_directionalLightsMapping["sun"]->SetIntensity(darkeningFactor);
 
         // Update hardcoded mesh motion
         if (this->_entitiesMapping["hardcoded"])

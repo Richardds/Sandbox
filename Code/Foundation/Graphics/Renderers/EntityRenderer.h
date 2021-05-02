@@ -24,9 +24,9 @@ namespace Graphics
 
         bool Setup(const std::shared_ptr<const Projection>& projection);
         void Begin(const std::shared_ptr<Camera>& camera,
-                   const std::shared_ptr<DirectionalLight>& sun,
                    const std::shared_ptr<Skybox>& skybox,
-                   const std::vector<std::shared_ptr<PointLight>>& lights,
+                   const std::vector<std::shared_ptr<DirectionalLight>>& directionalLights,
+                   const std::vector<std::shared_ptr<PointLight>>& pointLights,
                    const std::shared_ptr<SpotLight>& flashLight) const;
         void Render(const std::shared_ptr<Entity>& entity) const;
     };

@@ -67,12 +67,6 @@ bool Graphics::Scene::Setup()
         return false;
     }
 
-    // Setup sun
-    this->_sun = std::make_shared<DirectionalLight>();
-    this->_sun->SetColor(Math::Vector3f(1.0f, 0.95f, 0.85f));
-    this->_sun->SetDirection(Math::Vector3f(0.0f, 0.0f, -1.0f));
-    this->_sun->SetIntensity(0.6f);
-
     // Setup flashlight
     this->_flashLight = std::make_shared<SpotLight>();
 
@@ -104,8 +98,10 @@ void Graphics::Scene::Reset()
     this->_skybox.reset();
     this->_entitiesMapping.clear();
     this->_entities.clear();
-    this->_lightsMapping.clear();
-    this->_lights.clear();
+    this->_pointLightsMapping.clear();
+    this->_pointLights.clear();
+    this->_directionalLightsMapping.clear();
+    this->_directionalLights.clear();
 }
 
 void Graphics::Scene::ProcessInput()
@@ -213,17 +209,33 @@ std::shared_ptr<Graphics::Water> Graphics::Scene::AddWater(const std::string& na
 
 std::shared_ptr<Graphics::PointLight> Graphics::Scene::AddLight(const std::string& name)
 {
-    const auto it = this->_lightsMapping.find(name);
-    _Assert(it == this->_lightsMapping.end())
+    const auto it = this->_pointLightsMapping.find(name);
+    _Assert(it == this->_pointLightsMapping.end())
     std::shared_ptr<PointLight> light = this->AddLight();
-    this->_lightsMapping.emplace_hint(it, name, light);
+    this->_pointLightsMapping.emplace_hint(it, name, light);
     return light;
 }
 
 std::shared_ptr<Graphics::PointLight> Graphics::Scene::AddLight()
 {
     std::shared_ptr<PointLight> light = std::make_shared<PointLight>();
-    this->_lights.emplace_back(light);
+    this->_pointLights.emplace_back(light);
+    return light;
+}
+
+std::shared_ptr<Graphics::DirectionalLight> Graphics::Scene::AddDirectionalLight(const std::string& name)
+{
+    const auto it = this->_directionalLightsMapping.find(name);
+    _Assert(it == this->_directionalLightsMapping.end())
+    std::shared_ptr<DirectionalLight> light = this->AddDirectionalLight();
+    this->_directionalLightsMapping.emplace_hint(it, name, light);
+    return light;
+}
+
+std::shared_ptr<Graphics::DirectionalLight> Graphics::Scene::AddDirectionalLight()
+{
+    std::shared_ptr<DirectionalLight> light = std::make_shared<DirectionalLight>();
+    this->_directionalLights.emplace_back(light);
     return light;
 }
 
@@ -269,7 +281,7 @@ void Graphics::Scene::RenderWater() const
 {
     for (auto& waterTile : this->_water)
     {
-        this->_entityRenderer->Begin(this->_camera, this->_sun, this->_skybox, this->_lights, this->_flashLight);
+        this->_entityRenderer->Begin(this->_camera, this->_skybox, this->_directionalLights, this->_pointLights, this->_flashLight);
 
         // Render scene to water reflection frame buffer
         // Cull everything under the water
@@ -298,14 +310,14 @@ void Graphics::Scene::RenderWater() const
         this->_entityRenderer->GetShader()->DisableClippingPlane();
 
         // Render the water tile to the screen buffer
-        this->_waterRenderer->Begin(this->_camera, this->_sun, this->_lights, this->_flashLight);
+        this->_waterRenderer->Begin(this->_camera, this->_directionalLights, this->_pointLights, this->_flashLight);
         this->_waterRenderer->Render(waterTile);
     }
 }
 
 void Graphics::Scene::RenderEntities() const
 {
-    this->_entityRenderer->Begin(this->_camera, this->_sun, this->_skybox, this->_lights, this->_flashLight);
+    this->_entityRenderer->Begin(this->_camera, this->_skybox, this->_directionalLights, this->_pointLights, this->_flashLight);
 
     for (const auto& entity : this->_entities)
     {

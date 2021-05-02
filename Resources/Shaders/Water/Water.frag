@@ -5,10 +5,10 @@ struct TextureSampler {
     bool enabled;
 };
 
-struct Sun {
+struct DirectionalLight {
     vec3 direction;
-    vec3 ambient;
     vec3 diffuse;
+    float intensity;
     float specular;
 };
 
@@ -53,11 +53,15 @@ uniform float distortionOffset;
 uniform sampler2D reflectionSampler;
 uniform sampler2D refractionSampler;
 
-uniform Sun sun;
-uniform int lightsCount;
-uniform PointLight light[10];
-uniform SpotLight flashLight;
+uniform int directionalLightsCount;
+uniform DirectionalLight directionalLights[3];
+
+uniform int pointLightsCount;
+uniform PointLight pointLights[10];
+
 uniform bool flashLightEnabled;
+uniform SpotLight flashLight;
+
 uniform Fog fog;
 
 const float distortionStrength = 0.005f;
@@ -68,7 +72,7 @@ const float waterShininess = 50.0f;
 
 float diffuseFactor(vec3 lightDirection, vec3 normal)
 {
-    return max(dot(lightDirection, normal), 0.0f);
+    return max(dot(lightDirection, normal), 0.15f);
 }
 
 float specularFactor(float shininess, vec3 viewDirection, vec3 lightDirection, vec3 normal)
@@ -123,36 +127,46 @@ void main()
     vec3 waterDiffuse = mix(reflectionColor, refractionColor, mixFactor);
 
     // Apply slight bluish color
-    waterDiffuse = mix(waterDiffuse, vec3(0.0f, 0.1f, 0.2f), 0.1f);
+    waterDiffuse = mix(waterDiffuse, vec3(0.0f, 0.1f, 0.15f), 0.1f);
 
     // Calculate fragment color using Phong lighting model
-    vec3 sunDirection = normalize(sun.direction);
-    vec3 diffuse = waterDiffuse;
-    float specular = sun.specular * waterSpecular * specularFactor(waterShininess, viewDirection, sunDirection, normalMapping);
+    vec3 diffuse = vec3(0.0f);
+    float specular = 0.0f;
 
-    for (int index = 0; index < lightsCount; index++) {
-        vec3 lightDirection = normalize(light[index].position - fragmentPosition.xyz);
-        float lightDistance = length(light[index].position - fragmentPosition.xyz);
-        float attenuation = light[index].attenuation.x + (light[index].attenuation.y * lightDistance) + (light[index].attenuation.z * lightDistance * lightDistance);
+    // Apply directional lights
+    for (int index = 0; index < directionalLightsCount; index++) {
+        vec3 direction = normalize(directionalLights[index].direction);
+        // Do not use intensity on water. Entities reflected in the water are going to be dimmed by entity shader
+        // which takes the directional light intensity into account.
+        diffuse = directionalLights[index].diffuse * waterDiffuse * diffuseFactor(direction, normalMapping);
+        specular = directionalLights[index].specular * waterSpecular * specularFactor(waterShininess, viewDirection, direction, normalMapping);
+    }
 
-        diffuse += (light[index].diffuse * waterDiffuse * diffuseFactor(lightDirection, normalMapping)) / attenuation;
-        specular += (light[index].specular * waterSpecular * specularFactor(waterShininess, viewDirection, lightDirection, normalMapping)) / attenuation;
+    // Apply point lights
+    for (int index = 0; index < pointLightsCount; index++) {
+        vec3 direction = normalize(pointLights[index].position - fragmentPosition.xyz);
+        float lightDistance = length(pointLights[index].position - fragmentPosition.xyz);
+        float attenuation = pointLights[index].attenuation.x + (pointLights[index].attenuation.y * lightDistance) + (pointLights[index].attenuation.z * lightDistance * lightDistance);
+
+        diffuse += (pointLights[index].diffuse * waterDiffuse * diffuseFactor(direction, normalMapping)) / attenuation;
+        specular += (pointLights[index].specular * waterSpecular * specularFactor(waterShininess, viewDirection, direction, normalMapping)) / attenuation;
     }
 
     // Apply spot light if enabled
     if (flashLightEnabled) {
-        vec3 lightDirection = normalize(flashLight.position - fragmentPosition.xyz);
-        float spot = dot(lightDirection, normalize(-flashLight.direction));
+        vec3 direction = normalize(flashLight.position - fragmentPosition.xyz);
+        float spot = dot(direction, normalize(-flashLight.direction));
         float transition = flashLight.cutOff - flashLight.outerCutOff;
         float intensity = clamp((spot - flashLight.outerCutOff) / transition, 0.0f, 1.0f);
         // Increase light in spot area
         if (spot > flashLight.outerCutOff) {
-            diffuse += 0.5f * intensity * flashLight.diffuse * waterDiffuse * diffuseFactor(lightDirection, normalMapping);
-            specular += intensity * flashLight.specular * specularFactor(waterShininess, viewDirection, lightDirection, normalMapping);
+            diffuse += 0.5f * intensity * flashLight.diffuse * waterDiffuse * diffuseFactor(direction, normalMapping);
+            specular += intensity * flashLight.specular * specularFactor(waterShininess, viewDirection, direction, normalMapping);
         }
     }
 
     fragmentColor = vec4(diffuse + specular, 1.0f); // Water + highlights
+    fragmentColor = vec4(diffuse, 1.0f); // Water + highlights
 
     // Apply fog effect if enabled
     if (fog.enabled) {

@@ -76,11 +76,11 @@ scene:
       rotation: [15.0, 0.0, 15.0]
 
   lights:
-    direction:
+    directional:
       - name: sun
         intensity: 0.6
-        color: [1.0, 0.95, 0.85]
-        direction: [-1.0, 1.0, -1.0]
+        color: [0.85, 0.95, 1.0]
+        direction: [-0.15, 1.0, -0.15]
     
     point:
       - name: light_01
