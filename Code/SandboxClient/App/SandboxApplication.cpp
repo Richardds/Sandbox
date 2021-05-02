@@ -99,11 +99,5 @@ void Sandbox::SandboxApplication::OnUpdateFrame()
 
 void Sandbox::SandboxApplication::LoadScene(const std::string& name)
 {
-    try
-    {
-        Util::ResourcesLoader::Instance().LoadScene(reinterpret_cast<std::shared_ptr<Graphics::Scene>&>(this->_scene), name);
-    } catch (const Core::Exception& e)
-    {
-        IO::Console::Instance().Error("Failed to load scene: %s\n", e.what());
-    }
+    Util::ResourcesLoader::Instance().LoadScene(reinterpret_cast<std::shared_ptr<Graphics::Scene>&>(this->_scene), name);
 }
