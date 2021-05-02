@@ -44,6 +44,7 @@ void Sandbox::SandboxApplication::OnProcessInput()
     {
         this->_scene->Reset();
         this->LoadScene(this->_sceneName);
+        this->_scene->OnSceneSetup();
     }
 
     // Disable full screen

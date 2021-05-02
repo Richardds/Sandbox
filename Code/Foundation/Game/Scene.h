@@ -36,6 +36,7 @@ namespace Graphics
 
         State GetState() const;
         virtual bool Setup();
+        virtual bool OnSceneSetup();
         virtual void Reset();
         virtual void ProcessInput();
         virtual void Update(float delta);

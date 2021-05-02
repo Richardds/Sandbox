@@ -21,6 +21,11 @@ void Sandbox::DuckManager::Update(const float delta)
     }
 }
 
+void Sandbox::DuckManager::Reset()
+{
+    this->_ducks.clear();
+}
+
 void Sandbox::DuckManager::Manage(const std::shared_ptr<Duck>& duck)
 {
     this->_ducks.emplace_back(duck);

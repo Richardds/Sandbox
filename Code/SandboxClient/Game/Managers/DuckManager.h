@@ -18,6 +18,7 @@ namespace Sandbox
         virtual ~DuckManager() = default;
 
         void Update(float delta);
+        void Reset();
         void Manage(const std::shared_ptr<Duck>& duck);
         void RenderWith(const std::shared_ptr<Graphics::EntityRenderer>& renderer);
 

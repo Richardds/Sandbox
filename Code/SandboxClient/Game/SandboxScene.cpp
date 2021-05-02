@@ -59,6 +59,27 @@ bool Sandbox::SandboxScene::Setup()
     this->_player = this->SetupPlayer("duck");
     this->_player->SetMovingSpeed(1.0f);
 
+    // Register mouse scrolling
+    IO::Mouse::Instance().RegisterScrolling([this](const float x, const float y)
+    {
+        if (this->_lockCameraToPlayer)
+        {
+            this->_camera->IncreaseDistance(y);
+        }
+    });
+
+    return this->OnSceneSetup();
+}
+
+void Sandbox::SandboxScene::Reset()
+{
+    this->_projectileManager->Reset();
+    this->_duckManager->Reset();
+    Scene::Reset();
+}
+
+bool Sandbox::SandboxScene::OnSceneSetup()
+{
     // Add duck entities
     const std::shared_ptr<Graphics::Model> duckModel = Util::ResourcesLoader::Instance().LoadModel("duck");
     const Math::Vector3f duckBoxSize(0.3f, 0.4f, 0.5f);
@@ -116,15 +137,6 @@ bool Sandbox::SandboxScene::Setup()
     auto rbTestCube2 = std::make_shared<Math::Box>(Math::Vector3f(5.0f, 6.0f, -2.0f), Math::Vector3f(0.75f, 0.75f, 0.75f), 1.0f);
     auto testCube2 = this->AddEntity("test_cube_2", "crate");
     this->_physics->Register(rbTestCube2, testCube2);
-
-    // Register mouse scrolling
-    IO::Mouse::Instance().RegisterScrolling([this](const float x, const float y)
-    {
-        if (this->_lockCameraToPlayer)
-        {
-            this->_camera->IncreaseDistance(y);
-        }
-    });
 
     return true;
 }
@@ -349,9 +361,6 @@ void Sandbox::SandboxScene::Update(const float delta)
     // Time based updates
     if (!this->_paused)
     {
-        // GoForward water motion
-        this->_waterTiles["water"]->SetPositionY(glm::sin(this->_time / 1.75f) / 35.0f);
-
         // GoForward scene day & night cycle effect
         // Intensity interval <SUN_LOWER_LIMIT-1.000>
         const float darkeningFactor = (glm::sin(this->_time / 5.0f) + 1.0f) / (2.0f / (1.0f - SUN_LOWER_LIMIT)) + SUN_LOWER_LIMIT;

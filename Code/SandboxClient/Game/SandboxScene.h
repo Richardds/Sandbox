@@ -29,6 +29,8 @@ namespace Sandbox
         SandboxScene();
 
         bool Setup() override;
+        void Reset() override;
+        bool OnSceneSetup() override;
         void ProcessCameraInput();
         void ProcessPlayerInput();
         void ProcessFlashLight() const;

@@ -24,6 +24,7 @@ namespace Math
         virtual ~PhysicsEngine();
 
         void Setup();
+        void Reset();
         void Register(const std::shared_ptr<RigidBody>& rigidBody);
         void Register(const std::shared_ptr<RigidBody>& rigidBody, const std::shared_ptr<Graphics::Entity>& entity);
         void Update(float delta);

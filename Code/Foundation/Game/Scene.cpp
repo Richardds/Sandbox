@@ -93,8 +93,14 @@ bool Graphics::Scene::Setup()
     return true;
 }
 
+bool Graphics::Scene::OnSceneSetup()
+{
+    return true;
+}
+
 void Graphics::Scene::Reset()
 {
+    this->_physics->Reset();
     this->_skybox.reset();
     this->_entitiesMapping.clear();
     this->_entities.clear();

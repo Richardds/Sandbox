@@ -18,6 +18,7 @@ namespace Sandbox
         ProjectileManager(const std::shared_ptr<Graphics::Model>& projectileModel);
 
         void Update(float delta);
+        void Reset();
         void RenderWith(const std::shared_ptr<Graphics::EntityRenderer>& renderer);
         void Manage(const std::shared_ptr<Projectile>& projectile);
 

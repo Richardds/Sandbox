@@ -35,6 +35,19 @@ void Math::PhysicsEngine::Setup()
     this->_btWorld->setGravity(btVector3(0.0f, -10.0f, 0.0f));
 }
 
+void Math::PhysicsEngine::Reset()
+{
+    auto it = this->_pairs.begin();
+
+    while (it != this->_pairs.end())
+    {
+        const auto& [rigidBody, entity] = (*it);
+
+        this->_btWorld->removeRigidBody(rigidBody->GetRigidBody());
+        it = this->_pairs.erase(it);
+    }
+}
+
 void Math::PhysicsEngine::Register(const std::shared_ptr<RigidBody>& rigidBody)
 {
     this->_btWorld->addRigidBody(rigidBody->GetRigidBody());
@@ -67,15 +80,7 @@ void Math::PhysicsEngine::Update(const float delta)
 
 void Math::PhysicsEngine::Destroy()
 {
-    auto it = this->_pairs.begin();
-
-    while (it != this->_pairs.end())
-    {
-        const auto& [rigidBody, entity] = (*it);
-
-        this->_btWorld->removeRigidBody(rigidBody->GetRigidBody());
-        it = this->_pairs.erase(it);
-    }
+    this->Reset();
 
     delete this->_btWorld;
     delete this->_btSolver;

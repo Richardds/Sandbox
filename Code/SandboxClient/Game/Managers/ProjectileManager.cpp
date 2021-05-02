@@ -33,6 +33,11 @@ void Sandbox::ProjectileManager::Update(const float delta)
     }
 }
 
+void Sandbox::ProjectileManager::Reset()
+{
+    this->_projectiles.clear();
+}
+
 void Sandbox::ProjectileManager::RenderWith(const std::shared_ptr<Graphics::EntityRenderer>& renderer)
 {
     for (const auto& projectile : this->_projectiles)
