@@ -60,31 +60,41 @@ std::string Util::AssimpExporter::ParseAssetName(const aiString& assetPath)
 void Util::AssimpExporter::WriteNode(IO::OutputFile& file, const aiNode* node) const
 {
     const unsigned int meshesCount = node->mNumMeshes;
+    unsigned int validMeshesCount = meshesCount;
 
-    _Assert(65535 >= meshesCount)
-        
+    // Decrease the counter to valid mesh count
+    for (unsigned int i = 0; i < meshesCount; i++)
+    {
+        // Skip the mesh if does not contain any triangles
+        if (aiPrimitiveType_TRIANGLE != this->_scene->mMeshes[node->mMeshes[i]]->mPrimitiveTypes)
+        {
+            validMeshesCount--;
+        }
+    }
+
+    _Assert(65535 >= validMeshesCount)
+
+    file.Write(static_cast<uint16_t>(validMeshesCount));
+
     if (meshesCount > 0)
     {
-        file.Write(static_cast<uint16_t>(meshesCount));
-
-        for (uint16_t i = 0; i < meshesCount; i++)
+        for (unsigned int i = 0; i < meshesCount; i++)
         {
             const aiMesh* mesh = this->_scene->mMeshes[node->mMeshes[i]];
 
             // Skip the mesh if does not contain any triangles
-            if (mesh->mPrimitiveTypes & aiPrimitiveType_TRIANGLE)
+            if (aiPrimitiveType_TRIANGLE == mesh->mPrimitiveTypes)
             {
                 this->WriteMesh(file, mesh);
             }
         }
-
-        return;
     }
 
-    for (uint32_t i = 0; i < node->mNumChildren; i++)
-    {
-        this->WriteNode(file, node->mChildren[i]);
-    }
+    // Nested graph not supported
+    //for (unsigned int i = 0; i < node->mNumChildren; i++)
+    //{
+    //    this->WriteNode(file, node->mChildren[i]);
+    //}
 }
 
 void Util::AssimpExporter::WriteMaterial(IO::OutputFile& file, const aiMaterial* material) const
@@ -143,13 +153,13 @@ void Util::AssimpExporter::WriteMesh(IO::OutputFile& file, const aiMesh* mesh) c
     file.Write(std::string(mesh->mName.C_Str()));
 
     // Write vertices count
-    const uint32_t verticesCount = mesh->mNumVertices;
-    file.Write(verticesCount);
+    const unsigned int verticesCount = mesh->mNumVertices;
+    file.Write(static_cast<uint32_t>(verticesCount));
 
     // Write vertices
     if (mesh->mTextureCoords[0] == nullptr || mesh->mTangents == nullptr)
     {
-        for (uint32_t i = 0; i < verticesCount; i++)
+        for (unsigned int i = 0; i < verticesCount; i++)
         {
             const aiVector3D* position = &mesh->mVertices[i];
             const aiVector3D* normal = &mesh->mNormals[i];
@@ -163,7 +173,7 @@ void Util::AssimpExporter::WriteMesh(IO::OutputFile& file, const aiMesh* mesh) c
         }
     } else
     {
-        for (uint32_t i = 0; i < verticesCount; i++)
+        for (unsigned int i = 0; i < verticesCount; i++)
         {
             const aiVector3D* position = &mesh->mVertices[i];
             const aiVector3D* normal = &mesh->mNormals[i];
@@ -183,11 +193,11 @@ void Util::AssimpExporter::WriteMesh(IO::OutputFile& file, const aiMesh* mesh) c
     }
 
     // Write triangles count
-    const uint32_t trianglesCount = mesh->mNumFaces;
-    file.Write(trianglesCount);
+    const unsigned int trianglesCount = mesh->mNumFaces;
+    file.Write(static_cast<uint32_t>(trianglesCount));
 
     // Write triangles
-    for (uint32_t i = 0; i < trianglesCount; i++)
+    for (unsigned int i = 0; i < trianglesCount; i++)
     {
         const aiFace face = mesh->mFaces[i];
 
