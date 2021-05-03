@@ -98,8 +98,8 @@ void main()
     vec3 materialDiffuse = material.color;
     if (diffuseSampler.enabled) {
         vec4 textureDiffuseSample = texture(diffuseSampler.texture, textureCoords);
-        // Discard fragment when mapped to invisible
-        if (textureDiffuseSample.a < 0.8f) {
+        // Discard fragment when mapped close to invisible
+        if (textureDiffuseSample.a < 0.01f) {
             discard;
         }
         materialDiffuse = textureDiffuseSample.rgb;

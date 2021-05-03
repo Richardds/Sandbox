@@ -1,6 +1,8 @@
 version: 1
 
 scene:
+  name: default
+
   skybox:
     name: day
     size: 750.0
@@ -54,6 +56,16 @@ scene:
       position: [5.0, 0.0, -9.9]
     - model: pier_modular
       position: [5.0, 0.0, -11.45]
+    # Boat
+    - model: boat
+      position: [-15.0, 0.0, -12.5]
+      rotation: [0.0, 90.0, 0.0]
+    - model: boat
+      position: [-12.0, 0.0, -20.0]
+      rotation: [0.0, 90.0, 0.0]
+    - model: boat
+      position: [-6.0, 0.0, -35.0]
+      rotation: [0.0, 90.0, 0.0]
     # Barrels
     - model: drum_shell
       position: [5.5, 0.65, 2.75]
@@ -75,6 +87,16 @@ scene:
     - model: mat_metal
       position: [43.0, 2.0, -20.0]
       rotation: [15.0, 0.0, 15.0]
+    # Blending test
+    - model: beach_ball
+      position: [0.0, 1.25, 0.0]
+      scale: 2.0
+    - model: beach_ball
+      position: [0.0, 1.25, -3.0]
+      scale: 2.0
+    - model: beach_ball
+      position: [0.0, 1.25, -6.0]
+      scale: 2.0
 
   lights:
     directional:

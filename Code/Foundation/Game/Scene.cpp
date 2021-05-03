@@ -79,7 +79,7 @@ bool Graphics::Scene::Setup()
     this->_physics->Setup();
 
     // Add world plane
-    const std::shared_ptr<Math::Plane> worldPlane = std::make_shared<Math::Plane>();
+    const std::shared_ptr<Math::Plane> worldPlane = std::make_shared<Math::Plane>(Math::Vector3f(0.0f, 0.675f, 0.0f));
     this->_physics->Register(worldPlane);
 
     this->_state = State::Run;
