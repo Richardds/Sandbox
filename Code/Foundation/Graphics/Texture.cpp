@@ -17,6 +17,16 @@ std::unordered_map<GLenum, GLuint> Graphics::Texture::_boundTextures = {
     {GL_TEXTURE_CUBE_MAP_ARRAY, 0},
 };
 
+void Graphics::Texture::UnbindBound(const GLenum target)
+{
+    const GLuint bound = GetBound(target);
+    if (bound != 0)
+    {
+        glBindTexture(target, 0);
+        _boundTextures[target] = 0;
+    }
+}
+
 Graphics::Texture::Texture() :
     _state(State::Initial),
     _target(0),
@@ -83,14 +93,4 @@ void Graphics::Texture::SetAnisotropicFiltering(const float value)
     _Assert(this->IsBound())
 
     glTexParameterf(this->_target, GL_TEXTURE_MAX_ANISOTROPY_EXT, value);
-}
-
-void Graphics::Texture::UnbindBound(const GLenum target)
-{
-    const GLuint bound = GetBound(target);
-    if (bound != 0)
-    {
-        glBindTexture(target, 0);
-        _boundTextures[target] = 0;
-    }
 }

@@ -35,6 +35,9 @@ namespace Graphics
             Font = 8
         };
 
+        static GLuint GetBound(GLenum target);
+        static void UnbindBound(GLenum target);
+
         Texture();
         Texture(const Texture& texture) = delete;
         virtual ~Texture();
@@ -61,10 +64,9 @@ namespace Graphics
         float GetAnisotropicFiltering() const;
         void SetAnisotropicFiltering(float value);
 
-        static GLuint GetBound(GLenum target);
-        static void UnbindBound(GLenum target);
-
     private:
+        static std::unordered_map<GLenum, GLuint> _boundTextures;
+
         State _state;
         GLenum _target;
         GLuint _glTexture;
@@ -73,9 +75,12 @@ namespace Graphics
         GLsizei _depth;
         float _lodBias;
         float _anisotropicFiltering;
-
-        static std::unordered_map<GLenum, GLuint> _boundTextures;
     };
+
+    inline GLuint Texture::GetBound(const GLenum target)
+    {
+        return _boundTextures[target];
+    }
 
     inline Texture::State Texture::GetState() const
     {
@@ -144,10 +149,5 @@ namespace Graphics
     inline float Texture::GetLODBias() const
     {
         return this->_lodBias;
-    }
-
-    inline GLuint Texture::GetBound(const GLenum target)
-    {
-        return _boundTextures[target];
     }
 }
