@@ -7,9 +7,12 @@
 #include <IO/Mouse.h>
 #include <Util/Random.h>
 #include <Util/ResourcesLoader.h>
+#include <Math/Constants.h>
 #include <Math/Physics/RigidBody/Box.h>
 
 #include "SandboxScene.h"
+
+#include "IO/Console.h"
 #include "Scene/Object/Hardcoded.h"
 #include "Util/String.h"
 
@@ -26,7 +29,7 @@ bool Sandbox::SandboxScene::Setup()
     }
 
     // Setup managers
-    this->_projectileManager = std::make_shared<ProjectileManager>(Util::ResourcesLoader::Instance().LoadModel("projectile"));
+    this->_projectileManager = std::make_shared<ProjectileManager>(Util::ResourcesLoader::Instance().LoadModel("beach_ball"));
     this->_duckManager = std::make_shared<DuckManager>();
 
     // Configure camera
@@ -78,21 +81,20 @@ bool Sandbox::SandboxScene::OnSceneSetup()
 {
     // Load player
     this->_player = this->SetupPlayer("duck");
+    this->_player->SetScale(2.0f);
     this->_player->SetMovingSpeed(1.0f);
 
     // Add duck entities
     const std::shared_ptr<Graphics::Model> duckModel = Util::ResourcesLoader::Instance().LoadModel("duck");
-    const Math::Vector3f duckBoxSize(0.3f, 0.4f, 0.5f);
     for (int i = 0; i < 10; i++)
     {
-        std::string entityName = "duck_" + std::to_string(i);
-        const float offsetX = 7.5f;
-        const float offsetZ = 5.0f;
+        const float centerX = 30.0f;
+        const float centerZ = 0.0f;
 
         const Math::Vector3f position = Math::Vector3f(
-            offsetX + Util::Random::Instance().GetReal(0.0f, 20.0f),
+            centerX + Util::Random::Instance().GetReal(-20.0f, 20.0f),
             0.0f,
-            offsetZ - Util::Random::Instance().GetReal(0.0f, 20.0f)
+            centerZ + Util::Random::Instance().GetReal(-20.0f, 30.0f)
         );
         const float rotation = Util::Random::Instance().GetAngle();
         const float scale = Util::Random::Instance().GetReal(1.0f, 5.0f);
@@ -105,10 +107,6 @@ bool Sandbox::SandboxScene::OnSceneSetup()
         duck->SetScale(scale);
         duck->SetMovingSpeed(Util::Random::Instance().GetReal(1.0f, 3.0f));
         this->_duckManager->Manage(duck);
-
-        // Setup physics
-        //auto rbDuck = std::make_shared<Math::Box>(position, duckBoxSize * scale, 2.5f);
-        //this->_physics->Register(rbDuck, duck);
     }
 
     // Light up birbs
@@ -128,6 +126,10 @@ bool Sandbox::SandboxScene::OnSceneSetup()
     hardcoded->SetModel(hardcodedModel);
     hardcoded->SetPosition(Math::Vector3f(5.0f, 2.5f, -15.0f));
     this->AddEntity("hardcoded", hardcoded);
+
+    // Add pier collision box
+    auto pierBox = std::make_shared<Math::Box>(Math::Vector3f(5.0f, 0.375f, -3.5f), Math::Vector3f(1.0f, 0.3f, 4.5f));
+    this->_physics->Register(pierBox);
 
     // Add physics test
     auto rbTestCube1 = std::make_shared<Math::Box>(Math::Vector3f(5.0f, 3.0f, -3.0f), Math::Vector3f(0.75f, 0.75f, 0.75f), 0.1f);
@@ -327,6 +329,12 @@ void Sandbox::SandboxScene::ProcessInput()
         // Disable deformation
         this->_entityRenderer->GetShader(true)->LoadDeformationFactor(0.0f);
     }
+
+    // Print cursor position
+    if (IO::Keyboard::Instance().IsControlPressed() && IO::Mouse::Instance().IsKeyPressed(IO::Mouse::Key::Middle))
+    {
+        IO::Console::Instance().Info("Cursor %f %f %f\n", this->_cursorPosition.x, this->_cursorPosition.y, this->_cursorPosition.z);
+    }
 }
 
 void Sandbox::SandboxScene::Update(const float delta)
@@ -374,6 +382,18 @@ void Sandbox::SandboxScene::Update(const float delta)
             this->_entitiesMapping["hardcoded"]->SetRotationX(glm::sin(this->_time) * 15.0f);
             this->_entitiesMapping["hardcoded"]->SetPositionY(2.5f + glm::sin(this->_time) * 0.5f);
         }
+
+        // Update floating crates motion
+        this->_entitiesMapping["crate_01"]->SetPositionY(glm::sin(this->_time * 0.8f) * 0.05f);
+        this->_entitiesMapping["crate_01"]->IncreaseRotation(Math::Vector3f(0.015f));
+        this->_entitiesMapping["crate_02"]->SetPositionY(glm::sin(this->_time * 0.9f + Math::Pi4) * 0.03f);
+        this->_entitiesMapping["crate_02"]->IncreaseRotation(Math::Vector3f(-0.02f));
+        this->_entitiesMapping["crate_03"]->SetPositionY(glm::sin(this->_time * 0.7f + 4.0f * Math::Pi4) * 0.04f);
+        this->_entitiesMapping["crate_03"]->IncreaseRotation(Math::Vector3f(0.015f));
+        this->_entitiesMapping["crate_04"]->SetPositionY(glm::sin(this->_time * 0.6f + 2.0f * Math::Pi4) * 0.04f);
+        this->_entitiesMapping["crate_04"]->IncreaseRotation(Math::Vector3f(-0.0125f));
+        this->_entitiesMapping["crate_05"]->SetPositionY(glm::sin(this->_time * 0.85f + 6.0f * Math::Pi4) * 0.03f);
+        this->_entitiesMapping["crate_05"]->IncreaseRotation(Math::Vector3f(0.01f));
     }
 }
 

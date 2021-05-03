@@ -13,7 +13,7 @@ namespace Math
     class EXPORT Box : public RigidBody
     {
     public:
-        Box(const Vector3f& position, const Vector3f& size, float mass = 1.0f);
+        Box(const Vector3f& position, const Vector3f& size, float mass = 0.0f);
     };
     
 }
