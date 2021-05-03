@@ -15,6 +15,9 @@ namespace Graphics
     class EXPORT Mesh
     {
     public:
+        static bool GetCullingEnabled();
+        static void SetCullingEnabled(bool enabled);
+
         Mesh(const std::shared_ptr<VertexArray>& vertexArrayObject,
              const std::shared_ptr<Buffer>& vertexBuffer,
              const std::shared_ptr<Buffer>& elementsBuffer,
@@ -26,13 +29,24 @@ namespace Graphics
         std::shared_ptr<Buffer> GetVertexBuffer() const;
         std::shared_ptr<Buffer> GetElementBuffer() const;
         uint32_t GetElementsCount() const;
+        bool GetCulling() const;
+        void SetCulling(bool enabled);
 
     protected:
         std::shared_ptr<VertexArray> _vao;
         std::shared_ptr<Buffer> _vbo;
         std::shared_ptr<Buffer> _ebo;
         uint32_t _elementsCount;
+        bool _culling;
+
+    private:
+        static bool _cullingEnabled;
     };
+
+    inline bool Mesh::GetCullingEnabled()
+    {
+        return _cullingEnabled;
+    }
 
     inline std::shared_ptr<VertexArray> Mesh::GetVertexArray() const
     {
@@ -53,4 +67,15 @@ namespace Graphics
     {
         return this->_elementsCount;
     }
+
+    inline bool Mesh::GetCulling() const
+    {
+        return this->_culling;
+    }
+
+    inline void Mesh::SetCulling(const bool enabled)
+    {
+        this->_culling = enabled;
+    }
+
 }

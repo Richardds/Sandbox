@@ -65,6 +65,7 @@ scene:
     - model: mat_alpha
       position: [20.5, 2.0, -20.0]
       rotation: [15.0, 0.0, 15.0]
+      culling: false
     - model: mat_tiles
       position: [28.0, 2.0, -20.0]
       rotation: [15.0, 0.0, 15.0]
