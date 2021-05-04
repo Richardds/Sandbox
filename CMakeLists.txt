@@ -12,25 +12,33 @@ project(Sandbox VERSION 0.0.2
                 DESCRIPTION "OpenGL rendering engine"
                 LANGUAGES CXX)
 
-find_package(glfw3 REQUIRED)
-find_package(GLEW REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(glfw3 REQUIRED)
 find_package(glm REQUIRED)
-find_package(gli REQUIRED)
+find_package(ZLIB REQUIRED)
 find_package(assimp REQUIRED)
+find_package(yaml-cpp REQUIRED)
+find_package(Bullet REQUIRED)
 
 ### Foundation ###
 
 file(GLOB FOUNDATION_SOURCE
     "Code/Foundation/App/*.cpp"
+    "Code/Foundation/Core/Exception/*.cpp"
     "Code/Foundation/Core/*.cpp"
     "Code/Foundation/Game/Attributes/*.cpp"
+    "Code/Foundation/Game/Scene/Camera/*.cpp"
+    "Code/Foundation/Game/Scene/Light/*.cpp"
+    "Code/Foundation/Game/Scene/Object/*.cpp"
     "Code/Foundation/Game/Scene/*.cpp"
     "Code/Foundation/Game/*.cpp"
     "Code/Foundation/Graphics/Renderers/*.cpp"
     "Code/Foundation/Graphics/Shaders/*.cpp"
     "Code/Foundation/Graphics/*.cpp"
     "Code/Foundation/IO/*.cpp"
+    "Code/Foundation/Math/Physics/RigidBody/*.cpp"
+    "Code/Foundation/Math/Physics/*.cpp"
     "Code/Foundation/Math/*.cpp"
     "Code/Foundation/Timing/*.cpp"
     "Code/Foundation/Util/Generators/*.cpp"
@@ -39,7 +47,8 @@ file(GLOB FOUNDATION_SOURCE
 )
 
 add_library(Foundation SHARED ${FOUNDATION_SOURCE})
-target_include_directories(Foundation PUBLIC Code/Foundation)
+target_include_directories(Foundation PUBLIC Code/Foundation External /usr/include/bullet)
+target_link_libraries(Foundation OpenGL::GL GLEW::GLEW glfw assimp ZLIB::ZLIB yaml-cpp BulletDynamics BulletCollision LinearMath)
 
 ### MeshExporter ###
 
@@ -51,13 +60,14 @@ file(GLOB MESH_EXPORTER_SOURCE
 
 add_executable(MeshExporter ${MESH_EXPORTER_SOURCE})
 target_include_directories(MeshExporter PRIVATE Code/MeshExporter)
-target_link_libraries(MeshExporter Foundation assimp glfw GLEW::GLEW OpenGL::GL)
+target_link_libraries(MeshExporter Foundation assimp)
 
 ### SandboxClient ###
 
 file(GLOB SANDBOX_CLIENT_SOURCE
     "Code/SandboxClient/App/*.cpp"
     "Code/SandboxClient/Game/Managers/*.cpp"
+    "Code/SandboxClient/Game/Scene/Object/*.cpp"
     "Code/SandboxClient/Game/Scene/*.cpp"
     "Code/SandboxClient/Game/*.cpp"
     "Code/SandboxClient/SandboxClient.cpp"
@@ -65,4 +75,16 @@ file(GLOB SANDBOX_CLIENT_SOURCE
 
 add_executable(SandboxClient ${SANDBOX_CLIENT_SOURCE})
 target_include_directories(SandboxClient PRIVATE Code/SandboxClient)
-target_link_libraries(SandboxClient Foundation assimp glfw GLEW::GLEW OpenGL::GL)
+target_link_libraries(SandboxClient Foundation)
+
+### Test ###
+
+file(GLOB TEST_SOURCE
+    "Code/Test/App/*.cpp"
+    "Code/Test/Game/*.cpp"
+    "Code/Test/Test.cpp"
+)
+
+add_executable(Test ${TEST_SOURCE})
+target_include_directories(Test PRIVATE Code/Test)
+target_link_libraries(Test Foundation)

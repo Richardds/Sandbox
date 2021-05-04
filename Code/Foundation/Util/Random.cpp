@@ -13,7 +13,7 @@ Util::Random::Random() :
 
 bool Util::Random::GetBool(const double chance)
 {
-    const std::bernoulli_distribution distribution(chance);
+    std::bernoulli_distribution distribution(chance);
     return distribution(this->_random);
 }
 

@@ -11,7 +11,7 @@ Core::Exception::Exception(const std::string& message) :
 {
 }
 
-const char* Core::Exception::what() const
+const char* Core::Exception::what() const throw()
 {
     return this->_message.c_str();
 }

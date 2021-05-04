@@ -16,7 +16,7 @@ namespace Core
         explicit Exception(const std::string& message);
 
         std::string GetMessage() const;
-        const char* what() const override;
+        const char* what() const throw() override;
 
     private:
         std::string _message;

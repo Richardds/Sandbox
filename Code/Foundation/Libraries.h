@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       Precompiled.h
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #pragma once
