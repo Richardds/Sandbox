@@ -5,7 +5,6 @@ Semestral project of BI-PGR course on CTU in Prague, FIT.
 ## Development setup
 
 Create `DEV_HOME` environment variable containing the path to the folder, which has the following structure:
-- `Bin`
 - `Include`
 - `Library`
 
@@ -16,9 +15,14 @@ This project requires following external libraries to be available.
 - gli [559cbe1ec38878e182507d331e0780fbae5baf15](https://github.com/g-truc/gli/tree/559cbe1ec38878e182507d331e0780fbae5baf15) Last release of this library was on November 12th 2016 and is broken.
 - glm [0.9.9.8](https://github.com/g-truc/glm/releases/tag/0.9.9.8)
 
-### Ubuntu / Debian
+### Dependencies
 Install gli into `External` directory.
+
+#### Ubuntu / Debian
 `apt install libglfw3-dev libglew-dev libglm-dev zlib1g-dev libassimp-dev libyaml-cpp-dev libbullet-dev`
+
+#### Arch
+`pacman -Sy glfw-x11 glew glm zlib assimp yaml-cpp bullet`
 
 # Assessment
 
