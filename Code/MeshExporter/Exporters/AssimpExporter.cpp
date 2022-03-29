@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       AssimpExporter.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include <Core/Types.h>
@@ -116,9 +116,9 @@ void Util::AssimpExporter::WriteMaterial(IO::OutputFile& file, const aiMaterial*
     file.Write(shininess);
 
     uint8_t textureBitfield = 0;
-    textureBitfield |= HAS_TEXTURE_DIFFUSE * (1 == material->GetTextureCount(aiTextureType_DIFFUSE));
-    textureBitfield |= HAS_TEXTURE_NORMALS * (1 == material->GetTextureCount(aiTextureType_NORMALS));
-    textureBitfield |= HAS_TEXTURE_SPECULAR * (1 == material->GetTextureCount(aiTextureType_SPECULAR));
+    textureBitfield |= HAS_TEXTURE_DIFFUSE * (1 >= material->GetTextureCount(aiTextureType_DIFFUSE));
+    textureBitfield |= HAS_TEXTURE_NORMALS * (1 >= material->GetTextureCount(aiTextureType_NORMALS));
+    textureBitfield |= HAS_TEXTURE_SPECULAR * (1 >= material->GetTextureCount(aiTextureType_SPECULAR));
 
     // Write texture bitfield
     file.Write(textureBitfield);
@@ -199,12 +199,12 @@ void Util::AssimpExporter::WriteMesh(IO::OutputFile& file, const aiMesh* mesh) c
     // Write triangles
     for (unsigned int i = 0; i < trianglesCount; i++)
     {
-        const aiFace face = mesh->mFaces[i];
+        const aiFace* face = &mesh->mFaces[i];
 
         // Process triangles only
-        if (face.mNumIndices == 3)
+        if (face->mNumIndices == 3)
         {
-            file.Write(Math::Vector3ui32(face.mIndices[0], face.mIndices[1], face.mIndices[2]));
+            file.Write(Math::Vector3ui32(face->mIndices[0], face->mIndices[1], face->mIndices[2]));
         }
     }
 
