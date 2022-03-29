@@ -1,0 +1,13 @@
+version: 1
+
+prefab:
+  - mesh: mat_alpha
+    material:
+      color: [1.0, 1.0, 1.0]
+      reflectivity: 1.0
+      specular: 1.0
+      shininess: 1.0
+    textures:
+      diffuse: mat_alpha
+      normals: mat_alpha
+      specular: mat_alpha

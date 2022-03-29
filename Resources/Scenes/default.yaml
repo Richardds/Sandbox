@@ -21,18 +21,23 @@ scene:
       position: [-3.0, 0.0, -40.0]
     # Crates
     - model: crate
+      name: crate_01
       position: [-6.84, 0.05, 3.0]
       rotation: [238.59, 353.41, 83.30]
     - model: crate
+      name: crate_02
       position: [-8.24, -0.71, 0.0]
       rotation: [269.01, 196.95, 38.04]
     - model: crate
+      name: crate_03
       position: [-8.25, -0.47, -3.0]
       rotation: [347.30, 235.41, 340.05]
     - model: crate
+      name: crate_04
       position: [-7.97, -0.29, -6.0]
       rotation: [57.03, 26.43, 331.49]
     - model: crate
+      name: crate_05
       position: [-7.48, -0.25, -9.0]
       rotation: [226.40, 277.17, 41.74]
     # Piers
@@ -75,28 +80,18 @@ scene:
       rotation: [0.0, 45.0, 0.0]
     # Materials demo
     - model: mat_alpha
-      position: [20.5, 2.0, -20.0]
+      position: [20.5, 2.0, -30.0]
       rotation: [15.0, 0.0, 15.0]
       culling: false
     - model: mat_tiles
-      position: [28.0, 2.0, -20.0]
+      position: [28.0, 2.0, -30.0]
       rotation: [15.0, 0.0, 15.0]
     - model: mat_sponge
-      position: [35.5, 2.0, -20.0]
+      position: [35.5, 2.0, -30.0]
       rotation: [15.0, 0.0, 15.0]
     - model: mat_metal
-      position: [43.0, 2.0, -20.0]
+      position: [43.0, 2.0, -30.0]
       rotation: [15.0, 0.0, 15.0]
-    # Blending test
-    - model: beach_ball
-      position: [0.0, 1.25, 0.0]
-      scale: 2.0
-    - model: beach_ball
-      position: [0.0, 1.25, -3.0]
-      scale: 2.0
-    - model: beach_ball
-      position: [0.0, 1.25, -6.0]
-      scale: 2.0
 
   lights:
     directional:
@@ -111,7 +106,7 @@ scene:
         intensity: 0.8
         color: [1.0, 0.8, 0.6]
         attenuation: [1.0, 0.1, 0.025]
-      - position: [20.5, 2.0, -20.0]
-      - position: [28.0, 2.0, -20.0]
-      - position: [35.5, 2.0, -20.0]
-      - position: [43.0, 2.0, -20.0]
+      - position: [20.5, 2.0, -30.0]
+      - position: [28.0, 2.0, -30.0]
+      - position: [35.5, 2.0, -30.0]
+      - position: [43.0, 2.0, -30.0]
