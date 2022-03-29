@@ -98,17 +98,6 @@ void Util::SceneLoader::HandleEntity(const YAML::Node& entityNode) const
     {
         entity->SetScale(this->Parse<float>(entityNode["scale"]));
     }
-
-    // Parse optional culling
-    if (entityNode["culling"])
-    {
-        const bool culling = this->Parse<bool>(entityNode["culling"]);
-        // Temporary solution to set culling on all model meshes
-        for (const auto& [name, mesh] : entity->GetModel()->GetMeshes())
-        {
-            mesh->SetCulling(culling);
-        }
-    }
 }
 
 void Util::SceneLoader::HandleLights(const YAML::Node& lightsNode) const

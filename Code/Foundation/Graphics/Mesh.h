@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       Mesh.h
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #pragma once
@@ -29,15 +29,12 @@ namespace Graphics
         std::shared_ptr<Buffer> GetVertexBuffer() const;
         std::shared_ptr<Buffer> GetElementBuffer() const;
         uint32_t GetElementsCount() const;
-        bool GetCulling() const;
-        void SetCulling(bool enabled);
 
     protected:
         std::shared_ptr<VertexArray> _vao;
         std::shared_ptr<Buffer> _vbo;
         std::shared_ptr<Buffer> _ebo;
         uint32_t _elementsCount;
-        bool _culling;
 
     private:
         static bool _cullingEnabled;
@@ -66,16 +63,6 @@ namespace Graphics
     inline uint32_t Mesh::GetElementsCount() const
     {
         return this->_elementsCount;
-    }
-
-    inline bool Mesh::GetCulling() const
-    {
-        return this->_culling;
-    }
-
-    inline void Mesh::SetCulling(const bool enabled)
-    {
-        this->_culling = enabled;
     }
 
 }

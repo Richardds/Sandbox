@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       Mesh.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Libraries.h"
@@ -35,14 +35,12 @@ Graphics::Mesh::Mesh(const std::shared_ptr<VertexArray>& vertexArrayObject,
     _vao(vertexArrayObject),
     _vbo(vertexBuffer),
     _ebo(elementsBuffer),
-    _elementsCount(elementsCount),
-    _culling(true)
+    _elementsCount(elementsCount)
 {
 }
 
 void Graphics::Mesh::DrawElements() const
 {
-    SetCullingEnabled(this->_culling);
     this->_vao->Bind();
     glDrawElements(GL_TRIANGLES, this->_elementsCount * 3, GL_UNSIGNED_INT, nullptr);
     this->_vao->Unbind();

@@ -1,12 +1,13 @@
 // ----------------------------------------------------------------------------------------
 //  \file       RenderApplication.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Libraries.h"
 #include "App/RenderApplication.h"
 #include "Core/Debug.h"
 #include "Graphics/Core.h"
+#include "Graphics/Mesh.h"
 #include "IO/Console.h"
 #include "IO/Mouse.h"
 
@@ -110,8 +111,8 @@ void App::RenderApplication::OnConfigureContext()
 
     // Enable CCW culling (counterclockwise)
     glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
+    glCullFace(GL_BACK);
 
     // Enable transparency
     glEnable(GL_BLEND);
@@ -161,10 +162,12 @@ void App::RenderApplication::SetWireframeModeEnabled(const bool enabled)
         if (this->_wireframeModeEnabled)
         {
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            Graphics::Mesh::SetCullingEnabled(false);
         }
         else
         {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            Graphics::Mesh::SetCullingEnabled(true);
         }
     }
 }
