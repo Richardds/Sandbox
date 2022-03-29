@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       ShaderProgram.h
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #pragma once
@@ -44,7 +44,8 @@ namespace Graphics
     protected:
         virtual GLint GetUniformLocation(const std::string& name);
         void LoadBool(GLint location, bool enable) const;
-        void LoadInt(GLint location, uint32_t value) const;
+        void LoadInt(GLint location, int32_t value) const;
+        void LoadUInt(GLint location, uint32_t value) const;
         void LoadFloat(GLint location, float value) const;
         void LoadMatrix3f(GLint location, const Math::Matrix3f& matrix) const;
         void LoadMatrix4f(GLint location, const Math::Matrix4f& matrix) const;

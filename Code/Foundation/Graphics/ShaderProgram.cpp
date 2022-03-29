@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       ShaderProgram.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "Libraries.h"
@@ -95,12 +95,20 @@ void Graphics::ShaderProgram::LoadBool(const GLint location, const bool enable) 
     glUniform1ui(location, enable ? 1 : 0);
 }
 
-void Graphics::ShaderProgram::LoadInt(const GLint location, const uint32_t value) const
+void Graphics::ShaderProgram::LoadInt(const GLint location, const int32_t value) const
 {
     _Assert(this->IsInUse())
     _Assert(State::Linked == this->_state)
 
     glUniform1i(location, value);
+}
+
+void Graphics::ShaderProgram::LoadUInt(const GLint location, const uint32_t value) const
+{
+    _Assert(this->IsInUse())
+    _Assert(State::Linked == this->_state)
+
+    glUniform1ui(location, value);
 }
 
 void Graphics::ShaderProgram::LoadFloat(const GLint location, const float value) const
