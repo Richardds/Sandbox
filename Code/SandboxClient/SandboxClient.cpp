@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------
 //  \file       SandboxClient.cpp
-//  \author     Richard Boldiš <boldiric@fit.cvut.cz>
+//  \author     Richard Boldiï¿½ <boldiric@fit.cvut.cz>
 // ----------------------------------------------------------------------------------------
 
 #include "App/SandboxApplication.h"
@@ -11,7 +11,7 @@ int main()
 {
     SandboxApplication app;
     app.SetTitle("Sandbox");
-    app.SetVersion("0.1.4-dev");
+    app.SetVersion("0.1.5-dev");
 
     if (app.Open())
     {

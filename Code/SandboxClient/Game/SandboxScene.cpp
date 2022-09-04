@@ -40,7 +40,7 @@ bool Sandbox::SandboxScene::Setup()
     std::shared_ptr<Graphics::Text> textTitle = this->AddText("SANDBOX");
     textTitle->SetPositionY(0.90f);
     // Add version
-    std::shared_ptr<Graphics::Text> textVersion = this->AddText("0.1.4-dev");
+    std::shared_ptr<Graphics::Text> textVersion = this->AddText("0.1.5-dev");
     textVersion->SetColor(Math::Vector4f(0.85f, 0.0f, 0.0f, 1.0f));
     textVersion->SetScale(0.25f);
     textVersion->SetPosition(Math::Vector2f(0.175f, 0.7775f));
@@ -114,7 +114,7 @@ bool Sandbox::SandboxScene::OnSceneSetup()
     light->SetColor(Math::Vector3f(1.0f, 1.0f, 1.0f));
     light->SetPosition(Math::Vector3f(15.0f, 7.5f, 12.5f));
     light->SetAttenuation(Math::Vector3f(1.0f, 0.005f, 0.0075f));
-    
+
     // Add hardcoded mesh to the scene
     std::shared_ptr<Graphics::Entity> hardcoded = std::make_shared<Graphics::Entity>();
     std::shared_ptr<Graphics::Model> hardcodedModel = std::make_shared<Graphics::Model>();

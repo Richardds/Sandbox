@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_CXX_EXTENSIONS NO)
 
-project(Sandbox VERSION 0.1.4
+project(Sandbox VERSION 0.1.5
                 DESCRIPTION "OpenGL rendering engine"
                 LANGUAGES CXX)
 
