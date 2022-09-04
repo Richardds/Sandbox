@@ -6,36 +6,128 @@ on:
       - '*'
 
 jobs:
-  release:
+  dependency-gli:
+    runs-on: ubuntu-22.04
+    steps:
+      -
+        name: Package artifact
+        run: |
+          wget -O gli.zip https://github.com/g-truc/gli/archive/559cbe1ec38878e182507d331e0780fbae5baf15.zip
+          unzip -q gli.zip
+          mkdir -p artifact/External
+          mv gli-559cbe1ec38878e182507d331e0780fbae5baf15/gli artifact/External/gli
+      -
+        name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: gli
+          path: artifact
+
+  build-linux:
+    needs: dependency-gli
     runs-on: ubuntu-22.04
     steps:
       -
         name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          lfs: 'true'
       -
         name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake ninja-build libglew-dev libglfw3-dev libglm-dev zlib1g-dev libassimp-dev libyaml-cpp-dev libbullet-dev
-          PROJECT_DIR="$(pwd)"
-          TMP_DIR="$(mktemp -d)"
-          pushd "${TMP_DIR}"
-          wget -O gli.zip https://github.com/g-truc/gli/archive/559cbe1ec38878e182507d331e0780fbae5baf15.zip
-          unzip -q gli.zip
-          mkdir -p "${PROJECT_DIR}/External"
-          mv gli-559cbe1ec38878e182507d331e0780fbae5baf15/gli "${PROJECT_DIR}/External/gli"
-          popd
-          rm -r "${TMP_DIR}"
+          sudo apt-get install -y build-essential cmake \
+                                  libxmu-dev libxi-dev libgl-dev \
+                                  libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev
+      -
+        name: Install dependencies
+        uses: lukka/run-vcpkg@v10
+        with:
+          vcpkgGitCommitId: acc3bcf76b84ae5041c86ab55fe138ae7b8255c7
+          runVcpkgInstall: true
+      -
+        name: Retrieve gli artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: gli
       -
         name: Build artifacts
         run: |
           mkdir Build
-          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -B Build
-          cmake --build Build -- -j$(nproc)
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake -B Build
+          cmake --build Build
       -
         name: Package release
         run: |
-          tar -cjf Sandbox.tar.bz2 Resources Build/{MeshExporter,SandboxClient,Test,libFoundation.so}
+          mkdir -p Export/linux-x64
+          cp -r Resources Export/linux-x64/
+          cp Build/{MeshExporter,SandboxClient,Test,libFoundation.so} Export/linux-x64/
+      -
+        name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: sandbox-linux-x64
+          path: Export/linux-x64
+
+  build-windows:
+    needs: dependency-gli
+    runs-on: windows-2022
+    steps:
+      -
+        name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          lfs: 'true'
+      -
+        name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+      -
+        name: Install dependencies
+        uses: lukka/run-vcpkg@v10
+        with:
+          vcpkgGitCommitId: acc3bcf76b84ae5041c86ab55fe138ae7b8255c7
+          runVcpkgInstall: true
+      -
+        name: Retrieve gli artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: gli
+      -
+        name: Build artifacts
+        run: |
+          md Build
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=vcpkg\scripts\buildsystems\vcpkg.cmake -B Build
+          cmake --build Build
+      -
+        name: Package release
+        run: |
+          md Export\windows-x64
+          xcopy /E /I Resources Export\windows-x64\Resources
+          copy Build\MeshExporter.exe Export\windows-x64
+          copy Build\SandboxClient.exe Export\windows-x64
+          copy Build\Test.exe Export\windows-x64
+          copy Build\libFoundation.dll Export\windows-x64
+      -
+        name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: sandbox-windows-x64
+          path: Export/windows-x64
+
+  release:
+    runs-on: ubuntu-22.04
+    needs: [build-linux, build-windows]
+    steps:
+      -
+        name: Retrieve Sandbox-linux-x64 artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: sandbox-linux-x64
+      -
+        name: Retrieve Sandbox-windows-x64 artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: sandbox-windows-x64
       -
         name: Create release
         id: create_release
@@ -48,12 +140,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
       -
-        name: Upload artifacts
+        name: Upload Sandbox-linux-x64 artifacts
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: Sandbox.tar.bz2
-          asset_name: Sandbox
-          asset_content_type: application/x-bzip2
+          asset_name: Sandbox (Linux-x64)
+          asset_content_type: application/bzip2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      -
+        name: Upload Sandbox-windows-x64 artifacts
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: Sandbox.zip
+          asset_name: Sandbox (Windows-x64)
+          asset_content_type: application/zip
         env:
           GITHUB_TOKEN: ${{ github.token }}
