@@ -35,3 +35,39 @@ Install gli into `External` directory.
 ![Assessment](Images/screenshot3.png)
 
 ![Assessment](Images/screenshot4.png)
+
+## Build
+
+### Linux (Ubuntu)
+Install dependencies using apt.
+```shell
+apt-get install -y cmake ninja-build libglew-dev libglfw3-dev libglm-dev zlib1g-dev libassimp-dev libyaml-cpp-dev libbullet-dev
+```
+
+Generate project with CMake (Ninja generator)
+```shell
+cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -B Build
+```
+
+Build
+```shell
+cmake --build Build -- -j$(nproc)
+```
+
+### Windows
+Install dependencies using vcpkg
+```
+vcpkg install --triplet x64-windows glew glfw3 glm zlib assimp yaml-cpp bullet3
+```
+
+Install gli into "External" directory (External/gli/gli.hpp)
+
+Generate project with CMake
+```
+cmake -DCMAKE_TOOLCHAIN_FILE=<path_to_vcpkg>/scripts/buildsystems/vcpkg.cmake -B Build
+```
+
+Build
+```
+cmake --build Build
+```
