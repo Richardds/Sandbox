@@ -1,14 +1,10 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.24)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
-set(CMAKE_CXX_EXTENSIONS YES)
+set(CMAKE_CXX_EXTENSIONS NO)
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY Bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY Bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY Bin)
-
-project(Sandbox VERSION 0.0.2
+project(Sandbox VERSION 0.1.4
                 DESCRIPTION "OpenGL rendering engine"
                 LANGUAGES CXX)
 
@@ -47,8 +43,8 @@ file(GLOB FOUNDATION_SOURCE
 )
 
 add_library(Foundation SHARED ${FOUNDATION_SOURCE})
-target_include_directories(Foundation PUBLIC Code/Foundation External /usr/include/bullet)
-target_link_libraries(Foundation OpenGL::GL GLEW::GLEW glfw assimp ZLIB::ZLIB yaml-cpp BulletDynamics BulletCollision LinearMath)
+target_include_directories(Foundation PUBLIC Code/Foundation External ${BULLET_INCLUDE_DIRS})
+target_link_libraries(Foundation OpenGL::GL GLEW::GLEW glfw glm::glm ZLIB::ZLIB assimp::assimp yaml-cpp ${BULLET_LIBRARIES})
 
 ### MeshExporter ###
 
@@ -60,7 +56,7 @@ file(GLOB MESH_EXPORTER_SOURCE
 
 add_executable(MeshExporter ${MESH_EXPORTER_SOURCE})
 target_include_directories(MeshExporter PRIVATE Code/MeshExporter)
-target_link_libraries(MeshExporter Foundation assimp)
+target_link_libraries(MeshExporter Foundation assimp::assimp)
 
 ### SandboxClient ###
 

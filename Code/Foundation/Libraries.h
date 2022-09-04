@@ -63,7 +63,7 @@
 #include "Config.h"
 
 #ifdef _WIN32
-#   ifdef DLL_EXPORT
+#   ifdef Foundation_EXPORTS
 #       define EXPORT __declspec(dllexport)
 #   else
 #       define EXPORT __declspec(dllimport)

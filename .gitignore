@@ -1,5 +1,5 @@
-.vs/
-.idea/
-Build/
-Export/
-External/
+.idea
+.vs
+Build
+Export
+External
