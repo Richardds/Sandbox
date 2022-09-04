@@ -37,6 +37,19 @@ Install gli into `External` directory.
 ![Assessment](Images/screenshot4.png)
 
 ## Build
+Install gli ([559cbe1](https://github.com/g-truc/gli/tree/559cbe1ec38878e182507d331e0780fbae5baf15)) library into "External" directory (External/gli/gli.hpp). You can use the following shell script bellow (Linux only)
+```shell
+PROJECT_DIR="$(pwd)"
+TMP_DIR="$(mktemp -d)"
+pushd "${TMP_DIR}"
+wget -O gli.zip https://github.com/g-truc/gli/archive/559cbe1ec38878e182507d331e0780fbae5baf15.zip
+unzip -q gli.zip
+cp -r gli-559cbe1ec38878e182507d331e0780fbae5baf15/gli "${PROJECT_DIR}/External"
+popd
+rm -r "${TMP_DIR}"
+```
+
+Continue to subsection based on your platform.
 
 ### Linux (Ubuntu)
 Install dependencies using apt.
@@ -59,8 +72,6 @@ Install dependencies using vcpkg
 ```
 vcpkg install --triplet x64-windows glew glfw3 glm zlib assimp yaml-cpp bullet3
 ```
-
-Install gli into "External" directory (External/gli/gli.hpp)
 
 Generate project with CMake
 ```

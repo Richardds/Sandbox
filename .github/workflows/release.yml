@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout repository
+        uses: actions/checkout@v3
+      -
+        name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build libglew-dev libglfw3-dev libglm-dev zlib1g-dev libassimp-dev libyaml-cpp-dev libbullet-dev
+          PROJECT_DIR="$(pwd)"
+          TMP_DIR="$(mktemp -d)"
+          pushd "${TMP_DIR}"
+          wget -O gli.zip https://github.com/g-truc/gli/archive/559cbe1ec38878e182507d331e0780fbae5baf15.zip
+          unzip -q gli.zip
+          mkdir -p "${PROJECT_DIR}/External"
+          mv gli-559cbe1ec38878e182507d331e0780fbae5baf15/gli "${PROJECT_DIR}/External/gli"
+          popd
+          rm -r "${TMP_DIR}"
+      -
+        name: Build artifacts
+        run: |
+          mkdir Build
+          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -B Build
+          cmake --build Build -- -j$(nproc)
+      -
+        name: Package release
+        run: |
+          tar -cjf Sandbox.tar.bz2 Resources Build/{MeshExporter,SandboxClient,Test,libFoundation.so}
+      -
+        name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ github.ref }}
+          tag_name: ${{ github.ref }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      -
+        name: Upload artifacts
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: Sandbox.tar.bz2
+          asset_name: Sandbox
+          asset_content_type: application/x-bzip2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
