@@ -47,7 +47,7 @@ jobs:
           runVcpkgInstall: true
       -
         name: Retrieve gli artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: gli
       -
@@ -89,7 +89,7 @@ jobs:
           runVcpkgInstall: true
       -
         name: Retrieve gli artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: gli
       -
@@ -120,12 +120,12 @@ jobs:
     steps:
       -
         name: Retrieve Sandbox-linux-x64 artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: sandbox-linux-x64
       -
         name: Retrieve Sandbox-windows-x64 artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: sandbox-windows-x64
       -
